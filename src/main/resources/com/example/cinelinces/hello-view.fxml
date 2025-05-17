@@ -1,26 +1,71 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.control.Button?>
-<?import java.net.URL?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
 
-<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.example.cinelinces.HelloController">
+<BorderPane prefHeight="768" prefWidth="1024" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cinelinces.HelloController">
+
+    <!-- Stylesheet -->
     <stylesheets>
-        <URL value="@../../../styles/test.css"/>
+        <URL value="@../styles/styles.css" />
     </stylesheets>
+    <!-- Sidebar -->
+    <left>
+        <VBox fx:id="sidebar" spacing="10" style="-fx-background-color: #FFFFFF; -fx-border-color: #E5E7EB; -fx-border-width: 0 1 0 0;">
+            <padding>
+                <Insets bottom="20" left="20" right="20" top="20" />
+            </padding>
+            <Label style="-fx-font-size: 24px; -fx-text-fill: #1D4ED8; -fx-font-weight: bold;" text="CineMax" />
+            <Button fx:id="btnEstrenos" graphicTextGap="8" onAction="#onEstrenos" styleClass="label" text="Estrenos" />
+            <Button fx:id="btnProximamente" graphicTextGap="8" onAction="#onProximamente" styleClass="button-action" text="Próximamente" />
+            <Button fx:id="btnPopulares" graphicTextGap="8" onAction="#onPopulares" styleClass="text" text="Populares" />
+            <Button fx:id="btnMiCuenta" graphicTextGap="8" onAction="#onMiCuenta" styleClass="text" text="Mi cuenta" />
+            <Region VBox.vgrow="ALWAYS" />
+        </VBox>
+    </left>
 
-    <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
-    </padding>
+    <!-- Main Content -->
+    <center>
+        <ScrollPane fitToWidth="true" prefHeight="768.0" prefWidth="896.0">
+            <VBox spacing="20">
+                <padding>
+                    <Insets bottom="20" left="20" right="20" top="20" />
+                </padding>
+                <!-- Destacados -->
+                <VBox spacing="10">
+                    <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Destacados de la semana" />
+                 <HBox prefHeight="61.0" prefWidth="602.0" spacing="10" style="-fx-background-color: #FFFFFF; -fx-border-color: #E5E7EB; -fx-border-width: 0 0 1 0;">
+                     <padding>
+                         <Insets bottom="10" left="20" right="20" top="10" />
+                     </padding>
+                     <TextField fx:id="headerSearch" prefWidth="300" promptText="Buscar películas..." />
+                     <Button fx:id="btnHeaderSearch" onAction="#onSearch" text="🔍" />
+                     <Region HBox.hgrow="ALWAYS" />
+                     <Label style="-fx-text-fill: #6B7280;" text="Usuario: Invitado" />
+                 </HBox>
+                    <StackPane prefHeight="200" style="-fx-background-color: #F3F4F6; -fx-background-radius: 8;">
+                        <ImageView fx:id="featuredImage" fitHeight="200" fitWidth="800" preserveRatio="true" />
+                        <VBox alignment="BOTTOM_LEFT">
+                            <padding>
+                                <Insets bottom="10" left="10" />
+                            </padding>
+                            <Label fx:id="featuredTitle" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #FFFFFF;" text="Dune: Parte Dos" />
+                            <Button fx:id="btnVerHorarios" onAction="#onVerHorarios" text="Ver horarios" />
+                        </VBox>
+                    </StackPane>
+                </VBox>
 
-    <Label fx:id="welcomeText" text="Bienvenido a JavaFX 25"/>
-
-    <Button text="Botón Normal" onAction="#onHelloButtonClick" styleClass="button"/>
-
-    <Button text="Botón Animado" onAction="#onAnimatedButtonClick" styleClass="button, animated-button"/>
-
-    <!-- Puedes añadir otros controles para probar más características CSS -->
-</VBox>
+                <!-- Grid de Películas -->
+                <VBox spacing="10">
+                    <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="En cartelera" />
+                    <GridPane fx:id="gridMovies" hgap="15" vgap="15">
+                        <!-- Las tarjetas de película se agregarán dinámicamente desde el controlador -->
+                    </GridPane>
+                </VBox>
+            </VBox>
+        </ScrollPane>
+    </center>
+</BorderPane>
