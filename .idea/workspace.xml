@@ -4,12 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6f94096a-8f21-4170-a76e-4c2b50d8bf02" name="Changes" comment="add README file with initial greeting">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/styles/styles.css" afterDir="false" />
+    <list default="true" id="6f94096a-8f21-4170-a76e-4c2b50d8bf02" name="Changes" comment="refactor UI layout and add styles for sidebar and main content">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/HelloController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/HelloController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/cinelinces/hello-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/cinelinces/hello-view.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/styles/test.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/styles/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/styles/styles.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,18 +22,21 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "jpablortegam"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;jpablortegam&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/jpablortegam/CineLince.git",
-    "accountId": "b8829416-1284-466a-91b3-29138bbd77e0"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/jpablortegam/CineLince.git&quot;,
+    &quot;accountId&quot;: &quot;b8829416-1284-466a-91b3-29138bbd77e0&quot;
   }
-}]]></component>
+}</component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 4
 }</component>
@@ -51,6 +52,7 @@
     "Notification.DisplayName-DoNotAsk-Settings Error": "Could not save settings",
     "Notification.DoNotAsk-Settings Error": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
     "dart.analysis.tool.window.visible": "false",
     "git-widget-placeholder": "master",
     "node.js.detected.package.eslint": "true",
@@ -102,7 +104,8 @@
       <option name="presentableId" value="Default" />
       <updated>1747459432593</updated>
       <workItem from="1747459434124" duration="481000" />
-      <workItem from="1747460110663" duration="6855000" />
+      <workItem from="1747460110663" duration="6963000" />
+      <workItem from="1747599606821" duration="3692000" />
     </task>
     <task id="LOCAL-00001" summary="initialize project structure with basic JavaFX application and Gradle setup">
       <option name="closed" value="true" />
@@ -120,7 +123,15 @@
       <option name="project" value="LOCAL" />
       <updated>1747465424268</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="refactor UI layout and add styles for sidebar and main content">
+      <option name="closed" value="true" />
+      <created>1747467401117</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1747467401117</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -129,6 +140,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="initialize project structure with basic JavaFX application and Gradle setup" />
     <MESSAGE value="add README file with initial greeting" />
-    <option name="LAST_COMMIT_MESSAGE" value="add README file with initial greeting" />
+    <MESSAGE value="refactor UI layout and add styles for sidebar and main content" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor UI layout and add styles for sidebar and main content" />
   </component>
 </project>
