@@ -4,10 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6f94096a-8f21-4170-a76e-4c2b50d8bf02" name="Changes" comment="refactor UI layout and add styles for sidebar and main content">
+    <list default="true" id="6f94096a-8f21-4170-a76e-4c2b50d8bf02" name="Changes" comment="refactor UI layout and enhance styles for sidebar and main content">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/HelloController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/HelloController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/cinelinces/hello-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/cinelinces/hello-view.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/styles/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/styles/styles.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,25 +45,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Gradle.CineLinces [:com.example.cinelinces.HelloApplication.main()].executor": "Run",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "Notification.DisplayName-DoNotAsk-Settings Error": "Could not save settings",
-    "Notification.DoNotAsk-Settings Error": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "dart.analysis.tool.window.visible": "false",
-    "git-widget-placeholder": "master",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "show.migrate.to.gradle.popup": "false",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Gradle.CineLinces [:com.example.cinelinces.HelloApplication.main()].executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;Notification.DisplayName-DoNotAsk-Settings Error&quot;: &quot;Could not save settings&quot;,
+    &quot;Notification.DoNotAsk-Settings Error&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\juanp\IdeaProjects\CineLinces\src\main\resources\com\example\cinelinces" />
@@ -105,7 +105,8 @@
       <updated>1747459432593</updated>
       <workItem from="1747459434124" duration="481000" />
       <workItem from="1747460110663" duration="6963000" />
-      <workItem from="1747599606821" duration="3692000" />
+      <workItem from="1747599606821" duration="3843000" />
+      <workItem from="1747616957509" duration="2056000" />
     </task>
     <task id="LOCAL-00001" summary="initialize project structure with basic JavaFX application and Gradle setup">
       <option name="closed" value="true" />
@@ -131,7 +132,15 @@
       <option name="project" value="LOCAL" />
       <updated>1747467401117</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="refactor UI layout and enhance styles for sidebar and main content">
+      <option name="closed" value="true" />
+      <created>1747608083529</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1747608083529</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -141,6 +150,7 @@
     <MESSAGE value="initialize project structure with basic JavaFX application and Gradle setup" />
     <MESSAGE value="add README file with initial greeting" />
     <MESSAGE value="refactor UI layout and add styles for sidebar and main content" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactor UI layout and add styles for sidebar and main content" />
+    <MESSAGE value="refactor UI layout and enhance styles for sidebar and main content" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor UI layout and enhance styles for sidebar and main content" />
   </component>
 </project>
