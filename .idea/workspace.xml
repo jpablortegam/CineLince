@@ -4,11 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6f94096a-8f21-4170-a76e-4c2b50d8bf02" name="Changes" comment="refactor UI layout and enhance styles for sidebar and main content">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/images/img.png" afterDir="false" />
+    <list default="true" id="6f94096a-8f21-4170-a76e-4c2b50d8bf02" name="Changes" comment="refactor UI layout and enhance styles for featured section">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/HelloApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/HelloApplication.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/cinelinces/hello-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/cinelinces/hello-view.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/styles/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/styles/styles.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -109,7 +108,7 @@
       <workItem from="1747459434124" duration="481000" />
       <workItem from="1747460110663" duration="6963000" />
       <workItem from="1747599606821" duration="3843000" />
-      <workItem from="1747616957509" duration="4079000" />
+      <workItem from="1747616957509" duration="4744000" />
     </task>
     <task id="LOCAL-00001" summary="initialize project structure with basic JavaFX application and Gradle setup">
       <option name="closed" value="true" />
@@ -151,7 +150,15 @@
       <option name="project" value="LOCAL" />
       <updated>1747619243170</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="refactor UI layout and enhance styles for featured section">
+      <option name="closed" value="true" />
+      <created>1747621266374</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1747621266374</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -162,6 +169,7 @@
     <MESSAGE value="add README file with initial greeting" />
     <MESSAGE value="refactor UI layout and add styles for sidebar and main content" />
     <MESSAGE value="refactor UI layout and enhance styles for sidebar and main content" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactor UI layout and enhance styles for sidebar and main content" />
+    <MESSAGE value="refactor UI layout and enhance styles for featured section" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor UI layout and enhance styles for featured section" />
   </component>
 </project>

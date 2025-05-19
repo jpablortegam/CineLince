@@ -6,18 +6,11 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<?import javafx.scene.layout.AnchorPane?>
-<AnchorPane fx:id="rootPane"
-            xmlns="http://javafx.com/javafx/17.0.12"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.example.cinelinces.HelloController">
+<AnchorPane fx:id="rootPane" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cinelinces.HelloController">
 
     <!-- Tu BorderPane ORIGINAL, con anclajes a 0 en todos los lados -->
     <children>
-        <BorderPane AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0"
-                    AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"
-                    styleClass="root"
-                    prefHeight="768" prefWidth="1247">
+        <BorderPane prefHeight="768" prefWidth="1247" styleClass="root" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
             <stylesheets>
                 <URL value="@../styles/styles.css" />
             </stylesheets>
@@ -26,17 +19,17 @@
             <left>
                 <VBox fx:id="sidebar" minWidth="228" prefHeight="768" prefWidth="228" spacing="4">
                     <padding>
-                        <Insets top="24" bottom="24" left="24" right="24"/>
+                        <Insets bottom="24" left="24" right="24" top="24" />
                     </padding>
-                    <Label styleClass="text-headline" text="CineMax"/>
-                    <Region prefHeight="8"/>
+                    <Label styleClass="text-headline" text="CineMax" />
+                    <Region prefHeight="8" />
                     <VBox spacing="2">
-                        <Button fx:id="btnEstrenos" onAction="#onEstrenos" text="😊 Estrenos"/>
-                        <Button fx:id="btnProximamente" onAction="#onProximamente" text="⏰ Próximamente"/>
-                        <Button fx:id="btnPopulares" onAction="#onPopulares" text="🔥 Populares"/>
-                        <Button fx:id="btnMiCuenta" onAction="#onMiCuenta" text="👤 Mi cuenta"/>
+                        <Button fx:id="btnEstrenos" onAction="#onEstrenos" text="😊 Estrenos" />
+                        <Button fx:id="btnProximamente" onAction="#onProximamente" text="⏰ Próximamente" />
+                        <Button fx:id="btnPopulares" onAction="#onPopulares" text="🔥 Populares" />
+                        <Button fx:id="btnMiCuenta" onAction="#onMiCuenta" text="👤 Mi cuenta" />
                     </VBox>
-                    <Region VBox.vgrow="ALWAYS"/>
+                    <Region VBox.vgrow="ALWAYS" />
                 </VBox>
             </left>
 
@@ -45,60 +38,41 @@
                 <ScrollPane fitToWidth="true" styleClass="scroll-pane">
                     <VBox spacing="32">
                         <padding>
-                            <Insets top="24" bottom="32" left="24" right="24"/>
+                            <Insets bottom="32" left="24" right="24" top="24" />
                         </padding>
                         <!-- Header -->
                         <HBox alignment="CENTER" spacing="16">
                             <padding>
-                                <Insets top="16" bottom="16" right="24"/>
+                                <Insets bottom="16" right="24" top="16" />
                             </padding>
-                            <TextField fx:id="headerSearch"
-                                       prefWidth="320"
-                                       promptText="Buscar películas..."
-                                       styleClass="text-field"/>
-                            <Button fx:id="btnHeaderSearch"
-                                    onAction="#onSearch"
-                                    styleClass="button-secondary"
-                                    text="🔍"/>
-                            <Region HBox.hgrow="ALWAYS"/>
+                            <TextField fx:id="headerSearch" prefWidth="320" promptText="Buscar películas..." styleClass="text-field" />
+                            <Button fx:id="btnHeaderSearch" onAction="#onSearch" styleClass="button-secondary" text="🔍" />
+                            <Region HBox.hgrow="ALWAYS" />
                             <HBox alignment="CENTER" spacing="8">
-                                <Label styleClass="text-caption" text="👤"/>
-                                <Label styleClass="text-caption" text="Invitado"/>
+                                <Label styleClass="text-caption" text="👤" />
+                                <Label styleClass="text-caption" text="Invitado" />
                             </HBox>
                         </HBox>
 
                         <!-- Destacados -->
                         <VBox spacing="16">
-                            <Label styleClass="text-title" text="Destacados de la semana"/>
+                            <Label styleClass="text-title" text="Destacados de la semana" />
                             <StackPane minHeight="280" styleClass="featured-banner">
                                 <!-- 1. Tu imagen -->
-                                <ImageView fx:id="featuredImage"
-                                           fitHeight="280"
-                                           fitWidth="800"
-                                           preserveRatio="false"/>
+                                <ImageView fx:id="featuredImage"  />
 
                                 <!-- 2. El degradado: Region que se expande -->
-                                <Region styleClass="gradient-overlay"
-                                        StackPane.alignment="TOP_LEFT"
-                                        VBox.vgrow="ALWAYS"
-                                        HBox.hgrow="ALWAYS"/>
+                                <Region styleClass="gradient-overlay" HBox.hgrow="ALWAYS" StackPane.alignment="TOP_LEFT" VBox.vgrow="ALWAYS" />
 
                                 <!-- 3. Tu contenido (titulos, botón…) -->
-                                <VBox alignment="BOTTOM_LEFT" spacing="8">
+                                <VBox alignment="BOTTOM_LEFT" prefHeight="384.0" prefWidth="959.0" spacing="8">
                                     <padding>
-                                        <Insets bottom="24" left="24"/>
+                                        <Insets bottom="24" left="24" />
                                     </padding>
-                                    <Label fx:id="featuredTitle"
-                                           styleClass="text-headline-on-dark"
-                                           text="Dune: Parte Dos"/>
-                                    <Label fx:id="featuredSubtitle"
-                                           styleClass="text-body"
-                                           text="Una épica aventura de ciencia ficción"/>
-                                    <Region prefHeight="8"/>
-                                    <Button fx:id="btnVerHorarios"
-                                            onAction="#onVerHorarios"
-                                            styleClass="button-accent"
-                                            text="Ver horarios"/>
+                                    <Label fx:id="featuredTitle" styleClass="text-headline-on-dark" text="Dune: Parte Dos" />
+                                    <Label fx:id="featuredSubtitle" styleClass="text-body" text="Una épica aventura de ciencia ficción" />
+                                    <Region prefHeight="8" />
+                                    <Button fx:id="btnVerHorarios" onAction="#onVerHorarios" styleClass="button-accent" text="Ver horarios" />
                                 </VBox>
                             </StackPane>
                         </VBox>
@@ -106,21 +80,21 @@
                         <!-- En cartelera -->
                         <VBox spacing="16">
                             <HBox alignment="CENTER_LEFT" spacing="16">
-                                <Label styleClass="text-title" text="En cartelera"/>
-                                <Region HBox.hgrow="ALWAYS"/>
-                                <Button styleClass="button-secondary" text="Ver todas"/>
+                                <Label styleClass="text-title" text="En cartelera" />
+                                <Region HBox.hgrow="ALWAYS" />
+                                <Button styleClass="button-secondary" text="Ver todas" />
                             </HBox>
-                            <GridPane fx:id="gridMovies" hgap="20" vgap="20" styleClass="animated"/>
+                            <GridPane fx:id="gridMovies" hgap="20" styleClass="animated" vgap="20" />
                         </VBox>
 
                         <!-- Próximamente -->
                         <VBox spacing="16">
                             <HBox alignment="CENTER_LEFT" spacing="16">
-                                <Label styleClass="text-title" text="Próximamente"/>
-                                <Region HBox.hgrow="ALWAYS"/>
-                                <Button styleClass="button-secondary" text="Ver todas"/>
+                                <Label styleClass="text-title" text="Próximamente" />
+                                <Region HBox.hgrow="ALWAYS" />
+                                <Button styleClass="button-secondary" text="Ver todas" />
                             </HBox>
-                            <HBox fx:id="upcomingMoviesContainer" spacing="16"/>
+                            <HBox fx:id="upcomingMoviesContainer" spacing="16" />
                         </VBox>
                     </VBox>
                 </ScrollPane>
