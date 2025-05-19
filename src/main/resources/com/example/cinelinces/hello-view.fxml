@@ -71,11 +71,19 @@
                         <VBox spacing="16">
                             <Label styleClass="text-title" text="Destacados de la semana"/>
                             <StackPane minHeight="280" styleClass="featured-banner">
+                                <!-- 1. Tu imagen -->
                                 <ImageView fx:id="featuredImage"
                                            fitHeight="280"
                                            fitWidth="800"
                                            preserveRatio="false"/>
-                                <VBox styleClass="featured-overlay"/>
+
+                                <!-- 2. El degradado: Region que se expande -->
+                                <Region styleClass="gradient-overlay"
+                                        StackPane.alignment="TOP_LEFT"
+                                        VBox.vgrow="ALWAYS"
+                                        HBox.hgrow="ALWAYS"/>
+
+                                <!-- 3. Tu contenido (titulos, botón…) -->
                                 <VBox alignment="BOTTOM_LEFT" spacing="8">
                                     <padding>
                                         <Insets bottom="24" left="24"/>
@@ -84,7 +92,6 @@
                                            styleClass="text-headline-on-dark"
                                            text="Dune: Parte Dos"/>
                                     <Label fx:id="featuredSubtitle"
-                                           style="-fx-text-fill: rgba(255,255,255,0.9);"
                                            styleClass="text-body"
                                            text="Una épica aventura de ciencia ficción"/>
                                     <Region prefHeight="8"/>

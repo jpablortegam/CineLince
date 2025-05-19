@@ -160,15 +160,38 @@
     -fx-min-height: 240px;
 }
 
-.featured-overlay {
+.featured-banner {
+    /* 1) Imagen de fondo */
+    -fx-background-image: url("../images/img_1.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-size: cover;
+    /* 2) Debajo, un gradiente como background-color */
     -fx-background-color:
             linear-gradient(
                     to top,
-                    rgba(0,0,0,0.85) 0%,    /* casi opaco abajo */
-                    rgba(0,0,0,0.6) 40%,    /* todavía oscuro un poco más arriba */
-                    rgba(0,0,0,0.0) 100%    /* totalmente transparente arriba */
+                    rgba(0,0,0,0.85) 0%,
+                    rgba(0,0,0,0.6) 40%,
+                    rgba(0,0,0,0.0) 100%
             );
 }
+
+.gradient-overlay {
+    /* Ocupa todo el ancho/alto disponible */
+    -fx-max-width: Infinity;
+    -fx-max-height: Infinity;
+
+    /* Degradado de negro a transparente */
+    -fx-background-color:
+            linear-gradient(
+                    to top,
+                    rgba(0,0,0,0.85) 0%,
+                    rgba(0,0,0,0.6) 40%,
+                    rgba(0,0,0,0.0) 100%
+            );
+}
+
+
 
 .text-headline-on-dark {
     -fx-font-size: 24px;        /* tu tamaño */
