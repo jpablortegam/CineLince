@@ -1,0 +1,28 @@
+/* Contenedor de la paginación */
+.carousel-pagination {
+    -fx-alignment: CENTER;
+    -fx-spacing: 4px;
+    -fx-padding: 12px 0;
+}
+
+/* Botones de flecha */
+.carousel-pagination .arrow-button {
+    -fx-background-color: transparent;
+    -fx-shape: "M0,0 L8,8 L0,16";
+    -fx-pref-width: 24px;
+    -fx-pref-height: 24px;
+    -fx-cursor: hand;
+}
+
+/* Números de página */
+.carousel-pagination .page-number {
+    -fx-text-fill: -fx-text-secondary;
+    -fx-padding: 4px 8px;
+    -fx-cursor: hand;
+}
+
+.carousel-pagination .page-number.active {
+    -fx-text-fill: -fx-accent;
+    -fx-underline: true;
+    -fx-font-weight: bold;
+}

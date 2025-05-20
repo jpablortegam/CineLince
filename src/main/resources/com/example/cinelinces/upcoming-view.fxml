@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<ScrollPane fitToWidth="true"  xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cinelinces.controllers.UpcomingViewController">
+    <VBox spacing="32">
+        <padding>
+            <Insets bottom="32" left="24" right="24" top="24" />
+        </padding>
+
+        <!-- Header con título de la sección -->
+        <HBox alignment="CENTER_LEFT">
+            <Label styleClass="text-headline" text="Próximos Estrenos" />
+        </HBox>
+
+        <!-- Filtros -->
+        <HBox spacing="16" alignment="CENTER_LEFT">
+            <Label text="Filtrar por:" />
+            <ComboBox fx:id="filterGenre" promptText="Género" />
+            <ComboBox fx:id="filterMonth" promptText="Mes" />
+            <Region HBox.hgrow="ALWAYS" />
+            <TextField fx:id="searchField" promptText="Buscar película..." />
+        </HBox>
+
+        <!-- Grid de películas próximas -->
+        <GridPane fx:id="upcomingMoviesGrid" hgap="16" vgap="24">
+            <columnConstraints>
+                <ColumnConstraints percentWidth="25" />
+                <ColumnConstraints percentWidth="25" />
+                <ColumnConstraints percentWidth="25" />
+                <ColumnConstraints percentWidth="25" />
+            </columnConstraints>
+        </GridPane>
+
+        <!-- Paginación -->
+        <HBox alignment="CENTER">
+            <Pagination fx:id="upcomingPagination" maxPageIndicatorCount="5" pageCount="3" />
+        </HBox>
+    </VBox>
+</ScrollPane>

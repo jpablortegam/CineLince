@@ -5,14 +5,16 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import java.io.IOException;
+import java.util.Objects;
 
 
 public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("main-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1200, 640);
-        scene.getRoot().setStyle("-fx-enable-animations: true;");
+        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/com/example/styles/main.css")).toExternalForm());
+
         stage.setTitle("Hello!");
         stage.setScene(scene);
         stage.show();

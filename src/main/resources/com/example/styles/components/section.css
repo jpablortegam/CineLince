@@ -1,0 +1,7 @@
+/* Título de cada bloque (Destacados, En cartelera, Próximamente) */
+.section-title {
+    -fx-font-size: 20px;
+    -fx-font-weight: 600;
+    -fx-text-fill: -fx-text-primary;
+    -fx-padding: 24px 0 12px 0;
+}

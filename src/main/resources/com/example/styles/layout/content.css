@@ -1,0 +1,27 @@
+/* Padding general del área de contenido */
+.content-area {
+    -fx-background-color: -fx-background;
+    -fx-padding: 0 24px 24px 24px;
+}
+
+/* Botón “Ver todas” secundario junto a cada sección */
+.button-secondary {
+    -fx-background-color: transparent;
+    -fx-border-color: -fx-outline;
+    -fx-border-style: solid;
+    -fx-border-width: 1px;
+    -fx-border-radius: 6px;
+    -fx-text-fill: -fx-text-primary;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-padding: 6px 12px;
+    -fx-cursor: hand;
+}
+.button-secondary:hover {
+    -fx-background-color: rgba(0,0,0,0.05);
+}
+.button-secondary:disabled {
+    -fx-text-fill: -fx-text-disabled;
+    -fx-border-color: -fx-text-disabled;
+    -fx-cursor: default;
+}

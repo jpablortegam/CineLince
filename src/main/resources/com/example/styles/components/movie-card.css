@@ -1,0 +1,10 @@
+.movie-card {
+    -fx-background: white;
+    -fx-background-radius: 12px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.04), 2,0,0,1);
+    -fx-cursor: hand;
+}
+.movie-card:hover {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.12), 8,0,0,4);
+    -fx-translate-y: -2px;
+}

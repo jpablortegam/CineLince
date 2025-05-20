@@ -1,0 +1,11 @@
+/* Rating de estrellas en Destacados */
+.star-rating {
+    -fx-font-size: 16px;
+    -fx-text-fill: #f59e0b; /* dorado */
+    -fx-padding: 4px 0;
+}
+
+.star-rating .star {
+    -fx-cursor: hand;
+    /* podrías usar un Label con texto "★" o un icono SVG */
+}

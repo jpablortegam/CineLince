@@ -1,0 +1,30 @@
+/* inputs.css */
+@import "/com/example/styles/base/variables.css";
+
+.text-field {
+    /* fondo y radio */
+    -fx-background-color: white;
+    -fx-background-radius: 6px;
+
+    /* borde: color, estilo y anchura por separado */
+    -fx-border-color: -fx-outline;
+    -fx-border-style: solid;
+    -fx-border-width: 1px;
+    -fx-border-radius: 6px;
+
+    /* padding y tipografía */
+    -fx-padding: 8px 16px;
+    -fx-font-size: 14px;
+    -fx-text-fill: -fx-text-primary;
+    -fx-prompt-text-fill: -fx-text-disabled;
+}
+
+.text-field:focused {
+    /* cuando está enfocado, usar tu color secundario */
+    -fx-border-color: -fx-secondary;
+    -fx-border-width: 2px;
+    -fx-effect: dropshadow(
+            gaussian, rgba(99,102,241,0.15),
+            8, 0, 0, 0
+    );
+}

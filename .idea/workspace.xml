@@ -4,12 +4,40 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6f94096a-8f21-4170-a76e-4c2b50d8bf02" name="Changes" comment="add AnimatedComponent for enhanced dialog animations and update sidebar styles">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/model/Movie.java" afterDir="false" />
+    <list default="true" id="6f94096a-8f21-4170-a76e-4c2b50d8bf02" name="Changes" comment="add pagination for movie listings and implement movie card display">
+      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/project.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/HelloController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/HomeViewController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/PopularViewController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/SideBarController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/UpcomingViewController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/cinelinces/home-view.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/cinelinces/main-view.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/cinelinces/popular-view.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/cinelinces/sidebar-view.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/cinelinces/upcoming-view.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/styles/base/typography.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/styles/base/variables.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/styles/components/buttons.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/styles/components/dialog.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/styles/components/inputs.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/styles/components/movie-card.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/styles/components/pagination.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/styles/components/scroll.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/styles/components/section.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/styles/components/sidebar.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/styles/components/star-rating.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/styles/featured/featured-banner.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/styles/layout/content.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/styles/layout/header.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/styles/layout/sidebar.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/styles/main.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/HelloController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/HelloController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/cinelinces/hello-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/cinelinces/hello-view.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/styles/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/styles/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/HelloApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/HelloApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/HelloController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/cinelinces/hello-view.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/styles/styles.css" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,6 +52,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="FxmlFile" />
         <option value="Class" />
       </list>
     </option>
@@ -63,9 +92,11 @@
     "Notification.DoNotAsk-Settings Error": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "dart.analysis.tool.window.visible": "false",
     "git-widget-placeholder": "master",
     "junie.onboarding.icon.badge.shown": "true",
+    "last_directory_selection": "C:/Users/juanp/IdeaProjects/CineLinces/src/main/java/com/example/cinelinces",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -91,7 +122,7 @@
       <option name="VM_PARAMETERS" value="    --module-path &quot;C:\Program Files\Java\javafx-sdk-25\lib&quot; --add-modules javafx.controls,javafx.fxml" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.example.cinelinces.*" />
+          <option name="PATTERN" value="com.example.cinelinces.controllers.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -121,7 +152,9 @@
       <workItem from="1747616957509" duration="4744000" />
       <workItem from="1747621789072" duration="76000" />
       <workItem from="1747668712039" duration="3371000" />
-      <workItem from="1747681104066" duration="11453000" />
+      <workItem from="1747681104066" duration="11514000" />
+      <workItem from="1747711105663" duration="194000" />
+      <workItem from="1747773932963" duration="8657000" />
     </task>
     <task id="LOCAL-00001" summary="initialize project structure with basic JavaFX application and Gradle setup">
       <option name="closed" value="true" />
@@ -195,7 +228,15 @@
       <option name="project" value="LOCAL" />
       <updated>1747709221449</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="add pagination for movie listings and implement movie card display">
+      <option name="closed" value="true" />
+      <created>1747710987157</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1747710987157</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -209,6 +250,7 @@
     <MESSAGE value="refactor UI layout and enhance styles for featured section" />
     <MESSAGE value="refactor UI layout and enhance styles for hello-view and application scene" />
     <MESSAGE value="add AnimatedComponent for enhanced dialog animations and update sidebar styles" />
-    <option name="LAST_COMMIT_MESSAGE" value="add AnimatedComponent for enhanced dialog animations and update sidebar styles" />
+    <MESSAGE value="add pagination for movie listings and implement movie card display" />
+    <option name="LAST_COMMIT_MESSAGE" value="add pagination for movie listings and implement movie card display" />
   </component>
 </project>

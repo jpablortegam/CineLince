@@ -1,0 +1,23 @@
+.root {
+    /* Colores */
+    -fx-primary: #1a1a1a;
+    -fx-primary-light: #2d2d2d;
+    -fx-secondary: #6366f1;
+    -fx-secondary-hover: #5855eb;
+    -fx-accent: #10b981;
+    -fx-accent-hover: #059669;
+    -fx-text-disabled:   #a3a3a3;
+
+    /* Neutros */
+    -fx-background: #fafafa;
+    -fx-surface: #ffffff;
+    -fx-outline: #e5e5e5;
+
+    /* Texto */
+    -fx-text-primary: #171717;
+    -fx-text-secondary: #737373;
+
+    /* Sombras */
+    -fx-elevation-1: dropshadow(gaussian, rgba(0,0,0,0.04), 2, 0, 0, 1);
+    -fx-elevation-2: dropshadow(gaussian, rgba(0,0,0,0.08), 4, 0, 0, 2);
+}

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<ScrollPane fitToWidth="true"  xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" >
+
+    <VBox spacing="32">
+        <padding>
+            <Insets bottom="32" left="24" right="24" top="24" />
+        </padding>
+        <!-- Header -->
+        <HBox alignment="CENTER" spacing="16">
+            <padding>
+                <Insets bottom="16" right="24" top="16" />
+            </padding>
+            <Region HBox.hgrow="ALWAYS" />
+        </HBox>
+
+        <!-- Destacados -->
+        <VBox>
+            <Label styleClass="text-title" text="Destacados de la semana" />
+            <StackPane minHeight="280" styleClass="featured-banner">
+                <!-- 1. Tu imagen -->
+                <ImageView fx:id="featuredImage" />
+
+                <!-- 2. El degradado: Region que se expande -->
+                <Region styleClass="featured-banner" HBox.hgrow="ALWAYS" StackPane.alignment="TOP_LEFT" VBox.vgrow="ALWAYS" />
+
+                <!-- 3. Tu contenido (titulos, botón…) -->
+                <VBox alignment="BOTTOM_LEFT" prefHeight="384.0" prefWidth="959.0" spacing="8">
+                    <padding>
+                        <Insets bottom="24" left="24" />
+                    </padding>
+                    <Label fx:id="featuredTitle" styleClass="text-headline" text="Dune: Parte Dos" />
+                    <Label fx:id="featuredSubtitle" styleClass="text-body" text="Una épica aventura de ciencia ficción" />
+                    <Label text="☆" />
+                    <Region prefHeight="8" />
+                    <Button fx:id="btnVerHorarios" styleClass="button-accent" text="Ver horarios" />
+                </VBox>
+            </StackPane>
+        </VBox>
+
+        <!-- En cartelera -->
+        <VBox spacing="16">
+            <HBox alignment="CENTER_LEFT" spacing="16">
+                <Label styleClass="text-title" text="En cartelera" />
+                <Region HBox.hgrow="ALWAYS" />
+                <Button styleClass="button-secondary" text="Ver todas" />
+            </HBox>
+            <!-- Aquí va el Pagination en lugar de GridPane -->
+            <Pagination fx:id="paginationCartelera" maxPageIndicatorCount="5" styleClass="carousel-pagination" pageCount="10" />
+        </VBox>
+
+        <!-- Próximamente -->
+        <VBox spacing="16">
+            <HBox alignment="CENTER_LEFT" spacing="16">
+                <Label styleClass="text-title" text="Próximamente" />
+                <Region HBox.hgrow="ALWAYS" />
+                <Button styleClass="button-secondary" text="Ver todas" />
+            </HBox>
+            <!-- Otro Pagination para próxima tanda -->
+            <Pagination fx:id="paginationUpcoming" maxPageIndicatorCount="5" styleClass="carousel-pagination" pageCount="8" />
+        </VBox>
+    </VBox>
+</ScrollPane>

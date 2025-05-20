@@ -1,0 +1,48 @@
+/* sidebar.css */
+
+/* fondo y estructura */
+#sidebar {
+    -fx-background-color: #2C3E50;
+    -fx-border-width: 0 1px 0 0;
+    -fx-border-color: #1f2937;
+}
+
+/* título CineMax */
+.sidebar-title {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ECF0F1;
+    -fx-padding: 0 0 16px 0;
+}
+
+/* contenedor interno de botones */
+.sidebar-buttons {
+    -fx-spacing: 8px;
+}
+
+/* estilo base de los botones */
+.side-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #ECF0F1;
+    -fx-font-size: 14px;
+    -fx-font-weight: 600;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 10 12;
+    -fx-background-radius: 6px;
+    -fx-cursor: hand;
+}
+
+/* hover y pressed */
+.side-button:hover {
+    -fx-background-color: rgba(236,240,241,0.15);
+}
+.side-button:pressed {
+    -fx-background-color: rgba(236,240,241,0.30);
+}
+
+/* botón activo (agregar/remove en controlador) */
+.side-button.active {
+    -fx-background-color: #4e6e8e;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}

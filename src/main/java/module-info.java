@@ -6,4 +6,6 @@ module com.example.cinelinces {
 
     opens com.example.cinelinces to javafx.fxml;
     exports com.example.cinelinces;
+    exports com.example.cinelinces.controllers;
+    opens com.example.cinelinces.controllers to javafx.fxml;
 }
