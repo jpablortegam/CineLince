@@ -5,8 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6f94096a-8f21-4170-a76e-4c2b50d8bf02" name="Changes" comment="refactor UI layout and enhance styles for hello-view and application scene">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/AnimatedComponent.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/HelloApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/HelloApplication.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/HelloController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/HelloController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/cinelinces/hello-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/cinelinces/hello-view.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/styles/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/styles/styles.css" afterDir="false" />
@@ -20,6 +20,13 @@
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
     </projectState>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -70,11 +77,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\juanp\IdeaProjects\CineLinces\src\main\resources\com\example\cinelinces\images" />
       <recent name="C:\Users\juanp\IdeaProjects\CineLinces\src\main\resources\com\example" />
       <recent name="C:\Users\juanp\IdeaProjects\CineLinces\src\main\resources\com\example\cinelinces" />
       <recent name="C:\Users\juanp\IdeaProjects\CineLinces\src\main\resources\com\example\cinelinces\Views" />
       <recent name="C:\Users\juanp\IdeaProjects\CineLinces\src\main\resources\Views" />
-      <recent name="C:\Users\juanp\IdeaProjects\CineLinces\src\main\resources" />
     </key>
   </component>
   <component name="RunManager">
@@ -114,7 +121,7 @@
       <workItem from="1747616957509" duration="4744000" />
       <workItem from="1747621789072" duration="76000" />
       <workItem from="1747668712039" duration="3371000" />
-      <workItem from="1747681104066" duration="4233000" />
+      <workItem from="1747681104066" duration="9682000" />
     </task>
     <task id="LOCAL-00001" summary="initialize project structure with basic JavaFX application and Gradle setup">
       <option name="closed" value="true" />
@@ -172,7 +179,15 @@
       <option name="project" value="LOCAL" />
       <updated>1747621825881</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="refactor UI layout and enhance styles for hello-view and application scene">
+      <option name="closed" value="true" />
+      <created>1747703873911</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1747703873911</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

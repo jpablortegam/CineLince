@@ -143,27 +143,12 @@
 }
 
 .featured-banner {
-    /* 1) Imagen de fondo */
-    -fx-background-image: url("../images/img_1.png");
-    -fx-background-repeat: no-repeat;
-    -fx-background-position: center;
-    -fx-background-size: cover;
-    /* 2) Debajo, un gradiente como background-color */
-    -fx-background-color:
-            linear-gradient(
-                    to top,
-                    rgba(0,0,0,0.85) 0%,
-                    rgba(0,0,0,0.6) 40%,
-                    rgba(0,0,0,0.0) 100%
-            );
+    -fx-background-radius: 12px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 4, 0, 0, 2);
+    /* no necesitas background-image si lo pones en el ImageView */
 }
 
 .gradient-overlay {
-    /* Ocupa todo el ancho/alto disponible */
-    -fx-max-width: Infinity;
-    -fx-max-height: Infinity;
-
-    /* Degradado de negro a transparente */
     -fx-background-color:
             linear-gradient(
                     to top,
@@ -171,7 +156,11 @@
                     rgba(0,0,0,0.6) 40%,
                     rgba(0,0,0,0.0) 100%
             );
+    /* llenar todo el StackPane */
+    -fx-max-width: Infinity;
+    -fx-max-height: Infinity;
 }
+
 
 
 
@@ -240,6 +229,61 @@
 }
 
 /* Botones de horario */
+
+/* ==============================
+   Sidebar completo
+   ============================== */
+#sidebar {
+    -fx-background-color: #2C3E50;    /* fondo oscuro azulado */
+    -fx-padding: 24;                  /* espacio interior uniforme */
+}
+
+/* Título “CineMax” */
+#sidebar .text-headline {
+    -fx-text-fill: #ECF0F1;           /* texto claro */
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-padding: 0 0 12 0;            /* separa del bloque de botones */
+}
+
+/* ==============================
+   Contenedor de botones (inner VBox)
+   ============================== */
+#sidebar .sidebar {
+    -fx-background-color: transparent;
+    -fx-spacing: 8;                   /* espacio entre botones */
+}
+
+/* ==============================
+   Botones del sidebar
+   ============================== */
+#sidebar .side-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #ECF0F1;           /* texto claro */
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-alignment: CENTER_LEFT;       /* icono + texto a la izquierda */
+    -fx-padding: 10 12;               /* arriba/abajo, izquierda/derecha */
+    -fx-background-radius: 6;         /* esquinas redondeadas */
+    -fx-border-color: transparent;
+    -fx-cursor: hand;
+    -fx-max-width: Infinity;          /* que se estiren al ancho del sidebar */
+}
+
+/* Hover / Pressed */
+#sidebar .side-button:hover {
+    -fx-background-color: rgba(236, 240, 241, 0.15);
+}
+#sidebar .side-button:pressed {
+    -fx-background-color: rgba(236, 240, 241, 0.30);
+}
+
+/* Botón activo */
+#sidebar .side-button.active {
+    -fx-background-color: #1ABC9C;    /* color de acento */
+    -fx-text-fill: white;
+}
+
 .horario-button {
     -fx-background-color: #f9fafb;
     -fx-border-color: #e5e7eb;
@@ -432,3 +476,35 @@
     }
 }
 
+/* Botón secundario “Ver todas” */
+.button-secondary {
+    -fx-background-color: transparent;       /* fondo transparente */
+    -fx-border-color: #BDC3C7;               /* borde gris claro */
+    -fx-border-width: 1px;                   /* grosor de borde */
+    -fx-border-radius: 6px;                  /* esquinas redondeadas */
+    -fx-text-fill: #2C3E50;                  /* mismo azul oscuro del sidebar */
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-padding: 6 12;                       /* arriba/abajo, izquierda/derecha */
+    -fx-cursor: hand;
+    -fx-max-width: Infinity;                 /* para que ocupe sólo lo que necesite */
+    -fx-background-insets: 0;                /* evita “doble borde” */
+    -fx-alignment: CENTER;
+}
+
+/* Hover: fondo muy suave */
+.button-secondary:hover {
+    -fx-background-color: rgba(44, 62, 80, 0.1);  /* gris azulado al 10% */
+}
+
+/* Pressed: fondo un poco más marcado */
+.button-secondary:pressed {
+    -fx-background-color: rgba(44, 62, 80, 0.2);
+}
+
+/* Disabled: gris tenue, sin interactividad */
+.button-secondary:disabled {
+    -fx-text-fill: #95A5A6;
+    -fx-border-color: #95A5A6;
+    -fx-cursor: default;
+}

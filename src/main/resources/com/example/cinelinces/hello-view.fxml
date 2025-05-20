@@ -16,17 +16,17 @@
 
         <!-- Sidebar -->
         <left>
-            <VBox fx:id="sidebar" minWidth="228" prefHeight="768" prefWidth="228" spacing="4">
+            <VBox fx:id="sidebar" minWidth="228" prefHeight="768" prefWidth="228" spacing="4" >
                 <padding>
                     <Insets bottom="24" left="24" right="24" top="24" />
                 </padding>
                 <Label styleClass="text-headline" text="CineMax" />
                 <Region prefHeight="8" />
-                <VBox spacing="2">
-                    <Button fx:id="btnEstrenos"  text="😊 Estrenos" />
-                    <Button fx:id="btnProximamente" text="⏰ Próximamente" />
-                    <Button fx:id="btnPopulares"  text="🔥 Populares" />
-                    <Button fx:id="btnMiCuenta"  text="👤 Mi cuenta" />
+                <VBox spacing="8" >
+                    <Button fx:id="btnEstrenos"  text="😊 Estrenos" styleClass="side-button" />
+                    <Button fx:id="btnProximamente" text="⏰ Próximamente" styleClass="side-button" />
+                    <Button fx:id="btnPopulares"  text="🔥 Populares" styleClass="side-button" />
+                    <Button fx:id="btnMiCuenta"  text="👤 Mi cuenta" styleClass="side-button" />
                 </VBox>
                 <Region VBox.vgrow="ALWAYS" />
             </VBox>
@@ -44,8 +44,6 @@
                         <padding>
                             <Insets bottom="16" right="24" top="16" />
                         </padding>
-                        <TextField fx:id="headerSearch" prefWidth="320" promptText="Buscar películas..." styleClass="text-field" />
-                        <Button fx:id="btnHeaderSearch"  styleClass="button-secondary" text="🔍" />
                         <Region HBox.hgrow="ALWAYS" />
                         <HBox alignment="CENTER" spacing="8">
                             <Label styleClass="text-caption" text="👤" />
@@ -72,7 +70,7 @@
                                 <Label fx:id="featuredSubtitle" styleClass="text-body" text="Una épica aventura de ciencia ficción" />
                                 <Label text="☆"  />
                                 <Region prefHeight="8" />
-                                <Button fx:id="btnVerHorarios" onAction="#onVerHorarios" styleClass="button-accent" text="Ver horarios" />
+                                <Button fx:id="btnVerHorarios"  styleClass="button-accent" text="Ver horarios" />
                             </VBox>
                         </StackPane>
                     </VBox>
