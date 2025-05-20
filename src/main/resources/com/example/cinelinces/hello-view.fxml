@@ -45,14 +45,10 @@
                             <Insets bottom="16" right="24" top="16" />
                         </padding>
                         <Region HBox.hgrow="ALWAYS" />
-                        <HBox alignment="CENTER" spacing="8">
-                            <Label styleClass="text-caption" text="👤" />
-                            <Label styleClass="text-caption" text="Invitado" />
-                        </HBox>
                     </HBox>
 
                     <!-- Destacados -->
-                    <VBox spacing="16">
+                    <VBox >
                         <Label styleClass="text-title" text="Destacados de la semana" />
                         <StackPane minHeight="280" styleClass="featured-banner">
                             <!-- 1. Tu imagen -->
@@ -82,7 +78,11 @@
                             <Region HBox.hgrow="ALWAYS" />
                             <Button styleClass="button-secondary" text="Ver todas" />
                         </HBox>
-                        <GridPane fx:id="gridMovies" hgap="20" styleClass="animated" vgap="20" />
+                        <!-- Aquí va el Pagination en lugar de GridPane -->
+                        <Pagination fx:id="paginationCartelera"
+                                    maxPageIndicatorCount="5"
+                                    styleClass="carousel-pagination"
+                                    pageCount="10" />
                     </VBox>
 
                     <!-- Próximamente -->
@@ -92,8 +92,12 @@
                             <Region HBox.hgrow="ALWAYS" />
                             <Button styleClass="button-secondary" text="Ver todas" />
                         </HBox>
-                        <HBox fx:id="upcomingMoviesContainer" spacing="16" />
+                        <!-- Otro Pagination para próxima tanda -->
+                        <Pagination fx:id="paginationUpcoming"
+                                    maxPageIndicatorCount="5"
+                                    styleClass="carousel-pagination" pageCount="8" />
                     </VBox>
+
                 </VBox>
             </ScrollPane>
         </center>

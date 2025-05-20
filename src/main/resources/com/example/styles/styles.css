@@ -508,3 +508,112 @@
     -fx-border-color: #95A5A6;
     -fx-cursor: default;
 }
+
+
+
+/* styles.css */
+.carousel-pagination .control-buttons {
+    -fx-background-color: transparent;
+}
+
+.carousel-pagination .arrow-button {
+    -fx-shape: "M 0 0 L 8 8 L 0 16"; /* ejemplo flecha */
+    -fx-background-color: #fff;
+    -fx-border-radius: 4;
+}
+
+
+/* contenedor de cada card */
+.movie-card {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.6), 10, 0.0, 0, 4);
+    -fx-cursor: hand;
+    -fx-pref-width: 160;
+    -fx-pref-height: 240;
+    -fx-max-width: 160;
+    -fx-max-height: 240;
+    -fx-background-radius: 20;
+    -fx-background-color: transparent;
+    -fx-translate-y: 0;
+    -fx-transition: transform 0.2s ease-in-out;
+}
+.movie-card:hover {
+    -fx-translate-y: -8;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.8), 14, 0.0, 0, 6);
+}
+
+/* título sobre el degradado */
+.card-title {
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-wrap-text: true;
+    -fx-alignment: center;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.8), 4, 0.0, 0, 1);
+}
+
+/* si agregas botón */
+.card-button {
+    -fx-background-color: #ffcc00;
+    -fx-text-fill: #222;
+    -fx-background-radius: 8;
+    -fx-font-size: 12px;
+    -fx-padding: 4 8;
+}
+
+
+/* styles.css */
+
+/* Si aún no la tienes cargada, añade en tu HTML/app:
+   @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&display=swap');
+*/
+
+/* — Estilo general para todos los títulos de sección — */
+.text-title {
+    -fx-font-family: 'Poppins', sans-serif;
+    -fx-font-size: 26px;
+    -fx-font-weight: 700;
+    -fx-text-fill: #ffffff;                /* texto blanco */
+
+    /* Sombra exterior para destacar sobre fondos claros/gradientes */
+    -fx-effect: dropshadow(
+            gaussian ,
+            rgba(0, 0, 0, 0.4) , /* sombra negra semitransparente */
+            6, 0.0, 0, 2
+    );
+
+    /* Línea inferior “accent” */
+    -fx-border-color: transparent transparent #21bf73 transparent;
+    -fx-border-width: 0 0 4 0;
+    -fx-padding: 4 0 8 0;                   /* espacio debajo */
+
+    /* ligero tracking para aire */
+    -fx-letter-spacing: 0.5px;
+}
+
+/* Variante si quieres el texto en verde */
+.text-title-accent {
+    -fx-font-family: 'Poppins', sans-serif;
+    -fx-font-size: 26px;
+    -fx-font-weight: 700;
+    -fx-text-fill: #21bf73;                /* verde accent */
+    -fx-effect: dropshadow(
+            gaussian ,
+            rgba(0, 0, 0, 0.3),
+            4, 0.0, 0, 1
+    );
+    -fx-padding: 2 0 8 0;
+}
+
+/* Subtítulos descriptivos */
+.text-subtitle {
+    -fx-font-family: 'Poppins', sans-serif;
+    -fx-font-size: 16px;
+    -fx-font-weight: 500;
+    -fx-text-fill: #cccccc;                /* gris claro */
+    -fx-effect: dropshadow(
+            gaussian ,
+            rgba(0, 0, 0, 0.2),
+            3, 0.0, 0, 1
+    );
+    -fx-letter-spacing: 0.3px;
+}

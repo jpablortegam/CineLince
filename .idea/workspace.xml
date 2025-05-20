@@ -4,8 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6f94096a-8f21-4170-a76e-4c2b50d8bf02" name="Changes" comment="refactor UI layout and enhance styles for hello-view and application scene">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/AnimatedComponent.java" afterDir="false" />
+    <list default="true" id="6f94096a-8f21-4170-a76e-4c2b50d8bf02" name="Changes" comment="add AnimatedComponent for enhanced dialog animations and update sidebar styles">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/model/Movie.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/HelloController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/HelloController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/cinelinces/hello-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/cinelinces/hello-view.fxml" afterDir="false" />
@@ -121,7 +121,7 @@
       <workItem from="1747616957509" duration="4744000" />
       <workItem from="1747621789072" duration="76000" />
       <workItem from="1747668712039" duration="3371000" />
-      <workItem from="1747681104066" duration="9682000" />
+      <workItem from="1747681104066" duration="11453000" />
     </task>
     <task id="LOCAL-00001" summary="initialize project structure with basic JavaFX application and Gradle setup">
       <option name="closed" value="true" />
@@ -187,7 +187,15 @@
       <option name="project" value="LOCAL" />
       <updated>1747703873911</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="add AnimatedComponent for enhanced dialog animations and update sidebar styles">
+      <option name="closed" value="true" />
+      <created>1747709221449</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1747709221449</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -200,6 +208,7 @@
     <MESSAGE value="refactor UI layout and enhance styles for sidebar and main content" />
     <MESSAGE value="refactor UI layout and enhance styles for featured section" />
     <MESSAGE value="refactor UI layout and enhance styles for hello-view and application scene" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactor UI layout and enhance styles for hello-view and application scene" />
+    <MESSAGE value="add AnimatedComponent for enhanced dialog animations and update sidebar styles" />
+    <option name="LAST_COMMIT_MESSAGE" value="add AnimatedComponent for enhanced dialog animations and update sidebar styles" />
   </component>
 </project>
