@@ -5,7 +5,7 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<ScrollPane fitToWidth="true"  xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" >
+<ScrollPane fitToWidth="true" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" >
 
     <VBox spacing="32">
         <padding>
@@ -27,7 +27,7 @@
                 <ImageView fx:id="featuredImage" />
 
                 <!-- 2. El degradado: Region que se expande -->
-                <Region styleClass="featured-banner" HBox.hgrow="ALWAYS" StackPane.alignment="TOP_LEFT" VBox.vgrow="ALWAYS" />
+                <Region styleClass="gradient-overlay" HBox.hgrow="ALWAYS" StackPane.alignment="TOP_LEFT" VBox.vgrow="ALWAYS" />
 
                 <!-- 3. Tu contenido (titulos, botón…) -->
                 <VBox alignment="BOTTOM_LEFT" prefHeight="384.0" prefWidth="959.0" spacing="8">

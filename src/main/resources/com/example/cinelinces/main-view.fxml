@@ -1,23 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-
-<AnchorPane xmlns="http://javafx.com/javafx/17.0.12"
+<BorderPane fx:id="rootPane"
+            xmlns="http://javafx.com/javafx/17.0.12"
             xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.example.cinelinces.controllers.HelloController"
-            stylesheets="@/com/example/styles/main.css">
-
-    <BorderPane fx:id="rootPane" styleClass="root"
-                AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0"
-                AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
-
-        <left>
-            <fx:include source="sidebar-view.fxml"/>
-        </left>
-
-        <center>
-            <BorderPane fx:id="contentArea"/>
-        </center>
-
-    </BorderPane>
-</AnchorPane>
+            fx:controller="com.example.cinelinces.controllers.HelloController">
+    <!-- ya no incluimos aquí el sidebar -->
+    <center>
+        <BorderPane fx:id="contentArea"/>
+    </center>
+</BorderPane>

@@ -5,63 +5,41 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 
 public class SideBarController {
-    public VBox sidebar;
+    @FXML
+    public VBox sidebar;  // tu contenedor
     @FXML private Button btnEstrenos, btnProximamente, btnPopulares, btnMiCuenta;
 
-    // Referencia al controlador principal
     private HelloController mainController;
 
+    /** Este setter lo llama HelloController.initialize() */
+    public void setMainController(HelloController main) {
+        this.mainController = main;
 
-
-    // Metodo para resaltar el botón inicial
-    private void highlightInitialButton() {
-        if (btnEstrenos != null && !btnEstrenos.getStyleClass().contains("active")) {
-            btnEstrenos.getStyleClass().add("active");
-        }
+        // marcamos ya el primer botón
+        highlightButton(btnEstrenos);
     }
 
-    @FXML
-    private void showHome() {
-        if (mainController != null) {
-            mainController.showHome();
-            highlightButton(btnEstrenos);
-        }
+    @FXML private void showHome() {
+        mainController.showHome();
+        highlightButton(btnEstrenos);
+    }
+    @FXML private void showUpcoming() {
+        mainController.showUpcoming();
+        highlightButton(btnProximamente);
+    }
+    @FXML private void showPopular() {
+        mainController.showPopular();
+        highlightButton(btnPopulares);
+    }
+    @FXML private void showAccount() {
+        mainController.showAccount();
+        highlightButton(btnMiCuenta);
     }
 
-    @FXML
-    private void showUpcoming() {
-        if (mainController != null) {
-            mainController.showUpcoming();
-            highlightButton(btnProximamente);
+    private void highlightButton(Button activa) {
+        for (Button b : new Button[]{btnEstrenos, btnProximamente, btnPopulares, btnMiCuenta}) {
+            b.getStyleClass().remove("active");
         }
-    }
-
-    @FXML
-    private void showPopular() {
-        if (mainController != null) {
-            mainController.showPopular();
-            highlightButton(btnPopulares);
-        }
-    }
-
-    @FXML
-    private void showAccount() {
-        if (mainController != null) {
-            mainController.showAccount();
-            highlightButton(btnMiCuenta);
-        }
-    }
-
-    // Método para resaltar el botón activo y quitar "active" del resto
-    private void highlightButton(Button active) {
-        Button[] all = { btnEstrenos, btnProximamente, btnPopulares, btnMiCuenta };
-        for (Button b : all) {
-            if (b != null) {
-                b.getStyleClass().remove("active");
-            }
-        }
-        if (active != null && !active.getStyleClass().contains("active")) {
-            active.getStyleClass().add("active");
-        }
+        activa.getStyleClass().add("active");
     }
 }

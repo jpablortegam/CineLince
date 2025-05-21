@@ -17,7 +17,7 @@
         <Insets top="24" right="24" bottom="24" left="24"/>
     </padding>
 
-    <Label text="CineMax" styleClass="sidebar-title"/>
+    <Label text="CineLince" styleClass="sidebar-title"/>
 
     <Region prefHeight="12"/>
 

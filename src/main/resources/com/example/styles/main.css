@@ -8,13 +8,12 @@
 @import "components/dialog.css";
 @import "components/movie-card.css";
 
-@import "layout/sidebar.css";
-@import "layout/header.css";
+
 
 @import "featured/featured-banner.css";
 
 @import "components/section.css";
 @import "components/pagination.css";
 @import "components/star-rating.css";
-@import "layout/content.css";
+
 
