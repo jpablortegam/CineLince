@@ -1,23 +1,146 @@
 @import "/com/example/styles/base/variables.css";
 
-/* Botón de acento */
+/* ----------------------------------------------------------
+   Botón de acento
+   ---------------------------------------------------------- */
 .button-accent {
+    /* Fondo y texto */
     -fx-background-color: -fx-accent;
     -fx-text-fill: white;
+
+    /* Bordes y radios */
     -fx-background-radius: 6px;
+    -fx-border-radius: 6px;
+    -fx-border-width: 0;
+
+    /* Espaciado y tamaño */
     -fx-padding: 8px 16px;
+    -fx-pref-width: 100;
     -fx-cursor: hand;
-}
-.button-accent:hover {
-    -fx-background-color: -fx-accent-hover;
+
+    /* Eliminamos cualquier foco azul */
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+    -fx-focus-width: 0;
+
+    /* Transición suave */
+    -fx-transition-property: -fx-background-color, -fx-scale-x, -fx-scale-y;
+    -fx-transition-duration: 0.15s;
+    -fx-transition-timing-function: ease-in-out;
 }
 
-/* Botón secundario */
-.button-secondary {
-    -fx-border-color:   #BDC3C7;
-    -fx-border-style:   solid;
-    -fx-border-width:   1px;
+.button-accent:hover {
+    -fx-background-color: -fx-accent-hover;
+    -fx-scale-x: 1.02;
+    -fx-scale-y: 1.02;
 }
+
+.button-accent:pressed {
+    -fx-background-color: derive(-fx-accent, -10%);
+    -fx-scale-x: 0.98;
+    -fx-scale-y: 0.98;
+    /* Reafirmamos sin foco */
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+    -fx-focus-width: 0;
+}
+
+/* ----------------------------------------------------------
+   Botón secundario mejorado
+   ---------------------------------------------------------- */
+.button-secondary {
+    /* Fondo con degradado muy suave */
+    -fx-background-color:
+            linear-gradient(
+                    to bottom,
+                    rgba(255,255,255,0.9) 0%,
+                    rgba(245,245,245,0.9) 100%
+            );
+    -fx-background-insets: 0, 1;
+    -fx-background-radius: 8px;
+
+    /* Borde ligero */
+    -fx-border-color: #C0C0C0;
+    -fx-border-width: 1px;
+    -fx-border-radius: 8px;
+
+    /* Sombra sutil */
+    -fx-effect: dropshadow(
+            two-pass-box,
+            rgba(0,0,0,0.08),
+            4, 0, 0, 2
+    );
+
+    /* Texto y padding */
+    -fx-text-fill: #2C3E50;
+    -fx-font-size: 0.95em;
+    -fx-font-weight: 500;
+    -fx-padding: 0.5em 1.4em;
+    -fx-cursor: hand;
+
+    /* Eliminamos cualquier foco azul */
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+    -fx-focus-width: 0;
+
+    /* Transiciones suaves */
+    -fx-transition-property:
+            -fx-background-color,
+            -fx-effect,
+            -fx-translate-y,
+            -fx-scale-x,
+            -fx-scale-y;
+    -fx-transition-duration: 0.2s;
+    -fx-transition-timing-function: ease-in-out;
+}
+
 .button-secondary:hover {
-    -fx-background-color: rgba(44,62,80,0.1);
+    -fx-background-color:
+            linear-gradient(
+                    to bottom,
+                    rgba(255,255,255,1) 0%,
+                    rgba(235,235,235,1) 100%
+            );
+    -fx-effect: dropshadow(
+            two-pass-box,
+            rgba(0,0,0,0.15),
+            6, 0, 0, 3
+    );
+    -fx-translate-y: -1px;
+    -fx-scale-x: 1.02;
+    -fx-scale-y: 1.02;
+    -fx-text-fill: #1F3A58;
+}
+
+.button-secondary:pressed {
+    -fx-background-color:
+            linear-gradient(
+                    to bottom,
+                    rgba(230,230,230,1) 0%,
+                    rgba(215,215,215,1) 100%
+            );
+    -fx-effect: dropshadow(
+            two-pass-box,
+            rgba(0,0,0,0.06),
+            2, 0, 0, 1
+    );
+    -fx-translate-y: 1px;
+    -fx-scale-x: 0.98;
+    -fx-scale-y: 0.98;
+    /* Sin foco azul al presionar */
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+    -fx-focus-width: 0;
+}
+
+.button-secondary:focused {
+    /* Reemplazamos el anillo de foco por el mismo borde normal */
+    -fx-border-color: #C0C0C0;
+    -fx-border-width: 1px;
+    -fx-border-radius: 8px;
+    -fx-effect: dropshadow(two-pass-box, rgba(0,0,0,0.08), 4, 0, 0, 2);
+
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+    -fx-focus-width: 0;
 }

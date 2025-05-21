@@ -1,68 +1,84 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<?import javafx.geometry.*?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 
-<ScrollPane fitToWidth="true" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" >
+<StackPane fx:id="rootStack"
+           xmlns="http://javafx.com/javafx/17.0.12"
+           xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="com.example.cinelinces.controllers.HomeViewController">
 
-    <VBox spacing="32">
-        <padding>
-            <Insets bottom="32" left="24" right="24" top="24" />
-        </padding>
-        <!-- Header -->
-        <HBox alignment="CENTER" spacing="16">
+    <!-- Contenido principal en ScrollPane -->
+    <ScrollPane fitToWidth="true">
+        <VBox spacing="32">
             <padding>
-                <Insets bottom="16" right="24" top="16" />
+                <Insets top="24" right="24" bottom="32" left="24"/>
             </padding>
-            <Region HBox.hgrow="ALWAYS" />
-        </HBox>
 
-        <!-- Destacados -->
-        <VBox>
-            <Label styleClass="text-title" text="Destacados de la semana" />
-            <StackPane minHeight="280" styleClass="featured-banner">
-                <!-- 1. Tu imagen -->
-                <ImageView fx:id="featuredImage" />
+            <!-- Destacados de la semana -->
+            <VBox styleClass="section-card" spacing="16">
+                <Label styleClass="text-headline" text="Destacados de la semana"/>
+                <StackPane styleClass="featured-banner" minHeight="280">
+                    <ImageView fx:id="featuredImage" />
+                    <Region styleClass="gradient-overlay"
+                            StackPane.alignment="TOP_LEFT"
+                            VBox.vgrow="ALWAYS"
+                            HBox.hgrow="ALWAYS"/>
 
-                <!-- 2. El degradado: Region que se expande -->
-                <Region styleClass="gradient-overlay" HBox.hgrow="ALWAYS" StackPane.alignment="TOP_LEFT" VBox.vgrow="ALWAYS" />
+                    <VBox alignment="BOTTOM_LEFT" spacing="8">
+                        <padding>
+                            <Insets bottom="24" left="24"/>
+                        </padding>
+                        <Label fx:id="featuredTitle"
+                               styleClass="text-headline"
+                               text="Dune: Parte Dos"/>
+                        <Label fx:id="featuredSubtitle"
+                               styleClass="text-body"
+                               text="Una épica aventura de ciencia ficción"/>
 
-                <!-- 3. Tu contenido (titulos, botón…) -->
-                <VBox alignment="BOTTOM_LEFT" prefHeight="384.0" prefWidth="959.0" spacing="8">
-                    <padding>
-                        <Insets bottom="24" left="24" />
-                    </padding>
-                    <Label fx:id="featuredTitle" styleClass="text-headline" text="Dune: Parte Dos" />
-                    <Label fx:id="featuredSubtitle" styleClass="text-body" text="Una épica aventura de ciencia ficción" />
-                    <Label text="☆" />
-                    <Region prefHeight="8" />
-                    <Button fx:id="btnVerHorarios" styleClass="button-accent" text="Ver horarios" />
-                </VBox>
-            </StackPane>
+                        <!-- Puntuación con icono y escala /5 -->
+                        <HBox spacing="4" styleClass="star-container">
+                            <ImageView fx:id="ratingIcon" styleClass="star-icon" />
+                            <Label fx:id="ratingLabel"
+                                   styleClass="text-caption"
+                                   text="4.2/5" />
+                        </HBox>
+
+                        <Button fx:id="btnVerHorarios"
+                                styleClass="button-accent"
+                                text="Ver horarios"/>
+                    </VBox>
+                </StackPane>
+            </VBox>
+
+            <!-- En cartelera -->
+            <VBox spacing="16" styleClass="section-card">
+                <HBox alignment="CENTER_LEFT" spacing="16">
+                    <Label styleClass="text-section" text="En cartelera"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Button styleClass="button-secondary" text="Ver todas"/>
+                </HBox>
+                <!-- Aquí GridPane o FlowPane con cards -->
+                <FlowPane fx:id="nowPlayingPane"
+                          hgap="12" vgap="16"
+                          styleClass="movie-grid">
+                </FlowPane>
+            </VBox>
+
+            <!-- Próximamente -->
+            <VBox spacing="16" styleClass="section-card">
+                <HBox alignment="CENTER_LEFT" spacing="16">
+                    <Label styleClass="text-section" text="Próximamente"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Button styleClass="button-secondary" text="Ver todas"/>
+                </HBox>
+                <!-- Aquí FlowPane de próximas -->
+                <FlowPane fx:id="upcomingPane" hgap="12" vgap="16" styleClass="movie-grid"/>
+
+            </VBox>
+
         </VBox>
+    </ScrollPane>
 
-        <!-- En cartelera -->
-        <VBox spacing="16">
-            <HBox alignment="CENTER_LEFT" spacing="16">
-                <Label styleClass="text-title" text="En cartelera" />
-                <Region HBox.hgrow="ALWAYS" />
-                <Button styleClass="button-secondary" text="Ver todas" />
-            </HBox>
-            <!-- Aquí va el Pagination en lugar de GridPane -->
-            <Pagination fx:id="paginationCartelera" maxPageIndicatorCount="5" styleClass="carousel-pagination" pageCount="10" />
-        </VBox>
-
-        <!-- Próximamente -->
-        <VBox spacing="16">
-            <HBox alignment="CENTER_LEFT" spacing="16">
-                <Label styleClass="text-title" text="Próximamente" />
-                <Region HBox.hgrow="ALWAYS" />
-                <Button styleClass="button-secondary" text="Ver todas" />
-            </HBox>
-            <!-- Otro Pagination para próxima tanda -->
-            <Pagination fx:id="paginationUpcoming" maxPageIndicatorCount="5" styleClass="carousel-pagination" pageCount="8" />
-        </VBox>
-    </VBox>
-</ScrollPane>
+</StackPane>

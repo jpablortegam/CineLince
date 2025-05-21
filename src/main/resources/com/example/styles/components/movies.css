@@ -1,0 +1,94 @@
+/*** movies.css ***/
+
+/* Contenedor general de la vista */
+.view-container {
+    -fx-padding: 24px;
+    -fx-background-color: #f9f9f9;
+}
+
+/* Título de sección */
+.text-headline {
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2C3E50;
+}
+
+/* Barra de filtros */
+.filter-bar {
+    -fx-padding: 8px 16px;
+    -fx-background-color: white;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-effect: dropshadow(two-pass-box, rgba(0,0,0,0.05), 4, 0, 0, 2);
+}
+.filter-label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #555;
+}
+.filter-combo, .filter-search {
+    -fx-background-radius: 6px;
+    -fx-border-radius: 6px;
+    -fx-border-color: #ccc;
+    -fx-border-width: 1px;
+    -fx-padding: 4px 8px;
+}
+.filter-combo:hover, .filter-search:hover {
+    -fx-border-color: #3498DB;
+}
+.filter-search {
+    -fx-pref-width: 200px;
+}
+
+/* Grid de películas */
+.movie-grid {
+    -fx-padding: 16px 0;
+}
+.movie-card {
+    -fx-background-color: white;
+    -fx-background-radius: 8px;
+    -fx-effect: dropshadow(two-pass-box, rgba(0,0,0,0.08), 6, 0, 0, 2);
+    -fx-padding: 12px;
+    -fx-alignment: TOP_CENTER;
+    -fx-pref-width: 160px;
+    -fx-cursor: hand;
+    -fx-transition-property: -fx-effect, -fx-scale-x, -fx-scale-y;
+    -fx-transition-duration: 0.2s;
+    -fx-transition-timing-function: ease-in-out;
+}
+.movie-card:hover {
+    -fx-effect: dropshadow(two-pass-box, rgba(0,0,0,0.12), 8, 0, 0, 3);
+    -fx-scale-x: 1.03;
+    -fx-scale-y: 1.03;
+}
+.card-title {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2C3E50;
+    -fx-padding: 8px 0 4px 0;
+    -fx-wrap-text: true;
+}
+.card-subtitle {
+    -fx-font-size: 12px;
+    -fx-text-fill: #777;
+}
+
+/* Paginación */
+.pagination-container {
+    -fx-padding: 16px 0;
+}
+.movie-pagination {
+    -fx-page-information-visible: false;
+    -fx-max-page-indicator-count: 5;
+}
+.movie-pagination .control-buttons .increment-button,
+.movie-pagination .control-buttons .decrement-button {
+    -fx-background-color: transparent;
+    -fx-shape: "M1 1 L7 8 L1 15";
+    -fx-scale-x: 1.2;
+    -fx-scale-y: 1.2;
+    -fx-cursor: hand;
+}
+.movie-pagination .control-buttons .increment-button:hover,
+.movie-pagination .control-buttons .decrement-button:hover {
+    -fx-text-fill: #3498DB;
+}

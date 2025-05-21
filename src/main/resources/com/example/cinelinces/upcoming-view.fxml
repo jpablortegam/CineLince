@@ -1,43 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-
-<?import javafx.geometry.*?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
-
-<ScrollPane fitToWidth="true"  xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cinelinces.controllers.UpcomingViewController">
-    <VBox spacing="32">
-        <padding>
-            <Insets bottom="32" left="24" right="24" top="24" />
-        </padding>
-
-        <!-- Header con título de la sección -->
-        <HBox alignment="CENTER_LEFT">
-            <Label styleClass="text-headline" text="Próximos Estrenos" />
+<ScrollPane fx:id="rootScroll" fitToWidth="true"
+            xmlns="http://javafx.com/javafx/17.0.12"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.example.cinelinces.controllers.UpcomingViewController"
+            stylesheets="@/com/example/styles/components/movies.css">
+    <VBox spacing="24" styleClass="view-container">
+        <!-- Header -->
+        <HBox alignment="CENTER_LEFT" styleClass="section-header">
+            <Label text="Próximos Estrenos" styleClass="text-headline" />
         </HBox>
 
         <!-- Filtros -->
-        <HBox spacing="16" alignment="CENTER_LEFT">
-            <Label text="Filtrar por:" />
-            <ComboBox fx:id="filterGenre" promptText="Género" />
-            <ComboBox fx:id="filterMonth" promptText="Mes" />
+        <HBox spacing="12" alignment="CENTER_LEFT" styleClass="filter-bar">
+            <Label text="Filtrar por:" styleClass="filter-label" />
+            <ComboBox fx:id="filterGenre" promptText="Género" styleClass="filter-combo" />
+            <ComboBox fx:id="filterMonth" promptText="Mes" styleClass="filter-combo" />
             <Region HBox.hgrow="ALWAYS" />
-            <TextField fx:id="searchField" promptText="Buscar película..." />
+            <TextField fx:id="searchField" promptText="Buscar película..." styleClass="filter-search" />
         </HBox>
 
         <!-- Grid de películas próximas -->
-        <GridPane fx:id="upcomingMoviesGrid" hgap="16" vgap="24">
+        <GridPane fx:id="upcomingMoviesGrid" hgap="16" vgap="24" styleClass="movie-grid">
             <columnConstraints>
                 <ColumnConstraints percentWidth="25" />
                 <ColumnConstraints percentWidth="25" />
                 <ColumnConstraints percentWidth="25" />
                 <ColumnConstraints percentWidth="25" />
             </columnConstraints>
+            <padding>
+                <Insets top="0" right="0" bottom="0" left="0" />
+            </padding>
+            <children>
+
+                <VBox styleClass="movie-card">
+                    <ImageView fx:id="posterImage" fitWidth="150" preserveRatio="true" />
+                    <Label fx:id="titleLabel" text="Título de la Película" styleClass="card-title" wrapText="true" />
+                    <Label fx:id="dateLabel" text="Fecha de estreno" styleClass="card-subtitle" />
+                </VBox>
+            </children>
         </GridPane>
 
         <!-- Paginación -->
-        <HBox alignment="CENTER">
-            <Pagination fx:id="upcomingPagination" maxPageIndicatorCount="5" pageCount="3" />
+        <HBox alignment="CENTER" styleClass="pagination-container">
+            <Pagination fx:id="upcomingPagination"
+                        maxPageIndicatorCount="5"
+                        pageCount="3"
+                        styleClass="movie-pagination" />
         </HBox>
     </VBox>
 </ScrollPane>

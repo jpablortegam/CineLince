@@ -1,8 +1,88 @@
 @import "/com/example/styles/base/variables.css";
 
-.text-headline { -fx-font-size:24px; -fx-font-weight:600; -fx-text-fill:-fx-text-primary; }
-.text-title    { -fx-font-size:18px; -fx-font-weight:500; }
-.text-body     { -fx-font-size:16px; }
-.text-caption  { -fx-font-size:14px; -fx-text-fill:-fx-text-secondary; }
+/* ----------------------------------------------------
+   1) Nuevas familias tipográficas
+---------------------------------------------------- */
+.text-headline {   /* Títulos principales */
+    -fx-font-family: "Segoe UI", sans-serif;
+    -fx-font-size: 28px;
+    -fx-font-weight: 700;
+    -fx-text-fill: #2C3E50;
+    -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.1), 1, 0, 0, 1);
+}
+/* ----------------------------------------------------
+   2) Títulos principales (Destacados de la semana)
+---------------------------------------------------- */
+.text-title {
+    -fx-font-family: "Playfair", serif;
+    -fx-font-size: 32px;
+    -fx-font-weight: normal;
+    -fx-text-fill: #2C3E50;
+    -fx-padding: 0 0 16px 0;
+}
 
-/* … y así sucesivamente */
+/* ----------------------------------------------------
+   3) Títulos secundarios (Secciones: En cartelera…)
+---------------------------------------------------- */
+.text-section {
+    -fx-font-family: "Montserrat Bold", sans-serif;
+    -fx-font-size: 20px;
+    -fx-text-fill: #34495E;
+    -fx-underline: true;
+    -fx-padding: 8px 0;
+}
+
+/* ----------------------------------------------------
+   4) Título de cada película
+---------------------------------------------------- */
+.movie-card .movie-title {
+    -fx-font-family: "Montserrat", sans-serif;
+    -fx-font-size: 16px;
+    -fx-font-weight: 600;
+    -fx-text-fill: #2C3E50;
+    -fx-padding: 8px 0 4px 0;
+}
+
+/* ----------------------------------------------------
+   5) Subtítulo / año de cada película
+---------------------------------------------------- */
+.movie-card .movie-subtitle {
+    -fx-font-family: "Montserrat", sans-serif;
+    -fx-font-size: 14px;
+    -fx-text-fill: #7F8C8D;
+    -fx-padding: 0 0 8px 0;
+}
+
+/* ----------------------------------------------------
+   6) Cuerpo de texto estándar
+---------------------------------------------------- */
+.text-body {
+    -fx-font-family: "Montserrat", sans-serif;
+    -fx-font-size: 16px;
+    -fx-text-fill: #4D4D4D;
+    -fx-line-spacing: 4px;
+}
+
+/* ----------------------------------------------------
+   7) Pie de página / captions
+---------------------------------------------------- */
+.text-caption {
+    -fx-font-family: "Montserrat", sans-serif;
+    -fx-font-size: 14px;
+    -fx-text-fill: #7F8C8D;
+    -fx-font-style: italic;
+}
+
+/* ----------------------------------------------------
+   8) Ajustes específicos para Destacados
+---------------------------------------------------- */
+.featured-banner .text-headline {
+    -fx-font-family: "Playfair", serif;
+    -fx-font-size: 40px;
+    -fx-text-fill: white;
+}
+
+/* ----------------------------------------------------
+   9) Secciones “En cartelera” y “Próximamente”
+---------------------------------------------------- */
+/* Aplica .text-section en lugar de .text-title en el FXML */

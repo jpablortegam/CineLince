@@ -1,28 +1,57 @@
 /* Contenedor de la paginación */
 .carousel-pagination {
     -fx-alignment: CENTER;
-    -fx-spacing: 4px;
+    -fx-spacing: 8px;
     -fx-padding: 12px 0;
 }
 
 /* Botones de flecha */
 .carousel-pagination .arrow-button {
     -fx-background-color: transparent;
-    -fx-shape: "M0,0 L8,8 L0,16";
-    -fx-pref-width: 24px;
-    -fx-pref-height: 24px;
+    -fx-shape: "M1 1 L7 8 L1 15";     /* triángulo apuntando a la derecha */
+    -fx-scale-x: 1.4;
+    -fx-scale-y: 1.4;
+    -fx-text-fill: #2C3E50;
+    -fx-pref-width: 32px;
+    -fx-pref-height: 32px;
     -fx-cursor: hand;
+    -fx-background-radius: 16px;
+    -fx-transition-property: -fx-background-color, -fx-text-fill, -fx-rotate;
+    -fx-transition-duration: 0.2s;
+}
+
+/* Girar el botón derecho */
+.carousel-pagination .arrow-button.right {
+    -fx-rotate: 180;
+}
+
+/* Hover en flechas */
+.carousel-pagination .arrow-button:hover {
+    -fx-background-color: rgba(46, 49, 49, 0.1);
+    -fx-text-fill: #3498DB;
 }
 
 /* Números de página */
 .carousel-pagination .page-number {
-    -fx-text-fill: -fx-text-secondary;
-    -fx-padding: 4px 8px;
+    -fx-text-fill: #7F8C8D;
+    -fx-padding: 6px 10px;
+    -fx-background-radius: 4px;
+    -fx-background-color: transparent;
     -fx-cursor: hand;
+    -fx-font-size: 0.9em;
+    -fx-transition-property: -fx-background-color, -fx-text-fill, -fx-font-weight;
+    -fx-transition-duration: 0.2s;
 }
 
+/* Hover en número */
+.carousel-pagination .page-number:hover {
+    -fx-background-color: rgba(52, 152, 219, 0.1);
+    -fx-text-fill: #3498DB;
+}
+
+/* Estado activo */
 .carousel-pagination .page-number.active {
-    -fx-text-fill: -fx-accent;
-    -fx-underline: true;
+    -fx-background-color: #3498DB;
+    -fx-text-fill: white;
     -fx-font-weight: bold;
 }

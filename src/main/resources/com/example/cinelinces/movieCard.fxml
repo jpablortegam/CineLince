@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns="http://javafx.com/javafx/17.0.12"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.example.cinelinces.controllers.MovieCardViewController"
+      styleClass="movie-card">
+    <ImageView fx:id="poster" fitWidth="150" preserveRatio="true" />
+    <Label fx:id="title"    styleClass="movie-title"    wrapText="true"/>
+    <Label fx:id="subtitle" styleClass="movie-subtitle"/>
+</VBox>

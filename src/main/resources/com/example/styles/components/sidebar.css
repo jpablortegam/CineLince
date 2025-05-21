@@ -1,67 +1,85 @@
 /* sidebar.css */
 
-/* —————————————————————————————————————
-   1) Fondo del sidebar completo
-   ————————————————————————————————————— */
+/* 1) Fondo del sidebar completo */
 #sidebar {
-    -fx-background-color: #2C3E50;
+    -fx-background-color: linear-gradient(to bottom, #34495E 0%, #2C3E50 100%);
     -fx-border-width: 0 1px 0 0;
-    -fx-border-color: #1f2937;
-    -fx-pref-width: 228px;       /* igual que tu FXML */
+    -fx-border-color: #1F2937;
+    -fx-pref-width: 228px;
+    -fx-padding: 16px 0;
 }
 
-/* —————————————————————————————————————
-   2) Título “CineLince”
-   ————————————————————————————————————— */
+/* 2) Título “CineLince” */
 .sidebar-title {
-    -fx-font-size: 24px;
+    -fx-font-size: 26px;
     -fx-font-weight: bold;
     -fx-text-fill: #ECF0F1;
-    -fx-padding: 0 0 16px 0;
+    -fx-padding: 0 0 24px 24px;
 }
 
-/* —————————————————————————————————————
-   3) Contenedor botones
-   ————————————————————————————————————— */
+/* 3) Contenedor botones */
 .sidebar-buttons {
-    -fx-spacing: 8px;
+    -fx-spacing: 4px;
+    -fx-padding: 0 0 0 8px;
 }
 
-/* —————————————————————————————————————
-   4) Botones a TODO ancho
-   ————————————————————————————————————— */
+/* 4) Botones a TODO ancho */
 .side-button {
     -fx-background-color: transparent;
     -fx-text-fill: #ECF0F1;
     -fx-font-size: 14px;
     -fx-font-weight: 600;
     -fx-alignment: CENTER_LEFT;
-
-    /* fill horizontal space */
+    -fx-pref-height: 40px;
     -fx-max-width: Infinity;
-    -fx-pref-width: 100%;
-
-    /* sin bordes por defecto */
-    -fx-border-width: 0 0 0 4px;
-    -fx-border-color: transparent;
-    -fx-padding: 10 12;
+    -fx-padding: 0 0 0 24px;
     -fx-cursor: hand;
+
+    /* Transiciones */
+    -fx-transition-property: -fx-background-color, -fx-border-color, -fx-scale-x, -fx-scale-y;
+    -fx-transition-duration: 0.2s;
+    -fx-transition-timing-function: ease-in-out;
 }
 
-/* —————————————————————————————————————
-   5) Hover: aparece franja izquierda
-   ————————————————————————————————————— */
+/* 5) Hover: fondo ligero + pequeña escala */
 .side-button:hover {
-    -fx-border-color: transparent transparent transparent #5DADE2;
-    /* opcional: un poquito de fondo para hover */
-    -fx-background-color: rgba(236,240,241,0.10);
+    -fx-background-color: rgba(236, 240, 241, 0.12);
+    -fx-scale-x: 1.02;
+    -fx-scale-y: 1.02;
 }
 
-/* —————————————————————————————————————
-   6) Activo: franja permanente + texto blanco
-   ————————————————————————————————————— */
+/* 6) Indicador activo: pseudo-elemento con animación */
 .side-button.active {
-    -fx-border-color: transparent transparent transparent #2874A6;
     -fx-text-fill: #FFFFFF;
     -fx-font-weight: bold;
+}
+
+/* Creamos la barra indicadora usando un borde izquierdo más ancho */
+.side-button.active {
+    -fx-border-width: 0 0 0 5px;
+    -fx-border-color: transparent transparent transparent #3498DB;
+}
+
+/* 7) Iconos (si los usas) */
+.side-button .icon {
+    -fx-fill: #ECF0F1;
+    -fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;
+    -fx-padding: 0 12px 0 0;
+    -fx-transition-property: -fx-fill;
+    -fx-transition-duration: 0.2s;
+}
+
+.side-button:hover .icon,
+.side-button.active .icon {
+    -fx-fill: #3498DB;
+}
+
+/* 8) Separadores opcionales entre secciones */
+.sidebar-divider {
+    -fx-background-color: rgba(236, 240, 241, 0.08);
+    -fx-pref-height: 1px;
+    -fx-max-width: 80%;
+    -fx-padding: 8px 0;
+    -fx-margin: 12px 0;
 }
