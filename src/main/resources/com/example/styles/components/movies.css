@@ -39,38 +39,6 @@
     -fx-pref-width: 200px;
 }
 
-/* Grid de películas */
-.movie-grid {
-    -fx-padding: 16px 0;
-}
-.movie-card {
-    -fx-background-color: white;
-    -fx-background-radius: 8px;
-    -fx-effect: dropshadow(two-pass-box, rgba(0,0,0,0.08), 6, 0, 0, 2);
-    -fx-padding: 12px;
-    -fx-alignment: TOP_CENTER;
-    -fx-pref-width: 160px;
-    -fx-cursor: hand;
-    -fx-transition-property: -fx-effect, -fx-scale-x, -fx-scale-y;
-    -fx-transition-duration: 0.2s;
-    -fx-transition-timing-function: ease-in-out;
-}
-.movie-card:hover {
-    -fx-effect: dropshadow(two-pass-box, rgba(0,0,0,0.12), 8, 0, 0, 3);
-    -fx-scale-x: 1.03;
-    -fx-scale-y: 1.03;
-}
-.card-title {
-    -fx-font-size: 14px;
-    -fx-font-weight: bold;
-    -fx-text-fill: #2C3E50;
-    -fx-padding: 8px 0 4px 0;
-    -fx-wrap-text: true;
-}
-.card-subtitle {
-    -fx-font-size: 12px;
-    -fx-text-fill: #777;
-}
 
 /* Paginación */
 .pagination-container {

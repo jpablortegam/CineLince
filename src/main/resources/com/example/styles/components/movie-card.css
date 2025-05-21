@@ -1,10 +1,56 @@
-.movie-card {
-    -fx-background: white;
-    -fx-background-radius: 12px;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.04), 2,0,0,1);
-    -fx-cursor: hand;
+/* Grid de películas */
+.movie-grid {
+    -fx-padding: 32px 0;
+    -fx-hgap: 24;
+    -fx-vgap: 32;
+    -fx-alignment: CENTER;
 }
+
+/* Tarjeta principal — ahora más wide que tall */
+.movie-card {
+    -fx-background-color: white;
+    -fx-background-radius: 18px;
+    -fx-padding: 0;
+    -fx-pref-width: 340px;   /* ancho aumentado */
+    -fx-pref-height: 220px;  /* altura reducida */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.08), 10, 0.3, 0, 6);
+    -fx-cursor: hand;
+    -fx-alignment: TOP_CENTER;
+    -fx-transition-property: -fx-effect, -fx-scale-x, -fx-scale-y;
+    -fx-transition-duration: 0.2s;
+}
+
 .movie-card:hover {
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.12), 8,0,0,4);
-    -fx-translate-y: -2px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.16), 14, 0.4, 0, 8);
+    -fx-scale-x: 1.02;  /* hover más sutil por tarjeta ancha */
+    -fx-scale-y: 1.02;
+}
+
+/* Imagen */
+.movie-image {
+    -fx-fit-to-width: true;
+    -fx-preserve-ratio: true;
+    -fx-smooth: true;
+    /* ajustamos el recorte superior para Encajar en wide card */
+    -fx-background-radius: 18px 18px 0 0;
+    -fx-border-radius: 18px 18px 0 0;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.04), 2, 0, 0, 2);
+}
+
+/* Título centrado, más compacto */
+.card-title {
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1E1E1E;
+    -fx-padding: 8px 12px 2px 12px;
+    -fx-wrap-text: true;
+    -fx-text-alignment: center;
+}
+
+/* Subtítulo limpio */
+.card-subtitle {
+    -fx-font-size: 12px;
+    -fx-text-fill: #888;
+    -fx-text-alignment: center;
+    -fx-padding: 0 12px 8px 12px;
 }

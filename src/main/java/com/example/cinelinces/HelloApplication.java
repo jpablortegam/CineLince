@@ -50,6 +50,7 @@ public class HelloApplication extends Application {
         // 7) Asigno la escena y muestro el stage
         stage.setScene(scene);
         stage.setTitle("CineLince");
+        stage.setMaximized(true);
         stage.show();
     }
 

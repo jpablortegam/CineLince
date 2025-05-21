@@ -60,10 +60,7 @@
                     <Button styleClass="button-secondary" text="Ver todas"/>
                 </HBox>
                 <!-- Aquí GridPane o FlowPane con cards -->
-                <FlowPane fx:id="nowPlayingPane"
-                          hgap="12" vgap="16"
-                          styleClass="movie-grid">
-                </FlowPane>
+                <FlowPane fx:id="upcomingPane1" hgap="12" vgap="16" styleClass="movie-grid"/>
             </VBox>
 
             <!-- Próximamente -->

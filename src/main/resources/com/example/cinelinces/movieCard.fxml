@@ -1,13 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.scene.image.ImageView?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox xmlns="http://javafx.com/javafx/17.0.12"
+<VBox fx:id="cardRoot"
+      xmlns="http://javafx.com/javafx/17.0.12"
       xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="com.example.cinelinces.controllers.MovieCardViewController"
-      styleClass="movie-card">
-    <ImageView fx:id="poster" fitWidth="150" preserveRatio="true" />
-    <Label fx:id="title"    styleClass="movie-title"    wrapText="true"/>
-    <Label fx:id="subtitle" styleClass="movie-subtitle"/>
+      styleClass="movie-card"
+      spacing="8"
+      alignment="TOP_CENTER">
+
+    <!-- Contenedor de imagen con posible overlay futuro -->
+    <StackPane styleClass="image-container">
+        <ImageView fx:id="poster"
+                   styleClass="movie-image"
+                   fitWidth="320"
+                   preserveRatio="true"/>
+    </StackPane>
+
+    <!-- Padding interno de la tarjeta -->
+    <padding>
+        <Insets top="12" right="12" bottom="12" left="12"/>
+    </padding>
+
+    <!-- Bloque de texto centrado -->
+    <VBox styleClass="text-container"
+          spacing="4"
+          alignment="CENTER">
+        <Label fx:id="title"
+               styleClass="card-title"
+               wrapText="true"
+               text="Título de la película"/>
+        <Label fx:id="subtitle"
+               styleClass="card-subtitle"
+               text="(2025) • 120 min"/>
+    </VBox>
+
 </VBox>

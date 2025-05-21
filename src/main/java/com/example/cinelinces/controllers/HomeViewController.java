@@ -22,7 +22,7 @@ public class HomeViewController {
     @FXML public Button btnVerHorarios;
     @FXML private FlowPane upcomingPane;
 
-    private final VBox dialogPanel = new VBox(10);
+    private final VBox dialogPanel = new VBox(70);
     private final Button closeBtn = new Button("Cerrar");
 
     private final MovieService movieService = new MovieService();
@@ -45,7 +45,7 @@ public class HomeViewController {
 
         // Cargar películas
         List<Movie> all = movieService.fetchUpcoming();
-        int limit = Math.min(3, all.size());
+        int limit = Math.min(6, all.size());
         for (int i = 0; i < limit; i++) {
             Movie m = all.get(i);
             try {
