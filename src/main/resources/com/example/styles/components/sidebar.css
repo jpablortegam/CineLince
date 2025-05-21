@@ -1,13 +1,18 @@
 /* sidebar.css */
 
-/* fondo y estructura */
+/* —————————————————————————————————————
+   1) Fondo del sidebar completo
+   ————————————————————————————————————— */
 #sidebar {
     -fx-background-color: #2C3E50;
     -fx-border-width: 0 1px 0 0;
     -fx-border-color: #1f2937;
+    -fx-pref-width: 228px;       /* igual que tu FXML */
 }
 
-/* título CineMax */
+/* —————————————————————————————————————
+   2) Título “CineLince”
+   ————————————————————————————————————— */
 .sidebar-title {
     -fx-font-size: 24px;
     -fx-font-weight: bold;
@@ -15,34 +20,48 @@
     -fx-padding: 0 0 16px 0;
 }
 
-/* contenedor interno de botones */
+/* —————————————————————————————————————
+   3) Contenedor botones
+   ————————————————————————————————————— */
 .sidebar-buttons {
     -fx-spacing: 8px;
 }
 
-/* estilo base de los botones */
+/* —————————————————————————————————————
+   4) Botones a TODO ancho
+   ————————————————————————————————————— */
 .side-button {
     -fx-background-color: transparent;
     -fx-text-fill: #ECF0F1;
     -fx-font-size: 14px;
     -fx-font-weight: 600;
     -fx-alignment: CENTER_LEFT;
+
+    /* fill horizontal space */
+    -fx-max-width: Infinity;
+    -fx-pref-width: 100%;
+
+    /* sin bordes por defecto */
+    -fx-border-width: 0 0 0 4px;
+    -fx-border-color: transparent;
     -fx-padding: 10 12;
-    -fx-background-radius: 6px;
     -fx-cursor: hand;
 }
 
-/* hover y pressed */
+/* —————————————————————————————————————
+   5) Hover: aparece franja izquierda
+   ————————————————————————————————————— */
 .side-button:hover {
-    -fx-background-color: rgba(236,240,241,0.15);
-}
-.side-button:pressed {
-    -fx-background-color: rgba(236,240,241,0.30);
+    -fx-border-color: transparent transparent transparent #5DADE2;
+    /* opcional: un poquito de fondo para hover */
+    -fx-background-color: rgba(236,240,241,0.10);
 }
 
-/* botón activo (agregar/remove en controlador) */
+/* —————————————————————————————————————
+   6) Activo: franja permanente + texto blanco
+   ————————————————————————————————————— */
 .side-button.active {
-    -fx-background-color: #4e6e8e;
-    -fx-text-fill: white;
+    -fx-border-color: transparent transparent transparent #2874A6;
+    -fx-text-fill: #FFFFFF;
     -fx-font-weight: bold;
 }

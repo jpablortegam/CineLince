@@ -4,20 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6f94096a-8f21-4170-a76e-4c2b50d8bf02" name="Changes" comment="add styles for buttons, content area, and pagination; implement main application view and controllers">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="6f94096a-8f21-4170-a76e-4c2b50d8bf02" name="Changes" comment="refactor application structure; enhance sidebar integration and update styles for featured banner">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/HelloApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/HelloApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/HelloController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/HelloController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/SideBarController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/SideBarController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/cinelinces/home-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/cinelinces/home-view.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/cinelinces/main-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/cinelinces/main-view.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/cinelinces/sidebar-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/cinelinces/sidebar-view.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/styles/featured/featured-banner.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/styles/featured/featured-banner.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/styles/layout/content.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/styles/layout/header.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/styles/layout/sidebar.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/styles/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/styles/main.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/styles/components/sidebar.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/styles/components/sidebar.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -140,7 +129,7 @@
       <workItem from="1747711105663" duration="194000" />
       <workItem from="1747773932963" duration="8657000" />
       <workItem from="1747783010838" duration="376000" />
-      <workItem from="1747788019027" duration="2137000" />
+      <workItem from="1747788019027" duration="2500000" />
     </task>
     <task id="LOCAL-00001" summary="initialize project structure with basic JavaFX application and Gradle setup">
       <option name="closed" value="true" />
@@ -230,7 +219,15 @@
       <option name="project" value="LOCAL" />
       <updated>1747783288169</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="refactor application structure; enhance sidebar integration and update styles for featured banner">
+      <option name="closed" value="true" />
+      <created>1747790466890</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1747790466890</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -269,6 +266,7 @@
     <MESSAGE value="add AnimatedComponent for enhanced dialog animations and update sidebar styles" />
     <MESSAGE value="add pagination for movie listings and implement movie card display" />
     <MESSAGE value="add styles for buttons, content area, and pagination; implement main application view and controllers" />
-    <option name="LAST_COMMIT_MESSAGE" value="add styles for buttons, content area, and pagination; implement main application view and controllers" />
+    <MESSAGE value="refactor application structure; enhance sidebar integration and update styles for featured banner" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor application structure; enhance sidebar integration and update styles for featured banner" />
   </component>
 </project>
