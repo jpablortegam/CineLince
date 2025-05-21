@@ -80,5 +80,5 @@
 
         </VBox>
     </ScrollPane>
-
+    <Pane fx:id="overlayPane" pickOnBounds="false"/>
 </StackPane>

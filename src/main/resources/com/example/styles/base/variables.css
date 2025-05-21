@@ -21,3 +21,15 @@
     -fx-elevation-1: dropshadow(gaussian, rgba(0,0,0,0.04), 2, 0, 0, 1);
     -fx-elevation-2: dropshadow(gaussian, rgba(0,0,0,0.08), 4, 0, 0, 2);
 }
+
+.root * {
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+/* 2) Y que los nodos con estilo “section-card” tampoco muestren bordes */
+.section-card:focused,
+.movie-card:focused,
+.movie-grid:focused {
+    -fx-border-color: transparent;
+}
