@@ -8,6 +8,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.util.Objects;
+
 public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws Exception {
@@ -36,9 +38,8 @@ public class HelloApplication extends Application {
 
         // 6) Le añado tu hoja de estilos principal
         scene.getStylesheets().add(
-                getClass()
-                        .getResource("/com/example/styles/main.css")
-                        .toExternalForm()
+                Objects.requireNonNull(getClass()
+                                .getResource("/com/example/styles/main.css")).toExternalForm()
         );
         // (si tienes más CSS, los agregas aquí):
         // scene.getStylesheets().add(

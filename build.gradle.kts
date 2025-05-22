@@ -39,6 +39,8 @@ dependencies {
     implementation("org.kordamp.ikonli:ikonli-javafx:12.3.1")
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
+
+
 }
 
 tasks.withType<Test> {
