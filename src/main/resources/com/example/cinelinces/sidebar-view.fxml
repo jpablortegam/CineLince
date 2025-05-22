@@ -1,32 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.Region?>
-<?import javafx.scene.layout.VBox?>
 
-<VBox xmlns="http://javafx.com/javafx/17.0.12"
-      xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.example.cinelinces.controllers.SideBarController"
-      fx:id="sidebar" id="sidebar"
-      minWidth="228" prefWidth="228"
-      spacing="8"
-      stylesheets="@/com/example/styles/components/sidebar.css">
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox id="sidebar" fx:id="sidebar" minWidth="228" prefHeight="364.0" prefWidth="264.0" spacing="8" stylesheets="@/com/example/styles/components/sidebar.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cinelinces.controllers.SideBarController">
 
     <padding>
-        <Insets top="24" right="24" bottom="24" left="24"/>
+        <Insets bottom="24" left="24" right="24" top="24" />
     </padding>
 
-    <Label text="CineLince" styleClass="sidebar-title"/>
+    <Label styleClass="sidebar-title" text="🎬 CineLince" />
 
-    <Region prefHeight="12"/>
+    <Region prefHeight="12" />
 
     <VBox spacing="8" styleClass="sidebar-buttons">
-        <Button fx:id="btnEstrenos"     text="😊 Estrenos"      styleClass="side-button" onAction="#showHome"/>
-        <Button fx:id="btnProximamente" text="⏰ Próximamente"  styleClass="side-button" onAction="#showUpcoming"/>
-        <Button fx:id="btnPopulares"    text="🔥 Populares"     styleClass="side-button" onAction="#showPopular"/>
-        <Button fx:id="btnMiCuenta"     text="👤 Mi cuenta"     styleClass="side-button" onAction="#showAccount"/>
+        <Button fx:id="btnEstrenos" onAction="#showHome" styleClass="side-button" text="😊 Estrenos" />
+        <Button fx:id="btnProximamente" onAction="#showUpcoming" styleClass="side-button" text="⏰ Próximamente" />
+        <Button fx:id="btnPopulares" onAction="#showPopular" styleClass="side-button" text="🔥 Populares" />
+        <Button fx:id="btnMiCuenta" onAction="#showAccount" styleClass="side-button" text="👤 Mi cuenta" />
     </VBox>
 
-    <Region VBox.vgrow="ALWAYS"/>
+    <Region VBox.vgrow="ALWAYS" />
 </VBox>

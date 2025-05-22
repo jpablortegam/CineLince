@@ -2,19 +2,21 @@
 
 /* 1) Fondo del sidebar completo */
 #sidebar {
-    -fx-background-color: linear-gradient(to bottom, #34495E 0%, #2C3E50 100%);
-    -fx-border-width: 0 1px 0 0;
-    -fx-border-color: #1F2937;
-    -fx-pref-width: 228px;
-    -fx-padding: 16px 0;
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #764ba2, #667eea);
+
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 25, 0, 0, 5);
+    -fx-padding: 50px 40px;
+    -fx-border-color: rgba(255,255,255,0.2);
+    -fx-border-width: 1px;
+
 }
 
 /* 2) Título “CineLince” */
 .sidebar-title {
-    -fx-font-size: 26px;
+    -fx-font-size: 20px;
     -fx-font-weight: bold;
-    -fx-text-fill: #ECF0F1;
-    -fx-padding: 0 0 24px 24px;
+    -fx-text-fill: linear-gradient(from 0% 0% to 100% 100%, #3b2356, #4d61c0);
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 2, 0, 0, 1);
 }
 
 /* 3) Contenedor botones */

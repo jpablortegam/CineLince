@@ -23,7 +23,8 @@ public class HelloController implements Initializable {
     public void showHome()       { loadView("/com/example/cinelinces/home-view.fxml"); }
     public void showUpcoming()   { loadView("/com/example/cinelinces/upcoming-view.fxml"); }
     public void showPopular()    { loadView("/com/example/cinelinces/popular-view.fxml"); }
-    public void showAccount()    { loadView("/com/example/cinelinces/account-view.fxml"); }
+    public void showAccount()    { loadView("/com/example/cinelinces/login-view.fxml"); }
+
 
     private void loadView(String fxml) {
         try {

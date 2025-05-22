@@ -3,6 +3,7 @@ module com.example.cinelinces {
     requires javafx.fxml;
 
     requires org.kordamp.ikonli.javafx;
+    requires java.prefs;
 
     opens com.example.cinelinces to javafx.fxml;
     exports com.example.cinelinces;

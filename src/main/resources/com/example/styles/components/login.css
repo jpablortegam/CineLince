@@ -1,0 +1,279 @@
+/* —— VARIABLES GLOBALES —— */
+@import url("/com/example/styles/base/variables.css");
+
+/* —— CONTENEDOR PRINCIPAL —— */
+.login-container {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #667eea, #764ba2);
+    -fx-background-radius: 30px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 25, 0, 0, 5);
+    -fx-padding: 50px 40px;
+    -fx-border-color: rgba(255,255,255,0.2);
+    -fx-border-width: 1px;
+    -fx-border-radius: 30px;
+}
+
+/* —— CONTENEDOR INTERIOR —— */
+.inner-container {
+    -fx-background-color: rgba(255,255,255,0.95);
+    -fx-background-radius: 25px;
+    -fx-pref-width: 650px;
+    -fx-pref-height: 750px;
+    -fx-padding: 40px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 15, 0, 0, 2);
+}
+
+/* —— CABECERA —— */
+.header-section {
+    -fx-alignment: center;
+    -fx-spacing: 8px;
+    -fx-padding: 0 0 35px 0;
+}
+
+.app-title {
+    -fx-font-size: 36px;
+    -fx-font-weight: bold;
+    -fx-text-fill: linear-gradient(from 0% 0% to 100% 100%, #3b2356, #4d61c0);
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 2, 0, 0, 1);
+}
+
+.app-subtitle {
+    -fx-font-size: 16px;
+    -fx-text-fill: #6c757d;
+    -fx-font-weight: 500;
+}
+
+/* —— PESTAÑAS RECTANGULARES Y PROPORCIONADAS —— */
+.custom-tab-pane {
+    -fx-background-color: transparent;
+    /* fija ancho igual para cada pestaña */
+    -fx-tab-min-width: 300px;
+    -fx-tab-max-width: 300px;
+}
+
+/* limpia fondo y bordes de la cabecera */
+.custom-tab-pane .tab-header-area,
+.custom-tab-pane .headers-region {
+    -fx-background-color: transparent;
+    -fx-background-radius: 0;
+    -fx-padding: 0;
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+}
+
+/* oculta las flechas de scroll */
+.custom-tab-pane .tab-header-area .tab-scroll-arrow-button {
+    -fx-opacity: 0;
+    -fx-min-width: 0;
+    -fx-max-width: 0;
+    -fx-padding: 0;
+}
+
+/* estilo base para todas las pestañas */
+.custom-tab-pane .tab {
+    -fx-background-color: #f1f1f1;
+    -fx-background-radius: 0;
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-padding: 12px 0;
+    -fx-alignment: center;
+}
+
+/* pestaña seleccionada */
+.custom-tab-pane .tab:selected {
+    -fx-background-color: #ffffff;
+    -fx-border-color: transparent transparent #667eea transparent;
+    -fx-border-width: 0 0 3px 0;
+    -fx-background-radius: 0;
+}
+
+/* texto de pestaña */
+.custom-tab-pane .tab-label {
+    -fx-text-fill: #6c757d;
+    -fx-font-size: 15px;
+    -fx-font-weight: 600;
+    -fx-transition: all 0.3s ease;
+}
+
+/* texto seleccionado */
+.custom-tab-pane .tab:selected .tab-label {
+    -fx-text-fill: #667eea;
+}
+
+/* hover en no seleccionado */
+.custom-tab-pane .tab:hover {
+    -fx-background-color: #e9ecef;
+}
+
+/* hover texto */
+.custom-tab-pane .tab:hover .tab-label {
+    -fx-text-fill: #667eea;
+}
+
+/* —— CONTENIDO DE PESTAÑAS —— */
+.tab-content {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 0 0 15px 15px;
+    -fx-padding: 30px;
+}
+
+/* —— FORMULARIO EXPANDIDO —— */
+.form-container {
+    -fx-alignment: center;
+    -fx-max-width: 500px;
+    -fx-spacing: 24px;
+    -fx-padding: 20px;
+}
+
+/* —— CAMPOS DE TEXTO MODERNOS —— */
+.custom-text-field {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #dee2e6;
+    -fx-border-width: 2px;
+    -fx-border-radius: 12px;
+    -fx-background-radius: 12px;
+    -fx-padding: 16px 20px;
+    -fx-font-size: 15px;
+    -fx-text-fill: #495057;
+    -fx-prompt-text-fill: #adb5bd;
+    -fx-min-height: 55px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 5, 0, 0, 2);
+    -fx-transition: all 0.3s ease;
+}
+
+.custom-text-field:hover {
+    -fx-border-color: #667eea;
+    -fx-effect: dropshadow(gaussian, rgba(102,126,234,0.15), 8, 0, 0, 2);
+    -fx-scale-x: 1.01;
+    -fx-scale-y: 1.01;
+}
+
+.custom-text-field:focused {
+    -fx-border-color: #667eea;
+    -fx-effect: dropshadow(gaussian, rgba(102,126,234,0.3), 12, 0, 0, 3);
+    -fx-scale-x: 1.02;
+    -fx-scale-y: 1.02;
+}
+
+/* —— CHECKBOX PERSONALIZADO —— */
+.custom-checkbox {
+    -fx-font-size: 13px;
+    -fx-text-fill: #6c757d;
+    -fx-font-weight: 500;
+}
+.custom-checkbox .box {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #dee2e6;
+    -fx-border-width: 2px;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-min-width: 18px;
+    -fx-min-height: 18px;
+    -fx-transition: all 0.2s ease;
+}
+.custom-checkbox:selected .box {
+    -fx-background-color: #667eea;
+    -fx-border-color: #667eea;
+}
+.custom-checkbox:selected .mark {
+    -fx-shape: "M2,6 L6,10 L14,2";
+    -fx-scale-shape: true;
+    -fx-background-color: #ffffff;
+    -fx-scale-x: 0.8;
+    -fx-scale-y: 0.8;
+}
+.custom-checkbox:hover .box {
+    -fx-border-color: #667eea;
+    -fx-effect: dropshadow(gaussian, rgba(102,126,234,0.2), 5, 0, 0, 1);
+}
+
+/* —— BOTONES MEJORADOS —— */
+.primary-button {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #667eea 0%, #764ba2 100%);
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 16px;
+    -fx-font-weight: 700;
+    -fx-background-radius: 12px;
+    -fx-border-radius: 12px;
+    -fx-padding: 18px 35px;
+    -fx-min-height: 58px;
+    -fx-effect: dropshadow(gaussian, rgba(102,126,234,0.4), 10, 0, 0, 4);
+    -fx-transition: all 0.3s ease;
+}
+.primary-button:hover {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #5a6fd8 0%, #6a4190 100%);
+    -fx-scale-x: 1.03;
+    -fx-scale-y: 1.03;
+    -fx-effect: dropshadow(gaussian, rgba(102,126,234,0.6), 15, 0, 0, 6);
+}
+.primary-button:pressed {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #4c63c2 0%, #5e387e 100%);
+    -fx-scale-x: 0.98;
+    -fx-scale-y: 0.98;
+    -fx-effect: dropshadow(gaussian, rgba(102,126,234,0.3), 5, 0, 0, 2);
+}
+.primary-button:disabled {
+    -fx-background-color: #adb5bd;
+    -fx-text-fill: #ffffff;
+    -fx-effect: none;
+}
+
+/* —— ENLACES —— */
+.link-label {
+    -fx-text-fill: #667eea;
+    -fx-font-size: 13px;
+    -fx-font-weight: 600;
+    -fx-underline: true;
+    -fx-cursor: hand;
+    -fx-transition: all 0.2s ease;
+}
+.link-label:hover {
+    -fx-text-fill: #5a6fd8;
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+/* —— SCROLL PERSONALIZADO —— */
+.transparent-scroll-pane {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+    -fx-max-height: 450px;
+}
+.transparent-scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+.transparent-scroll-pane .scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-pref-width: 8px;
+}
+.transparent-scroll-pane .scroll-bar:vertical .track {
+    -fx-background-color: #f8f9fa;
+    -fx-background-radius: 4px;
+}
+.transparent-scroll-pane .scroll-bar:vertical .thumb {
+    -fx-background-color: #dee2e6;
+    -fx-background-radius: 4px;
+    -fx-transition: all 0.2s ease;
+}
+.transparent-scroll-pane .scroll-bar:vertical .thumb:hover {
+    -fx-background-color: #667eea;
+}
+
+/* —— ANIMACIONES GLOBALES —— */
+.custom-text-field,
+.primary-button,
+.custom-checkbox,
+.link-label,
+.custom-tab-pane .tab {
+    -fx-transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+/* —— EFECTOS ADICIONALES —— */
+.field-container {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.02), 3, 0, 0, 1);
+    -fx-background-color: transparent;
+    -fx-background-radius: 8px;
+    -fx-padding: 5px;
+}
+.field-container:hover {
+    -fx-effect: dropshadow(gaussian, rgba(102,126,234,0.1), 8, 0, 0, 2);
+}
