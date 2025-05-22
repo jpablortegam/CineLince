@@ -4,12 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6f94096a-8f21-4170-a76e-4c2b50d8bf02" name="Changes" comment="enhance movie card display; maximize application window and update styles for upcoming movies">
-      <change afterPath="$PROJECT_DIR$/.idea/material_theme_project_new.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="6f94096a-8f21-4170-a76e-4c2b50d8bf02" name="Changes" comment="enhance dialog display and animations; improve button hover effects and background overlay">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/DialogPaneController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/utils/ButtonHoverAnimator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/utils/DialogAnimationHelper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/cinelinces/dialogPane.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/HelloApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/HelloApplication.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/HomeViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/HomeViewController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -191,7 +191,7 @@
       <workItem from="1747857027775" duration="5629000" />
       <workItem from="1747862981360" duration="127000" />
       <workItem from="1747863165310" duration="1052000" />
-      <workItem from="1747893076604" duration="3221000" />
+      <workItem from="1747893076604" duration="5432000" />
     </task>
     <task id="LOCAL-00001" summary="initialize project structure with basic JavaFX application and Gradle setup">
       <option name="closed" value="true" />
@@ -321,7 +321,15 @@
       <option name="project" value="LOCAL" />
       <updated>1747861425209</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="enhance dialog display and animations; improve button hover effects and background overlay">
+      <option name="closed" value="true" />
+      <created>1747896532019</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1747896532019</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -364,6 +372,7 @@
     <MESSAGE value="refactor sidebar styles; enhance button appearance and hover effects" />
     <MESSAGE value="add movie card display and upcoming movies section; enhance styles and pagination" />
     <MESSAGE value="enhance movie card display; maximize application window and update styles for upcoming movies" />
-    <option name="LAST_COMMIT_MESSAGE" value="enhance movie card display; maximize application window and update styles for upcoming movies" />
+    <MESSAGE value="enhance dialog display and animations; improve button hover effects and background overlay" />
+    <option name="LAST_COMMIT_MESSAGE" value="enhance dialog display and animations; improve button hover effects and background overlay" />
   </component>
 </project>
