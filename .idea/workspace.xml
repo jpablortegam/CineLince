@@ -4,16 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6f94096a-8f21-4170-a76e-4c2b50d8bf02" name="Changes" comment="add dialog animation and hover effects; implement button scaling and overlay transitions">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/LoginViewController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/cinelinces/login-view.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/styles/components/login.css" afterDir="false" />
+    <list default="true" id="6f94096a-8f21-4170-a76e-4c2b50d8bf02" name="Changes" comment="add login view and controller; implement form validation and animations">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/HelloController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/HelloController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/cinelinces/sidebar-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/cinelinces/sidebar-view.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/styles/components/sidebar.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/styles/components/sidebar.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/styles/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/styles/main.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/cinelinces/login-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/cinelinces/login-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/styles/components/login.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/styles/components/login.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -198,7 +192,9 @@
       <workItem from="1747862981360" duration="127000" />
       <workItem from="1747863165310" duration="1052000" />
       <workItem from="1747893076604" duration="6188000" />
-      <workItem from="1747950493054" duration="5122000" />
+      <workItem from="1747950493054" duration="5610000" />
+      <workItem from="1747957607431" duration="217000" />
+      <workItem from="1747967014794" duration="366000" />
     </task>
     <task id="LOCAL-00001" summary="initialize project structure with basic JavaFX application and Gradle setup">
       <option name="closed" value="true" />
@@ -344,7 +340,15 @@
       <option name="project" value="LOCAL" />
       <updated>1747898905558</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="add login view and controller; implement form validation and animations">
+      <option name="closed" value="true" />
+      <created>1747955930490</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1747955930490</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -389,6 +393,7 @@
     <MESSAGE value="enhance movie card display; maximize application window and update styles for upcoming movies" />
     <MESSAGE value="enhance dialog display and animations; improve button hover effects and background overlay" />
     <MESSAGE value="add dialog animation and hover effects; implement button scaling and overlay transitions" />
-    <option name="LAST_COMMIT_MESSAGE" value="add dialog animation and hover effects; implement button scaling and overlay transitions" />
+    <MESSAGE value="add login view and controller; implement form validation and animations" />
+    <option name="LAST_COMMIT_MESSAGE" value="add login view and controller; implement form validation and animations" />
   </component>
 </project>
