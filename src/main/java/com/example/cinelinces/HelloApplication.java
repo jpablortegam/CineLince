@@ -1,6 +1,6 @@
 package com.example.cinelinces;
 
-import com.example.cinelinces.controllers.HelloController;
+import com.example.cinelinces.controllers.MainController;
 import com.example.cinelinces.controllers.SideBarController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -18,7 +18,7 @@ public class HelloApplication extends Application {
                 getClass().getResource("main-view.fxml")
         );
         Parent root = mainLoader.load();
-        HelloController mainCtrl = mainLoader.getController();
+        MainController mainCtrl = mainLoader.getController();
 
         // 2) Cargo el sidebar con su propio FXMLLoader
         FXMLLoader sideLoader = new FXMLLoader(
@@ -30,7 +30,7 @@ public class HelloApplication extends Application {
         // 3) Le paso la referencia del main controller al sidebar
         sideCtrl.setMainController(mainCtrl);
 
-        // 4) Inserto el sidebar en el BorderPane (rootPane) del HelloController
+        // 4) Inserto el sidebar en el BorderPane (rootPane) del MainController
         mainCtrl.getRootPane().setLeft(sidebarNode);
 
         // 5) Creo UNA ÚNICA escena sobre el root

@@ -9,10 +9,10 @@ public class SideBarController {
     public VBox sidebar;  // tu contenedor
     @FXML private Button btnEstrenos, btnProximamente, btnPopulares, btnMiCuenta;
 
-    private HelloController mainController;
+    private MainController mainController;
 
-    /** Este setter lo llama HelloController.initialize() */
-    public void setMainController(HelloController main) {
+    /** Este setter lo llama MainController.initialize() */
+    public void setMainController(MainController main) {
         this.mainController = main;
 
         // marcamos ya el primer botón

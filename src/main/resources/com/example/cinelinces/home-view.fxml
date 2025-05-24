@@ -57,7 +57,7 @@
                 <HBox alignment="CENTER_LEFT" spacing="16">
                     <Label styleClass="text-section" text="En cartelera"/>
                     <Region HBox.hgrow="ALWAYS"/>
-                    <Button styleClass="button-secondary" text="Ver todas"/>
+                    <Button fx:id="btnVerTodas" styleClass="button-secondary" text="Ver todas"/>
                 </HBox>
                 <!-- Aquí GridPane o FlowPane con cards -->
                 <FlowPane fx:id="upcomingPane1" hgap="12" vgap="16" styleClass="movie-grid"/>

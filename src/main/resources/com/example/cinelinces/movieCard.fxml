@@ -11,32 +11,84 @@
       fx:controller="com.example.cinelinces.controllers.MovieCardViewController"
       styleClass="movie-card"
       spacing="8"
-      alignment="TOP_CENTER">
+      alignment="TOP_CENTER"
+      onMouseClicked="#onCardClick"
+      onMouseEntered="#onCardHover"
+      onMouseExited="#onCardHoverExit">
 
-    <!-- Contenedor de imagen con posible overlay futuro -->
+    <!-- Contenedor de imagen con efecto de clip -->
     <StackPane styleClass="image-container">
         <ImageView fx:id="poster"
                    styleClass="movie-image"
                    fitWidth="320"
-                   preserveRatio="true"/>
+                   preserveRatio="true"
+                   smooth="true"
+                   cache="true"/>
     </StackPane>
 
-    <!-- Padding interno de la tarjeta -->
+    <!-- Padding interno -->
     <padding>
         <Insets top="12" right="12" bottom="12" left="12"/>
     </padding>
 
-    <!-- Bloque de texto centrado -->
+    <!-- Bloque de texto principal -->
     <VBox styleClass="text-container"
           spacing="4"
           alignment="CENTER">
         <Label fx:id="title"
                styleClass="card-title"
                wrapText="true"
+               maxWidth="300"
                text="Título de la película"/>
         <Label fx:id="subtitle"
                styleClass="card-subtitle"
                text="(2025) • 120 min"/>
+    </VBox>
+
+    <!-- Detalles con estructura optimizada para animación escalonada -->
+    <VBox fx:id="detailsPane"
+          styleClass="detail-container"
+          spacing="8"
+          alignment="CENTER"
+          visible="false"
+          managed="false"
+          opacity="0.0"
+          maxWidth="280">
+
+        <!-- Sinopsis -->
+        <VBox styleClass="detail-section" spacing="2">
+            <Label styleClass="detail-header" text="Sinopsis"/>
+            <Label fx:id="synopsisLabel"
+                   styleClass="card-detail-text"
+                   wrapText="true"
+                   maxWidth="280"
+                   text="Una emocionante historia que captura la esencia del cine moderno..."/>
+        </VBox>
+
+        <!-- Información técnica -->
+        <VBox styleClass="detail-section" spacing="2">
+            <Label styleClass="detail-header" text="Información"/>
+            <Label fx:id="durationLabel"
+                   styleClass="card-detail-text"
+                   text="⏱️ Duración: 120 min"/>
+            <Label fx:id="genreLabel"
+                   styleClass="card-detail-text"
+                   text="🎭 Género: Drama, Acción"/>
+            <Label fx:id="yearLabel"
+                   styleClass="card-detail-text"
+                   text="📅 Año: 2025"/>
+        </VBox>
+
+        <!-- Reparto -->
+        <VBox styleClass="detail-section" spacing="2">
+            <Label styleClass="detail-header" text="Reparto Principal"/>
+            <Label fx:id="castLabel"
+                   styleClass="card-detail-text"
+                   wrapText="true"
+                   maxWidth="280"
+                   text="⭐ Actor Principal, Actriz Protagonista, Actor Secundario"/>
+        </VBox>
+
     </VBox>
 
 </VBox>
