@@ -7,6 +7,7 @@
     <list default="true" id="6f94096a-8f21-4170-a76e-4c2b50d8bf02" name="Changes" comment="add movie card animations and details; implement hover effects and expand/collapse functionality">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/HomeViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/HomeViewController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/MovieCardViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/MovieCardViewController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -264,7 +265,8 @@
       <workItem from="1747950493054" duration="5610000" />
       <workItem from="1747957607431" duration="217000" />
       <workItem from="1747967014794" duration="6903000" />
-      <workItem from="1748044149351" duration="6327000" />
+      <workItem from="1748044149351" duration="7398000" />
+      <workItem from="1748065596581" duration="1784000" />
     </task>
     <task id="LOCAL-00001" summary="initialize project structure with basic JavaFX application and Gradle setup">
       <option name="closed" value="true" />
@@ -434,7 +436,15 @@
       <option name="project" value="LOCAL" />
       <updated>1748051897041</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="add movie card animations and details; implement hover effects and expand/collapse functionality">
+      <option name="closed" value="true" />
+      <created>1748052395470</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1748052395470</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

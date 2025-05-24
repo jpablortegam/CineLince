@@ -8,6 +8,9 @@ import com.example.cinelinces.utils.DialogAnimationHelper;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.BoundingBox;
+import javafx.geometry.Bounds;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.*;
@@ -91,5 +94,29 @@ public class HomeViewController implements Initializable {
                 e.printStackTrace();
             }
         }
+    }
+
+    // Método para obtener las dimensiones del área visible real
+    public Bounds getVisibleContentBounds() {
+        // Obtener las dimensiones reales del StackPane excluyendo padding/insets
+        Insets insets = rootStack.getInsets();
+        double contentWidth = rootStack.getWidth() - insets.getLeft() - insets.getRight();
+        double contentHeight = rootStack.getHeight() - insets.getTop() - insets.getBottom();
+
+        return new BoundingBox(
+                insets.getLeft(),
+                insets.getTop(),
+                contentWidth,
+                contentHeight
+        );
+    }
+
+    // Método para configurar las MovieCards con las dimensiones correctas
+    public void configureMovieCard(MovieCardViewController movieCard, Pane parentContainer, Pane overlayPane) {
+        movieCard.initContext(parentContainer, overlayPane);
+
+        // Pasar las dimensiones reales para cálculos de centrado
+        Bounds contentBounds = getVisibleContentBounds();
+        movieCard.setOverlayDimensions(contentBounds.getWidth(), contentBounds.getHeight());
     }
 }
