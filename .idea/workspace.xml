@@ -4,11 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6f94096a-8f21-4170-a76e-4c2b50d8bf02" name="Changes" comment="refactor card animations; adjust expand/collapse durations and improve fade transitions">
+    <list default="true" id="6f94096a-8f21-4170-a76e-4c2b50d8bf02" name="Changes" comment="refactor card animations; enhance hover effects and adjust expand/collapse durations">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/CardMovieViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/CardMovieViewController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/utils/Animations/CardAnimationHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/utils/Animations/CardAnimationHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/utils/Animations/TransitionFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/utils/Animations/TransitionFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/utils/Animations/DialogAnimationHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/utils/Animations/DialogAnimationHelper.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -274,7 +272,7 @@
       <workItem from="1748065596581" duration="2922000" />
       <workItem from="1748068591542" duration="206000" />
       <workItem from="1748120627903" duration="19668000" />
-      <workItem from="1748144938209" duration="2248000" />
+      <workItem from="1748144938209" duration="2890000" />
     </task>
     <task id="LOCAL-00001" summary="initialize project structure with basic JavaFX application and Gradle setup">
       <option name="closed" value="true" />
@@ -476,7 +474,15 @@
       <option name="project" value="LOCAL" />
       <updated>1748141481118</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="refactor card animations; enhance hover effects and adjust expand/collapse durations">
+      <option name="closed" value="true" />
+      <created>1748147353365</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1748147353365</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -527,6 +533,7 @@
     <MESSAGE value="add movie card functionality; implement dynamic scaling, hover effects, and expand/collapse animations" />
     <MESSAGE value="add database connection and refactor services; implement movie card animations and overlay functionality" />
     <MESSAGE value="refactor card animations; adjust expand/collapse durations and improve fade transitions" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactor card animations; adjust expand/collapse durations and improve fade transitions" />
+    <MESSAGE value="refactor card animations; enhance hover effects and adjust expand/collapse durations" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor card animations; enhance hover effects and adjust expand/collapse durations" />
   </component>
 </project>
