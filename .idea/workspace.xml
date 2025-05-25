@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6f94096a-8f21-4170-a76e-4c2b50d8bf02" name="Changes" comment="refactor card animations; enhance hover effects and adjust expand/collapse durations">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/utils/Animations/DialogAnimationHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/utils/Animations/DialogAnimationHelper.java" afterDir="false" />
-    </list>
+    <list default="true" id="6f94096a-8f21-4170-a76e-4c2b50d8bf02" name="Changes" comment="refactor dialog animations; optimize show/hide durations and improve layout positioning" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -272,7 +269,7 @@
       <workItem from="1748065596581" duration="2922000" />
       <workItem from="1748068591542" duration="206000" />
       <workItem from="1748120627903" duration="19668000" />
-      <workItem from="1748144938209" duration="2890000" />
+      <workItem from="1748144938209" duration="3292000" />
     </task>
     <task id="LOCAL-00001" summary="initialize project structure with basic JavaFX application and Gradle setup">
       <option name="closed" value="true" />
@@ -482,7 +479,15 @@
       <option name="project" value="LOCAL" />
       <updated>1748147353365</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="refactor dialog animations; optimize show/hide durations and improve layout positioning">
+      <option name="closed" value="true" />
+      <created>1748147960638</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1748147960638</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -534,6 +539,7 @@
     <MESSAGE value="add database connection and refactor services; implement movie card animations and overlay functionality" />
     <MESSAGE value="refactor card animations; adjust expand/collapse durations and improve fade transitions" />
     <MESSAGE value="refactor card animations; enhance hover effects and adjust expand/collapse durations" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactor card animations; enhance hover effects and adjust expand/collapse durations" />
+    <MESSAGE value="refactor dialog animations; optimize show/hide durations and improve layout positioning" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor dialog animations; optimize show/hide durations and improve layout positioning" />
   </component>
 </project>
