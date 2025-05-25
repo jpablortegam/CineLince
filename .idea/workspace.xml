@@ -4,7 +4,46 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6f94096a-8f21-4170-a76e-4c2b50d8bf02" name="Changes" comment="refactor dialog animations; optimize show/hide durations and improve layout positioning" />
+    <list default="true" id="6f94096a-8f21-4170-a76e-4c2b50d8bf02" name="Changes" comment="refactor dialog animations; optimize show/hide durations and update task management">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/DAO/CineDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/DAO/FuncionDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/DAO/impl/CineDAOImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/DAO/impl/FuncionDAOImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/DAO/impl/PeliculaDAOImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/model/Actor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/model/Asiento.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/model/Boleto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/model/CategoriaProducto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/model/Cine.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/model/Cliente.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/model/DTO/FuncionDetallada.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/model/DetalleVenta.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/model/Director.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/model/Empleado.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/model/Estudio.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/model/Funcion.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/model/Membresia.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/model/Pelicula.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/model/PeliculaActor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/model/Producto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/model/Promocion.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/model/Sala.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/model/TipoPelicula.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/model/Venta.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/images/posters/roma.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/images/posters/spiderman_spiderverse.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/CardMovieViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/CardMovieViewController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/HomeViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/HomeViewController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/MainViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/MainViewController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/UpcomingViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/UpcomingViewController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/database/MovieService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/services/MovieService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/model/Movie.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/model/Movie.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/cinelinces/home-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/cinelinces/home-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/cinelinces/upcoming-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/cinelinces/upcoming-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/images/posters/placeholder.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/images/placeholder.png" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -93,41 +132,43 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Gradle.CineLinces [:com.example.cinelinces.HelloApplication.main()].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.CineLinces [assemble].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.CineLinces [build].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.CineLinces [run].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.Download Sources.executor&quot;: &quot;Run&quot;,
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;Notification.DisplayName-DoNotAsk-Settings Error&quot;: &quot;Could not save settings&quot;,
-    &quot;Notification.DoNotAsk-Settings Error&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;ignore.preview.features.used&quot;: &quot;true&quot;,
-    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
-    &quot;last_directory_selection&quot;: &quot;C:/Users/juanp/IdeaProjects/CineLinces/src/main/java/com/example/cinelinces&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/juanp/IdeaProjects/CineLinces/src/main/resources/com/example/images/posters&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Gradle.CineLinces [:com.example.cinelinces.HelloApplication.main()].executor": "Run",
+    "Gradle.CineLinces [assemble].executor": "Run",
+    "Gradle.CineLinces [build].executor": "Run",
+    "Gradle.CineLinces [run].executor": "Run",
+    "Gradle.Download Sources.executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "Notification.DisplayName-DoNotAsk-Settings Error": "Could not save settings",
+    "Notification.DoNotAsk-Settings Error": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "dart.analysis.tool.window.visible": "false",
+    "git-widget-placeholder": "master",
+    "ignore.preview.features.used": "true",
+    "junie.onboarding.icon.badge.shown": "true",
+    "last_directory_selection": "C:/Users/juanp/IdeaProjects/CineLinces/src/main/java/com/example/cinelinces",
+    "last_opened_file_path": "C:/Users/juanp/IdeaProjects/CineLinces/src/main/resources/com/example/images/posters",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Libraries",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "show.migrate.to.gradle.popup": "false",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\juanp\IdeaProjects\CineLinces\src\main\resources\com\example\images\posters" />
+      <recent name="C:\Users\juanp\IdeaProjects\CineLinces\src\main\resources\com\example\images" />
+      <recent name="C:\Users\juanp\IdeaProjects\CineLinces\src" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\juanp\IdeaProjects\CineLinces\src\main\resources\com\example\cinelinces\images" />
@@ -269,7 +310,8 @@
       <workItem from="1748065596581" duration="2922000" />
       <workItem from="1748068591542" duration="206000" />
       <workItem from="1748120627903" duration="19668000" />
-      <workItem from="1748144938209" duration="3292000" />
+      <workItem from="1748144938209" duration="10144000" />
+      <workItem from="1748159076179" duration="2585000" />
     </task>
     <task id="LOCAL-00001" summary="initialize project structure with basic JavaFX application and Gradle setup">
       <option name="closed" value="true" />
@@ -487,7 +529,15 @@
       <option name="project" value="LOCAL" />
       <updated>1748147960638</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="refactor dialog animations; optimize show/hide durations and update task management">
+      <option name="closed" value="true" />
+      <created>1748148443989</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1748148443989</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -540,6 +590,7 @@
     <MESSAGE value="refactor card animations; adjust expand/collapse durations and improve fade transitions" />
     <MESSAGE value="refactor card animations; enhance hover effects and adjust expand/collapse durations" />
     <MESSAGE value="refactor dialog animations; optimize show/hide durations and improve layout positioning" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactor dialog animations; optimize show/hide durations and improve layout positioning" />
+    <MESSAGE value="refactor dialog animations; optimize show/hide durations and update task management" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor dialog animations; optimize show/hide durations and update task management" />
   </component>
 </project>

@@ -2,6 +2,7 @@ package com.example.cinelinces.model;
 
 import javafx.scene.image.Image;
 
+import java.util.Collection;
 import java.util.List;
 
 public class Movie {
@@ -95,7 +96,7 @@ public class Movie {
         return posterUrl;
     }
 
-    public List<String> getGenre() {
+    public Collection<String> getGenre() {
         return genre;
     }
     public void setGenre(List<String> genre) {

@@ -42,8 +42,8 @@ dependencies {
 
     //DotEnv
     implementation("io.github.cdimascio:dotenv-java:3.0.0")
-
-
+    //JDBC de MySQL
+    implementation("mysql:mysql-connector-java:8.0.32")
 
 }
 
