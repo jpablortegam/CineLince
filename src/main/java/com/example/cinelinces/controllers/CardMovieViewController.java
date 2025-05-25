@@ -4,7 +4,8 @@ import com.example.cinelinces.model.Movie;
 import com.example.cinelinces.utils.Animations.CardAnimationHelper;
 import com.example.cinelinces.utils.Animations.DialogAnimationHelper;
 import com.example.cinelinces.utils.Animations.OverlayHelper;
-import javafx.animation.*;
+import javafx.animation.FadeTransition;
+import javafx.animation.ParallelTransition;
 import javafx.fxml.FXML;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
@@ -25,175 +26,199 @@ public class CardMovieViewController {
     @FXML private Label title;
     @FXML private Label subtitle;
 
-    private Pane parentContainer; // Este es el FlowPane o el contenedor original de la tarjeta
+    private Pane parentContainer;
     private Pane overlayPane;
-    private StackPane rootStack; // Necesitamos el rootStack para aplicar el blur
+    private StackPane rootStack;
     private OverlayHelper overlayHelper;
-    private DialogAnimationHelper dialogAnimationHelper; // Necesitamos esto para el blur
+    private DialogAnimationHelper dialogAnimationHelper;
     private Region placeholder;
-    private double origX, origY; // Posición original en coordenadas de la escena
-    private double currentXInOverlay, currentYInOverlay; // Posición de la tarjeta en el overlay al momento de expandir
+    private double origX, origY; // Posición original de la tarjeta en coordenadas de la escena
+    private double currentXInOverlay, currentYInOverlay; // Posición layout de la tarjeta cuando está en el overlay
     private boolean isExpanded = false, isAnimating = false;
     private static CardMovieViewController currentlyExpanded = null;
 
-    private static final Duration HOVER_D = Duration.millis(200);
-    private static final Duration FADE_INFO_D = Duration.millis(200);
+    private static final Duration HOVER_CARD_DURATION = Duration.millis(200);
+    private static final Duration FADE_INFO_DURATION = Duration.millis(200);
 
     public void initContext(Pane parentContainer, Pane overlayPane, StackPane rootStack, DialogAnimationHelper dialogAnimationHelper) {
         this.parentContainer = parentContainer;
         this.overlayPane = overlayPane;
         this.rootStack = rootStack;
         this.overlayHelper = new OverlayHelper(overlayPane);
-        this.dialogAnimationHelper = dialogAnimationHelper; // Inyectamos el dialogAnimationHelper
+        this.dialogAnimationHelper = dialogAnimationHelper;
 
-        this.overlayHelper.getOverlay()
-                .setOnMouseClicked(e -> {
-                    if (isExpanded && !isAnimating) collapseCard();
-                });
+        // Click en el overlay para colapsar la tarjeta expandida
+        this.overlayHelper.getOverlay().setOnMouseClicked(e -> {
+            if (isExpanded && !isAnimating && currentlyExpanded == this) {
+                // Llama a onCardClick (que a su vez llamará a collapseCard si está expandida)
+                // El MouseEvent es null porque es una acción programática
+                onCardClick(null);
+            }
+        });
 
-        cardRoot.setEffect(new DropShadow(8, 0, 2, Color.rgb(0, 0, 0, 0.15)));
+        // Sombra inicial sutil para la tarjeta
+        cardRoot.setEffect(new DropShadow(CardAnimationHelper.SUBTLE_SHADOW_RADIUS, 0, CardAnimationHelper.SUBTLE_SHADOW_OFFSETY, CardAnimationHelper.SUBTLE_SHADOW_COLOR));
     }
 
     @FXML
     void onCardHover(MouseEvent e) {
         if (isExpanded || isAnimating || (currentlyExpanded != null && currentlyExpanded != this)) return;
-        CardAnimationHelper.hoverIn(cardRoot, HOVER_D).play();
+        CardAnimationHelper.hoverIn(cardRoot, HOVER_CARD_DURATION).play();
     }
 
     @FXML
     void onCardHoverExit(MouseEvent e) {
         if (isExpanded || isAnimating || (currentlyExpanded != null && currentlyExpanded != this)) return;
-        CardAnimationHelper.hoverOut(cardRoot, HOVER_D).play();
+        CardAnimationHelper.hoverOut(cardRoot, HOVER_CARD_DURATION).play();
     }
 
     @FXML
-    void onCardClick(MouseEvent e) {
+    void onCardClick(MouseEvent e) { // e puede ser null si es llamado programáticamente
         if (isAnimating) return;
-        if (!isExpanded && currentlyExpanded != null && currentlyExpanded != this) return;
+        if (!isExpanded && currentlyExpanded != null && currentlyExpanded != this) {
+            // Hay otra tarjeta expandida, no hacer nada con esta.
+            return;
+        }
 
-        isAnimating = true;
-        if (!isExpanded) expandCard();
-        else collapseCard();
+        isAnimating = true; // Bloquear interacciones múltiples
+        if (!isExpanded) {
+            expandCard();
+        } else {
+            collapseCard();
+        }
     }
 
     private void expandCard() {
-        currentlyExpanded = this;
+        currentlyExpanded = this; // Marcar esta tarjeta como la expandida
+        performFadeTransition(textContainer, detailsPane); // Cambiar contenido interno
 
-        // 1) Ocultar el texto original y mostrar los detalles
-        FadeTransition(textContainer, detailsPane);
-
-        // 2) blur fondo
+        // Efectos de fondo
         dialogAnimationHelper.blurBackgroundIn(CardAnimationHelper.EXPAND_DURATION.multiply(0.8), 8).play();
         overlayHelper.show(CardAnimationHelper.EXPAND_DURATION.multiply(0.8), 0.4, CardAnimationHelper.SMOOTH);
 
+        // Guardar posición original y crear placeholder
+        Bounds cardBoundsInScene = cardRoot.localToScene(cardRoot.getBoundsInLocal());
+        origX = cardBoundsInScene.getMinX();
+        origY = cardBoundsInScene.getMinY();
 
-        // 3) placeholder + mover al overlay
-        Bounds b = cardRoot.localToScene(cardRoot.getBoundsInLocal());
-        origX = b.getMinX();
-        origY = b.getMinY();
         placeholder = new Region();
         placeholder.setPrefSize(cardRoot.getWidth(), cardRoot.getHeight());
-        int idx = parentContainer.getChildren().indexOf(cardRoot);
-        parentContainer.getChildren().add(Math.max(idx, 0), placeholder);
-        parentContainer.getChildren().remove(cardRoot);
+        placeholder.setMinSize(Region.USE_PREF_SIZE, Region.USE_PREF_SIZE);
+        placeholder.setMaxSize(Region.USE_PREF_SIZE, Region.USE_PREF_SIZE);
 
-        Point2D pt = overlayPane.sceneToLocal(origX, origY);
-        cardRoot.setLayoutX(pt.getX());
-        cardRoot.setLayoutY(pt.getY());
-        currentXInOverlay = pt.getX(); // Guardamos la posición inicial en el overlay
-        currentYInOverlay = pt.getY(); // Guardamos la posición inicial en el overlay
+        // Mover tarjeta del parentContainer al overlayPane
+        // Asegurarse de que la tarjeta no esté ya en el overlayPane (defensivo)
+        if (cardRoot.getParent() == overlayPane) {
+            overlayPane.getChildren().remove(cardRoot);
+        }
+        // Remover de parentContainer si es su padre actual
+        if (cardRoot.getParent() == parentContainer) {
+            int idx = parentContainer.getChildren().indexOf(cardRoot);
+            parentContainer.getChildren().remove(cardRoot);
+            parentContainer.getChildren().add(Math.max(idx, 0), placeholder);
+        } else if (cardRoot.getParent() != null) { // Si tiene otro padre, remover
+            ((Pane)cardRoot.getParent()).getChildren().remove(cardRoot);
+        }
 
-        cardRoot.setOpacity(0); // Start with opacity 0 for the fade-in effect
-        overlayPane.getChildren().add(cardRoot);
 
-        // 4) Z-order: la tarjeta debe estar encima del overlay y cualquier otro diálogo
-        overlayHelper.getOverlay().toFront();
-        cardRoot.toFront();
+        Point2D cardPositionInOverlay = overlayPane.sceneToLocal(origX, origY);
+        cardRoot.setLayoutX(cardPositionInOverlay.getX());
+        cardRoot.setLayoutY(cardPositionInOverlay.getY());
+        currentXInOverlay = cardPositionInOverlay.getX(); // Guardar para el colapso (aunque no se usa activamente)
+        currentYInOverlay = cardPositionInOverlay.getY(); // Guardar para el colapso (aunque no se usa activamente)
+
+        cardRoot.setOpacity(0); // Inicia invisible para el fadeIn
+        if (!overlayPane.getChildren().contains(cardRoot)) { // Añadir al overlay solo si no está ya
+            overlayPane.getChildren().add(cardRoot);
+        }
 
 
-        // 5) calcular la posición final centrada y escala
-        double cardWidth = cardRoot.prefWidth(-1);
-        double cardHeight = cardRoot.prefHeight(-1);
+        overlayHelper.getOverlay().toFront(); // Overlay semitransparente
+        cardRoot.toFront(); // Tarjeta encima del overlay
 
-        double expandedWidth = cardWidth * 1.5;
-        double expandedHeight = cardHeight * 2.5;
+        // Calcular transformación para centrar y escalar
+        double cardOriginalWidth = cardRoot.getWidth();
+        double cardOriginalHeight = cardRoot.getHeight();
 
-        double finalScaleX = expandedWidth / cardWidth;
-        double finalScaleY = expandedHeight / cardHeight;
+        double targetScaleXFactor = 1.5;
+        double targetScaleYFactor = 2.0;
 
-        double finalX = (overlayPane.getWidth() - expandedWidth) / 2;
-        double finalY = (overlayPane.getHeight() - expandedHeight) / 2;
+        if (cardOriginalWidth <= 0) cardOriginalWidth = 150; // Fallback razonable
+        if (cardOriginalHeight <= 0) cardOriginalHeight = 225; // Fallback razonable
 
-        double moveX = finalX - pt.getX();
-        double moveY = finalY - pt.getY();
+        double expandedVisualWidth = cardOriginalWidth * targetScaleXFactor;
+        double expandedVisualHeight = cardOriginalHeight * targetScaleYFactor;
 
-        // 6) ejecutar expansión
+        double finalCenteredLayoutX = (overlayPane.getWidth() - expandedVisualWidth) / 2;
+        double finalCenteredLayoutY = (overlayPane.getHeight() - expandedVisualHeight) / 2;
+
+        // deltaX/Y son para la TranslateTransition, desde su layoutX/Y actual en el overlay
+        double deltaX = finalCenteredLayoutX - cardRoot.getLayoutX();
+        double deltaY = finalCenteredLayoutY - cardRoot.getLayoutY();
+
         ParallelTransition exp = CardAnimationHelper.expand(
-                cardRoot, overlayPane, moveX, moveY, finalScaleX, finalScaleY
+                cardRoot, overlayPane, deltaX, deltaY, targetScaleXFactor, targetScaleYFactor
         );
-        exp.setOnFinished(e -> {
-            isAnimating = false;
-            cardRoot.setOnMouseEntered(null);
+        exp.setOnFinished(event -> {
+            isAnimating = false; // Animación de expansión terminada
+            isExpanded = true;   // Estado actualizado
+            cardRoot.setOnMouseEntered(null); // Deshabilitar hover mientras está expandida
             cardRoot.setOnMouseExited(null);
-            cardRoot.setOpacity(1);
         });
         exp.play();
-        isExpanded = true;
     }
 
     private void collapseCard() {
-        // 1) Ocultar los detalles y mostrar el texto original
-        FadeTransition(detailsPane, textContainer);
+        performFadeTransition(detailsPane, textContainer); // Revertir contenido
 
+        // Restaurar handlers de hover
         cardRoot.setOnMouseEntered(this::onCardHover);
         cardRoot.setOnMouseExited(this::onCardHoverExit);
 
-        // 2) blur out y ocultar overlay
-        overlayHelper.hide(CardAnimationHelper.COLLAPSE_DURATION.multiply(0.8), CardAnimationHelper.SMOOTH, () -> {
-        });
+        // Efectos de fondo
+        overlayHelper.hide(CardAnimationHelper.COLLAPSE_DURATION.multiply(0.8), CardAnimationHelper.SMOOTH, () -> {});
         dialogAnimationHelper.blurBackgroundOut(CardAnimationHelper.COLLAPSE_DURATION.multiply(0.8)).play();
 
+        // Sombra final para la tarjeta colapsada
+        DropShadow subtleShadow = new DropShadow(CardAnimationHelper.SUBTLE_SHADOW_RADIUS, 0, CardAnimationHelper.SUBTLE_SHADOW_OFFSETY, CardAnimationHelper.SUBTLE_SHADOW_COLOR);
 
-        // 3) colapsar y reinsertar
         ParallelTransition col = CardAnimationHelper.collapse(
-                cardRoot, overlayPane, placeholder, currentXInOverlay, currentYInOverlay, // Pasamos la posición inicial en el overlay
-                (DropShadow) cardRoot.getEffect()
+                cardRoot,
+                overlayPane,
+                parentContainer,
+                placeholder,
+                currentXInOverlay, // No se usa activamente si la traslación es a (0,0)
+                currentYInOverlay, // No se usa activamente si la traslación es a (0,0)
+                subtleShadow,
+                () -> { // Callback ejecutado DESPUÉS de todas las operaciones de UI en collapse
+                    this.placeholder = null; // Limpiar referencia
+                    CardMovieViewController.currentlyExpanded = null; // Ya no hay tarjeta expandida
+                    this.isAnimating = false; // Animación de colapso completada
+                    this.isExpanded = false;  // Estado actualizado
+                }
         );
-        col.setOnFinished(e -> {
-            placeholder = null;
-            currentlyExpanded = null;
-            isAnimating = false;
-            isExpanded = false;
-        });
         col.play();
     }
 
-    private void FadeTransition(VBox nodeToFadeOut, VBox nodeToFadeIn) {
-        FadeTransition fadeOut = new FadeTransition(FADE_INFO_D, nodeToFadeOut);
-        fadeOut.setToValue(0.0);
-        fadeOut.setOnFinished(e -> {
+    private void performFadeTransition(VBox nodeToFadeOut, VBox nodeToFadeIn) {
+        FadeTransition fadeOutTransition = new FadeTransition(FADE_INFO_DURATION, nodeToFadeOut);
+        fadeOutTransition.setToValue(0.0);
+        fadeOutTransition.setOnFinished(e -> {
             nodeToFadeOut.setVisible(false);
             nodeToFadeOut.setManaged(false);
 
             nodeToFadeIn.setVisible(true);
             nodeToFadeIn.setManaged(true);
-            FadeTransition fadeIn = new FadeTransition(FADE_INFO_D, nodeToFadeIn);
-            fadeIn.setFromValue(0.0);
-            fadeIn.setToValue(1.0);
-            fadeIn.play();
+            FadeTransition fadeInTransition = new FadeTransition(FADE_INFO_DURATION, nodeToFadeIn);
+            fadeInTransition.setFromValue(0.0);
+            fadeInTransition.setToValue(1.0);
+            fadeInTransition.play();
         });
-        fadeOut.play();
+        fadeOutTransition.play();
     }
 
     public void setMovieData(Movie movie) {
         title.setText(movie.getTitle());
         subtitle.setText("(" + movie.getYear() + ") • " + movie.getDuration() + " min");
-        // Asegúrate de que los Labels para detalles también estén inicializados si no lo están ya
-        // Por ejemplo:
-        // synopsisLabel.setText(movie.getSynopsis());
-        // durationLabel.setText("⏱️ Duración: " + movie.getDuration() + " min");
-        // genreLabel.setText("🎭 Género: " + movie.getGenre());
-        // yearLabel.setText("📅 Año: " + movie.getYear());
-        // castLabel.setText("⭐ " + String.join(", ", movie.getCast()));
     }
 }
