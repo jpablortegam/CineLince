@@ -7,7 +7,7 @@
 <VBox id="sidebar" fx:id="sidebar" minWidth="228" prefHeight="364.0" prefWidth="264.0" spacing="8"
        xmlns="http://javafx.com/javafx/17.0.6"
       stylesheets="@/com/example/styles/components/sidebar.css"
-      xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cinelinces.controllers.SideBarController">
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cinelinces.controllers.SideBarViewController">
 
     <padding>
         <Insets bottom="24" left="24" right="24" top="24" />

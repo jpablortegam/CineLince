@@ -8,30 +8,26 @@
 <VBox fx:id="cardRoot"
       xmlns="http://javafx.com/javafx/17.0.12"
       xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.example.cinelinces.controllers.MovieCardViewController"
+      fx:controller="com.example.cinelinces.controllers.CardMovieViewController"
       styleClass="movie-card"
       spacing="8"
       alignment="TOP_CENTER"
       onMouseClicked="#onCardClick"
       onMouseEntered="#onCardHover"
-      onMouseExited="#onCardHoverExit">
+      onMouseExited="#onCardHoverExit"
+      prefWidth="340"  prefHeight="220"> <StackPane styleClass="image-container">
+    <ImageView fx:id="poster"
+               styleClass="movie-image"
+               fitWidth="320"
+               preserveRatio="true"
+               smooth="true"
+               cache="true"/>
+</StackPane>
 
-    <!-- Contenedor de imagen con efecto de clip -->
-    <StackPane styleClass="image-container">
-        <ImageView fx:id="poster"
-                   styleClass="movie-image"
-                   fitWidth="320"
-                   preserveRatio="true"
-                   smooth="true"
-                   cache="true"/>
-    </StackPane>
-
-    <!-- Padding interno -->
     <padding>
         <Insets top="12" right="12" bottom="12" left="12"/>
     </padding>
 
-    <!-- Bloque de texto principal -->
     <VBox styleClass="text-container"
           spacing="4"
           alignment="CENTER">
@@ -45,9 +41,7 @@
                text="(2025) • 120 min"/>
     </VBox>
 
-    <!-- Detalles con estructura optimizada para animación escalonada -->
-    <VBox fx:id="detailsPane"
-          styleClass="detail-container"
+    <VBox fx:id="detailsPane" styleClass="detail-container"
           spacing="8"
           alignment="CENTER"
           visible="false"
@@ -55,7 +49,6 @@
           opacity="0.0"
           maxWidth="280">
 
-        <!-- Sinopsis -->
         <VBox styleClass="detail-section" spacing="2">
             <Label styleClass="detail-header" text="Sinopsis"/>
             <Label fx:id="synopsisLabel"
@@ -65,7 +58,6 @@
                    text="Una emocionante historia que captura la esencia del cine moderno..."/>
         </VBox>
 
-        <!-- Información técnica -->
         <VBox styleClass="detail-section" spacing="2">
             <Label styleClass="detail-header" text="Información"/>
             <Label fx:id="durationLabel"
@@ -79,7 +71,6 @@
                    text="📅 Año: 2025"/>
         </VBox>
 
-        <!-- Reparto -->
         <VBox styleClass="detail-section" spacing="2">
             <Label styleClass="detail-header" text="Reparto Principal"/>
             <Label fx:id="castLabel"

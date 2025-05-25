@@ -20,11 +20,6 @@
     -fx-transition-duration: 0.2s;
 }
 
-.movie-card:hover {
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.16), 14, 0.4, 0, 8);
-    -fx-scale-x: 1.02;  /* hover más sutil por tarjeta ancha */
-    -fx-scale-y: 1.02;
-}
 
 /* Imagen */
 .movie-image {

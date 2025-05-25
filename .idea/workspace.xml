@@ -4,10 +4,42 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6f94096a-8f21-4170-a76e-4c2b50d8bf02" name="Changes" comment="add movie card animations and details; implement hover effects and expand/collapse functionality">
+    <list default="true" id="6f94096a-8f21-4170-a76e-4c2b50d8bf02" name="Changes" comment="add movie card functionality; implement dynamic scaling, hover effects, and expand/collapse animations">
+      <change afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/DAO/GenericDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/CardMovieViewController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/database/MySQLConnection.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/services/AuthService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/utils/Animations/AnimationUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/utils/Animations/BlurUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/utils/Animations/CardAnimationHelper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/utils/Animations/OverlayHelper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/utils/Animations/TabAnimationHelper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/utils/Animations/TransitionFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/utils/Forms/AlertUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/utils/Forms/EnterKeyUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/utils/Forms/FormValidator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/utils/Forms/PreferencesUtil.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/HelloApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/HelloApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/DialogPaneController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/DialogPaneViewController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/HomeViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/HomeViewController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/MovieCardViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/MovieCardViewController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/LoginViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/LoginViewController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/MainViewController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/MovieCardViewController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/SideBarController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/SideBarViewController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/services/MovieService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/database/MovieService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/utils/AnimationCardMovie.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/utils/ButtonHoverAnimator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/utils/Animations/ButtonHoverAnimator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/utils/DialogAnimationHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/utils/Animations/DialogAnimationHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/cinelinces/dialogPane.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/cinelinces/dialogPane-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/cinelinces/login-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/cinelinces/login-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/cinelinces/main-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/cinelinces/main-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/cinelinces/movieCard.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/cinelinces/cardMovie-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/cinelinces/sidebar-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/cinelinces/sidebar-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/styles/components/movie-card.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/styles/components/movie-card.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -140,6 +172,10 @@
       <recent name="C:\Users\juanp\IdeaProjects\CineLinces\src\main\resources\com\example\cinelinces\Views" />
       <recent name="C:\Users\juanp\IdeaProjects\CineLinces\src\main\resources\Views" />
     </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.example.cinelinces.database" />
+      <recent name="com.example.cinelinces.DAO" />
+    </key>
   </component>
   <component name="RunManager" selected="Application.HelloApplication">
     <configuration name="HelloApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
@@ -266,7 +302,9 @@
       <workItem from="1747957607431" duration="217000" />
       <workItem from="1747967014794" duration="6903000" />
       <workItem from="1748044149351" duration="7398000" />
-      <workItem from="1748065596581" duration="1784000" />
+      <workItem from="1748065596581" duration="2922000" />
+      <workItem from="1748068591542" duration="206000" />
+      <workItem from="1748120627903" duration="16234000" />
     </task>
     <task id="LOCAL-00001" summary="initialize project structure with basic JavaFX application and Gradle setup">
       <option name="closed" value="true" />
@@ -444,7 +482,15 @@
       <option name="project" value="LOCAL" />
       <updated>1748052395470</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="add movie card functionality; implement dynamic scaling, hover effects, and expand/collapse animations">
+      <option name="closed" value="true" />
+      <created>1748067452876</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1748067452876</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -492,6 +538,7 @@
     <MESSAGE value="add login view and controller; implement form validation and animations" />
     <MESSAGE value="enhance login view styles; remove scroll arrows and improve tab hover effects" />
     <MESSAGE value="add movie card animations and details; implement hover effects and expand/collapse functionality" />
-    <option name="LAST_COMMIT_MESSAGE" value="add movie card animations and details; implement hover effects and expand/collapse functionality" />
+    <MESSAGE value="add movie card functionality; implement dynamic scaling, hover effects, and expand/collapse animations" />
+    <option name="LAST_COMMIT_MESSAGE" value="add movie card functionality; implement dynamic scaling, hover effects, and expand/collapse animations" />
   </component>
 </project>

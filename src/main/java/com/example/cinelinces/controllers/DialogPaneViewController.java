@@ -7,7 +7,7 @@ import javafx.scene.layout.VBox;
 /**
  * Controlador vacío para inyección de IDs del diálogo.
  */
-public class DialogPaneController {
+public class DialogPaneViewController {
     @FXML private VBox dialogPanel;
     @FXML private Button closeBtn;
 

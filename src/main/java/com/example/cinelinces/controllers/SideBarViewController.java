@@ -4,15 +4,15 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 
-public class SideBarController {
+public class SideBarViewController {
     @FXML
     public VBox sidebar;  // tu contenedor
     @FXML private Button btnEstrenos, btnProximamente, btnPopulares, btnMiCuenta;
 
-    private MainController mainController;
+    private MainViewController mainController;
 
-    /** Este setter lo llama MainController.initialize() */
-    public void setMainController(MainController main) {
+    /** Este setter lo llama MainViewController.initialize() */
+    public void setMainController(MainViewController main) {
         this.mainController = main;
 
         // marcamos ya el primer botón

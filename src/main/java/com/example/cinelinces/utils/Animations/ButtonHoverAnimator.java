@@ -1,4 +1,4 @@
-package com.example.cinelinces.utils;
+package com.example.cinelinces.utils.Animations;
 
 import javafx.animation.Interpolator;
 import javafx.animation.ScaleTransition;

@@ -40,6 +40,10 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
 
+    //DotEnv
+    implementation("io.github.cdimascio:dotenv-java:3.0.0")
+
+
 
 }
 

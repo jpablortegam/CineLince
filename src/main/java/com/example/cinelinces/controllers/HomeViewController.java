@@ -2,15 +2,12 @@
 package com.example.cinelinces.controllers;
 
 import com.example.cinelinces.model.Movie;
-import com.example.cinelinces.services.MovieService;
-import com.example.cinelinces.utils.ButtonHoverAnimator;
-import com.example.cinelinces.utils.DialogAnimationHelper;
+import com.example.cinelinces.database.MovieService;
+import com.example.cinelinces.utils.Animations.ButtonHoverAnimator;
+import com.example.cinelinces.utils.Animations.DialogAnimationHelper;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.BoundingBox;
-import javafx.geometry.Bounds;
-import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.*;
@@ -29,7 +26,7 @@ public class HomeViewController implements Initializable {
     @FXML private Button btnVerTodas;
 
     private final MovieService movieService = new MovieService();
-    private List<com.example.cinelinces.controllers.MovieCardViewController> cardControllers = new ArrayList<>();
+    private List<CardMovieViewController> cardControllers = new ArrayList<>();
     private DialogAnimationHelper dialogHelper;
     private Node dialogPanel;
 
@@ -41,10 +38,10 @@ public class HomeViewController implements Initializable {
         // Cargar diálogo FXML y obtener el VBox como panel a animar
         try {
             FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource("/com/example/cinelinces/dialogPane.fxml")
+                    getClass().getResource("/com/example/cinelinces/dialogPane-view.fxml")
             );
             AnchorPane root = loader.load();
-            DialogPaneController dlgCtrl = loader.getController();
+            DialogPaneViewController dlgCtrl = loader.getController();
             VBox panel = dlgCtrl.getDialogPanel();
             dialogPanel = panel;
             // oculto al inicio
@@ -57,7 +54,7 @@ public class HomeViewController implements Initializable {
             ButtonHoverAnimator.applyHoverEffect(closeBtn);
             closeBtn.setOnAction(e -> dialogHelper.hideDialog(panel, btnVerHorarios));
         } catch (Exception e) {
-            throw new RuntimeException("No se pudo cargar dialogPane.fxml", e);
+            throw new RuntimeException("No se pudo cargar dialogPane-view.fxml", e);
         }
 
         // acción de mostrar diálogo animado
@@ -73,11 +70,11 @@ public class HomeViewController implements Initializable {
         for (Movie movie : upcoming) {
             try {
                 FXMLLoader loader = new FXMLLoader(
-                        getClass().getResource("/com/example/cinelinces/movieCard.fxml")
+                        getClass().getResource("/com/example/cinelinces/cardMovie-view.fxml")
                 );
                 Node cardNode = loader.load();
 
-                MovieCardViewController ctrl = loader.getController();
+                CardMovieViewController ctrl = loader.getController();
                 ctrl.setMovieData(movie);
                 // Inicializar contexto para expansión con blur
                 ctrl.initContext(upcomingPane, overlayPane);
@@ -94,29 +91,5 @@ public class HomeViewController implements Initializable {
                 e.printStackTrace();
             }
         }
-    }
-
-    // Método para obtener las dimensiones del área visible real
-    public Bounds getVisibleContentBounds() {
-        // Obtener las dimensiones reales del StackPane excluyendo padding/insets
-        Insets insets = rootStack.getInsets();
-        double contentWidth = rootStack.getWidth() - insets.getLeft() - insets.getRight();
-        double contentHeight = rootStack.getHeight() - insets.getTop() - insets.getBottom();
-
-        return new BoundingBox(
-                insets.getLeft(),
-                insets.getTop(),
-                contentWidth,
-                contentHeight
-        );
-    }
-
-    // Método para configurar las MovieCards con las dimensiones correctas
-    public void configureMovieCard(MovieCardViewController movieCard, Pane parentContainer, Pane overlayPane) {
-        movieCard.initContext(parentContainer, overlayPane);
-
-        // Pasar las dimensiones reales para cálculos de centrado
-        Bounds contentBounds = getVisibleContentBounds();
-        movieCard.setOverlayDimensions(contentBounds.getWidth(), contentBounds.getHeight());
     }
 }

@@ -1,4 +1,4 @@
-package com.example.cinelinces.services;
+package com.example.cinelinces.database;
 
 import com.example.cinelinces.model.Movie;
 

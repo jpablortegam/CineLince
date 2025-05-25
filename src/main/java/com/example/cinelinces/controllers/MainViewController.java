@@ -11,7 +11,7 @@ import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-public class MainController implements Initializable {
+public class MainViewController implements Initializable {
     @FXML private BorderPane rootPane;
     @FXML private BorderPane contentArea;
 
