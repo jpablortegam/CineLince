@@ -4,45 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6f94096a-8f21-4170-a76e-4c2b50d8bf02" name="Changes" comment="refactor dialog animations; optimize show/hide durations and update task management">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/DAO/CineDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/DAO/FuncionDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/DAO/impl/CineDAOImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/DAO/impl/FuncionDAOImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/DAO/impl/PeliculaDAOImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/model/Actor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/model/Asiento.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/model/Boleto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/model/CategoriaProducto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/model/Cine.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/model/Cliente.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/model/DTO/FuncionDetallada.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/model/DetalleVenta.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/model/Director.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/model/Empleado.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/model/Estudio.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/model/Funcion.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/model/Membresia.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/model/Pelicula.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/model/PeliculaActor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/model/Producto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/model/Promocion.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/model/Sala.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/model/TipoPelicula.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/model/Venta.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/images/posters/roma.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/images/posters/spiderman_spiderverse.jpg" afterDir="false" />
+    <list default="true" id="6f94096a-8f21-4170-a76e-4c2b50d8bf02" name="Changes" comment="add detailed README for CineLinces application; include project overview, features, technologies, and setup instructions">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/CardMovieViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/CardMovieViewController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/HomeViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/HomeViewController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/MainViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/MainViewController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/UpcomingViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/UpcomingViewController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/database/MovieService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/services/MovieService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/model/Movie.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/model/Movie.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/cinelinces/home-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/cinelinces/home-view.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/cinelinces/upcoming-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/cinelinces/upcoming-view.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/images/posters/placeholder.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/images/placeholder.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -162,6 +126,11 @@
     "settings.editor.selected.configurable": "preferences.pluginManager",
     "show.migrate.to.gradle.popup": "false",
     "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mariadb"
+    ]
   }
 }]]></component>
   <component name="RecentsManager">
@@ -171,11 +140,11 @@
       <recent name="C:\Users\juanp\IdeaProjects\CineLinces\src" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\juanp\IdeaProjects\CineLinces\src\main\resources\com\example\images" />
       <recent name="C:\Users\juanp\IdeaProjects\CineLinces\src\main\resources\com\example\cinelinces\images" />
       <recent name="C:\Users\juanp\IdeaProjects\CineLinces\src\main\resources\com\example" />
       <recent name="C:\Users\juanp\IdeaProjects\CineLinces\src\main\resources\com\example\cinelinces" />
       <recent name="C:\Users\juanp\IdeaProjects\CineLinces\src\main\resources\com\example\cinelinces\Views" />
-      <recent name="C:\Users\juanp\IdeaProjects\CineLinces\src\main\resources\Views" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.example.cinelinces.database" />
@@ -311,7 +280,8 @@
       <workItem from="1748068591542" duration="206000" />
       <workItem from="1748120627903" duration="19668000" />
       <workItem from="1748144938209" duration="10144000" />
-      <workItem from="1748159076179" duration="2585000" />
+      <workItem from="1748159076179" duration="2897000" />
+      <workItem from="1748162326939" duration="607000" />
     </task>
     <task id="LOCAL-00001" summary="initialize project structure with basic JavaFX application and Gradle setup">
       <option name="closed" value="true" />
@@ -537,7 +507,15 @@
       <option name="project" value="LOCAL" />
       <updated>1748148443989</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="add model and DAO classes for cinema application; implement Actor, Movie, and related entities">
+      <option name="closed" value="true" />
+      <created>1748161857355</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1748161857355</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -567,7 +545,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="initialize project structure with basic JavaFX application and Gradle setup" />
     <MESSAGE value="add README file with initial greeting" />
     <MESSAGE value="refactor UI layout and add styles for sidebar and main content" />
     <MESSAGE value="refactor UI layout and enhance styles for sidebar and main content" />
@@ -591,6 +568,8 @@
     <MESSAGE value="refactor card animations; enhance hover effects and adjust expand/collapse durations" />
     <MESSAGE value="refactor dialog animations; optimize show/hide durations and improve layout positioning" />
     <MESSAGE value="refactor dialog animations; optimize show/hide durations and update task management" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactor dialog animations; optimize show/hide durations and update task management" />
+    <MESSAGE value="add model and DAO classes for cinema application; implement Actor, Movie, and related entities" />
+    <MESSAGE value="add detailed README for CineLinces application; include project overview, features, technologies, and setup instructions" />
+    <option name="LAST_COMMIT_MESSAGE" value="add detailed README for CineLinces application; include project overview, features, technologies, and setup instructions" />
   </component>
 </project>
