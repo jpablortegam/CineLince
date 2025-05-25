@@ -15,20 +15,22 @@
       onMouseClicked="#onCardClick"
       onMouseEntered="#onCardHover"
       onMouseExited="#onCardHoverExit"
-      prefWidth="340"  prefHeight="220"> <StackPane styleClass="image-container">
-    <ImageView fx:id="poster"
-               styleClass="movie-image"
-               fitWidth="320"
-               preserveRatio="true"
-               smooth="true"
-               cache="true"/>
-</StackPane>
+      prefWidth="340"  prefHeight="220">
+    <StackPane styleClass="image-container">
+        <ImageView fx:id="poster"
+                   styleClass="movie-image"
+                   fitWidth="320"
+                   preserveRatio="true"
+                   smooth="true"
+                   cache="true"/>
+    </StackPane>
 
     <padding>
         <Insets top="12" right="12" bottom="12" left="12"/>
     </padding>
 
-    <VBox styleClass="text-container"
+    <VBox fx:id="textContainer"
+          styleClass="text-container"
           spacing="4"
           alignment="CENTER">
         <Label fx:id="title"
@@ -41,7 +43,8 @@
                text="(2025) • 120 min"/>
     </VBox>
 
-    <VBox fx:id="detailsPane" styleClass="detail-container"
+    <VBox fx:id="detailsPane"
+          styleClass="detail-container"
           spacing="8"
           alignment="CENTER"
           visible="false"

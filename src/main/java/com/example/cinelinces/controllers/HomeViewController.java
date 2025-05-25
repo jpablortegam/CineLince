@@ -1,4 +1,3 @@
-// HomeViewController.java
 package com.example.cinelinces.controllers;
 
 import com.example.cinelinces.model.Movie;
@@ -23,7 +22,6 @@ public class HomeViewController implements Initializable {
     @FXML private Pane overlayPane;
     @FXML private Button btnVerHorarios;
     @FXML private FlowPane upcomingPane;
-    @FXML private Button btnVerTodas;
 
     private final MovieService movieService = new MovieService();
     private List<CardMovieViewController> cardControllers = new ArrayList<>();
@@ -32,6 +30,7 @@ public class HomeViewController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        // Inicializar DialogAnimationHelper
         dialogHelper = new DialogAnimationHelper(rootStack, overlayPane);
         ButtonHoverAnimator.applyHoverEffect(btnVerHorarios);
         loadMovieCards();
@@ -77,12 +76,14 @@ public class HomeViewController implements Initializable {
                 CardMovieViewController ctrl = loader.getController();
                 ctrl.setMovieData(movie);
                 // Inicializar contexto para expansión con blur
-                ctrl.initContext(upcomingPane, overlayPane);
+                // Pasamos rootStack y dialogHelper al CardMovieViewController
+                ctrl.initContext(upcomingPane, overlayPane, rootStack, dialogHelper);
 
-                // Habilitar hover y click handlers
-                cardNode.setOnMouseEntered(ctrl::onCardHover);
-                cardNode.setOnMouseExited(ctrl::onCardHoverExit);
-                cardNode.setOnMouseClicked(ctrl::onCardClick);
+                // Los handlers de mouse ya se definen dentro de CardMovieViewController FXML
+                // Si quieres anularlos o añadir otros aquí, puedes hacerlo.
+                // cardNode.setOnMouseEntered(ctrl::onCardHover);
+                // cardNode.setOnMouseExited(ctrl::onCardHoverExit);
+                // cardNode.setOnMouseClicked(ctrl::onCardClick);
 
                 upcomingPane.getChildren().add(cardNode);
                 cardControllers.add(ctrl);

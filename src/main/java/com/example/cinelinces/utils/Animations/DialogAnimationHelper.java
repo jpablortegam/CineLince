@@ -36,7 +36,7 @@ public class DialogAnimationHelper {
     }
 
     /** Construye y devuelve la animación de difuminado de fondo (blur in). */
-    private ParallelTransition blurBackgroundIn(Duration duration, double toRadius) {
+    public ParallelTransition blurBackgroundIn(Duration duration, double toRadius) {
         ParallelTransition pt = new ParallelTransition();
         for (Node child : rootStack.getChildren()) {
             // excluimos el overlayPane
@@ -50,7 +50,7 @@ public class DialogAnimationHelper {
     }
 
     /** Construye y devuelve la animación de des-difuminado de fondo (blur out). */
-    private ParallelTransition blurBackgroundOut(Duration duration) {
+    public ParallelTransition blurBackgroundOut(Duration duration) {
         ParallelTransition pt = new ParallelTransition();
         for (Node child : rootStack.getChildren()) {
             if (child != overlayHelper.getOverlay().getParent()) {
