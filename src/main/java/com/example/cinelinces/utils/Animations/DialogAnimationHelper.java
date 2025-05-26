@@ -231,10 +231,6 @@ public class DialogAnimationHelper {
             finalDialog.setScaleY(1); // Si el diálogo siempre debe volver a escala 1, ajustar endScaleX/Y.
             finalDialog.setTranslateX(0);
             finalDialog.setTranslateY(0);
-            // El layoutX/Y se establecerá en showDialog la próxima vez que se muestre este diálogo
-            // o si se quiere resetear explícitamente:
-            // finalDialog.setLayoutX(0); // O a una posición inicial por defecto
-            // finalDialog.setLayoutY(0);
         });
         pt.play();
     }

@@ -29,34 +29,28 @@
                     <Insets top="8" bottom="8" left="16" right="16"/>
                 </padding>
                 <Label text="Selecciona un Cine:" styleClass="text-body-strong"/>
-                <ComboBox fx:id="cineComboBox" promptText="Cargando cines..." HBox.hgrow="ALWAYS"/>
+                <ComboBox fx:id="cineComboBox" promptText="Cargando cines..." HBox.hgrow="ALWAYS" styleClass="comboBox"/>
             </HBox>
 
             <VBox styleClass="section-card" spacing="16">
                 <Label styleClass="text-headline" text="Destacados de la semana"/>
-                <StackPane styleClass="featured-banner" minHeight="280">
-                    <ImageView fx:id="featuredImage" />
-                    <Region styleClass="gradient-overlay"
-                            StackPane.alignment="TOP_LEFT"
-                            VBox.vgrow="ALWAYS"
-                            HBox.hgrow="ALWAYS"/>
+                <StackPane fx:id="featuredBannerPane"
+                           styleClass="featured-banner"
+                           minHeight="150" prefHeight="150" maxHeight="150">
+
+                    <ImageView fx:id="featuredImage" preserveRatio="false" />
+                    <Region styleClass="gradient-overlay" StackPane.alignment="TOP_LEFT"/>
 
                     <VBox alignment="BOTTOM_LEFT" spacing="8">
                         <padding>
-                            <Insets bottom="24" left="24"/>
+                            <Insets bottom="16" left="24"/>
                         </padding>
                         <Label fx:id="featuredTitle"
                                styleClass="text-headline"
-                               text="Dune: Parte Dos"/>
+                               text="Título Película"/>
                         <Label fx:id="featuredSubtitle"
                                styleClass="text-body"
-                               text="Una épica aventura de ciencia ficción"/>
-                        <HBox spacing="4" styleClass="star-container">
-                            <ImageView fx:id="ratingIcon" styleClass="star-icon" />
-                            <Label fx:id="ratingLabel"
-                                   styleClass="text-caption"
-                                   text="4.2/5" />
-                        </HBox>
+                               text="Descripción breve de la película"/>
                         <Button fx:id="btnVerHorarios"
                                 styleClass="button-accent"
                                 text="Ver horarios"/>

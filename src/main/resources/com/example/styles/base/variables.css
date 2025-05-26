@@ -1,6 +1,6 @@
 .root {
     /* Colores */
-    -fx-primary: #1a1a1a;
+    -fx-primary: #868686;
     -fx-primary-light: #2d2d2d;
     -fx-secondary: #6366f1;
     -fx-secondary-hover: #5855eb;
@@ -14,7 +14,7 @@
     -fx-outline: #e5e5e5;
 
     /* Texto */
-    -fx-text-primary: #171717;
+    -fx-text-primary: #312f2f;
     -fx-text-secondary: #737373;
 
     /* Sombras */

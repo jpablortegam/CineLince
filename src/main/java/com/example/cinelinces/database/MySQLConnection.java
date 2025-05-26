@@ -28,9 +28,6 @@ public class MySQLConnection {
                 String dbPort = dotenv.get("DB_PORT");
                 String dbHost = dotenv.get("DB_HOST");
 
-
-                System.out.println("dbUser: " + dbUser);
-
                 // Verificar que todas las variables sean válidas
                 if (dbUser == null || dbName == null || dbPass == null || dbPort == null || dbHost == null) {
                     throw new IllegalArgumentException("Faltan variables de entorno necesarias para la conexion.");
@@ -41,10 +38,10 @@ public class MySQLConnection {
 
                 // Establecer la conexión
                 conn = DriverManager.getConnection(connectionUrl, dbUser, dbPass);
-                Logger.getLogger(MySQLConnection.class.getName()).log(Level.INFO, "Conexion a la base de datos exitosa.");
+                Logger.getLogger(MySQLConnection.class.getName()).log(Level.INFO,"");
             }
         } catch (ClassNotFoundException | SQLException | IllegalArgumentException ex) {
-            Logger.getLogger(MySQLConnection.class.getName()).log(Level.SEVERE, "Error al conectar a la base de datos.", ex);
+            Logger.getLogger(MySQLConnection.class.getName()).log(Level.SEVERE, "", ex);
         }
     }
 

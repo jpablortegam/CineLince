@@ -1,0 +1,103 @@
+/* Import your variables if this file is separate and needs them directly.
+   If comboBox.css is loaded after variables.css in your JavaFX scene,
+   this import might not be strictly necessary here but is good practice for modularity. */
+@import "/com/example/styles/base/variables.css"; /* Adjust path if necessary */
+
+/* ----------------------------------------------------------
+   ComboBox General Style
+   ---------------------------------------------------------- */
+.combo-box {
+    -fx-background-color: -fx-surface;
+    -fx-text-fill: -fx-text-primary;
+    -fx-prompt-text-fill: -fx-text-secondary; /* Color for prompt text like "Cargando cines..." */
+    -fx-border-color: -fx-outline;
+    -fx-border-width: 1px;
+    -fx-border-radius: 4px;
+    -fx-background-radius: 4px;
+    -fx-padding: 0.333333em 0.666667em 0.333333em 0.666667em; /* 4px 8px */
+    -fx-font-size: 1em; /* Or your base font size */
+    -fx-pref-height: 38px; /* Adjust for desired height */
+    -fx-effect: -fx-elevation-1;
+}
+
+.combo-box:hover {
+    -fx-border-color: -fx-secondary; /* Purple border on hover */
+}
+
+.combo-box:focused {
+    -fx-border-color: -fx-secondary;
+    -fx-background-color: -fx-surface; /* Keep background consistent on focus */
+    -fx-effect: dropshadow(gaussian, -fx-secondary, 3, 0.2, 0, 0); /* Subtle glow with secondary color */
+}
+
+/* If the ComboBox is editable, style the text field part */
+.combo-box .text-input {
+    -fx-text-fill: -fx-text-primary;
+    -fx-prompt-text-fill: -fx-text-disabled; /* Lighter prompt text for editable field */
+    -fx-background-color: transparent; /* Inherit from combo-box */
+    -fx-padding: 0.333333em 0em; /* Adjust padding for text input */
+}
+
+
+/* ----------------------------------------------------------
+   ComboBox Arrow Button
+   ---------------------------------------------------------- */
+.combo-box .arrow-button {
+    -fx-background-color: transparent; /* No separate background for the button area */
+    -fx-background-radius: 0 4px 4px 0; /* Match outer radius on the right */
+    -fx-padding: 0 0.6em 0 0.4em; /* Adjust padding around the arrow */
+}
+
+.combo-box .arrow-button .arrow {
+    -fx-background-color: -fx-text-secondary; /* Arrow color */
+    -fx-shape: "M0 0 L4 4 L8 0 Z"; /* Simple down arrow shape */
+    -fx-scale-shape: false; /* Keep arrow size consistent */
+    -fx-padding: 0.25em; /* 3px, effectively controls the size of the arrow */
+}
+
+.combo-box:hover .arrow-button .arrow {
+    -fx-background-color: -fx-secondary; /* Arrow color changes to purple on hover */
+}
+.combo-box:focused .arrow-button .arrow {
+    -fx-background-color: -fx-secondary;
+}
+
+/* ----------------------------------------------------------
+   ComboBox Dropdown List (Popup)
+   ---------------------------------------------------------- */
+.combo-box-popup .list-view {
+    -fx-background-color: -fx-surface;
+    -fx-border-color: -fx-outline;
+    -fx-border-width: 1px;
+    -fx-background-radius: 4px;
+    -fx-border-radius: 4px;
+    -fx-effect: -fx-elevation-2; /* Slightly more pronounced shadow for the popup */
+    -fx-padding: 0.333333em 0em; /* 4px top/bottom padding for the list view itself */
+}
+
+.combo-box-popup .list-cell {
+    -fx-background-color: transparent; /* Default cell background */
+    -fx-text-fill: -fx-text-primary;
+    -fx-padding: 0.5em 0.8em; /* 6px 10px padding within each cell */
+    -fx-background-radius: 2px; /* Slight rounding for hover/selection highlight */
+    -fx-min-height: 32px; /* Ensure cells have a decent tap/click target size */
+}
+
+.combo-box-popup .list-cell:hover {
+    /* -fx-background-color: -fx-primary-light; */ /* Color anterior que causaba bajo contraste */
+    -fx-background-color: -fx-outline;         /* NUEVO: Usa -fx-outline (un gris más claro) para el fondo del hover */
+    -fx-text-fill: -fx-text-primary;           /* El texto oscuro se mantiene, ahora tendrá buen contraste */
+}
+
+.combo-box-popup .list-cell:filled:selected {
+    /* -fx-background-color: -fx-secondary; */ /* Color anterior para la selección */
+    -fx-background-color: -fx-secondary-hover; /* NUEVO: Usa -fx-secondary-hover (morado un poco más oscuro) */
+    -fx-text-fill: white;                      /* El texto blanco se mantiene, ahora con mejor contraste */
+}
+
+/* For selected item when the ComboBox itself is focused (shows in the ComboBox display area) */
+.combo-box:focused .list-cell:filled:selected,
+.combo-box .list-cell:filled:selected { /* This ensures the displayed item text color is correct */
+    -fx-text-fill: -fx-text-primary; /* Text color of the selected item shown in the closed ComboBox */
+    -fx-background-color: -fx-surface; /* Background of the selected item shown in the closed ComboBox */
+}

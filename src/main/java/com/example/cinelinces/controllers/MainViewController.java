@@ -26,7 +26,6 @@ public class MainViewController implements Initializable {
     }
 
     public void showHome()       { loadView("/com/example/cinelinces/home-view.fxml"); }
-    public void showUpcoming()   { loadView("/com/example/cinelinces/upcoming-view.fxml"); }
     public void showPopular()    { loadView("/com/example/cinelinces/popular-view.fxml"); }
     public void showAccount()    { loadView("/com/example/cinelinces/login-view.fxml"); }
 
@@ -38,15 +37,8 @@ public class MainViewController implements Initializable {
             Parent viewNode;
             if (viewCache.containsKey(fxmlPath)) {
                 viewNode = viewCache.get(fxmlPath);
-                // System.out.println("Cargando vista desde caché: " + fxmlPath);
-                // Si necesitas refrescar la vista al cargarla desde el caché,
-                // necesitarías una forma de acceder a su controlador y llamar a un método de refresco.
-                // Object controller = viewNode.getProperties().get("controller"); // Si guardaste el controlador
-                // if (controller instanceof UpcomingViewController) {
-                //     ((UpcomingViewController) controller).refreshDataOnShow(); // Método hipotético
-                // }
             } else {
-                // System.out.println("Cargando vista desde FXML: " + fxmlPath);
+
                 FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource(fxmlPath)));
                 viewNode = loader.load();
                 viewCache.put(fxmlPath, viewNode);

@@ -221,7 +221,7 @@ public class CardMovieViewController {
             // Ejemplo: si las imágenes están en src/main/resources/images/posters/
             String imagePath = funcion.getFotografiaPelicula();
             if (!imagePath.startsWith("http") && !imagePath.startsWith("/")) {
-                imagePath = "/images/" + imagePath; // Ajusta esta ruta base según tu estructura
+                imagePath = "/com/example/images/" + imagePath; // Ajusta esta ruta base según tu estructura
             }
             try {
                 InputStream imageStream = getClass().getResourceAsStream(imagePath);

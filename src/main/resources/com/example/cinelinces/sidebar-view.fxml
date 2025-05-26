@@ -18,8 +18,7 @@
     <Region prefHeight="12" />
 
     <VBox spacing="8" styleClass="sidebar-buttons">
-        <Button fx:id="btnEstrenos" onAction="#showHome" styleClass="side-button" text="😊 Estrenos" />
-        <Button fx:id="btnProximamente" onAction="#showUpcoming" styleClass="side-button" text="⏰ Próximamente" />
+        <Button fx:id="btnHome" onAction="#showHome" styleClass="side-button" text="😊 Home" />
         <Button fx:id="btnPopulares" onAction="#showPopular" styleClass="side-button" text="🔥 Populares" />
         <Button fx:id="btnMiCuenta" onAction="#showAccount" styleClass="side-button" text="👤 Mi cuenta" />
     </VBox>
