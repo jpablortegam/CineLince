@@ -3,33 +3,29 @@ package com.example.cinelinces.controllers;
 import com.example.cinelinces.DAO.ClienteDAO;
 import com.example.cinelinces.DAO.impl.ClienteDAOImpl;
 import com.example.cinelinces.model.Cliente;
-import com.example.cinelinces.utils.Animations.AnimationUtil; // Asumiendo que tienes esta clase
+import com.example.cinelinces.utils.Animations.AnimationUtil;
 import com.example.cinelinces.utils.Animations.TabAnimationHelper; // Asumiendo que tienes esta clase
 import com.example.cinelinces.utils.Forms.AlertUtil;
-import com.example.cinelinces.utils.Forms.EnterKeyUtil; // Asumiendo que tienes esta clase
+import com.example.cinelinces.utils.Forms.EnterKeyUtil;
 import com.example.cinelinces.utils.Forms.FormValidator;
-import com.example.cinelinces.utils.Forms.PreferencesUtil; // Asumiendo que tienes esta clase
+import com.example.cinelinces.utils.Forms.PreferencesUtil;
 import com.example.cinelinces.utils.Security.PasswordUtil;
+import com.example.cinelinces.utils.SessionManager; // Importar SessionManager
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.application.Platform; // Asegúrate de tener este import
+import javafx.application.Platform; // Importar Platform
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.PasswordField;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
+import javafx.scene.control.Tab;         // Import necesario
+import javafx.scene.control.TabPane;     // Import necesario
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -38,11 +34,11 @@ import java.util.ResourceBundle;
 public class LoginViewController implements Initializable {
 
     @FXML
-    private TabPane mainTabPane;
+    private TabPane mainTabPane; // Declaración FXML añadida
     @FXML
-    private Tab signInTab;
+    private Tab signInTab;       // Declaración FXML añadida
     @FXML
-    private Tab signUpTab;
+    private Tab signUpTab;       // Declaración FXML añadida
 
     // Campos para Iniciar Sesión
     @FXML
@@ -71,6 +67,7 @@ public class LoginViewController implements Initializable {
     private Button signUpButton;
 
     private ClienteDAO clienteDAO;
+    private MainViewController mainViewController; // Referencia al controlador principal
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -85,13 +82,21 @@ public class LoginViewController implements Initializable {
         EnterKeyUtil.register(signInPasswordField, signInButton, () -> handleSignIn(null));
         EnterKeyUtil.register(confirmPasswordField, signUpButton, () -> handleSignUp(null));
 
-        mainTabPane.getSelectionModel()
-                .selectedItemProperty()
-                .addListener((obs, oldTab, newTab) -> {
-                    if (oldTab != null && newTab != null && oldTab != newTab) {
-                        TabAnimationHelper.animate(mainTabPane, oldTab, newTab);
-                    }
-                });
+        // Asegúrate de que mainTabPane no sea null aquí. Si lo es, revisa tu FXML.
+        if (mainTabPane != null) {
+            mainTabPane.getSelectionModel()
+                    .selectedItemProperty()
+                    .addListener((obs, oldTab, newTab) -> {
+                        if (oldTab != null && newTab != null && oldTab != newTab && TabAnimationHelper.class != null) { // Verificación extra para TabAnimationHelper
+                            TabAnimationHelper.animate(mainTabPane, oldTab, newTab);
+                        }
+                    });
+            // Seleccionar la pestaña de inicio de sesión por defecto
+            if (signInTab != null) {
+                mainTabPane.getSelectionModel().select(signInTab);
+            }
+        }
+
 
         signInUsernameField.textProperty().addListener((o, a, b) -> updateSignInButton());
         signInPasswordField.textProperty().addListener((o, a, b) -> updateSignInButton());
@@ -102,15 +107,19 @@ public class LoginViewController implements Initializable {
         confirmPasswordField.textProperty().addListener((o, a, b) -> updateSignUpButton());
         termsCheckbox.selectedProperty().addListener((o, a, b) -> updateSignUpButton());
 
-        mainTabPane.getSelectionModel().select(signInTab);
         updateSignInButton();
         updateSignUpButton();
+    }
+
+    // Método para que MainViewController se establezca
+    public void setMainViewController(MainViewController mainViewController) {
+        this.mainViewController = mainViewController;
     }
 
     @FXML
     private void handleSignIn(ActionEvent event) {
         String usernameOrEmailFromField = signInUsernameField.getText().trim();
-        String passwordFromField = signInPasswordField.getText(); // Contraseña en texto plano del formulario de login
+        String passwordFromField = signInPasswordField.getText();
 
         if (!FormValidator.validateSignIn(usernameOrEmailFromField, passwordFromField)) {
             AlertUtil.showError("Campos incompletos", "Por favor, ingresa tu usuario/email y contraseña.");
@@ -124,24 +133,18 @@ public class LoginViewController implements Initializable {
         new Timeline(new KeyFrame(Duration.seconds(0.5), e -> {
             Cliente cliente = clienteDAO.findByEmail(usernameOrEmailFromField);
 
-            // ---- DEBUGGING LOGIN ----
             System.out.println("\n-------------------- INTENTO DE LOGIN --------------------");
             System.out.println("Email/Usuario ingresado para login: [" + usernameOrEmailFromField + "]");
             System.out.println("Contraseña en plano ingresada para login: [" + passwordFromField + "]");
-            // ---- END DEBUGGING LOGIN ----
 
             if (cliente != null) {
-                // ---- DEBUGGING LOGIN ----
                 System.out.println("Cliente encontrado en BD: " + cliente.getEmail());
                 System.out.println("Hash recuperado de BD para " + cliente.getEmail() + ": [" + cliente.getContrasenaHash() + "]");
-                // ---- END DEBUGGING LOGIN ----
-
                 boolean passwordsMatch = PasswordUtil.checkPassword(passwordFromField, cliente.getContrasenaHash());
-                // ---- DEBUGGING LOGIN ----
                 System.out.println("¿Las contraseñas coinciden (PasswordUtil.checkPassword)?: " + passwordsMatch);
-                // ---- END DEBUGGING LOGIN ----
 
                 if (passwordsMatch) {
+                    SessionManager.getInstance().setCurrentCliente(cliente); // Establecer sesión
                     if (rememberMeCheckbox.isSelected()) {
                         PreferencesUtil.saveRememberedUser(usernameOrEmailFromField);
                     } else {
@@ -149,68 +152,40 @@ public class LoginViewController implements Initializable {
                     }
                     Platform.runLater(() -> {
                         AlertUtil.showSuccess("¡Bienvenido!", "Inicio de sesión exitoso para " + cliente.getNombre());
-                        navigateToClientDashboard(cliente);
+                        if (mainViewController != null) {
+                            mainViewController.showAccount(); // Notificar a MainView para que recargue la vista de cuenta
+                        }
                     });
                 } else { // Contraseña no coincide
-                    Platform.runLater(() -> {
-                        AlertUtil.showError("Autenticación fallida", "Email o contraseña incorrectos.");
-                    });
+                    Platform.runLater(() -> AlertUtil.showError("Autenticación fallida", "Email o contraseña incorrectos."));
                     signInPasswordField.clear();
                     AnimationUtil.shake(signInPasswordField);
                 }
-            } else { // Cliente no encontrado por email
-                // ---- DEBUGGING LOGIN ----
+            } else { // Cliente no encontrado
                 System.out.println("No se encontró cliente con email/usuario: [" + usernameOrEmailFromField + "]");
-                // ---- END DEBUGGING LOGIN ----
-                Platform.runLater(() -> {
-                    AlertUtil.showError("Autenticación fallida", "Email o contraseña incorrectos.");
-                });
-                signInPasswordField.clear(); // Limpiar contraseña igual por seguridad/UX
-                AnimationUtil.shake(signInUsernameField); // Shake al campo de usuario/email
+                Platform.runLater(() -> AlertUtil.showError("Autenticación fallida", "Email o contraseña incorrectos."));
+                signInPasswordField.clear();
+                AnimationUtil.shake(signInUsernameField);
             }
-            // ---- DEBUGGING LOGIN ----
             System.out.println("------------------------------------------------------\n");
-            // ---- END DEBUGGING LOGIN ----
-
             signInButton.setText("INICIAR SESIÓN");
             updateSignInButton();
         })).play();
     }
 
-    private void navigateToClientDashboard(Cliente cliente) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/cinelinces/client-dashboard-view.fxml"));
-            Parent root = loader.load();
-
-            ClientDashboardViewController controller = loader.getController();
-            controller.setClienteData(cliente);
-
-            Stage stage = (Stage) signInButton.getScene().getWindow();
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.setTitle("Panel de Cliente - " + cliente.getNombre());
-            stage.centerOnScreen();
-            stage.show();
-
-        } catch (IOException ex) {
-            System.err.println("Error al cargar client-dashboard-view.fxml: " + ex.getMessage());
-            ex.printStackTrace();
-            AlertUtil.showError("Error de Navegación", "No se pudo cargar la pantalla del panel de cliente.");
-        }
-    }
 
     @FXML
     private void handleSignUp(ActionEvent event) {
         String name = fullNameField.getText().trim();
-        String emailFromField = emailField.getText().trim(); // Email del formulario de registro
-        String usernameFromField = signUpUsernameField.getText().trim(); // Usuario del formulario de registro
-        String passFromField = signUpPasswordField.getText(); // Contraseña en texto plano del formulario de registro
+        String emailFromField = emailField.getText().trim();
+        String usernameFromField = signUpUsernameField.getText().trim();
+        String passFromField = signUpPasswordField.getText();
         String confirm = confirmPasswordField.getText();
         boolean terms = termsCheckbox.isSelected();
 
         if (!FormValidator.validateSignUp(name, emailFromField, usernameFromField, passFromField, confirm, terms)) {
             AlertUtil.showError("Error de Validación", "Por favor, revisa todos los campos del formulario y acepta los términos.");
-            AnimationUtil.shake(signUpButton.getParent());
+            AnimationUtil.shake(signUpButton.getParent()); // O un campo específico
             return;
         }
 
@@ -219,7 +194,6 @@ public class LoginViewController implements Initializable {
             AnimationUtil.shake(emailField);
             return;
         }
-        // Aquí también podrías verificar si 'usernameFromField' ya existe si es un campo único.
 
         signUpButton.setText("CREANDO CUENTA...");
         signUpButton.setDisable(true);
@@ -227,15 +201,11 @@ public class LoginViewController implements Initializable {
         new Timeline(new KeyFrame(Duration.seconds(1), ae -> {
             String hashedPassword = PasswordUtil.hashPassword(passFromField);
 
-            // ---- DEBUGGING REGISTRO ----
             System.out.println("\n-------------------- REGISTRO DE USUARIO --------------------");
             System.out.println("Email ingresado para registro: [" + emailFromField + "]");
-            // System.out.println("Username ingresado para registro: [" + usernameFromField + "]"); // Si usas username
             System.out.println("Contraseña en plano para registro: [" + passFromField + "]");
             System.out.println("Hash generado para registro: [" + hashedPassword + "]");
             System.out.println("-----------------------------------------------------------\n");
-            // ---- END DEBUGGING REGISTRO ----
-
 
             Cliente nuevoCliente = new Cliente();
             String[] nombreCompletoParts = name.split(" ", 2);
@@ -247,11 +217,8 @@ public class LoginViewController implements Initializable {
             }
             nuevoCliente.setEmail(emailFromField);
             nuevoCliente.setContrasenaHash(hashedPassword);
-            // Si vas a usar el campo username de signUpUsernameField:
-            // nuevoCliente.setUsername(usernameFromField); // Necesitarías añadir este campo al modelo Cliente y a la BD
-
-            nuevoCliente.setTelefono("N/A");
-            nuevoCliente.setFechaNacimiento(LocalDate.of(2000, 1, 1));
+            nuevoCliente.setTelefono("N/A"); // Considera añadir campo en el formulario
+            nuevoCliente.setFechaNacimiento(LocalDate.of(2000, 1, 1)); // Considera añadir campo en el formulario
             nuevoCliente.setFechaRegistro(LocalDateTime.now());
 
             clienteDAO.save(nuevoCliente);
@@ -260,7 +227,9 @@ public class LoginViewController implements Initializable {
                 Platform.runLater(() -> {
                     AlertUtil.showSuccess("¡Cuenta creada!", "Registro exitoso para " + nuevoCliente.getNombre() + ". Ahora puedes iniciar sesión.");
                     clearSignUpForm();
-                    mainTabPane.getSelectionModel().select(signInTab);
+                    if (mainTabPane != null && signInTab != null) { // Asegurar que no sean null
+                        mainTabPane.getSelectionModel().select(signInTab);
+                    }
                 });
             } else {
                 Platform.runLater(() -> {
@@ -274,28 +243,36 @@ public class LoginViewController implements Initializable {
     }
 
     private void updateSignInButton() {
-        boolean disable = signInUsernameField.getText().trim().isEmpty() ||
-                signInPasswordField.getText().isEmpty();
-        signInButton.setDisable(disable);
+        boolean disable = true;
+        if (signInUsernameField != null && signInPasswordField != null) { // Chequeo defensivo
+            disable = signInUsernameField.getText().trim().isEmpty() ||
+                    signInPasswordField.getText().isEmpty();
+        }
+        if (signInButton != null) signInButton.setDisable(disable);
     }
 
     private void updateSignUpButton() {
-        boolean disable = fullNameField.getText().trim().isEmpty() ||
-                emailField.getText().trim().isEmpty() ||
-                signUpUsernameField.getText().trim().isEmpty() ||
-                signUpPasswordField.getText().isEmpty() ||
-                confirmPasswordField.getText().isEmpty() ||
-                !termsCheckbox.isSelected() ||
-                !signUpPasswordField.getText().equals(confirmPasswordField.getText());
-        signUpButton.setDisable(disable);
+        boolean disable = true;
+        // Chequeos defensivos para todos los campos FXML antes de acceder a sus propiedades
+        if (fullNameField != null && emailField != null && signUpUsernameField != null &&
+                signUpPasswordField != null && confirmPasswordField != null && termsCheckbox != null) {
+            disable = fullNameField.getText().trim().isEmpty() ||
+                    emailField.getText().trim().isEmpty() ||
+                    signUpUsernameField.getText().trim().isEmpty() ||
+                    signUpPasswordField.getText().isEmpty() ||
+                    confirmPasswordField.getText().isEmpty() ||
+                    !termsCheckbox.isSelected() ||
+                    !signUpPasswordField.getText().equals(confirmPasswordField.getText());
+        }
+        if (signUpButton != null) signUpButton.setDisable(disable);
     }
 
     private void clearSignUpForm() {
-        fullNameField.clear();
-        emailField.clear();
-        signUpUsernameField.clear();
-        signUpPasswordField.clear();
-        confirmPasswordField.clear();
-        termsCheckbox.setSelected(false);
+        if (fullNameField != null) fullNameField.clear();
+        if (emailField != null) emailField.clear();
+        if (signUpUsernameField != null) signUpUsernameField.clear();
+        if (signUpPasswordField != null) signUpPasswordField.clear();
+        if (confirmPasswordField != null) confirmPasswordField.clear();
+        if (termsCheckbox != null) termsCheckbox.setSelected(false);
     }
 }

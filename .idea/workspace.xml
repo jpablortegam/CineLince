@@ -4,18 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6f94096a-8f21-4170-a76e-4c2b50d8bf02" name="Changes" comment="refactor image paths and add ComboBox styles; update image loading logic and enhance UI components">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/DAO/ClienteDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/DAO/impl/ClienteDAOImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/ClientDashboardViewController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/utils/Security/PasswordUtil.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/cinelinces/client-dashboard-view.fxml" afterDir="false" />
+    <list default="true" id="6f94096a-8f21-4170-a76e-4c2b50d8bf02" name="Changes" comment="implement client dashboard view and controller; add password hashing utility and update client model with hashed password">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/utils/SessionManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/ClientDashboardViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/ClientDashboardViewController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/LoginViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/LoginViewController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/model/Cliente.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/model/Cliente.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/utils/Forms/PreferencesUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/utils/Forms/PreferencesUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/MainViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/MainViewController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -532,7 +526,15 @@
       <option name="project" value="LOCAL" />
       <updated>1748225511399</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="implement client dashboard view and controller; add password hashing utility and update client model with hashed password">
+      <option name="closed" value="true" />
+      <created>1748230349299</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1748230349299</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -562,7 +564,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="refactor UI layout and add styles for sidebar and main content" />
     <MESSAGE value="refactor UI layout and enhance styles for sidebar and main content" />
     <MESSAGE value="refactor UI layout and enhance styles for featured section" />
     <MESSAGE value="refactor UI layout and enhance styles for hello-view and application scene" />
@@ -587,6 +588,7 @@
     <MESSAGE value="add model and DAO classes for cinema application; implement Actor, Movie, and related entities" />
     <MESSAGE value="add detailed README for CineLinces application; include project overview, features, technologies, and setup instructions" />
     <MESSAGE value="refactor image paths and add ComboBox styles; update image loading logic and enhance UI components" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactor image paths and add ComboBox styles; update image loading logic and enhance UI components" />
+    <MESSAGE value="implement client dashboard view and controller; add password hashing utility and update client model with hashed password" />
+    <option name="LAST_COMMIT_MESSAGE" value="implement client dashboard view and controller; add password hashing utility and update client model with hashed password" />
   </component>
 </project>

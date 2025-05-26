@@ -1,27 +1,31 @@
 package com.example.cinelinces.controllers;
 
 import com.example.cinelinces.model.Cliente;
+import com.example.cinelinces.utils.SessionManager; // Importar SessionManager
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.stage.Stage;
-
-import java.io.IOException;
+// Quita estos imports si ya no los usas para navegación directa desde aquí:
+// import javafx.fxml.FXMLLoader;
+// import javafx.scene.Parent;
+// import javafx.scene.Scene;
+// import javafx.stage.Stage;
+// import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 
 public class ClientDashboardViewController {
 
-    @FXML
-    private Label welcomeLabel;
-    @FXML
-    private Label emailLabel;
-    @FXML
-    private Label registroLabel;
+    @FXML private Label welcomeLabel;
+    @FXML private Label emailLabel;
+    @FXML private Label registroLabel;
 
     private Cliente clienteActual;
+    private MainViewController mainViewController; // Referencia al controlador principal
+
+    // Método para que MainViewController se establezca
+    public void setMainViewController(MainViewController mainViewController) {
+        this.mainViewController = mainViewController;
+    }
 
     public void setClienteData(Cliente cliente) {
         this.clienteActual = cliente;
@@ -29,29 +33,25 @@ public class ClientDashboardViewController {
             welcomeLabel.setText("¡Bienvenido, " + cliente.getNombre() + " " + cliente.getApellido() + "!");
             emailLabel.setText("Email: " + cliente.getEmail());
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy 'a las' HH:mm");
-            registroLabel.setText("Fecha de registro: " + cliente.getFechaRegistro().format(formatter));
+            if (cliente.getFechaRegistro() != null) {
+                registroLabel.setText("Fecha de registro: " + cliente.getFechaRegistro().format(formatter));
+            } else {
+                registroLabel.setText("Fecha de registro: N/A");
+            }
+        } else {
+            // Manejar el caso donde el cliente es null, quizás mostrando un mensaje o valores por defecto
+            welcomeLabel.setText("Bienvenido, Invitado");
+            emailLabel.setText("Email: N/A");
+            registroLabel.setText("Fecha de registro: N/A");
         }
     }
 
     @FXML
     private void handleLogout(ActionEvent event) {
-        // Lógica para cerrar sesión (ej. limpiar preferencias, etc.)
-        System.out.println("Cerrando sesión para: " + (clienteActual != null ? clienteActual.getEmail() : "N/A"));
-        clienteActual = null; // Limpiar el cliente actual
-
-        // Volver a la pantalla de login
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/cinelinces/login-view.fxml")); // Ruta a tu FXML de login
-            Parent root = loader.load();
-            Stage stage = (Stage) welcomeLabel.getScene().getWindow();
-            Scene scene = new Scene(root);
-            // scene.getStylesheets().add(getClass().getResource("/com/example/styles/login.css").toExternalForm()); // Si tienes estilos específicos
-            stage.setScene(scene);
-            stage.setTitle("CineLince - Iniciar Sesión");
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-            // Manejar error al cargar la vista de login
+        SessionManager.getInstance().clearSession(); // Limpiar la sesión
+        if (mainViewController != null) {
+            mainViewController.showAccount(); // Notificar a MainView para que recargue y muestre login
         }
+        // Ya no se maneja la navegación a login-view.fxml desde aquí
     }
 }
