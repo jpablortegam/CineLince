@@ -13,7 +13,7 @@
         <Insets bottom="24" left="24" right="24" top="24" />
     </padding>
 
-    <Label styleClass="sidebar-title" text="🎬 CineLince" />
+    <Label styleClass="sidebar-title" text="🎬 Lincine" />
 
     <Region prefHeight="12" />
 

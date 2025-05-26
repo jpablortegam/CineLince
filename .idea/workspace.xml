@@ -4,12 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6f94096a-8f21-4170-a76e-4c2b50d8bf02" name="Changes" comment="implement client dashboard view and controller; add password hashing utility and update client model with hashed password">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/utils/SessionManager.java" afterDir="false" />
+    <list default="true" id="6f94096a-8f21-4170-a76e-4c2b50d8bf02" name="Changes" comment="refactor client dashboard and login view controllers; implement session management and improve user data handling">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/ClientDashboardViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/ClientDashboardViewController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/LoginViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/LoginViewController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/MainViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/MainViewController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/cinelinces/sidebar-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/cinelinces/sidebar-view.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -99,43 +96,43 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Gradle.CineLinces [:com.example.cinelinces.HelloApplication.main()].executor": "Run",
-    "Gradle.CineLinces [assemble].executor": "Run",
-    "Gradle.CineLinces [build].executor": "Run",
-    "Gradle.CineLinces [run].executor": "Run",
-    "Gradle.Download Sources.executor": "Run",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "Notification.DisplayName-DoNotAsk-Settings Error": "Could not save settings",
-    "Notification.DoNotAsk-Settings Error": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "dart.analysis.tool.window.visible": "false",
-    "git-widget-placeholder": "master",
-    "ignore.preview.features.used": "true",
-    "junie.onboarding.icon.badge.shown": "true",
-    "last_directory_selection": "C:/Users/juanp/IdeaProjects/CineLinces/src/main/java/com/example/cinelinces",
-    "last_opened_file_path": "C:/Users/juanp/IdeaProjects/CineLinces/src/main/resources/com/example/images/posters",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Libraries",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "settings.sync",
-    "show.migrate.to.gradle.popup": "false",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Gradle.CineLinces [:com.example.cinelinces.HelloApplication.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.CineLinces [assemble].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.CineLinces [build].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.CineLinces [run].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Download Sources.executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;Notification.DisplayName-DoNotAsk-Settings Error&quot;: &quot;Could not save settings&quot;,
+    &quot;Notification.DoNotAsk-Settings Error&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;ignore.preview.features.used&quot;: &quot;true&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
+    &quot;last_directory_selection&quot;: &quot;C:/Users/juanp/IdeaProjects/CineLinces/src/main/java/com/example/cinelinces&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/juanp/IdeaProjects/CineLinces/src/main/resources/com/example/images/posters&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;settings.sync&quot;,
+    &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "mariadb"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mariadb&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\juanp\IdeaProjects\CineLinces\src\main\resources\com\example\images\posters" />
@@ -285,6 +282,7 @@
       <workItem from="1748144938209" duration="10144000" />
       <workItem from="1748159076179" duration="2897000" />
       <workItem from="1748162326939" duration="607000" />
+      <workItem from="1748272478252" duration="2329000" />
     </task>
     <task id="LOCAL-00001" summary="initialize project structure with basic JavaFX application and Gradle setup">
       <option name="closed" value="true" />
@@ -534,7 +532,15 @@
       <option name="project" value="LOCAL" />
       <updated>1748230349299</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="refactor client dashboard and login view controllers; implement session management and improve user data handling">
+      <option name="closed" value="true" />
+      <created>1748231156766</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1748231156766</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -564,7 +570,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="refactor UI layout and enhance styles for sidebar and main content" />
     <MESSAGE value="refactor UI layout and enhance styles for featured section" />
     <MESSAGE value="refactor UI layout and enhance styles for hello-view and application scene" />
     <MESSAGE value="add AnimatedComponent for enhanced dialog animations and update sidebar styles" />
@@ -589,6 +594,7 @@
     <MESSAGE value="add detailed README for CineLinces application; include project overview, features, technologies, and setup instructions" />
     <MESSAGE value="refactor image paths and add ComboBox styles; update image loading logic and enhance UI components" />
     <MESSAGE value="implement client dashboard view and controller; add password hashing utility and update client model with hashed password" />
-    <option name="LAST_COMMIT_MESSAGE" value="implement client dashboard view and controller; add password hashing utility and update client model with hashed password" />
+    <MESSAGE value="refactor client dashboard and login view controllers; implement session management and improve user data handling" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor client dashboard and login view controllers; implement session management and improve user data handling" />
   </component>
 </project>
