@@ -7,6 +7,7 @@ module com.example.cinelinces {
     requires java.desktop;
     requires java.sql;
     requires io.github.cdimascio.dotenv.java;
+    requires jbcrypt;
 
     opens com.example.cinelinces to javafx.fxml;
     exports com.example.cinelinces;

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.geometry.Insets?>
+
+<?import javafx.scene.control.Button?>
+<VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.example.cinelinces.controllers.ClientDashboardViewController"
+      alignment="CENTER" spacing="20" style="-fx-padding: 20;">
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+    <Label text="Panel de Cliente" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+    <Label fx:id="welcomeLabel" style="-fx-font-size: 18px;"/>
+    <Label fx:id="emailLabel" style="-fx-font-size: 16px;"/>
+    <Label fx:id="registroLabel" style="-fx-font-size: 16px;"/>
+    <Button text="Cerrar Sesión" onAction="#handleLogout"/>
+</VBox>

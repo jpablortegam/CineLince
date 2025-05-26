@@ -8,6 +8,7 @@ public class Cliente {
     private String nombre;
     private String apellido;
     private String email;
+    private String contrasenaHash; // Nuevo campo para la contraseña hasheada
     private String telefono;
     private LocalDate fechaNacimiento;
     private LocalDateTime fechaRegistro;
@@ -16,11 +17,13 @@ public class Cliente {
     public Cliente() {
     }
 
-    public Cliente(int idCliente, String nombre, String apellido, String email, String telefono, LocalDate fechaNacimiento, LocalDateTime fechaRegistro, Integer idMembresia) {
+    // Constructor actualizado
+    public Cliente(int idCliente, String nombre, String apellido, String email, String contrasenaHash, String telefono, LocalDate fechaNacimiento, LocalDateTime fechaRegistro, Integer idMembresia) {
         this.idCliente = idCliente;
         this.nombre = nombre;
         this.apellido = apellido;
         this.email = email;
+        this.contrasenaHash = contrasenaHash; // Incluir en el constructor
         this.telefono = telefono;
         this.fechaNacimiento = fechaNacimiento;
         this.fechaRegistro = fechaRegistro;
@@ -60,6 +63,14 @@ public class Cliente {
         this.email = email;
     }
 
+    public String getContrasenaHash() {
+        return contrasenaHash;
+    }
+
+    public void setContrasenaHash(String contrasenaHash) {
+        this.contrasenaHash = contrasenaHash;
+    }
+
     public String getTelefono() {
         return telefono;
     }
@@ -90,5 +101,20 @@ public class Cliente {
 
     public void setIdMembresia(Integer idMembresia) {
         this.idMembresia = idMembresia;
+    }
+
+    @Override
+    public String toString() {
+        return "Cliente{" +
+                "idCliente=" + idCliente +
+                ", nombre='" + nombre + '\'' +
+                ", apellido='" + apellido + '\'' +
+                ", email='" + email + '\'' +
+                // No incluyas contrasenaHash en toString() por seguridad
+                ", telefono='" + telefono + '\'' +
+                ", fechaNacimiento=" + fechaNacimiento +
+                ", fechaRegistro=" + fechaRegistro +
+                ", idMembresia=" + idMembresia +
+                '}';
     }
 }
