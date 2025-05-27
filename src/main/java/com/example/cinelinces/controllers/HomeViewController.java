@@ -271,7 +271,7 @@ public class HomeViewController implements Initializable {
 
         // Similar loop to loadProximamenteCards, ensuring unique movies if necessary
         Set<Integer> idPeliculasProximasMostradas = new HashSet<>();
-        final int MAX_PROXIMAS_PELICULAS_A_MOSTRAR = 4; // Or however many you want
+        final int MAX_PROXIMAS_PELICULAS_A_MOSTRAR = 5; // Or however many you want
 
         for (FuncionDetallada funcion : proximamenteFunciones) {
             if (!idPeliculasProximasMostradas.contains(funcion.getIdPelicula())) {

@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
@@ -15,15 +16,12 @@
       onMouseClicked="#onCardClick"
       onMouseEntered="#onCardHover"
       onMouseExited="#onCardHoverExit"
-      prefWidth="340"  prefHeight="220">
-    <StackPane styleClass="image-container">
-        <ImageView fx:id="poster"
-                   styleClass="movie-image"
-                   fitWidth="320"
-                   preserveRatio="true"
-                   smooth="true"
-                   cache="true"/>
-    </StackPane>
+      prefWidth="340" prefHeight="220"> <StackPane styleClass="image-container" alignment="CENTER">
+    <ImageView fx:id="poster"
+               styleClass="movie-image"
+               fitWidth="316" preserveRatio="true"
+               smooth="true" cache="true"/>
+</StackPane>
 
     <padding>
         <Insets top="12" right="12" bottom="12" left="12"/>
@@ -36,42 +34,38 @@
         <Label fx:id="title"
                styleClass="card-title"
                wrapText="true"
-               maxWidth="300"
-               text="Título de la película"/>
+               maxWidth="310" text="Título de la película"/>
         <Label fx:id="subtitle"
                styleClass="card-subtitle"
-               text="(2025) • 120 min"/>
+               text="(Año) • Duración"/>
     </VBox>
 
     <VBox fx:id="detailsPane"
           styleClass="detail-container"
           spacing="8"
           alignment="CENTER"
-          visible="false"
-          managed="false"
-          opacity="0.0"
-          maxWidth="280">
+          visible="false"  managed="false"  opacity="0.0"    maxWidth="310">
 
         <VBox styleClass="detail-section" spacing="2">
             <Label styleClass="detail-header" text="Sinopsis"/>
             <Label fx:id="synopsisLabel"
                    styleClass="card-detail-text"
                    wrapText="true"
-                   maxWidth="280"
-                   text="Una emocionante historia que captura la esencia del cine moderno..."/>
+                   maxWidth="300"
+                   text="Cargando sinopsis..."/>
         </VBox>
 
         <VBox styleClass="detail-section" spacing="2">
             <Label styleClass="detail-header" text="Información"/>
             <Label fx:id="durationLabel"
                    styleClass="card-detail-text"
-                   text="⏱️ Duración: 120 min"/>
+                   text="⏱️ Duración: -- min"/>
             <Label fx:id="genreLabel"
                    styleClass="card-detail-text"
-                   text="🎭 Género: Drama, Acción"/>
+                   text="🎭 Género: Desconocido"/>
             <Label fx:id="yearLabel"
                    styleClass="card-detail-text"
-                   text="📅 Año: 2025"/>
+                   text="📅 Estreno: --"/>
         </VBox>
 
         <VBox styleClass="detail-section" spacing="2">
@@ -79,10 +73,8 @@
             <Label fx:id="castLabel"
                    styleClass="card-detail-text"
                    wrapText="true"
-                   maxWidth="280"
-                   text="⭐ Actor Principal, Actriz Protagonista, Actor Secundario"/>
+                   maxWidth="300"
+                   text="⭐ Reparto no disponible."/>
         </VBox>
-
     </VBox>
-
 </VBox>

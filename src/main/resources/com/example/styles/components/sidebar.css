@@ -13,7 +13,7 @@
 
 /* 2) Título “CineLince” */
 .sidebar-title {
-    -fx-font-size: 20px;
+    -fx-font-size: 28px;
     -fx-font-weight: bold;
     -fx-text-fill: linear-gradient(from 0% 0% to 100% 100%, #3b2356, #4d61c0);
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 2, 0, 0, 1);

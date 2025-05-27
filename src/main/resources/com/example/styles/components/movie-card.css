@@ -1,51 +1,78 @@
-/* Grid de películas */
-.movie-grid {
-    -fx-padding: 32px 0;
-    -fx-hgap: 24;
-    -fx-vgap: 32;
-    -fx-alignment: CENTER;
-}
+/* styles.css */
 
-/* Tarjeta principal — ahora más wide que tall */
 .movie-card {
-    -fx-background-color: white;
-    -fx-background-radius: 18px;
-    -fx-padding: 0;
-    -fx-pref-width: 340px;   /* ancho aumentado */
-    -fx-pref-height: 220px;  /* altura reducida */
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.08), 10, 0.3, 0, 6);
-    -fx-cursor: hand;
-    -fx-alignment: TOP_CENTER;
-    -fx-transition-property: -fx-effect, -fx-scale-x, -fx-scale-y;
-    -fx-transition-duration: 0.2s;
+    -fx-background-color: #ffffff; /* Fondo blanco para la tarjeta */
+    -fx-background-radius: 12px;   /* Esquinas redondeadas para la tarjeta */
+    -fx-border-radius: 12px;       /* Consistencia para el borde si lo tuviera */
+    /* Efecto de sombra sutil para la tarjeta (puedes ajustarlo o usar el de CardAnimationHelper) */
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 10, 0, 2, 4);
 }
 
+.image-container {
+    -fx-background-radius: 8px; /* Radio de las esquinas del contenedor de la imagen */
+    -fx-border-radius: 8px;     /* Asegura que el borde también sea redondeado si se añade */
 
-/* Imagen */
+    /* Un color de fondo ayuda a que el recorte de las esquinas funcione mejor.
+       Si tus imágenes pueden tener transparencia y no quieres este color,
+       podrías necesitar un enfoque de recorte más avanzado (con un Rectangle clip en Java).
+       Para imágenes opacas, un color de fondo oscuro o que combine es buena idea.
+    */
+    -fx-background-color: #333333; /* Un gris oscuro, o el color que prefieras */
+
+    /* El StackPane debería recortar a sus hijos a su forma (definida por background-radius)
+       cuando tiene un fondo opaco. */
+
+    /* Opcional: un pequeño padding si quieres un "marco" dentro del contenedor redondeado,
+       pero entonces el fitWidth de la imagen debería ser aún menor.
+       -fx-padding: 4px;
+    */
+    -fx-max-width: 356px; /* Para asegurar que no exceda el ancho calculado - MODIFICADO */
+    -fx-alignment: CENTER; /* Centra la imagen si por alguna razón fuera más pequeña */
+}
+
 .movie-image {
-    -fx-fit-to-width: true;
-    -fx-preserve-ratio: true;
-    -fx-smooth: true;
-    /* ajustamos el recorte superior para Encajar en wide card */
-    -fx-background-radius: 18px 18px 0 0;
-    -fx-border-radius: 18px 18px 0 0;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.04), 2, 0, 0, 2);
+    /* No se necesita redondear la imagen directamente aquí si el .image-container la recorta.
+       Si el recorte del StackPane no es perfecto, se necesitaría un clip en el ImageView
+       (generalmente se hace en código Java).
+    */
 }
 
-/* Título centrado, más compacto */
 .card-title {
+    -fx-font-family: "System Bold"; /* O la fuente que estés usando */
     -fx-font-size: 15px;
-    -fx-font-weight: bold;
-    -fx-text-fill: #1E1E1E;
-    -fx-padding: 8px 12px 2px 12px;
-    -fx-wrap-text: true;
-    -fx-text-alignment: center;
+    -fx-text-fill: #2c3e50; /* Un color de texto oscuro pero no negro puro */
+    -fx-alignment: CENTER;
+    -fx-text-alignment: CENTER;
 }
 
-/* Subtítulo limpio */
 .card-subtitle {
+    -fx-font-size: 11px;
+    -fx-text-fill: #7f8c8d; /* Un gris suave para el subtítulo */
+    -fx-alignment: CENTER;
+    -fx-text-alignment: CENTER;
+}
+
+.text-container {
+    -fx-padding: 4px 0 0 0; /* Un poco de espacio arriba del texto */
+}
+
+/* Estilos para el panel de detalles (puedes personalizarlos más) */
+.detail-container {
+    -fx-padding: 8px;
+}
+
+.detail-section {
+    -fx-padding: 4px 0;
+}
+
+.detail-header {
+    -fx-font-family: "System Bold";
     -fx-font-size: 12px;
-    -fx-text-fill: #888;
-    -fx-text-alignment: center;
-    -fx-padding: 0 12px 8px 12px;
+    -fx-text-fill: #34495e;
+    -fx-padding-bottom: 2px;
+}
+
+.card-detail-text {
+    -fx-font-size: 11px;
+    -fx-text-fill: #555555;
 }

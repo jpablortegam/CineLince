@@ -4,16 +4,40 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6f94096a-8f21-4170-a76e-4c2b50d8bf02" name="Changes" comment="update sidebar title and add SQL scripts for database setup and client management">
-      <change afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/images/posters/placeholder.png" afterDir="false" />
+    <list default="true" id="6f94096a-8f21-4170-a76e-4c2b50d8bf02" name="Changes" comment="add Dockerfile and docker-compose.yml for application containerization; update login-view.fxml and login.css for improved UI layout and styles">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/database/BDCinemasystemScript.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/CardMovieViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/CardMovieViewController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/HomeViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/HomeViewController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/database/BDcinemasystemCorregido.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/database/CORRECIONES.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/database/SQL_CINE.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/database/console_4.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/database/console_5.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/model/Actor.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/model/Asiento.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/model/Boleto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/model/CategoriaProducto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/model/DetalleVenta.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/model/Director.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/model/Estudio.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/model/Membresia.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/model/Movie.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/model/PeliculaActor.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/model/Producto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/model/Promocion.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/model/Sala.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/model/TipoPelicula.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/model/Venta.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/services/AuthService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/services/MovieService.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/utils/Animations/CardAnimationHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/utils/Animations/CardAnimationHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/cinelinces/cardMovie-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/cinelinces/cardMovie-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/cinelinces/home-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/cinelinces/home-view.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/cinelinces/login-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/cinelinces/login-view.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/images/posters/parasitos.jpg" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/styles/components/login.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/styles/components/login.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/styles/components/movie-card.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/styles/components/movie-card.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/styles/components/sidebar.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/styles/components/sidebar.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -290,7 +314,7 @@
       <workItem from="1748159076179" duration="2897000" />
       <workItem from="1748162326939" duration="607000" />
       <workItem from="1748272478252" duration="4576000" />
-      <workItem from="1748378511440" duration="2130000" />
+      <workItem from="1748378511440" duration="5795000" />
     </task>
     <task id="LOCAL-00001" summary="initialize project structure with basic JavaFX application and Gradle setup">
       <option name="closed" value="true" />
@@ -556,7 +580,15 @@
       <option name="project" value="LOCAL" />
       <updated>1748275406352</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="add Dockerfile and docker-compose.yml for application containerization; update login-view.fxml and login.css for improved UI layout and styles">
+      <option name="closed" value="true" />
+      <created>1748381049858</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1748381049858</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -586,7 +618,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="refactor UI layout and enhance styles for hello-view and application scene" />
     <MESSAGE value="add AnimatedComponent for enhanced dialog animations and update sidebar styles" />
     <MESSAGE value="add pagination for movie listings and implement movie card display" />
     <MESSAGE value="add styles for buttons, content area, and pagination; implement main application view and controllers" />
@@ -611,6 +642,7 @@
     <MESSAGE value="implement client dashboard view and controller; add password hashing utility and update client model with hashed password" />
     <MESSAGE value="refactor client dashboard and login view controllers; implement session management and improve user data handling" />
     <MESSAGE value="update sidebar title and add SQL scripts for database setup and client management" />
-    <option name="LAST_COMMIT_MESSAGE" value="update sidebar title and add SQL scripts for database setup and client management" />
+    <MESSAGE value="add Dockerfile and docker-compose.yml for application containerization; update login-view.fxml and login.css for improved UI layout and styles" />
+    <option name="LAST_COMMIT_MESSAGE" value="add Dockerfile and docker-compose.yml for application containerization; update login-view.fxml and login.css for improved UI layout and styles" />
   </component>
 </project>

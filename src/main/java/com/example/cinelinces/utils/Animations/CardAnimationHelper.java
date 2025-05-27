@@ -2,7 +2,7 @@ package com.example.cinelinces.utils.Animations;
 
 import javafx.animation.*;
 import javafx.application.Platform;
-import javafx.geometry.Bounds;
+// import javafx.geometry.Bounds; // No se usa directamente en esta clase
 import javafx.scene.Node;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.Pane;
@@ -12,43 +12,43 @@ import javafx.util.Duration;
 public class CardAnimationHelper {
 
     // --- Constantes Generales ---
-    private static final Duration HOVER_ANIM_DURATION = Duration.millis(150); // Duración para animaciones de hover
+    // Duración para animaciones de hover (un poco más rápida)
+    private static final Duration HOVER_ANIM_DURATION = Duration.millis(120);
 
     // --- Constantes de Hover ---
     private static final double HOVER_SCALE_FACTOR = 1.03;
-    private static final double HOVER_TRANSLATE_Y_DELTA = -6; // Un poco más de elevación
-    private static final double HOVER_SHADOW_RADIUS_VALUE = 15; // Sombra más grande en hover
+    private static final double HOVER_TRANSLATE_Y_DELTA = -6;
+    private static final double HOVER_SHADOW_RADIUS_VALUE = 15;
     private static final double HOVER_SHADOW_OFFSET_Y_VALUE = 5;
     private static final Color HOVER_SHADOW_EFFECT_COLOR = Color.rgb(0, 0, 0, 0.28);
 
-    // --- Duraciones de Expandir/Colapsar ---
-    // Duraciones ligeramente ajustadas para una sensación más suave
-    public static final Duration EXPAND_ANIM_DURATION = Duration.millis(450); // Un poco más largo para movimiento y escala
-    public static final Duration COLLAPSE_ANIM_DURATION = Duration.millis(350);
+    // --- Duraciones de Expandir/Colapsar (más rápidas) ---
+    public static final Duration EXPAND_ANIM_DURATION = Duration.millis(320); // Antes 450ms
+    public static final Duration COLLAPSE_ANIM_DURATION = Duration.millis(280); // Antes 350ms
 
     // --- Efectos de Sombra ---
-    // Sombra sutil para el estado normal de la tarjeta
     public static final DropShadow SUBTLE_SHADOW_EFFECT = new DropShadow(
-            8, // radius
-            2, // offsetY
-            0, // offsetX
-            Color.rgb(0, 0, 0, 0.12) // color más suave
+            8, Color.rgb(0, 0, 0, 0.12)
     );
-    // Sombra para el estado expandido (más pronunciada)
+    static { // Configurar offsetY y offsetX para SUBTLE_SHADOW_EFFECT
+        SUBTLE_SHADOW_EFFECT.setOffsetY(2);
+        SUBTLE_SHADOW_EFFECT.setOffsetX(0); // Ya era 0 por defecto
+    }
+
     public static final DropShadow EXPANDED_CARD_SHADOW_EFFECT = new DropShadow(
-            25, // radius
-            8,  // offsetY
-            0,  // offsetX
-            Color.rgb(0, 0, 0, 0.30)
+            25, Color.rgb(0, 0, 0, 0.30)
     );
+    static { // Configurar offsetY y offsetX para EXPANDED_CARD_SHADOW_EFFECT
+        EXPANDED_CARD_SHADOW_EFFECT.setOffsetY(8);
+        EXPANDED_CARD_SHADOW_EFFECT.setOffsetX(0); // Ya era 0 por defecto
+    }
+
 
     // --- Interpoladores ---
-    // Interpolador suave estándar para la mayoría de las animaciones de UI
-    public static final Interpolator EASE_OUT_INTERPOLATOR = Interpolator.SPLINE(0.0, 0.0, 0.2, 1.0); // Típico ease-out
-    public static final Interpolator EASE_IN_OUT_INTERPOLATOR = Interpolator.SPLINE(0.42, 0.0, 0.58, 1.0); // Típico ease-in-out
-    private static final Interpolator SMOOTH_PHYSICS_INTERPOLATOR = Interpolator.SPLINE(0.25, 0.46, 0.45, 0.94); // El que ya tenías, bueno para sensación orgánica
+    public static final Interpolator EASE_OUT_INTERPOLATOR = Interpolator.SPLINE(0.0, 0.0, 0.2, 1.0);
+    public static final Interpolator EASE_IN_OUT_INTERPOLATOR = Interpolator.SPLINE(0.42, 0.0, 0.58, 1.0);
+    private static final Interpolator SMOOTH_PHYSICS_INTERPOLATOR = Interpolator.SPLINE(0.25, 0.46, 0.45, 0.94);
 
-    // Se usarán principalmente EASE_OUT y EASE_IN_OUT para consistencia, SMOOTH_PHYSICS para el overshoot
     private static final Interpolator PRIMARY_MOVEMENT_INTERPOLATOR = EASE_IN_OUT_INTERPOLATOR;
     private static final Interpolator SCALE_SETTLE_INTERPOLATOR = EASE_OUT_INTERPOLATOR;
     private static final Interpolator FADE_INTERPOLATOR = EASE_OUT_INTERPOLATOR;
@@ -58,10 +58,17 @@ public class CardAnimationHelper {
 
     public static Timeline createHoverInAnimation(Node cardNode) {
         DropShadow currentEffect = (DropShadow) cardNode.getEffect();
-        if (currentEffect == null) {
-            currentEffect = new DropShadow(); // Crear uno si no existe
+        if (currentEffect == null || currentEffect == SUBTLE_SHADOW_EFFECT) { // Clone if it's the shared static instance
+            currentEffect = new DropShadow(
+                    SUBTLE_SHADOW_EFFECT.getRadius(),
+                    SUBTLE_SHADOW_EFFECT.getOffsetY(),
+                    SUBTLE_SHADOW_EFFECT.getOffsetX(),
+                    SUBTLE_SHADOW_EFFECT.getColor()
+            );
+            currentEffect.setSpread(SUBTLE_SHADOW_EFFECT.getSpread());
             cardNode.setEffect(currentEffect);
         }
+
 
         return new Timeline(new KeyFrame(HOVER_ANIM_DURATION,
                 new KeyValue(cardNode.scaleXProperty(), HOVER_SCALE_FACTOR, EASE_OUT_INTERPOLATOR),
@@ -75,12 +82,11 @@ public class CardAnimationHelper {
 
     public static Timeline createHoverOutAnimation(Node cardNode) {
         DropShadow currentEffect = (DropShadow) cardNode.getEffect();
-        if (currentEffect == null) { // No debería ocurrir si hoverIn lo estableció
-            currentEffect = new DropShadow();
+        if (currentEffect == null) { // Should not happen if hoverIn set it
+            currentEffect = new DropShadow(); // Fallback, will animate from default
             cardNode.setEffect(currentEffect);
         }
 
-        // Vuelve a la sombra sutil definida
         return new Timeline(new KeyFrame(HOVER_ANIM_DURATION,
                 new KeyValue(cardNode.scaleXProperty(), 1.0, EASE_OUT_INTERPOLATOR),
                 new KeyValue(cardNode.scaleYProperty(), 1.0, EASE_OUT_INTERPOLATOR),
@@ -89,69 +95,57 @@ public class CardAnimationHelper {
                 new KeyValue(currentEffect.offsetYProperty(), SUBTLE_SHADOW_EFFECT.getOffsetY(), EASE_OUT_INTERPOLATOR),
                 new KeyValue(currentEffect.colorProperty(), SUBTLE_SHADOW_EFFECT.getColor(), EASE_OUT_INTERPOLATOR),
                 new KeyValue(currentEffect.spreadProperty(), SUBTLE_SHADOW_EFFECT.getSpread(), EASE_OUT_INTERPOLATOR)
+                // Al finalizar, podrías reemplazar el efecto con la instancia estática SUBTLE_SHADOW_EFFECT
+                // si quieres optimizar y no tener muchas instancias de DropShadow,
+                // pero requiere un onFinished handler. Por ahora, esto anima las propiedades.
         ));
     }
 
 
     // ---------------- EXPAND CARD ANIMATION ----------------
-    /**
-     * Crea una animación para expandir una tarjeta.
-     * La tarjeta debe ser movida al overlayPane y su layoutX/Y ajustado
-     * para que aparezca en su posición original ANTES de iniciar esta animación.
-     * Su opacidad inicial debería ser 0.
-     *
-     * @param card El nodo de la tarjeta a animar.
-     * @param targetTranslateX El valor final de translateX para la tarjeta en el overlay.
-     * @param targetTranslateY El valor final de translateY para la tarjeta en el overlay.
-     * @param finalScaleX Escala X final.
-     * @param finalScaleY Escala Y final.
-     * @return Una ParallelTransition para la animación de expansión.
-     */
     public static ParallelTransition createExpandAnimation(Node card,
                                                            double targetTranslateX, double targetTranslateY,
                                                            double finalScaleX, double finalScaleY) {
 
-        // 1. Movimiento (Translate)
-        // Anima desde su translateX/Y actual (debería ser 0 si se reseteó bien) a los valores finales.
         TranslateTransition move = new TranslateTransition(EXPAND_ANIM_DURATION, card);
         move.setToX(targetTranslateX);
         move.setToY(targetTranslateY);
         move.setInterpolator(PRIMARY_MOVEMENT_INTERPOLATOR);
 
-        // 2. Aparición (FadeIn)
-        // Asume que la tarjeta tiene opacidad 0 al inicio de esta animación.
-        FadeTransition fadeIn = new FadeTransition(EXPAND_ANIM_DURATION.multiply(0.6), card); // Más rápido que el movimiento/escala
+        FadeTransition fadeIn = new FadeTransition(EXPAND_ANIM_DURATION.multiply(0.6), card);
         fadeIn.setFromValue(0.0);
         fadeIn.setToValue(1.0);
         fadeIn.setInterpolator(FADE_INTERPOLATOR);
-        // fadeIn.setDelay(EXPAND_ANIM_DURATION.multiply(0.1)); // Opcional: un pequeño retraso
 
-        // 3. Escalado con Efecto de "Overshoot" (Rebote)
         Timeline scaleAnim = new Timeline(
                 new KeyFrame(Duration.ZERO,
-                        new KeyValue(card.scaleXProperty(), card.getScaleX()), // Empieza desde la escala actual (debería ser 1.0)
+                        new KeyValue(card.scaleXProperty(), card.getScaleX()),
                         new KeyValue(card.scaleYProperty(), card.getScaleY())
                 ),
-                // Efecto de overshoot: se pasa un poco de la escala final
-                new KeyFrame(EXPAND_ANIM_DURATION.multiply(0.75), // Momento del overshoot
+                new KeyFrame(EXPAND_ANIM_DURATION.multiply(0.75),
                         new KeyValue(card.scaleXProperty(), finalScaleX * 1.05, SMOOTH_PHYSICS_INTERPOLATOR),
                         new KeyValue(card.scaleYProperty(), finalScaleY * 1.05, SMOOTH_PHYSICS_INTERPOLATOR)
                 ),
-                // Asentamiento a la escala final
                 new KeyFrame(EXPAND_ANIM_DURATION,
                         new KeyValue(card.scaleXProperty(), finalScaleX, SCALE_SETTLE_INTERPOLATOR),
                         new KeyValue(card.scaleYProperty(), finalScaleY, SCALE_SETTLE_INTERPOLATOR)
                 )
         );
 
-        // 4. Animación de Sombra
         DropShadow currentEffect = (DropShadow) card.getEffect();
-        if (currentEffect == null) { // Asegurar que hay un efecto para animar
-            currentEffect = new DropShadow(); // Valores iniciales por defecto
+        if (currentEffect == null || currentEffect == SUBTLE_SHADOW_EFFECT) { // Clone if it's the shared static instance
+            currentEffect = new DropShadow(
+                    SUBTLE_SHADOW_EFFECT.getRadius(),
+                    SUBTLE_SHADOW_EFFECT.getOffsetY(),
+                    SUBTLE_SHADOW_EFFECT.getOffsetX(),
+                    SUBTLE_SHADOW_EFFECT.getColor()
+            );
+            currentEffect.setSpread(SUBTLE_SHADOW_EFFECT.getSpread());
             card.setEffect(currentEffect);
         }
+
         Timeline shadowAnim = new Timeline(
-                new KeyFrame(EXPAND_ANIM_DURATION, // La sombra alcanza su estado final al mismo tiempo
+                new KeyFrame(EXPAND_ANIM_DURATION,
                         new KeyValue(currentEffect.radiusProperty(), EXPANDED_CARD_SHADOW_EFFECT.getRadius(), PRIMARY_MOVEMENT_INTERPOLATOR),
                         new KeyValue(currentEffect.offsetXProperty(), EXPANDED_CARD_SHADOW_EFFECT.getOffsetX(), PRIMARY_MOVEMENT_INTERPOLATOR),
                         new KeyValue(currentEffect.offsetYProperty(), EXPANDED_CARD_SHADOW_EFFECT.getOffsetY(), PRIMARY_MOVEMENT_INTERPOLATOR),
@@ -164,46 +158,42 @@ public class CardAnimationHelper {
     }
 
     // ---------------- COLLAPSE CARD ANIMATION ----------------
-    /**
-     * Crea una animación para colapsar una tarjeta de vuelta a su estado original.
-     *
-     * @param card El nodo de la tarjeta a animar.
-     * @param overlayPane El panel overlay del que se removerá la tarjeta.
-     * @param originalParent El panel original al que volverá la tarjeta.
-     * @param placeholder El nodo placeholder a remover del originalParent (puede ser null).
-     * @param onAllOperationsCompleted Callback a ejecutar cuando toda la animación y limpieza hayan finalizado.
-     * @return Una ParallelTransition para la animación de colapso.
-     */
     public static ParallelTransition createCollapseAnimation(Node card,
                                                              Pane overlayPane,
                                                              Pane originalParent,
                                                              Node placeholder,
                                                              Runnable onAllOperationsCompleted) {
 
-        // 1. Movimiento de Retorno (Translate)
-        // Vuelve a translateX/Y = 0,0 relativo a su layoutX/Y en el overlayPane
         TranslateTransition moveBack = new TranslateTransition(COLLAPSE_ANIM_DURATION, card);
         moveBack.setToX(0);
         moveBack.setToY(0);
         moveBack.setInterpolator(PRIMARY_MOVEMENT_INTERPOLATOR);
 
-        // 2. Escalado de Retorno
         ScaleTransition scaleBack = new ScaleTransition(COLLAPSE_ANIM_DURATION, card);
         scaleBack.setToX(1.0);
         scaleBack.setToY(1.0);
         scaleBack.setInterpolator(PRIMARY_MOVEMENT_INTERPOLATOR);
 
-        // 3. Desvanecimiento Parcial (Fade)
-        // Reduce la opacidad durante la transición para un efecto más suave
         FadeTransition fadeOut = new FadeTransition(COLLAPSE_ANIM_DURATION.multiply(0.7), card);
-        fadeOut.setFromValue(card.getOpacity()); // Desde la opacidad actual
-        fadeOut.setToValue(0.6); // Baja la opacidad temporalmente (se restaura a 1.0 al final)
+        fadeOut.setFromValue(card.getOpacity());
+        fadeOut.setToValue(0.6);
         fadeOut.setInterpolator(FADE_INTERPOLATOR);
 
-        // 4. Animación de Sombra de Retorno
         DropShadow currentEffect = (DropShadow) card.getEffect();
         Timeline shadowCollapseAnim = null;
         if (currentEffect != null) {
+            // Asegurarse de que no se modifica la instancia estática si se usa como base
+            if (currentEffect == EXPANDED_CARD_SHADOW_EFFECT) {
+                currentEffect = new DropShadow(
+                        EXPANDED_CARD_SHADOW_EFFECT.getRadius(),
+                        EXPANDED_CARD_SHADOW_EFFECT.getOffsetY(),
+                        EXPANDED_CARD_SHADOW_EFFECT.getOffsetX(),
+                        EXPANDED_CARD_SHADOW_EFFECT.getColor()
+                );
+                currentEffect.setSpread(EXPANDED_CARD_SHADOW_EFFECT.getSpread());
+                card.setEffect(currentEffect);
+            }
+
             shadowCollapseAnim = new Timeline(
                     new KeyFrame(COLLAPSE_ANIM_DURATION,
                             new KeyValue(currentEffect.radiusProperty(), SUBTLE_SHADOW_EFFECT.getRadius(), PRIMARY_MOVEMENT_INTERPOLATOR),
@@ -222,48 +212,36 @@ public class CardAnimationHelper {
             pt = new ParallelTransition(card, moveBack, scaleBack, fadeOut);
         }
 
-        // --- Acciones al finalizar la animación ---
         pt.setOnFinished(event -> {
-            // Es crucial ejecutar las manipulaciones de la escena en el hilo de la UI de JavaFX
             Platform.runLater(() -> {
-                // 1. Remover la tarjeta del overlay
                 overlayPane.getChildren().remove(card);
 
-                // 2. Resetear completamente el estado de la tarjeta
                 card.setTranslateX(0);
                 card.setTranslateY(0);
                 card.setScaleX(1.0);
                 card.setScaleY(1.0);
-                card.setOpacity(1.0); // Opacidad completa
-                card.setEffect(SUBTLE_SHADOW_EFFECT); // Aplicar la sombra sutil final
+                card.setOpacity(1.0);
+                card.setEffect(SUBTLE_SHADOW_EFFECT); // Restaurar la instancia estática sutil
 
-                // 3. Reinsertar la tarjeta en su contenedor original
-                boolean reinsertedCorrectly = false;
                 if (originalParent != null) {
                     if (placeholder != null && placeholder.getParent() == originalParent) {
                         int placeholderIndex = originalParent.getChildren().indexOf(placeholder);
-                        originalParent.getChildren().remove(placeholder); // Remover el placeholder
+                        originalParent.getChildren().remove(placeholder);
                         if (placeholderIndex != -1) {
                             originalParent.getChildren().add(placeholderIndex, card);
                         } else {
-                            originalParent.getChildren().add(card); // Fallback si el índice no es válido
+                            originalParent.getChildren().add(card);
                         }
                     } else {
-                        originalParent.getChildren().add(card); // Añadir al final si no hay placeholder
+                        originalParent.getChildren().add(card);
                     }
-                    reinsertedCorrectly = true;
-
-                    // Asegurar que la tarjeta sea visible y gestionada por el layout
                     card.setVisible(true);
                     card.setManaged(true);
-                    originalParent.requestLayout(); // Solicitar un nuevo ciclo de layout
+                    originalParent.requestLayout();
                 } else {
                     System.err.println("CardAnimationHelper: originalParent es null. La tarjeta no se puede reinsertar.");
-                    // Podrías querer hacer la tarjeta invisible si no se puede reinsertar
-                    // card.setVisible(false);
                 }
 
-                // 4. Ejecutar el callback si existe
                 if (onAllOperationsCompleted != null) {
                     onAllOperationsCompleted.run();
                 }

@@ -14,7 +14,7 @@
             <VBox alignment="CENTER" prefHeight="750.0" prefWidth="650.0" spacing="0.0" styleClass="inner-container">
                 <VBox alignment="CENTER" spacing="12.0" styleClass="header-section">
                     <children>
-                        <Label styleClass="app-title" text="🎬 CineLince" />
+                        <Label styleClass="app-title" text="🎬 Lincine" />
                         <Label styleClass="app-subtitle" text="Tu plataforma de entretenimiento favorita" />
                     </children>
                 </VBox>
