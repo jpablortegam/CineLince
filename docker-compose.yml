@@ -1,0 +1,18 @@
+services:
+  app:
+    build: .
+    container_name: cinelince_app
+    depends_on:
+      - db
+    environment:
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_NAME: ${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_PASS: ${DB_PASS}
+      DISPLAY: $DISPLAY
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+    networks:
+      - cinelince_net
+    # Si usas Windows/Mac, deberás configurar X11 forwarding con VcXsrv/XQuartz

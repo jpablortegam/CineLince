@@ -45,9 +45,10 @@
 /* —— PESTAÑAS RECTANGULARES Y PROPORCIONADAS —— */
 .custom-tab-pane {
     -fx-background-color: transparent;
-    /* fija ancho igual para cada pestaña */
-    -fx-tab-min-width: 300px;
-    -fx-tab-max-width: 300px;
+    /* Hacer que cada pestaña ocupe el 50% del ancho disponible */
+    -fx-tab-min-width: 285px;
+    -fx-tab-max-width: 285px;
+    -fx-pref-width: 570px;
 }
 
 /* limpia fondo y bordes de la cabecera */
@@ -98,7 +99,7 @@
 }
 
 /* pestaña NO SELECCIONADA - estilo mejorado */
-.custom-tab-pane .tab:not(.tab:selected) {
+.custom-tab-pane .tab:selected {
     -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #f8f9fa 0%, #e9ecef 100%);
     -fx-border-color: transparent transparent #dee2e6 transparent;
     -fx-border-width: 0 0 1px 0;
@@ -135,13 +136,13 @@
 }
 
 /* texto no seleccionado mejorado */
-.custom-tab-pane .tab:not(.tab:selected) .tab-label {
+.custom-tab-pane .tab:selected .tab-label {
     -fx-text-fill: #868e96;
     -fx-font-weight: 500;
 }
 
 /* hover en no seleccionado - mejorado */
-.custom-tab-pane .tab:not(.tab:selected):hover {
+.custom-tab-pane .tab:selected:hover {
     -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #ffffff 0%, #f8f9fa 100%);
     -fx-scale-x: 1.0;
     -fx-scale-y: 1.0;
@@ -152,7 +153,7 @@
 }
 
 /* hover texto no seleccionado */
-.custom-tab-pane .tab:not(.tab:selected):hover .tab-label {
+.custom-tab-pane .tab:selected:hover .tab-label {
     -fx-text-fill: #495057;
     -fx-font-weight: 600;
 }
@@ -168,6 +169,8 @@
     -fx-background-radius: 0 0 15px 15px;
     -fx-padding: 30px;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 8, 0, 0, 2);
+    -fx-pref-width: 570px;
+    -fx-max-width: 570px;
 }
 
 /* —— FORMULARIO EXPANDIDO —— */

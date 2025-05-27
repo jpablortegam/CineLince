@@ -1,198 +1,105 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.geometry.Insets?>
+
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 
-<BorderPane xmlns="http://javafx.com/javafx/11.0.1"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.example.cinelinces.controllers.LoginViewController">
+<BorderPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cinelinces.controllers.LoginViewController">
 
     <center>
-        <VBox alignment="CENTER"
-              maxWidth="-Infinity" maxHeight="-Infinity"
-              minWidth="-Infinity" minHeight="-Infinity"
-              prefWidth="700.0" prefHeight="850.0"
-              styleClass="login-container">
+        <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="850.0" prefWidth="700.0" styleClass="login-container">
             <padding>
-                <Insets top="40.0" right="40.0" bottom="40.0" left="40.0"/>
+                <Insets bottom="40.0" left="40.0" right="40.0" top="40.0" />
             </padding>
-            <!-- Contenedor Interior con Fondo Blanco -->
-            <VBox alignment="CENTER"
-                  spacing="0.0"
-                  prefWidth="650.0" prefHeight="750.0"
-                  styleClass="inner-container">
-                <!-- Logo/Title Section -->
-                <VBox alignment="CENTER"
-                      spacing="12.0"
-                      styleClass="header-section">
+            <VBox alignment="CENTER" prefHeight="750.0" prefWidth="650.0" spacing="0.0" styleClass="inner-container">
+                <VBox alignment="CENTER" spacing="12.0" styleClass="header-section">
                     <children>
-                        <Label styleClass="app-title" text="🎬 CineLince"/>
-                        <Label styleClass="app-subtitle"
-                               text="Tu plataforma de entretenimiento favorita"/>
+                        <Label styleClass="app-title" text="🎬 CineLince" />
+                        <Label styleClass="app-subtitle" text="Tu plataforma de entretenimiento favorita" />
                     </children>
                 </VBox>
 
-                <!-- Tab Panel Section -->
-                <TabPane fx:id="mainTabPane"
-                         prefWidth="600.0" prefHeight="650.0"
-                         styleClass="custom-tab-pane"
-                         tabClosingPolicy="UNAVAILABLE">
-                    <!-- SIGN IN TAB -->
-                    <Tab fx:id="signInTab"
-                         styleClass="custom-tab"
-                         text="INICIAR SESIÓN">
-                        <VBox alignment="CENTER"
-                              spacing="25.0"
-                              styleClass="tab-content">
-                            <!-- Sign In Form -->
-                            <VBox spacing="20.0"
-                                  styleClass="form-container">
-                                <!-- Username Field -->
-                                <VBox spacing="8.0"
-                                      styleClass="field-container">
-                                    <Label styleClass="field-label"
-                                           text="👤 Usuario o Email"/>
-                                    <TextField fx:id="signInUsernameField"
-                                               promptText="Ingresa tu usuario o email"
-                                               styleClass="custom-text-field"/>
+                <TabPane fx:id="mainTabPane" prefHeight="650.0" prefWidth="600.0" styleClass="custom-tab-pane" tabClosingPolicy="UNAVAILABLE">
+                    <Tab fx:id="signInTab" styleClass="custom-tab" text="INICIAR SESIÓN">
+                        <VBox alignment="CENTER" spacing="25.0" styleClass="tab-content">
+                            <VBox spacing="20.0" styleClass="form-container"> <VBox spacing="8.0" styleClass="field-container">
+                                <Label styleClass="field-label" text="👤 Usuario o Email" />
+                                <TextField fx:id="signInUsernameField" promptText="Ingresa tu usuario o email" styleClass="custom-text-field" />
+                            </VBox>
+
+                                <VBox spacing="8.0" styleClass="field-container">
+                                    <Label styleClass="field-label" text="🔒 Contraseña" />
+                                    <PasswordField fx:id="signInPasswordField" promptText="Ingresa tu contraseña" styleClass="custom-text-field" />
                                 </VBox>
 
-                                <!-- Password Field -->
-                                <VBox spacing="8.0"
-                                      styleClass="field-container">
-                                    <Label styleClass="field-label"
-                                           text="🔒 Contraseña"/>
-                                    <PasswordField fx:id="signInPasswordField"
-                                                   promptText="Ingresa tu contraseña"
-                                                   styleClass="custom-text-field"/>
-                                </VBox>
-
-                                <!-- Remember Me -->
-                                <HBox alignment="CENTER_LEFT"
-                                      spacing="15.0">
+                                <HBox alignment="CENTER_LEFT" spacing="15.0">
                                     <VBox.margin>
-                                        <Insets top="10.0"/>
+                                        <Insets top="10.0" />
                                     </VBox.margin>
-                                    <CheckBox fx:id="rememberMeCheckbox"
-                                              styleClass="custom-checkbox"
-                                              text="Mantener sesión iniciada"/>
+                                    <CheckBox fx:id="rememberMeCheckbox" styleClass="custom-checkbox" text="Mantener sesión iniciada" />
                                 </HBox>
 
-                                <!-- Sign In Button -->
-                                <Button fx:id="signInButton"
-                                        maxWidth="Infinity"
-                                        onAction="#handleSignIn"
-                                        styleClass="primary-button"
-                                        text="🚀 INICIAR SESIÓN">
+                                <Button fx:id="signInButton" maxWidth="Infinity" onAction="#handleSignIn" styleClass="primary-button" text="🚀 INICIAR SESIÓN">
                                     <VBox.margin>
-                                        <Insets top="20.0"/>
+                                        <Insets top="20.0" />
                                     </VBox.margin>
                                 </Button>
 
-                                <!-- Forgot Password -->
-                                <Label alignment="CENTER"
-                                       maxWidth="Infinity"
-                                       styleClass="link-label"
-                                       text="¿Olvidaste tu contraseña? Recupérala aquí">
+                                <Label alignment="CENTER" maxWidth="Infinity" styleClass="link-label" text="¿Olvidaste tu contraseña? Recupérala aquí">
                                     <VBox.margin>
-                                        <Insets top="15.0"/>
+                                        <Insets top="15.0" />
                                     </VBox.margin>
                                 </Label>
                             </VBox>
                         </VBox>
                     </Tab>
 
-                    <!-- SIGN UP TAB -->
-                    <Tab fx:id="signUpTab"
-                         styleClass="custom-tab"
-                         text="REGISTRARSE">
-                        <VBox alignment="CENTER"
-                              spacing="25.0"
-                              styleClass="tab-content">
-                            <!-- Sign Up Form -->
-                            <ScrollPane fitToWidth="true"
-                                        hbarPolicy="NEVER"
-                                        vbarPolicy="AS_NEEDED"
-                                        styleClass="transparent-scroll-pane">
-                                <VBox spacing="20.0"
-                                      styleClass="form-container"
-                                      maxWidth="500.0">
-                                    <padding>
-                                        <Insets bottom="20.0"/>
+                    <Tab fx:id="signUpTab" styleClass="custom-tab" text="REGISTRARSE">
+                        <VBox alignment="CENTER" spacing="25.0" styleClass="tab-content">
+                            <ScrollPane fitToWidth="true" hbarPolicy="NEVER" styleClass="transparent-scroll-pane" vbarPolicy="AS_NEEDED">
+                                <StackPane alignment="CENTER" prefHeight="462.0" prefWidth="592.0">
+                                    <VBox maxWidth="285.0" spacing="20.0" styleClass="form-container"> <padding>
+                                        <Insets bottom="20.0" />
                                     </padding>
-                                    <!-- Full Name Field -->
-                                    <VBox spacing="8.0"
-                                          styleClass="field-container">
-                                        <Label styleClass="field-label"
-                                               text="👤 Nombre Completo"/>
-                                        <TextField fx:id="fullNameField"
-                                                   promptText="Ingresa tu nombre completo"
-                                                   styleClass="custom-text-field"/>
+                                        <VBox spacing="8.0" styleClass="field-container">
+                                            <Label styleClass="field-label" text="👤 Nombre Completo" />
+                                            <TextField fx:id="fullNameField" promptText="Ingresa tu nombre completo" styleClass="custom-text-field" />
+                                        </VBox>
+
+                                        <VBox spacing="8.0" styleClass="field-container">
+                                            <Label styleClass="field-label" text="📧 Email" />
+                                            <TextField fx:id="emailField" promptText="ejemplo@correo.com" styleClass="custom-text-field" />
+                                        </VBox>
+
+                                        <VBox spacing="8.0" styleClass="field-container">
+                                            <Label styleClass="field-label" text="🆔 Usuario" />
+                                            <TextField fx:id="signUpUsernameField" promptText="Elige un nombre de usuario único" styleClass="custom-text-field" />
+                                        </VBox>
+
+                                        <VBox spacing="8.0" styleClass="field-container">
+                                            <Label styleClass="field-label" text="🔒 Contraseña" />
+                                            <PasswordField fx:id="signUpPasswordField" promptText="Crea una contraseña segura (mín. 8 caracteres)" styleClass="custom-text-field" />
+                                        </VBox>
+
+                                        <VBox spacing="8.0" styleClass="field-container">
+                                            <Label styleClass="field-label" text="🔐 Confirmar Contraseña" />
+                                            <PasswordField fx:id="confirmPasswordField" promptText="Confirma tu contraseña" styleClass="custom-text-field" />
+                                        </VBox>
+
+                                        <HBox alignment="CENTER_LEFT" spacing="15.0">
+                                            <VBox.margin>
+                                                <Insets top="10.0" />
+                                            </VBox.margin>
+                                            <CheckBox fx:id="termsCheckbox" styleClass="custom-checkbox" text="Acepto los términos y condiciones" />
+                                        </HBox>
+
+                                        <Button fx:id="signUpButton" maxWidth="Infinity" onAction="#handleSignUp" styleClass="primary-button" text="✨ CREAR CUENTA">
+                                            <VBox.margin>
+                                                <Insets top="20.0" />
+                                            </VBox.margin>
+                                        </Button>
                                     </VBox>
-
-                                    <!-- Email Field -->
-                                    <VBox spacing="8.0"
-                                          styleClass="field-container">
-                                        <Label styleClass="field-label"
-                                               text="📧 Email"/>
-                                        <TextField fx:id="emailField"
-                                                   promptText="ejemplo@correo.com"
-                                                   styleClass="custom-text-field"/>
-                                    </VBox>
-
-                                    <!-- Username Field -->
-                                    <VBox spacing="8.0"
-                                          styleClass="field-container">
-                                        <Label styleClass="field-label"
-                                               text="🆔 Usuario"/>
-                                        <TextField fx:id="signUpUsernameField"
-                                                   promptText="Elige un nombre de usuario único"
-                                                   styleClass="custom-text-field"/>
-                                    </VBox>
-
-                                    <!-- Password Field -->
-                                    <VBox spacing="8.0"
-                                          styleClass="field-container">
-                                        <Label styleClass="field-label"
-                                               text="🔒 Contraseña"/>
-                                        <PasswordField fx:id="signUpPasswordField"
-                                                       promptText="Crea una contraseña segura (mín. 8 caracteres)"
-                                                       styleClass="custom-text-field"/>
-                                    </VBox>
-
-                                    <!-- Confirm Password Field -->
-                                    <VBox spacing="8.0"
-                                          styleClass="field-container">
-                                        <Label styleClass="field-label"
-                                               text="🔐 Confirmar Contraseña"/>
-                                        <PasswordField fx:id="confirmPasswordField"
-                                                       promptText="Confirma tu contraseña"
-                                                       styleClass="custom-text-field"/>
-                                    </VBox>
-
-                                    <!-- Terms and Conditions -->
-                                    <HBox alignment="CENTER_LEFT"
-                                          spacing="15.0">
-                                        <VBox.margin>
-                                            <Insets top="10.0"/>
-                                        </VBox.margin>
-                                        <CheckBox fx:id="termsCheckbox"
-                                                  styleClass="custom-checkbox"
-                                                  text="Acepto los términos y condiciones"/>
-                                    </HBox>
-
-                                    <!-- Sign Up Button -->
-                                    <Button fx:id="signUpButton"
-                                            maxWidth="Infinity"
-                                            onAction="#handleSignUp"
-                                            styleClass="primary-button"
-                                            text="✨ CREAR CUENTA">
-                                        <VBox.margin>
-                                            <Insets top="20.0"/>
-                                        </VBox.margin>
-                                    </Button>
-                                </VBox>
+                                </StackPane>
                             </ScrollPane>
                         </VBox>
                     </Tab>
