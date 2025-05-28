@@ -76,7 +76,6 @@ public class CardMovieViewController {
 
         this.overlayHelper.getOverlay().setOnMouseClicked(e -> {
             if (isExpanded && !isAnimating && currentlyExpanded == this) {
-                // Solo colapsar si el clic es en el overlay MISMO, no en la tarjeta expandida
                 if (e.getTarget() == overlayHelper.getOverlay()) {
                     onCardClick(null);
                 }
@@ -117,7 +116,6 @@ public class CardMovieViewController {
         currentlyExpanded = this;
         cardRoot.getStyleClass().add("expanded");
 
-        // --- Lógica del Placeholder (Obtener posición ANTES de mover la tarjeta) ---
         Bounds cardBoundsInParent = cardRoot.getBoundsInParent();
         Point2D cardPositionInScene = cardRoot.localToScene(0, 0);
 
@@ -133,12 +131,10 @@ public class CardMovieViewController {
             if (idx != -1) {
                 currentParentPane.getChildren().set(idx, placeholder);
             } else {
-                // Esto no debería ocurrir si la tarjeta estaba visible
                 currentParentPane.getChildren().add(placeholder);
             }
         }
 
-        // --- Configurar tarjeta en el overlayPane ---
         Point2D cardPositionInOverlay = overlayPane.sceneToLocal(cardPositionInScene);
         cardRoot.setLayoutX(cardPositionInOverlay.getX());
         cardRoot.setLayoutY(cardPositionInOverlay.getY());
@@ -147,7 +143,7 @@ public class CardMovieViewController {
         cardRoot.setTranslateY(0);
         cardRoot.setScaleX(1.0);
         cardRoot.setScaleY(1.0);
-        cardRoot.setOpacity(0.0); // La tarjeta comienza transparente para la animación de entrada
+        cardRoot.setOpacity(0.0);
 
         if (!overlayPane.getChildren().contains(cardRoot)) {
             overlayPane.getChildren().add(cardRoot);
@@ -165,25 +161,20 @@ public class CardMovieViewController {
         if (cardOriginalWidth <= 0) cardOriginalWidth = 340;
         if (cardOriginalHeight <= 0) cardOriginalHeight = 220;
 
-        // --- MODIFICACIÓN DE ESCALA ---
-        double targetScaleXFactor = 2.5; // Aún más ancha
-        double targetScaleYFactor = 1.7; // Mantener o ajustar altura según preferencia
+        // --- MODIFICACIÓN DE ESCALA (MUCHO MÁS ANCHA) ---
+        double targetScaleXFactor = 3.2; // Factor de escala horizontal aumentado significativamente
+        double targetScaleYFactor = 1.7; // Factor de escala vertical (puedes ajustarlo también)
 
         double finalTargetLayoutX = (overlayPane.getWidth() - cardOriginalWidth) / 2.0;
         double finalTargetLayoutY = (overlayPane.getHeight() - cardOriginalHeight) / 2.0;
         double targetTranslateX = finalTargetLayoutX - cardRoot.getLayoutX();
         double targetTranslateY = finalTargetLayoutY - cardRoot.getLayoutY();
 
-        // --- MODIFICACIÓN DE ORDEN DE APILAMIENTO Y ANIMACIONES ---
-        // 1. Iniciar animación de desenfoque y mostrar el overlay (fondo opaco)
         dialogAnimationHelper.blurBackgroundIn(CardAnimationHelper.EXPAND_ANIM_DURATION.multiply(0.8), 8).play();
         overlayHelper.show(CardAnimationHelper.EXPAND_ANIM_DURATION.multiply(0.8), 0.4, CardAnimationHelper.EASE_OUT_INTERPOLATOR);
 
-        // 2. ASEGURAR QUE LA TARJETA ESTÉ AL FRENTE del overlay y otros elementos en overlayPane
-        // Esto es crucial para que reciba eventos de ratón y sea visible sobre el overlay.
         cardRoot.toFront();
 
-        // 3. Animar la tarjeta (escala, traslación, opacidad)
         ParallelTransition expandAnimation = CardAnimationHelper.createExpandAnimation(
                 cardRoot, targetTranslateX, targetTranslateY, targetScaleXFactor, targetScaleYFactor
         );
@@ -289,6 +280,5 @@ public class CardMovieViewController {
     }
 
     @FXML private void handleShowTimes() { System.out.println("Ver horarios: " + title.getText()); }
-    @FXML private void handleMyList() { System.out.println("+ Mi lista: " + title.getText()); }
-    @FXML private void handleMoreInfo() { System.out.println("Más info: " + title.getText()); }
+
 }
