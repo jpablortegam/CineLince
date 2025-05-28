@@ -1,0 +1,61 @@
+/* Styles for purchase-card-view.fxml (refinements & additions) */
+
+.purchase-card {
+    -fx-background-color: -fx-surface; /* Slightly brighter than -fx-surface-alt for more pop */
+    -fx-border-color: -fx-outline-variant;
+    -fx-border-width: 1px;
+    -fx-border-radius: 10px; /* Slightly more rounded */
+    -fx-background-radius: 10px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.06), 10, 0.15, 2, 3);
+    /* -fx-margin-bottom: 12px; */ /* Use VBox spacing in parent instead for consistency */
+}
+
+.purchase-card:hover {
+    -fx-border-color: -fx-primary;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 12, 0.2, 2, 4);
+    -fx-translate-y: -2px; /* Subtle lift effect */
+}
+
+.movie-poster-thumbnail {
+    -fx-border-color: -fx-outline;
+    -fx-border-width: 0px; /* Remove border if image has its own defined edges or for cleaner look */
+    -fx-background-radius: 6px;
+    -fx-border-radius: 6px; /* Keep radius for consistency */
+    -fx-effect: dropshadow(two-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 1); /* Subtle shadow for poster */
+}
+
+.movie-title-in-card {
+    -fx-font-size: 1.5em; /* Ensure it's prominent */
+    -fx-font-weight: 700; /* Bolder */
+    -fx-text-fill: -fx-primary; /* Use primary color for title */
+    -fx-line-spacing: 2px; /* If title wraps */
+}
+
+.details-label-secondary {
+    -fx-font-size: 0.9em;
+    -fx-text-fill: -fx-text-secondary; /* Ensure good contrast */
+}
+
+.section-title-label {
+    -fx-font-size: 0.8em;
+    -fx-font-weight: 600; /* Less shouty than bold */
+    -fx-text-fill: -fx-text-tertiary; /* Subtler color */
+    -fx-text-transform: uppercase;
+    -fx-padding: 8px 0 4px 0; /* More vertical space */
+}
+
+.price-label {
+    -fx-font-size: 1.4em;
+    -fx-font-weight: 700;
+    -fx-text-fill: -fx-success-dark; /* Assuming you have a darker success color */
+}
+
+.status-label {
+    -fx-font-size: 0.85em;
+    -fx-font-style: normal; /* Remove italic if not desired */
+    -fx-font-weight: 500;
+    -fx-padding: 5px 10px; /* More padding */
+    -fx-background-color: -fx-primary-light; /* Use a light variant of your primary color */
+    -fx-text-fill: -fx-primary-dark;      /* Text color that contrasts with the light bg */
+    -fx-background-radius: 15px; /* Pill shape */
+}

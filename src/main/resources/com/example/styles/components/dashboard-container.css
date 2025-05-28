@@ -1,0 +1,53 @@
+/* Styles for client-dashboard-view.fxml enhancements */
+
+.dashboard-page-container { /* Add to your AnchorPane if you want a page background */
+    -fx-background-color: -fx-background; /* Assuming -fx-background is your main page background */
+    -fx-padding: 10px; /* Overall padding if not handled by a parent container */
+}
+
+/* Header Section VBox */
+#headerSection { /* If you give fx:id="headerSection" to the VBox */
+    /* -fx-border-color: -fx-outline; */ /* Optional border */
+    /* -fx-border-width: 0 0 1px 0; */  /* Bottom border only */
+}
+
+.dashboard-title { /* Your existing class, ensure it's prominent */
+    -fx-font-size: 2.2em; /* Make it larger */
+    -fx-font-weight: bold;
+    -fx-text-fill: -fx-text-primary;
+    -fx-padding: 0 0 5px 0; /* Little space at the bottom */
+}
+
+.user-info-hbox .label { /* Style all labels in the HBox */
+    -fx-font-size: 1em;
+    -fx-text-fill: -fx-text-secondary;
+}
+
+.user-info-hbox .welcome-text {
+    -fx-font-weight: 600; /* Make welcome text slightly bolder */
+    -fx-text-fill: -fx-text-primary;
+}
+
+.purchases-scroll-pane {
+    -fx-background-color: transparent; /* Make ScrollPane background transparent */
+    -fx-border-color: -fx-outline-variant;
+    -fx-border-width: 1px;
+    -fx-border-radius: 6px;
+}
+
+/* VBox purchasesContainer already has padding via FXML */
+/* The spacing between cards is now 12px via VBox spacing attribute */
+
+.logout-button-custom { /* Combining with .button-accent */
+    -fx-font-size: 0.95em;
+    /* Add icon styles here if you use one */
+}
+
+.no-purchases-label { /* Your existing class, enhance it */
+    -fx-font-size: 1.3em;
+    -fx-text-fill: -fx-text-tertiary;
+    -fx-padding: 50px 20px;
+    -fx-alignment: center;
+    -fx-font-style: italic;
+    /* Consider adding an icon above the text using a Graphic node in Java or FXML */
+}

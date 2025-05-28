@@ -1,16 +1,31 @@
-package com.example.cinelinces.utils; // O el paquete que prefieras para utilidades/servicios
+package com.example.cinelinces.utils;
 
 import com.example.cinelinces.model.Cliente;
+import com.example.cinelinces.DAO.CompraDAO;
+import com.example.cinelinces.DAO.impl.CompraDAOImpl;
+import com.example.cinelinces.model.DTO.CompraDetalladaDTO;
+
+import java.util.Collections;
+import java.util.List;
 
 public class SessionManager {
     private static SessionManager instance;
     private Cliente currentCliente;
+    private final CompraDAO compraDAO;
 
-    private SessionManager() {}
+    private SessionManager() {
+        this.compraDAO = new CompraDAOImpl();
+    }
 
-    public static synchronized SessionManager getInstance() {
+    public static synchronized void init() {
         if (instance == null) {
             instance = new SessionManager();
+        }
+    }
+
+    public static SessionManager getInstance() {
+        if (instance == null) {
+            throw new IllegalStateException("SessionManager no inicializado. Llama a init() primero.");
         }
         return instance;
     }
@@ -19,8 +34,8 @@ public class SessionManager {
         return currentCliente;
     }
 
-    public void setCurrentCliente(Cliente currentCliente) {
-        this.currentCliente = currentCliente;
+    public void setCurrentCliente(Cliente c) {
+        this.currentCliente = c;
     }
 
     public void clearSession() {
@@ -29,5 +44,11 @@ public class SessionManager {
 
     public boolean isLoggedIn() {
         return this.currentCliente != null;
+    }
+
+    /** CompraDetalladaDTO: cada llamada abre su propia Connection */
+    public List<CompraDetalladaDTO> getComprasDetalladas() {
+        if (!isLoggedIn()) return Collections.emptyList();
+        return compraDAO.findComprasByClienteId(currentCliente.getIdCliente());
     }
 }

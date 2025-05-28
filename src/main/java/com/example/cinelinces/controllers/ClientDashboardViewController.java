@@ -1,57 +1,71 @@
 package com.example.cinelinces.controllers;
 
 import com.example.cinelinces.model.Cliente;
-import com.example.cinelinces.utils.SessionManager; // Importar SessionManager
-import javafx.event.ActionEvent;
+import com.example.cinelinces.model.DTO.CompraDetalladaDTO;
+import com.example.cinelinces.utils.SessionManager;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader; // Importar FXMLLoader
+import javafx.scene.Node;       // Importar Node
 import javafx.scene.control.Label;
-// Quita estos imports si ya no los usas para navegación directa desde aquí:
-// import javafx.fxml.FXMLLoader;
-// import javafx.scene.Parent;
-// import javafx.scene.Scene;
-// import javafx.stage.Stage;
-// import java.io.IOException;
+import javafx.scene.layout.VBox;
+
+import java.io.IOException;     // Importar IOException
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 public class ClientDashboardViewController {
+    @FXML private Label welcomeLabel, emailLabel, registroLabel;
+    @FXML private VBox purchasesContainer; // Este es el VBox dentro del ScrollPane
 
-    @FXML private Label welcomeLabel;
-    @FXML private Label emailLabel;
-    @FXML private Label registroLabel;
+    private MainViewController mainController;
+    private Cliente cliente;
 
-    private Cliente clienteActual;
-    private MainViewController mainViewController; // Referencia al controlador principal
-
-    // Método para que MainViewController se establezca
-    public void setMainViewController(MainViewController mainViewController) {
-        this.mainViewController = mainViewController;
+    public void setMainViewController(MainViewController m) {
+        this.mainController = m;
     }
 
-    public void setClienteData(Cliente cliente) {
-        this.clienteActual = cliente;
-        if (cliente != null) {
-            welcomeLabel.setText("¡Bienvenido, " + cliente.getNombre() + " " + cliente.getApellido() + "!");
-            emailLabel.setText("Email: " + cliente.getEmail());
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy 'a las' HH:mm");
-            if (cliente.getFechaRegistro() != null) {
-                registroLabel.setText("Fecha de registro: " + cliente.getFechaRegistro().format(formatter));
-            } else {
-                registroLabel.setText("Fecha de registro: N/A");
+    public void setClienteData(Cliente c) {
+        this.cliente = c;
+        welcomeLabel.setText("¡Bienvenido, " + c.getNombre() + " " + c.getApellido() + "!");
+        emailLabel.setText("Email: " + c.getEmail());
+        String fmt = "dd/MM/yyyy 'a las' HH:mm";
+        registroLabel.setText("Registrado: " + c.getFechaRegistro().format(DateTimeFormatter.ofPattern(fmt)));
+    }
+
+    public void setCompras(List<CompraDetalladaDTO> compras) {
+        purchasesContainer.getChildren().clear(); // Limpiar compras anteriores
+
+        if (compras == null || compras.isEmpty()) {
+            Label noPurchasesLabel = new Label("Aún no has realizado ninguna compra.");
+            noPurchasesLabel.getStyleClass().add("no-purchases-label"); // Para estilo opcional
+            // Asegúrate de que purchasesContainer no tenga un padding que desalinee esta etiqueta
+            // o ajusta el padding de la etiqueta.
+            purchasesContainer.getChildren().add(noPurchasesLabel);
+            return;
+        }
+
+        for (CompraDetalladaDTO dto : compras) {
+            try {
+                // Asegúrate que la ruta al FXML de la tarjeta sea correcta
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/cinelinces/purchase-card-view.fxml"));
+                Node purchaseCardNode = loader.load(); // Carga el FXML de la tarjeta
+
+                PurchaseCardController cardController = loader.getController(); // Obtiene su controlador
+                cardController.setData(dto); // Pasa los datos de la compra a la tarjeta
+
+                purchasesContainer.getChildren().add(purchaseCardNode); // Añade la tarjeta al VBox
+            } catch (IOException e) {
+                e.printStackTrace();
+                // Opcional: mostrar un mensaje de error en la UI para esta compra específica
+                Label errorLabel = new Label("Error al cargar detalle de la compra: " + dto.getFuncion().getTituloPelicula());
+                purchasesContainer.getChildren().add(errorLabel);
             }
-        } else {
-            // Manejar el caso donde el cliente es null, quizás mostrando un mensaje o valores por defecto
-            welcomeLabel.setText("Bienvenido, Invitado");
-            emailLabel.setText("Email: N/A");
-            registroLabel.setText("Fecha de registro: N/A");
         }
     }
 
     @FXML
-    private void handleLogout(ActionEvent event) {
-        SessionManager.getInstance().clearSession(); // Limpiar la sesión
-        if (mainViewController != null) {
-            mainViewController.showAccount(); // Notificar a MainView para que recargue y muestre login
-        }
-        // Ya no se maneja la navegación a login-view.fxml desde aquí
+    private void handleLogout() {
+        SessionManager.getInstance().clearSession();
+        mainController.showAccount(); // Redirige a la vista de cuenta (que mostrará el login)
     }
 }
