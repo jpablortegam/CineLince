@@ -18,7 +18,7 @@
            onMouseClicked="#onCardClick"
            prefWidth="340" prefHeight="220">
 
-    <VBox fx:id="compactLayout" spacing="0" alignment="TOP_CENTER" visible="true" managed="true">
+    <VBox fx:id="compactLayout" spacing="16" alignment="TOP_CENTER" visible="true" managed="true">
         <StackPane styleClass="image-container">
             <ImageView fx:id="poster" styleClass="movie-image" fitWidth="316" fitHeight="400" preserveRatio="true" smooth="true" cache="true"/>
             <StackPane fx:id="ratingBadge" styleClass="rating-badge" alignment="CENTER" visible="false" StackPane.alignment="TOP_RIGHT">

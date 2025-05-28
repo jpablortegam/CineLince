@@ -14,65 +14,81 @@
 <?import javafx.scene.layout.VBox?>
 
 <StackPane fx:id="rootStack"
+
            xmlns="http://javafx.com/javafx/17.0.12"
            xmlns:fx="http://javafx.com/fxml/1"
            fx:controller="com.example.cinelinces.controllers.HomeViewController">
 
-    <ScrollPane fitToWidth="true">
-        <VBox spacing="32">
+    <ScrollPane fitToWidth="true" styleClass="scroll-pane-background">
+        <VBox spacing="32" styleClass="main-vbox-container">
             <padding>
                 <Insets top="24" right="24" bottom="32" left="24"/>
             </padding>
 
-            <HBox alignment="CENTER_LEFT" spacing="10" styleClass="section-card">
+            <HBox alignment="CENTER_LEFT" spacing="10" >
                 <padding>
                     <Insets top="8" bottom="8" left="16" right="16"/>
                 </padding>
                 <Label text="Selecciona un Cine:" styleClass="text-body-strong"/>
-                <ComboBox fx:id="cineComboBox" promptText="Cargando cines..." HBox.hgrow="ALWAYS" styleClass="comboBox"/>
+                <ComboBox fx:id="cineComboBox" promptText="Cargando cines..." HBox.hgrow="ALWAYS" styleClass="combo-box"/>
             </HBox>
 
-            <VBox styleClass="section-card" spacing="16">
-                <Label styleClass="text-headline" text="Destacados de la semana"/>
-                <StackPane fx:id="featuredBannerPane"
-                           styleClass="featured-banner"
-                           minHeight="150" prefHeight="150" maxHeight="150">
-
-                    <ImageView fx:id="featuredImage" preserveRatio="true" fitHeight="150" />
-                    <Region styleClass="gradient-overlay" StackPane.alignment="TOP_LEFT"/>
-
-                    <VBox alignment="BOTTOM_LEFT" spacing="8">
-                        <padding>
-                            <Insets bottom="16" left="24"/>
-                        </padding>
-                        <Label fx:id="featuredTitle"
-                               styleClass="text-headline"
-                               text="Título Película"
+            <StackPane fx:id="detailedFeaturedBannerPane" styleClass="detailed-featured-banner-pane">
+                <ImageView fx:id="featuredBackgroundImage" styleClass="featured-background-image"/>
+                <HBox spacing="24" alignment="CENTER_LEFT" styleClass="featured-content-box">
+                    <padding>
+                        <Insets top="25" right="30" bottom="25" left="30"/>
+                    </padding>
+                    <StackPane fx:id="featuredPosterContainer" styleClass="featured-poster-container" alignment="TOP_RIGHT">
+                        <ImageView fx:id="featuredPosterImage" styleClass="featured-poster-image"/>
+                        <Label fx:id="featuredRatingBadge" text="★ N/A" styleClass="rating-badge-featured">
+                            <StackPane.margin>
+                                <Insets top="12" right="12"/>
+                            </StackPane.margin>
+                        </Label>
+                    </StackPane>
+                    <VBox spacing="10" alignment="TOP_LEFT" HBox.hgrow="ALWAYS" styleClass="featured-info-vbox">
+                        <Label fx:id="featuredMovieTitleText" text="Título de la Película" styleClass="featured-title-text" wrapText="true"/>
+                        <HBox spacing="15" alignment="CENTER_LEFT" styleClass="featured-meta-hbox">
+                            <Label fx:id="featuredGenreText" text="🏷️ Género" styleClass="featured-meta-label"/>
+                            <Label fx:id="featuredDurationText" text="⏱️ Duración" styleClass="featured-meta-label"/>
+                            <Label fx:id="featuredYearText" text="📅 Año" styleClass="featured-meta-label"/>
+                        </HBox>
+                        <Label fx:id="featuredSynopsisText"
+                               text="Sinopsis de la película..."
+                               styleClass="featured-synopsis-text"
                                wrapText="true"/>
-                        <Label fx:id="featuredSubtitle"
-                               styleClass="text-body"
-                               text="Descripción breve de la película"
-                               wrapText="true"/>
-                        <Button fx:id="btnVerHorarios"
-                                styleClass="button-accent"
-                                text="Ver horarios"/>
+                        <Region VBox.vgrow="ALWAYS" minHeight="10"/>
+                        <HBox spacing="12" alignment="CENTER_LEFT" styleClass="featured-buttons-hbox">
+                            <padding>
+                                <Insets top="10"/>
+                            </padding>
+                            <Button fx:id="btnFeaturedVerHorarios" text="▶ Ver horarios" styleClass="button-featured-primary"/>
+                            <Button fx:id="btnFeaturedMiLista" text="+ Mi lista" styleClass="button-featured-secondary"/>
+                            <Button fx:id="btnFeaturedMasInfo" text="ℹ️ Más info" styleClass="button-featured-tertiary"/>
+                        </HBox>
                     </VBox>
-                </StackPane>
-            </VBox>
+                </HBox>
+                <Label text="🌟 Película Destacada" styleClass="tag-pelicula-destacada" StackPane.alignment="TOP_LEFT">
+                    <StackPane.margin>
+                        <Insets top="20" left="30"/>
+                    </StackPane.margin>
+                </Label>
+            </StackPane>
 
             <VBox spacing="16" >
-                <HBox alignment="CENTER" spacing="16">
+                <HBox alignment="CENTER_LEFT" spacing="16">
                     <Label styleClass="text-section" text="En cartelera"/>
                     <Region HBox.hgrow="ALWAYS"/>
                 </HBox>
-                <FlowPane fx:id="enCarteleraPane" hgap="16" vgap="16"/>
+                <FlowPane fx:id="enCarteleraPane" hgap="32" vgap="16" styleClass="movie-grid"/>
             </VBox>
 
-            <VBox spacing="16" styleClass="section-card">
+            <VBox spacing="16">
                 <HBox alignment="CENTER_LEFT" spacing="16">
                     <Label styleClass="text-section" text="Próximamente"/>
                     <Region HBox.hgrow="ALWAYS"/>
-                    <Button styleClass="button-secondary" text="Ver todas"/>
+                    <Button fx:id="btnVerTodasProximamente" styleClass="button-view-all" text="Ver todas"/>
                 </HBox>
                 <FlowPane fx:id="proximamentePane" hgap="16" vgap="16" styleClass="movie-grid"/>
             </VBox>

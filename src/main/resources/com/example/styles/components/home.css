@@ -1,0 +1,197 @@
+/* home.css */
+
+
+
+.scroll-pane-background {
+    -fx-background-color: transparent; /* Hacer el scrollpane transparente */
+    -fx-hbar-policy: AS_NEEDED;
+    -fx-vbar-policy: AS_NEEDED;
+}
+
+.main-vbox-container {
+    -fx-background-color: transparent; /* El VBox principal también transparente */
+}
+
+/* Estilos para Tarjetas de Sección (si las usas consistentemente) */
+.section-card {
+    -fx-background-color: #2B2B47; /* Un color ligeramente más claro para las tarjetas */
+    -fx-padding: 16px;
+    -fx-background-radius: 8px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0.1, 0, 2);
+}
+
+/* Estilos para Textos Generales (ejemplos, ajusta a tus necesidades) */
+.text-body-strong {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #E0E0E0; /* Texto claro para contraste */
+}
+
+.text-headline {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.text-section {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #D1CDE4; /* Un color de texto para secciones */
+}
+
+.combo-box {
+    -fx-font-size: 14px;
+}
+.combo-box .list-cell { /* Estilo para los items en el ComboBox desplegado */
+    -fx-text-fill: #333333; /* Texto oscuro para items en el popup */
+}
+
+
+/* === INICIO: ESTILOS PARA EL BANNER DETALLADO (ESTILO DUNE) === */
+.detailed-featured-banner-pane {
+    -fx-background-color: #4A3F78; /* Color de fondo principal del banner */
+    -fx-background-radius: 12px;
+    -fx-min-height: 380px; /* Altura mínima como en FXML */
+    -fx-pref-height: 380px; /* Altura preferida */
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 15, 0.2, 0, 4);
+}
+
+.featured-background-image {
+    -fx-opacity: 0.15; /* Opacidad para la imagen de fondo */
+    /* La imagen se establece en el controlador, asegurar que fitWidth/fitHeight se manejen ahí si es necesario para cubrir */
+}
+
+.featured-content-box {
+    /* HBox que contiene poster y la VBox de info */
+}
+
+.featured-poster-container {
+    -fx-min-width: 220px;
+    -fx-pref-width: 220px;
+}
+
+.featured-poster-image {
+    /* ImageView para el poster */
+    -fx-background-color: #1A1629; /* Placeholder si no hay imagen */
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 10, 0.3, 0, 1);
+    -fx-background-radius: 6px; /* Si quieres redondear el poster mismo */
+    -fx-fit-height: 330px; /* Como en FXML */
+    -fx-preserve-ratio: true;
+}
+
+.rating-badge-featured {
+    -fx-background-color: #FFC107; /* Amarillo para la calificación */
+    -fx-text-fill: black;
+    -fx-font-weight: bold;
+    -fx-padding: 6px 10px;
+    -fx-background-radius: 6px;
+    -fx-font-size: 13px;
+}
+
+.featured-info-vbox {
+    /* VBox para el título, metadatos, sinopsis y botones */
+}
+
+.featured-title-text {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-padding: 0 0 5px 0; /* Un poco de espacio inferior */
+}
+
+.featured-meta-hbox {
+    /* HBox para género, duración, año */
+}
+
+.featured-meta-label {
+    -fx-text-fill: #D1CDE4; /* Color de texto para metadatos */
+    -fx-font-size: 13px;
+}
+.featured-meta-label .ikonli-font-icon { /* Si usas iconos de Ikonli */
+    -fx-icon-color: #D1CDE4;
+    -fx-icon-size: 14px;
+}
+
+
+.featured-synopsis-text {
+    -fx-text-fill: #E0E0E0; /* Color de texto para la sinopsis */
+    -fx-font-size: 14px;
+    -fx-line-spacing: 2px; /* Espaciado entre líneas para mejor lectura */
+    -fx-max-height: 110px; /* Limita la altura de la sinopsis */
+    -fx-pref-height: 110px;
+}
+
+.featured-buttons-hbox {
+    /* HBox para los botones de acción */
+}
+
+.button-featured-primary {
+    -fx-background-color: #E44D2E; /* Rojo/Naranja para el botón primario */
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 10px 20px;
+    -fx-background-radius: 5px;
+    -fx-font-size: 14px;
+    -fx-cursor: hand;
+}
+.button-featured-primary:hover {
+    -fx-background-color: #F85D3F;
+}
+
+.button-featured-secondary {
+    -fx-background-color: #6A5F9E; /* Un color secundario */
+    -fx-text-fill: white;
+    -fx-font-weight: normal;
+    -fx-padding: 10px 20px;
+    -fx-background-radius: 5px;
+    -fx-font-size: 14px;
+    -fx-cursor: hand;
+}
+.button-featured-secondary:hover {
+    -fx-background-color: #7F73B7;
+}
+
+.button-featured-tertiary {
+    -fx-background-color: #50457E; /* Un color terciario o más sutil */
+    -fx-text-fill: #B0A8D7;
+    -fx-font-weight: normal;
+    -fx-padding: 10px 20px;
+    -fx-background-radius: 5px;
+    -fx-font-size: 14px;
+    -fx-cursor: hand;
+}
+.button-featured-tertiary:hover {
+    -fx-background-color: #605392;
+}
+
+.tag-pelicula-destacada {
+    -fx-background-color: rgba(0,0,0,0.45); /* Fondo semitransparente para la etiqueta */
+    -fx-text-fill: white;
+    -fx-padding: 5px 10px;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 0 0 8px 0; /* Redondeo solo esquina inferior derecha de la etiqueta */
+}
+/* === FIN: ESTILOS PARA EL BANNER DETALLADO === */
+
+
+/* Estilos para botones generales (si los necesitas) */
+.button-view-all { /* Para el botón "Ver todas" de Próximamente */
+    -fx-background-color: #50457E;
+    -fx-text-fill: #D1CDE4;
+    -fx-padding: 6px 12px;
+    -fx-font-size: 13px;
+    -fx-background-radius: 4px;
+    -fx-cursor: hand;
+}
+.button-view-all:hover {
+    -fx-background-color: #605392;
+}
+
+/* Estilo para el FlowPane de películas (si es necesario) */
+.movie-grid {
+    /* Puedes añadir estilos aquí si quieres un fondo o algo específico para los FlowPanes */
+}
+
+
+
