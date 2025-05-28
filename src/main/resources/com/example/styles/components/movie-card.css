@@ -38,7 +38,7 @@
     -fx-padding: 0 4px;
 }
 .card-subtitle {
-    -fx-font-size: 11px;
+    -fx-font-size: 6px;
     -fx-text-fill: #7f8c8d;
     -fx-padding: 0 4px;
 }
@@ -94,14 +94,14 @@
 
 #synopsisExpanded, #castLabelExpanded, #iconDuration, #iconYear, #iconGenre {
     -fx-text-fill: #f0f0f0;
-    -fx-font-size: 10px; /* Reducido */
+    -fx-font-size: 6px; /* Reducido */
 }
 #synopsisExpanded {
     -fx-line-spacing: 1.5px; /* Reducido */
 }
 
 .btn-primary, .btn-outline, .btn-info {
-    -fx-font-size: 10px;  /* Reducido */
+    -fx-font-size: 4px;  /* Reducido */
     -fx-padding: 5px 10px; /* Reducido */
     -fx-background-radius: 6px;
 }
