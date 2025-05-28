@@ -4,26 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6f94096a-8f21-4170-a76e-4c2b50d8bf02" name="Changes" comment="refactor UI styles and layout; update app title, sidebar title, and image handling for improved user experience">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/DAO/BoletoDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/DAO/CompraDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/DAO/impl/BoletoDAOImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/DAO/impl/CompraDAOImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/PurchaseCardController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/model/Boleto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/model/DTO/CompraDetalladaDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/styles/components/dashboard-container.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/styles/components/purchase-card.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
+    <list default="true" id="6f94096a-8f21-4170-a76e-4c2b50d8bf02" name="Changes" comment="add Boleto model and DAO implementation; create CompraDetalladaDTO and PurchaseCardController for enhanced purchase details display">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/model/Cart.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/model/CartItem.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/model/CartItemType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/model/DTO/CompraProductoDetalladaDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/model/DetalleVenta.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/model/Producto.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/ClientDashboardViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/ClientDashboardViewController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/MainViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/MainViewController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/utils/SessionManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/utils/SessionManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/cinelinces/client-dashboard-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/cinelinces/client-dashboard-view.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/styles/base/variables.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/styles/base/variables.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/styles/components/dialog.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/cinelinces/purchase-card-view.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/styles/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/styles/main.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/DAO/CompraDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/DAO/CompraDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/DAO/impl/CompraDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/DAO/impl/CompraDAOImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,8 +65,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="FxmlFile" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -113,42 +103,42 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Gradle.CineLinces [:com.example.cinelinces.HelloApplication.main()].executor": "Run",
-    "Gradle.CineLinces [assemble].executor": "Run",
-    "Gradle.CineLinces [build].executor": "Run",
-    "Gradle.CineLinces [run].executor": "Run",
-    "Gradle.Download Sources.executor": "Run",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "Notification.DisplayName-DoNotAsk-Settings Error": "Could not save settings",
-    "Notification.DoNotAsk-Settings Error": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "dart.analysis.tool.window.visible": "false",
-    "git-widget-placeholder": "master",
-    "ignore.preview.features.used": "true",
-    "junie.onboarding.icon.badge.shown": "true",
-    "last_directory_selection": "C:/Users/juanp/IdeaProjects/CineLinces/src/main/java/com/example/cinelinces",
-    "last_opened_file_path": "C:/Users/juanp/IdeaProjects/CineLinces/src/main/resources/com/example/images/posters",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Libraries",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "settings.sync",
-    "show.migrate.to.gradle.popup": "false",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Gradle.CineLinces [:com.example.cinelinces.HelloApplication.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.CineLinces [assemble].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.CineLinces [build].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.CineLinces [run].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Download Sources.executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;Notification.DisplayName-DoNotAsk-Settings Error&quot;: &quot;Could not save settings&quot;,
+    &quot;Notification.DoNotAsk-Settings Error&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;ignore.preview.features.used&quot;: &quot;true&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
+    &quot;last_directory_selection&quot;: &quot;C:/Users/juanp/IdeaProjects/CineLinces/src/main/java/com/example/cinelinces&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/juanp/IdeaProjects/CineLinces/src/main/resources/com/example/images/posters&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;settings.sync&quot;,
+    &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "mariadb"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mariadb&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\juanp\IdeaProjects\CineLinces\src\main\resources\com\example\images\posters" />
@@ -300,7 +290,8 @@
       <workItem from="1748159076179" duration="2897000" />
       <workItem from="1748162326939" duration="607000" />
       <workItem from="1748272478252" duration="4576000" />
-      <workItem from="1748378511440" duration="12441000" />
+      <workItem from="1748378511440" duration="13018000" />
+      <workItem from="1748395709034" duration="3100000" />
     </task>
     <task id="LOCAL-00001" summary="initialize project structure with basic JavaFX application and Gradle setup">
       <option name="closed" value="true" />
@@ -582,7 +573,15 @@
       <option name="project" value="LOCAL" />
       <updated>1748384605106</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="add Boleto model and DAO implementation; create CompraDetalladaDTO and PurchaseCardController for enhanced purchase details display">
+      <option name="closed" value="true" />
+      <created>1748391518248</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1748391518248</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -612,7 +611,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="add pagination for movie listings and implement movie card display" />
     <MESSAGE value="add styles for buttons, content area, and pagination; implement main application view and controllers" />
     <MESSAGE value="refactor application structure; enhance sidebar integration and update styles for featured banner" />
     <MESSAGE value="refactor sidebar styles; enhance button appearance and hover effects" />
@@ -637,6 +635,7 @@
     <MESSAGE value="update sidebar title and add SQL scripts for database setup and client management" />
     <MESSAGE value="add Dockerfile and docker-compose.yml for application containerization; update login-view.fxml and login.css for improved UI layout and styles" />
     <MESSAGE value="refactor UI styles and layout; update app title, sidebar title, and image handling for improved user experience" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactor UI styles and layout; update app title, sidebar title, and image handling for improved user experience" />
+    <MESSAGE value="add Boleto model and DAO implementation; create CompraDetalladaDTO and PurchaseCardController for enhanced purchase details display" />
+    <option name="LAST_COMMIT_MESSAGE" value="add Boleto model and DAO implementation; create CompraDetalladaDTO and PurchaseCardController for enhanced purchase details display" />
   </component>
 </project>
