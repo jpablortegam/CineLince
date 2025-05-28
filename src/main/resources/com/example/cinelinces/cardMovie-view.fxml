@@ -40,23 +40,26 @@
 
     <HBox fx:id="expandedLayout" styleClass="expanded-content-area" spacing="16" alignment="CENTER_LEFT" visible="false" managed="false">
         <StackPane styleClass="image-container-expanded">
-            <ImageView fx:id="posterExpanded" fitWidth="150" fitHeight="225" preserveRatio="true" smooth="true" cache="true"/>
+            <ImageView fx:id="posterExpanded" fitWidth="100" fitHeight="150" preserveRatio="true" smooth="true" cache="true"/>
             <Label fx:id="ratingLabelExpanded" text="★ N/A" styleClass="rating-badge-expanded" StackPane.alignment="TOP_RIGHT">
                 <StackPane.margin><Insets top="10" right="10"/></StackPane.margin>
             </Label>
         </StackPane>
 
-        <VBox spacing="12" alignment="TOP_LEFT" styleClass="text-block-expanded" HBox.hgrow="ALWAYS">
-            <HBox spacing="8" alignment="CENTER_LEFT">
-                <Label fx:id="titleExpanded" styleClass="expanded-title" text="Título de la película"/>
+        <VBox spacing="10" alignment="TOP_LEFT" styleClass="text-block-expanded" HBox.hgrow="ALWAYS">
+            <Label fx:id="titleExpanded" styleClass="expanded-title" text="Título de la película" wrapText="true" maxWidth="900"/>
+
+            <HBox spacing="10" alignment="CENTER_LEFT">
                 <Label fx:id="iconDuration" text="⏱️ 132 min"/>
                 <Label fx:id="iconYear"     text="📅 2019"/>
                 <Label fx:id="iconGenre"    text="🎭 Drama"/>
             </HBox>
-            <Label fx:id="synopsisExpanded" wrapText="true" maxWidth="850"
+
+            <Label fx:id="synopsisExpanded" wrapText="true" maxWidth="900"
                    text="Una familia pobre se infiltra ingeniosamente en la vida de una familia rica…"/>
-            <Label fx:id="castLabelExpanded" wrapText="true" maxWidth="850" text="⭐ Reparto: Pendiente"/>
-            <HBox spacing="8">
+            <Label fx:id="castLabelExpanded" wrapText="true" maxWidth="900" text="⭐ Reparto: Pendiente"/>
+
+            <HBox spacing="8" alignment="CENTER_LEFT">
                 <Button fx:id="btnShowTimes" text="Ver horarios" styleClass="btn-primary" onAction="#handleShowTimes"/>
 
             </HBox>

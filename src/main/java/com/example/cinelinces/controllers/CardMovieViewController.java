@@ -29,7 +29,7 @@ public class CardMovieViewController {
     // --- Root and Layouts ---
     @FXML private StackPane cardRoot;
     @FXML private VBox compactLayout;
-    @FXML private HBox expandedLayout; // Will have styleClass="expanded-content-area" from FXML
+    @FXML private HBox expandedLayout;
 
     // --- Compact View Elements ---
     @FXML private ImageView poster;
@@ -161,9 +161,8 @@ public class CardMovieViewController {
         if (cardOriginalWidth <= 0) cardOriginalWidth = 340;
         if (cardOriginalHeight <= 0) cardOriginalHeight = 220;
 
-        // --- MODIFICACIÓN DE ESCALA (MUCHO MÁS ANCHA) ---
-        double targetScaleXFactor = 3.2; // Factor de escala horizontal aumentado significativamente
-        double targetScaleYFactor = 1.7; // Factor de escala vertical (puedes ajustarlo también)
+        double targetScaleXFactor = 3.7;
+        double targetScaleYFactor = 2.7;
 
         double finalTargetLayoutX = (overlayPane.getWidth() - cardOriginalWidth) / 2.0;
         double finalTargetLayoutY = (overlayPane.getHeight() - cardOriginalHeight) / 2.0;

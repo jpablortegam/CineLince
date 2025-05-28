@@ -1,24 +1,25 @@
 .movie-card {
-    -fx-background-color: #ffffff; /* White background for compact card */
+    -fx-background-color: #ffffff;
     -fx-background-radius: 12px;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 10, 0, 2, 4);
 }
 
-/* Cuando está expandida */
 .movie-card.expanded {
-    -fx-background-color: linear-gradient(to right, #4e54c8, #8f94fb);  /* Your original gradient */
-    -fx-padding: 20px; /* Padding para la tarjeta expandida */
+    -fx-background-color: linear-gradient(to right, #4e54c8, #8f94fb);
+    -fx-padding: 20px;
 }
 
-/* Compact layout specific styles */
+/* --- MODIFICADO para tarjeta COMPACTA --- */
 .image-container {
-    -fx-background-color: #e0e0e0;
-    -fx-background-radius: 8px 8px 0 0;
+    /* Ahora usa el gradiente para "enmarcar" la foto */
+    -fx-background-color: linear-gradient(to right, #4e54c8, #8f94fb);
+    -fx-background-radius: 8px 8px 0 0; /* Mantiene esquinas superiores redondeadas para el gradiente */
     -fx-alignment: CENTER;
-    -fx-padding: 2px;
+    -fx-padding: 2px; /* Este padding permite que el gradiente sea visible como un marco */
 }
-.movie-image {
-    -fx-background-radius: 8px 8px 0 0;
+.movie-image { /* ImageView dentro de .image-container */
+    -fx-background-radius: 6px 6px 0 0; /* Ligeramente menor que el contenedor para que el marco se vea bien */
+    /* Asegúrate que la imagen también tenga este radius si es necesario */
 }
 
 .rating-badge {
@@ -31,26 +32,27 @@
     -fx-text-fill: #FFD700;
 }
 .card-title {
-    -fx-font-size: 15px; /* Tamaño para vista compacta */
+    -fx-font-size: 15px;
     -fx-font-weight: bold;
     -fx-text-fill: #2c3e50;
     -fx-padding: 0 4px;
 }
 .card-subtitle {
-    -fx-font-size: 11px; /* Tamaño para vista compacta */
+    -fx-font-size: 11px;
     -fx-text-fill: #7f8c8d;
     -fx-padding: 0 4px;
 }
-.text-container {
+.text-container { /* Contenedor de texto en la tarjeta compacta, debajo de la imagen */
     -fx-padding: 8px 4px 12px 4px;
+    -fx-background-color: #ffffff; /* Asegura que esta parte siga siendo blanca si .image-container tiene gradiente */
+    -fx-background-radius: 0 0 8px 8px; /* Redondear esquinas inferiores si es necesario */
 }
 .genre-badge {
     -fx-background-color: #e0e0e0;
     -fx-background-radius: 4px;
     -fx-padding: 2px 6px;
-    -fx-font-size: 10px; /* Tamaño para vista compacta */
+    -fx-font-size: 10px;
 }
-
 
 /* Expanded layout specific styles */
 .expanded-content-area {
@@ -71,9 +73,8 @@
 .rating-badge-expanded {
     -fx-background-color: rgba(0,0,0,0.7);
     -fx-background-radius: 8px;
-    /* --- MODIFICADO --- */
-    -fx-padding: 4px 8px; /* Reducido desde 5px 10px */
-    -fx-font-size: 11px;  /* Reducido desde 14px */
+    -fx-padding: 3px 6px;  /* Reducido */
+    -fx-font-size: 10px;   /* Reducido */
     -fx-font-weight: bold;
     -fx-text-fill: #FFD700;
 }
@@ -81,12 +82,11 @@
 .text-block-expanded {
     -fx-background-color: transparent;
     -fx-text-fill: white;
-    -fx-padding: 0 0 0 6px; /* Ajustar si es necesario con el nuevo ancho de imagen */
+    -fx-padding: 0 0 0 6px;
 }
 
 .expanded-title {
-    /* --- MODIFICADO --- */
-    -fx-font-size: 18px; /* Reducido desde 24px */
+    -fx-font-size: 18px; /* Reducido */
     -fx-font-weight: bold;
     -fx-text-fill: white;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.7), 3, 0, 1, 1);
@@ -94,18 +94,15 @@
 
 #synopsisExpanded, #castLabelExpanded, #iconDuration, #iconYear, #iconGenre {
     -fx-text-fill: #f0f0f0;
-    /* --- MODIFICADO --- */
-    -fx-font-size: 6px; /* Reducido desde 13px */
+    -fx-font-size: 10px; /* Reducido */
 }
 #synopsisExpanded {
-    -fx-line-spacing: 1px; /* Ligeramente reducido si es necesario */
+    -fx-line-spacing: 1.5px; /* Reducido */
 }
 
-/* Button Styles */
 .btn-primary, .btn-outline, .btn-info {
-    /* --- MODIFICADO (añadido tamaño de fuente y padding ajustado) --- */
-    -fx-font-size: 2px;  /* Nuevo: tamaño de fuente más pequeño para botones */
-    -fx-padding: 6px 12px; /* Ajustado desde 8px 15px */
+    -fx-font-size: 10px;  /* Reducido */
+    -fx-padding: 5px 10px; /* Reducido */
     -fx-background-radius: 6px;
 }
 
@@ -123,7 +120,7 @@
     -fx-text-fill: white;
     -fx-border-color: white;
     -fx-border-width: 1px;
-    -fx-border-radius: 6px; /* Asegurar que se aplique también aquí */
+    -fx-border-radius: 6px;
 }
 .btn-outline:hover {
     -fx-background-color: rgba(255,255,255,0.1);
@@ -132,7 +129,7 @@
 .btn-info {
     -fx-background-color: rgba(255,255,255,0.2);
     -fx-text-fill: white;
-    -fx-font-weight: normal; /* Ya estaba */
+    -fx-font-weight: normal;
 }
 .btn-info:hover {
     -fx-background-color: rgba(255,255,255,0.3);
