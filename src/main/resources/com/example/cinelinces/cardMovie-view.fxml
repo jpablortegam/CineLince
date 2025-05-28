@@ -53,9 +53,9 @@
                 <Label fx:id="iconYear"     text="📅 2019"/>
                 <Label fx:id="iconGenre"    text="🎭 Drama"/>
             </HBox>
-            <Label fx:id="synopsisExpanded" wrapText="true" maxWidth="500"
+            <Label fx:id="synopsisExpanded" wrapText="true" maxWidth="600"
                    text="Una familia pobre se infiltra ingeniosamente en la vida de una familia rica…"/>
-            <Label fx:id="castLabelExpanded" wrapText="true" maxWidth="500" text="⭐ Reparto: Pendiente"/>
+            <Label fx:id="castLabelExpanded" wrapText="true" maxWidth="600" text="⭐ Reparto: Pendiente"/>
             <HBox spacing="8">
                 <Button fx:id="btnShowTimes" text="Ver horarios" styleClass="btn-primary" onAction="#handleShowTimes"/>
                 <Button fx:id="btnMyList"    text="+ Mi lista"    styleClass="btn-outline" onAction="#handleMyList"/>

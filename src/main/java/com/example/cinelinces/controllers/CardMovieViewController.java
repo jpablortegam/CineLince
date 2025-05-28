@@ -76,7 +76,10 @@ public class CardMovieViewController {
 
         this.overlayHelper.getOverlay().setOnMouseClicked(e -> {
             if (isExpanded && !isAnimating && currentlyExpanded == this) {
-                onCardClick(null);
+                // Solo colapsar si el clic es en el overlay MISMO, no en la tarjeta expandida
+                if (e.getTarget() == overlayHelper.getOverlay()) {
+                    onCardClick(null);
+                }
             }
         });
         cardRoot.setEffect(CardAnimationHelper.SUBTLE_SHADOW_EFFECT);
@@ -91,7 +94,6 @@ public class CardMovieViewController {
     @FXML
     void onCardHoverExit(MouseEvent e) {
         if (isExpanded || isAnimating || (currentlyExpanded != null && currentlyExpanded != this)) return;
-        // Only play hover out if not expanded to avoid conflict with expanded shadow
         if (!isExpanded) {
             CardAnimationHelper.createHoverOutAnimation(cardRoot).play();
         }
@@ -113,76 +115,75 @@ public class CardMovieViewController {
 
     private void expandCard() {
         currentlyExpanded = this;
-        cardRoot.getStyleClass().add("expanded"); // Apply expanded style
+        cardRoot.getStyleClass().add("expanded");
 
-        Bounds cardBoundsInParent = cardRoot.getBoundsInParent(); // Get bounds before detaching
+        // --- Lógica del Placeholder (Obtener posición ANTES de mover la tarjeta) ---
+        Bounds cardBoundsInParent = cardRoot.getBoundsInParent();
         Point2D cardPositionInScene = cardRoot.localToScene(0, 0);
 
         placeholder = new Region();
-        // Use actual card dimensions for placeholder, not prefSize, if available
         double pWidth = cardRoot.getWidth() > 0 ? cardRoot.getWidth() : cardRoot.getPrefWidth();
         double pHeight = cardRoot.getHeight() > 0 ? cardRoot.getHeight() : cardRoot.getPrefHeight();
         placeholder.setPrefSize(pWidth, pHeight);
-        placeholder.setMinSize(Region.USE_PREF_SIZE, Region.USE_PREF_SIZE); // Or bind to cardRoot properties
+        placeholder.setMinSize(Region.USE_PREF_SIZE, Region.USE_PREF_SIZE);
         placeholder.setMaxSize(Region.USE_PREF_SIZE, Region.USE_PREF_SIZE);
-
 
         if (cardRoot.getParent() instanceof Pane currentParentPane) {
             int idx = currentParentPane.getChildren().indexOf(cardRoot);
             if (idx != -1) {
                 currentParentPane.getChildren().set(idx, placeholder);
             } else {
+                // Esto no debería ocurrir si la tarjeta estaba visible
                 currentParentPane.getChildren().add(placeholder);
             }
         }
 
+        // --- Configurar tarjeta en el overlayPane ---
         Point2D cardPositionInOverlay = overlayPane.sceneToLocal(cardPositionInScene);
         cardRoot.setLayoutX(cardPositionInOverlay.getX());
         cardRoot.setLayoutY(cardPositionInOverlay.getY());
 
-        cardRoot.setTranslateX(0); // Resetting transforms before new animation
+        cardRoot.setTranslateX(0);
         cardRoot.setTranslateY(0);
         cardRoot.setScaleX(1.0);
         cardRoot.setScaleY(1.0);
-        cardRoot.setOpacity(0.0);
+        cardRoot.setOpacity(0.0); // La tarjeta comienza transparente para la animación de entrada
 
         if (!overlayPane.getChildren().contains(cardRoot)) {
             overlayPane.getChildren().add(cardRoot);
         }
-        overlayHelper.getOverlay().toFront();
-        cardRoot.toFront();
 
         compactLayout.setVisible(false);
         compactLayout.setManaged(false);
         expandedLayout.setVisible(true);
         expandedLayout.setManaged(true);
 
-        double cardOriginalWidth = pWidth; // Use the placeholder width (actual card width)
-        double cardOriginalHeight = pHeight; // Use the placeholder height (actual card height)
-
-        // Fallback if width/height were 0 (e.g. card not yet rendered)
+        double cardOriginalWidth = pWidth;
+        double cardOriginalHeight = pHeight;
         if (cardOriginalWidth <= 0) cardOriginalWidth = cardRoot.getPrefWidth();
         if (cardOriginalHeight <= 0) cardOriginalHeight = cardRoot.getPrefHeight();
-        if (cardOriginalWidth <=0) cardOriginalWidth = 340; // Valor por defecto si todo falla
-        if (cardOriginalHeight <=0) cardOriginalHeight = 220; // Valor por defecto si todo falla
+        if (cardOriginalWidth <= 0) cardOriginalWidth = 340;
+        if (cardOriginalHeight <= 0) cardOriginalHeight = 220;
 
+        // --- MODIFICACIÓN DE ESCALA ---
+        double targetScaleXFactor = 2.5; // Aún más ancha
+        double targetScaleYFactor = 1.7; // Mantener o ajustar altura según preferencia
 
-        // --- MODIFICACIÓN CLAVE AQUÍ ---
-        double targetScaleXFactor = 2.2; // Aumentado para más ancho
-        double targetScaleYFactor = 1.7; // Ajustado para proporción
-        // --- FIN DE MODIFICACIÓN CLAVE ---
-
-        // Centering Logic: Calculate translation needed to move the *center* of the unscaled card
-        // to the center of the overlayPane. The scaling will then occur around this center.
         double finalTargetLayoutX = (overlayPane.getWidth() - cardOriginalWidth) / 2.0;
         double finalTargetLayoutY = (overlayPane.getHeight() - cardOriginalHeight) / 2.0;
-
         double targetTranslateX = finalTargetLayoutX - cardRoot.getLayoutX();
         double targetTranslateY = finalTargetLayoutY - cardRoot.getLayoutY();
 
+        // --- MODIFICACIÓN DE ORDEN DE APILAMIENTO Y ANIMACIONES ---
+        // 1. Iniciar animación de desenfoque y mostrar el overlay (fondo opaco)
         dialogAnimationHelper.blurBackgroundIn(CardAnimationHelper.EXPAND_ANIM_DURATION.multiply(0.8), 8).play();
         overlayHelper.show(CardAnimationHelper.EXPAND_ANIM_DURATION.multiply(0.8), 0.4, CardAnimationHelper.EASE_OUT_INTERPOLATOR);
 
+        // 2. ASEGURAR QUE LA TARJETA ESTÉ AL FRENTE del overlay y otros elementos en overlayPane
+        // Esto es crucial para que reciba eventos de ratón y sea visible sobre el overlay.
+        cardRoot.toFront();
+
+        // 3. Animar la tarjeta (escala, traslación, opacidad)
         ParallelTransition expandAnimation = CardAnimationHelper.createExpandAnimation(
                 cardRoot, targetTranslateX, targetTranslateY, targetScaleXFactor, targetScaleYFactor
         );
@@ -197,7 +198,7 @@ public class CardMovieViewController {
     }
 
     private void collapseCard() {
-        cardRoot.getStyleClass().remove("expanded"); // Remove expanded style
+        cardRoot.getStyleClass().remove("expanded");
 
         cardRoot.setOnMouseEntered(this::onCardHover);
         cardRoot.setOnMouseExited(this::onCardHoverExit);
@@ -217,8 +218,6 @@ public class CardMovieViewController {
                     expandedLayout.setManaged(false);
                     compactLayout.setVisible(true);
                     compactLayout.setManaged(true);
-
-                    // cardRoot opacity and effect are reset by createCollapseAnimation's onFinished
                 }
         );
         collapseAnimation.play();
@@ -259,9 +258,8 @@ public class CardMovieViewController {
         title.setText(funcion.getTituloPelicula());
         subtitle.setText(funcion.getFechaHoraFuncion().format(TIME_FORMATTER) + " • Sala " + funcion.getNumeroSala() + " (" + funcion.getTipoSala() + ")");
 
-        // --- Populate Expanded View ---
         posterExpanded.setImage(moviePosterImage);
-        ratingLabelExpanded.setText("★ N/A"); // Placeholder, update with actual rating if available
+        ratingLabelExpanded.setText("★ N/A");
         titleExpanded.setText(funcion.getTituloPelicula());
         iconDuration.setText("⏱️ " + funcion.getDuracionMinutos() + " min");
         String year = "N/A";
@@ -282,11 +280,11 @@ public class CardMovieViewController {
                 moviePosterImage = new Image(placeholderStream);
             } else {
                 System.err.println("Placeholder image not found at: " + placeholderPath);
-                moviePosterImage = null; // Ensure it's null if placeholder fails
+                moviePosterImage = null;
             }
         } catch (Exception e) {
             System.err.println("Error loading placeholder image: " + e.getMessage());
-            moviePosterImage = null; // Ensure it's null on exception
+            moviePosterImage = null;
         }
     }
 

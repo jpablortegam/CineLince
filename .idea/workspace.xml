@@ -4,13 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6f94096a-8f21-4170-a76e-4c2b50d8bf02" name="Changes" comment="add Boleto model and DAO implementation; create CompraDetalladaDTO and PurchaseCardController for enhanced purchase details display">
-      <change afterPath="$PROJECT_DIR$/.idea/cssdialects.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="6f94096a-8f21-4170-a76e-4c2b50d8bf02" name="Changes" comment="refactor CardMovieView layout and controller; enhance UI with expanded view and improved styles">
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/CardMovieViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/CardMovieViewController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/cinelinces/cardMovie-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/cinelinces/cardMovie-view.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/images/posters/interestelar.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/images/posters/interestelar.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/styles/components/movie-card.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/styles/components/movie-card.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -579,7 +575,15 @@
       <option name="project" value="LOCAL" />
       <updated>1748391518248</updated>
     </task>
-    <option name="localTasksCounter" value="37" />
+    <task id="LOCAL-00037" summary="refactor CardMovieView layout and controller; enhance UI with expanded view and improved styles">
+      <option name="closed" value="true" />
+      <created>1748421429202</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1748421429202</updated>
+    </task>
+    <option name="localTasksCounter" value="38" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -609,7 +613,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="add styles for buttons, content area, and pagination; implement main application view and controllers" />
     <MESSAGE value="refactor application structure; enhance sidebar integration and update styles for featured banner" />
     <MESSAGE value="refactor sidebar styles; enhance button appearance and hover effects" />
     <MESSAGE value="add movie card display and upcoming movies section; enhance styles and pagination" />
@@ -634,6 +637,7 @@
     <MESSAGE value="add Dockerfile and docker-compose.yml for application containerization; update login-view.fxml and login.css for improved UI layout and styles" />
     <MESSAGE value="refactor UI styles and layout; update app title, sidebar title, and image handling for improved user experience" />
     <MESSAGE value="add Boleto model and DAO implementation; create CompraDetalladaDTO and PurchaseCardController for enhanced purchase details display" />
-    <option name="LAST_COMMIT_MESSAGE" value="add Boleto model and DAO implementation; create CompraDetalladaDTO and PurchaseCardController for enhanced purchase details display" />
+    <MESSAGE value="refactor CardMovieView layout and controller; enhance UI with expanded view and improved styles" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor CardMovieView layout and controller; enhance UI with expanded view and improved styles" />
   </component>
 </project>
