@@ -1,78 +1,143 @@
-/* styles.css */
-
 .movie-card {
-    -fx-background-color: #ffffff; /* Fondo blanco para la tarjeta */
-    -fx-background-radius: 12px;   /* Esquinas redondeadas para la tarjeta */
-    -fx-border-radius: 12px;       /* Consistencia para el borde si lo tuviera */
-    /* Efecto de sombra sutil para la tarjeta (puedes ajustarlo o usar el de CardAnimationHelper) */
+    -fx-background-color: #ffffff; /* White background for compact card */
+    -fx-background-radius: 12px;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 10, 0, 2, 4);
+    /* -fx-padding: 0; /* Ensure no default padding if not desired */
 }
 
+/* Cuando está expandida */
+.movie-card.expanded {
+    /* This blue gradient should now apply if 'expanded' class is on cardRoot */
+    /* -fx-background-color: linear-gradient(to bottom right, #3A1C71, #D76D77, #FFAF7B); /* Example: A more vibrant gradient */
+    -fx-background-color: linear-gradient(to right, #4e54c8, #8f94fb);  /* Your original gradient */
+    -fx-padding: 20px; /* Increased padding for expanded view */
+    /* -fx-max-width: 90%; /* This was commented as it's usually handled by scaling logic */
+}
+
+/* Compact layout specific styles */
 .image-container {
-    -fx-background-radius: 8px; /* Radio de las esquinas del contenedor de la imagen */
-    -fx-border-radius: 8px;     /* Asegura que el borde también sea redondeado si se añade */
-
-    /* Un color de fondo ayuda a que el recorte de las esquinas funcione mejor.
-       Si tus imágenes pueden tener transparencia y no quieres este color,
-       podrías necesitar un enfoque de recorte más avanzado (con un Rectangle clip en Java).
-       Para imágenes opacas, un color de fondo oscuro o que combine es buena idea.
-    */
-    -fx-background-color: #333333; /* Un gris oscuro, o el color que prefieras */
-
-    /* El StackPane debería recortar a sus hijos a su forma (definida por background-radius)
-       cuando tiene un fondo opaco. */
-
-    /* Opcional: un pequeño padding si quieres un "marco" dentro del contenedor redondeado,
-       pero entonces el fitWidth de la imagen debería ser aún menor.
-       -fx-padding: 4px;
-    */
-    -fx-max-width: 356px; /* Para asegurar que no exceda el ancho calculado - MODIFICADO */
-    -fx-alignment: CENTER; /* Centra la imagen si por alguna razón fuera más pequeña */
-}
-
-.movie-image {
-    /* No se necesita redondear la imagen directamente aquí si el .image-container la recorta.
-       Si el recorte del StackPane no es perfecto, se necesitaría un clip en el ImageView
-       (generalmente se hace en código Java).
-    */
-}
-
-.card-title {
-    -fx-font-family: "System Bold"; /* O la fuente que estés usando */
-    -fx-font-size: 15px;
-    -fx-text-fill: #2c3e50; /* Un color de texto oscuro pero no negro puro */
+    -fx-background-color: #e0e0e0; /* Lighter placeholder color for image area */
+    -fx-background-radius: 8px 8px 0 0; /* Rounded top corners */
     -fx-alignment: CENTER;
-    -fx-text-alignment: CENTER;
+    -fx-padding: 2px; /* Small padding if image doesn't fill perfectly */
+}
+.movie-image { /* Styles for the ImageView itself if needed */
+    -fx-background-radius: 8px 8px 0 0;
 }
 
+.rating-badge {
+    -fx-background-color: rgba(0,0,0,0.6); /* Semi-transparent black badge */
+    -fx-background-radius: 6px;
+    -fx-padding: 4px 8px;
+}
+.rating-text {
+    -fx-font-weight: bold;
+    -fx-text-fill: #FFD700; /* Gold text */
+}
+.card-title {
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2c3e50;
+    -fx-padding: 0 4px;
+}
 .card-subtitle {
     -fx-font-size: 11px;
-    -fx-text-fill: #7f8c8d; /* Un gris suave para el subtítulo */
-    -fx-alignment: CENTER;
-    -fx-text-alignment: CENTER;
+    -fx-text-fill: #7f8c8d;
+    -fx-padding: 0 4px;
 }
-
 .text-container {
-    -fx-padding: 4px 0 0 0; /* Un poco de espacio arriba del texto */
+    -fx-padding: 8px 4px 12px 4px; /* Top, Right, Bottom, Left */
+}
+.genre-badge {
+    -fx-background-color: #e0e0e0;
+    -fx-background-radius: 4px;
+    -fx-padding: 2px 6px;
+    -fx-font-size: 10px;
 }
 
-/* Estilos para el panel de detalles (puedes personalizarlos más) */
-.detail-container {
-    -fx-padding: 8px;
+
+/* Expanded layout specific styles */
+.expanded-content-area { /* Style for the HBox fx:id="expandedLayout" */
+    -fx-background-color: transparent; /* CRITICAL: For cardRoot background to show */
+    -fx-padding: 10px; /* Add some internal padding if needed */
 }
 
-.detail-section {
-    -fx-padding: 4px 0;
+.image-container-expanded {
+    -fx-background-color: transparent; /* Ensure this doesn't hide cardRoot's background */
+    -fx-background-radius: 8px;
+    -fx-alignment: CENTER;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 8, 0, 0, 2); /* Subtle shadow for poster */
+}
+/* ImageView within expanded view */
+#posterExpanded { /* Using ID selector for more specificity if needed */
+    -fx-background-radius: 8px;
 }
 
-.detail-header {
-    -fx-font-family: "System Bold";
-    -fx-font-size: 12px;
-    -fx-text-fill: #34495e;
-    -fx-padding-bottom: 2px;
+
+.rating-badge-expanded { /* Style for the Label fx:id="ratingLabelExpanded" */
+    -fx-background-color: rgba(0,0,0,0.7);
+    -fx-background-radius: 8px;
+    -fx-padding: 5px 10px;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #FFD700; /* Gold text */
 }
 
-.card-detail-text {
-    -fx-font-size: 11px;
-    -fx-text-fill: #555555;
+.text-block-expanded { /* Style for the VBox containing text in expanded view */
+    -fx-background-color: transparent; /* CRITICAL: For cardRoot background to show */
+    -fx-text-fill: white; /* Default text color for children if not overridden */
+    -fx-padding: 0 0 0 10px; /* Add padding if needed, e.g., left padding */
+}
+
+.expanded-title {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.7), 3, 0, 1, 1); /* Text shadow for readability */
+}
+
+/* Style for other labels in the expanded view if needed */
+#synopsisExpanded, #castLabelExpanded, #iconDuration, #iconYear, #iconGenre {
+    -fx-text-fill: #f0f0f0; /* Slightly off-white for secondary text */
+    -fx-font-size: 13px;
+}
+#synopsisExpanded {
+    -fx-line-spacing: 3px;
+}
+
+
+/* Button Styles (example, adjust to your theme) */
+.btn-primary {
+    -fx-background-color: #FFAF7B; /* Match gradient */
+    -fx-text-fill: #3A1C71;
+    -fx-font-weight: bold;
+    -fx-background-radius: 6px;
+    -fx-padding: 8px 15px;
+}
+.btn-primary:hover {
+    -fx-background-color: derive(#FFAF7B, -10%);
+}
+
+.btn-outline {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-border-color: white;
+    -fx-border-width: 1px;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-padding: 8px 15px;
+}
+.btn-outline:hover {
+    -fx-background-color: rgba(255,255,255,0.1);
+}
+
+.btn-info {
+    -fx-background-color: rgba(255,255,255,0.2);
+    -fx-text-fill: white;
+    -fx-font-weight: normal;
+    -fx-background-radius: 6px;
+    -fx-padding: 8px 15px;
+}
+.btn-info:hover {
+    -fx-background-color: rgba(255,255,255,0.3);
 }

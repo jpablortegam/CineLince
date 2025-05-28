@@ -1,80 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="cardRoot"
-      xmlns="http://javafx.com/javafx/17.0.12"
-      xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.example.cinelinces.controllers.CardMovieViewController"
-      styleClass="movie-card"
-      spacing="8"
-      alignment="TOP_CENTER"
-      onMouseClicked="#onCardClick"
-      onMouseEntered="#onCardHover"
-      onMouseExited="#onCardHoverExit"
-      prefWidth="340" prefHeight="220"> <StackPane styleClass="image-container" alignment="CENTER">
-    <ImageView fx:id="poster"
-               styleClass="movie-image"
-               fitWidth="316" preserveRatio="true"
-               smooth="true" cache="true"/>
+<StackPane fx:id="cardRoot"
+           xmlns="http://javafx.com/javafx/17.0.12"
+           xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="com.example.cinelinces.controllers.CardMovieViewController"
+           styleClass="movie-card"
+           onMouseEntered="#onCardHover"
+           onMouseExited="#onCardHoverExit"
+           onMouseClicked="#onCardClick"
+           prefWidth="340" prefHeight="220">
+
+    <VBox fx:id="compactLayout" spacing="0" alignment="TOP_CENTER" visible="true" managed="true">
+        <StackPane styleClass="image-container">
+            <ImageView fx:id="poster" styleClass="movie-image" fitWidth="316" fitHeight="400" preserveRatio="true" smooth="true" cache="true"/>
+            <StackPane fx:id="ratingBadge" styleClass="rating-badge" alignment="CENTER" visible="false" StackPane.alignment="TOP_RIGHT">
+                <Label fx:id="ratingLabel" styleClass="rating-text" text="★ 8.5"/>
+                <StackPane.margin><Insets top="12" right="12"/></StackPane.margin>
+            </StackPane>
+        </StackPane>
+        <VBox fx:id="textContainer" styleClass="text-container" spacing="6" alignment="CENTER">
+            <Label fx:id="title" styleClass="card-title" wrapText="true" maxWidth="310" text="Título de la película"/>
+            <VBox spacing="4" alignment="CENTER">
+                <Label fx:id="subtitle" styleClass="card-subtitle" text="(Año) • Duración"/>
+                <HBox fx:id="badgesContainer" spacing="6" alignment="CENTER" visible="false">
+                    <Label fx:id="formatBadge" styleClass="genre-badge" text="IMAX"/>
+                    <Label fx:id="genreBadge"  styleClass="genre-badge" text="Sci‑Fi"/>
+                </HBox>
+            </VBox>
+        </VBox>
+    </VBox>
+
+    <HBox fx:id="expandedLayout" styleClass="expanded-content-area" spacing="16" alignment="CENTER_LEFT" visible="false" managed="false">
+        <StackPane styleClass="image-container-expanded">
+            <ImageView fx:id="posterExpanded" fitWidth="200" fitHeight="300" preserveRatio="true" smooth="true" cache="true"/>
+            <Label fx:id="ratingLabelExpanded" text="★ N/A" styleClass="rating-badge-expanded" StackPane.alignment="TOP_RIGHT">
+                <StackPane.margin><Insets top="10" right="10"/></StackPane.margin>
+            </Label>
+        </StackPane>
+
+        <VBox spacing="12" alignment="TOP_LEFT" styleClass="text-block-expanded" HBox.hgrow="ALWAYS">
+            <HBox spacing="8" alignment="CENTER_LEFT">
+                <Label fx:id="titleExpanded" styleClass="expanded-title" text="Título de la película"/>
+                <Label fx:id="iconDuration" text="⏱️ 132 min"/>
+                <Label fx:id="iconYear"     text="📅 2019"/>
+                <Label fx:id="iconGenre"    text="🎭 Drama"/>
+            </HBox>
+            <Label fx:id="synopsisExpanded" wrapText="true" maxWidth="500"
+                   text="Una familia pobre se infiltra ingeniosamente en la vida de una familia rica…"/>
+            <Label fx:id="castLabelExpanded" wrapText="true" maxWidth="500" text="⭐ Reparto: Pendiente"/>
+            <HBox spacing="8">
+                <Button fx:id="btnShowTimes" text="Ver horarios" styleClass="btn-primary" onAction="#handleShowTimes"/>
+                <Button fx:id="btnMyList"    text="+ Mi lista"    styleClass="btn-outline" onAction="#handleMyList"/>
+                <Button fx:id="btnMoreInfo"  text="Más info"     styleClass="btn-info" onAction="#handleMoreInfo"/>
+            </HBox>
+        </VBox>
+    </HBox>
 </StackPane>
-
-    <padding>
-        <Insets top="12" right="12" bottom="12" left="12"/>
-    </padding>
-
-    <VBox fx:id="textContainer"
-          styleClass="text-container"
-          spacing="4"
-          alignment="CENTER">
-        <Label fx:id="title"
-               styleClass="card-title"
-               wrapText="true"
-               maxWidth="310" text="Título de la película"/>
-        <Label fx:id="subtitle"
-               styleClass="card-subtitle"
-               text="(Año) • Duración"/>
-    </VBox>
-
-    <VBox fx:id="detailsPane"
-          styleClass="detail-container"
-          spacing="8"
-          alignment="CENTER"
-          visible="false"  managed="false"  opacity="0.0"    maxWidth="310">
-
-        <VBox styleClass="detail-section" spacing="2">
-            <Label styleClass="detail-header" text="Sinopsis"/>
-            <Label fx:id="synopsisLabel"
-                   styleClass="card-detail-text"
-                   wrapText="true"
-                   maxWidth="300"
-                   text="Cargando sinopsis..."/>
-        </VBox>
-
-        <VBox styleClass="detail-section" spacing="2">
-            <Label styleClass="detail-header" text="Información"/>
-            <Label fx:id="durationLabel"
-                   styleClass="card-detail-text"
-                   text="⏱️ Duración: -- min"/>
-            <Label fx:id="genreLabel"
-                   styleClass="card-detail-text"
-                   text="🎭 Género: Desconocido"/>
-            <Label fx:id="yearLabel"
-                   styleClass="card-detail-text"
-                   text="📅 Estreno: --"/>
-        </VBox>
-
-        <VBox styleClass="detail-section" spacing="2">
-            <Label styleClass="detail-header" text="Reparto Principal"/>
-            <Label fx:id="castLabel"
-                   styleClass="card-detail-text"
-                   wrapText="true"
-                   maxWidth="300"
-                   text="⭐ Reparto no disponible."/>
-        </VBox>
-    </VBox>
-</VBox>
