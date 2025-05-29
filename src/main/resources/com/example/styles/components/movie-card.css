@@ -22,15 +22,20 @@
     /* Asegúrate que la imagen también tenga este radius si es necesario */
 }
 
-.rating-badge {
-    -fx-background-color: rgba(0,0,0,0.6);
-    -fx-background-radius: 6px;
-    -fx-padding: 4px 8px;
+/* --- ESTILOS MODIFICADOS PARA LA CALIFICACIÓN EN VISTA COMPACTA --- */
+.rating-badge { /* Contenedor de la calificación en la vista compacta */
+    -fx-background-color: rgba(0, 0, 0, 0.65); /* Opacidad ligeramente ajustada, opcional */
+    -fx-background-radius: 5px;      /* Radio del borde ligeramente reducido */
+    -fx-padding: 3px 7px;          /* Padding reducido para un aspecto más compacto */
 }
-.rating-text {
+.rating-text { /* Texto de las estrellas en la vista compacta */
+    -fx-font-size: 13px;          /* CAMBIO CLAVE: Tamaño de fuente reducido significativamente */
     -fx-font-weight: bold;
-    -fx-text-fill: #FFD700;
+    -fx-text-fill: #FFD700;       /* Color dorado para las estrellas */
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 1, 0, 0, 1); /* Sombra sutil para mejor definición */
 }
+/* --- FIN DE ESTILOS MODIFICADOS PARA LA CALIFICACIÓN --- */
+
 .card-title {
     -fx-font-size: 15px;
     -fx-font-weight: bold;
@@ -70,11 +75,11 @@
     -fx-background-radius: 8px;
 }
 
-.rating-badge-expanded {
+.rating-badge-expanded { /* Estilos para la calificación en vista expandida (ya se veían bien) */
     -fx-background-color: rgba(0,0,0,0.7);
     -fx-background-radius: 8px;
-    -fx-padding: 3px 6px;  /* Reducido */
-    -fx-font-size: 10px;   /* Reducido */
+    -fx-padding: 3px 6px;
+    -fx-font-size: 10px;
     -fx-font-weight: bold;
     -fx-text-fill: #FFD700;
 }
@@ -85,40 +90,33 @@
     -fx-padding: 0 0 0 6px;
 }
 
-/* ... (otros estilos sin cambios) ... */
-
 .expanded-title {
-    -fx-font-size: 13px; /* Reducido desde 18px para compensar la escala */
+    -fx-font-size: 13px;
     -fx-font-weight: bold;
     -fx-text-fill: white;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.7), 3, 0, 1, 1);
 }
 
-/* Estilos para los labels de detalles en la tarjeta expandida */
-/* Aplicado a los IDs como en tu FXML anterior */
-#iconDuration, #iconYear, #iconGenre, #classificationLabel, /* classificationLabel ya estaba en FXML */
+#iconDuration, #iconYear, #iconGenre, #classificationLabel,
 #synopsisExpanded, #castLabelExpanded,
-#directorLabel, #studioLabel, #languageLabel { /* IDs de nuevas labels */
+#directorLabel, #studioLabel, #languageLabel {
     -fx-text-fill: #f0f0f0;
-    -fx-font-size: 6px; /* Mantenemos 6px base, la escala general reducida lo hará más pequeño */
-    /* -fx-line-spacing: 1px; /* Ajusta si es necesario para el espaciado entre líneas */
+    -fx-font-size: 6px;
 }
 
 #synopsisExpanded {
-    -fx-line-spacing: 1.2px; /* Ligeramente ajustado si es necesario */
+    -fx-line-spacing: 1.2px;
 }
 
-
-/* Estilos de Botones */
 .btn-primary, .btn-outline, .btn-info {
-    -fx-font-size: 5px;  /* Ligeramente aumentado desde 4px para mejor legibilidad con nueva escala */
+    -fx-font-size: 5px;
     -fx-padding: 5px 10px;
     -fx-background-radius: 6px;
-    -fx-alignment: CENTER_LEFT; /* Para alinear el ícono y texto */
+    -fx-alignment: CENTER_LEFT;
 }
 
 .btn-primary {
-    -fx-background-color: #E44D2E; /* Rojo/Naranja para el botón primario */
+    -fx-background-color: #E44D2E;
     -fx-text-fill: white;
     -fx-font-weight: bold;
     -fx-padding: 10px 20px;
@@ -129,8 +127,6 @@
 .btn-primary:hover {
     -fx-background-color: #F85D3F;
 }
-
-/* ... (otros estilos de botones .btn-outline, .btn-info sin cambios) ... */
 
 .btn-outline {
     -fx-background-color: transparent;

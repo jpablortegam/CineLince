@@ -4,13 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6f94096a-8f21-4170-a76e-4c2b50d8bf02" name="Changes" comment="feat: add ActorPeliculaDTO and enhance CardMovieViewController; implement detailed actor information and improve UI elements">
+    <list default="true" id="6f94096a-8f21-4170-a76e-4c2b50d8bf02" name="Changes" comment="feat: enhance movie details display; add rating and additional information to CardMovieView and DialogPane">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/CardMovieViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/CardMovieViewController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/DialogPaneViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/DialogPaneViewController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/HomeViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/HomeViewController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/database/BDCinemasystemScript.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/database/BDCinemasystemScript.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/model/DTO/FuncionDetallada.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/model/DTO/FuncionDetallada.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/styles/components/movie-card.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/styles/components/movie-card.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -291,7 +288,7 @@
       <workItem from="1748378511440" duration="13018000" />
       <workItem from="1748395709034" duration="3100000" />
       <workItem from="1748471666356" duration="305000" />
-      <workItem from="1748554364197" duration="7544000" />
+      <workItem from="1748554364197" duration="8094000" />
     </task>
     <task id="LOCAL-00001" summary="initialize project structure with basic JavaFX application and Gradle setup">
       <option name="closed" value="true" />
@@ -645,7 +642,15 @@
       <option name="project" value="LOCAL" />
       <updated>1748558468595</updated>
     </task>
-    <option name="localTasksCounter" value="45" />
+    <task id="LOCAL-00045" summary="feat: enhance movie details display; add rating and additional information to CardMovieView and DialogPane">
+      <option name="closed" value="true" />
+      <created>1748562320094</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1748562320094</updated>
+    </task>
+    <option name="localTasksCounter" value="46" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -675,7 +680,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="add login view and controller; implement form validation and animations" />
     <MESSAGE value="enhance login view styles; remove scroll arrows and improve tab hover effects" />
     <MESSAGE value="add movie card animations and details; implement hover effects and expand/collapse functionality" />
     <MESSAGE value="add movie card functionality; implement dynamic scaling, hover effects, and expand/collapse animations" />
@@ -700,6 +704,7 @@
     <MESSAGE value="refactor HomeView layout and controller; implement detailed featured banner with improved styles and interactions" />
     <MESSAGE value="refactor CardAnimationHelper and CardMovieViewController; optimize animation durations and improve caching for enhanced performance" />
     <MESSAGE value="feat: add ActorPeliculaDTO and enhance CardMovieViewController; implement detailed actor information and improve UI elements" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: add ActorPeliculaDTO and enhance CardMovieViewController; implement detailed actor information and improve UI elements" />
+    <MESSAGE value="feat: enhance movie details display; add rating and additional information to CardMovieView and DialogPane" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: enhance movie details display; add rating and additional information to CardMovieView and DialogPane" />
   </component>
 </project>

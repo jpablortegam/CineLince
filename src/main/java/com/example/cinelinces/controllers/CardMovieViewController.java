@@ -34,8 +34,8 @@ public class CardMovieViewController {
     @FXML private VBox compactLayout;
     @FXML private HBox expandedLayout;
     @FXML private ImageView poster;
-    @FXML private StackPane ratingBadge;
-    @FXML private Label ratingLabel;
+    @FXML private StackPane ratingBadge; // Este es el de la vista COMPACTA
+    @FXML private Label ratingLabel;     // Este es el de la vista COMPACTA
     @FXML private VBox textContainer;
     @FXML private Label title;
     @FXML private Label subtitle;
@@ -43,7 +43,7 @@ public class CardMovieViewController {
     @FXML private Label formatBadge;
     @FXML private Label genreBadge;
     @FXML private ImageView posterExpanded;
-    @FXML private Label ratingLabelExpanded;
+    @FXML private Label ratingLabelExpanded; // Este es el de la vista EXPANDIDA
     @FXML private Label titleExpanded;
     @FXML private Label iconDuration;
     @FXML private Label iconYear;
@@ -66,10 +66,9 @@ public class CardMovieViewController {
     private Image moviePosterImage;
 
     private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm 'hrs'", Locale.getDefault());
-    private static final String FULL_STAR = "★"; // U+2605
-    private static final String HALF_STAR = "✬"; // U+270C (VICTORY HAND - puede no ser ideal, U+00BD '½' o U+2B51 son alternativas)
-    // Si ✬ no se ve bien, prueba con "½" o busca un caracter de media estrella específico.
-    private static final String EMPTY_STAR = "☆"; // U+2606
+    private static final String FULL_STAR = "★";
+    private static final String HALF_STAR = "✬"; // Considera alternativas si este carácter no renderiza bien: "½", U+2B51 (✫)
+    private static final String EMPTY_STAR = "☆";
 
 
     public void initContext(Pane parentContainer, Pane overlayPane, StackPane rootStack, DialogAnimationHelper dialogAnimationHelper) {
@@ -259,20 +258,11 @@ public class CardMovieViewController {
         return formattedText.toString();
     }
 
-    /**
-     * Convierte una calificación numérica a una representación de estrellas.
-     * @param averageRating La calificación promedio (0.0 a 5.0).
-     * @param totalReviews El número total de calificaciones.
-     * @return Una cadena de 5 estrellas (ej. "★★★★✬") o "N/A" si no hay calificaciones.
-     */
     private String formatRatingToStars(double averageRating, int totalReviews) {
         if (totalReviews == 0) {
-            return "N/A"; // Opcionalmente, podrías retornar EMPTY_STAR.repeat(5)
+            return "N/A";
         }
-
-        // Redondea la calificación al 0.5 más cercano
         double rating = Math.round(averageRating * 2.0) / 2.0;
-
         StringBuilder stars = new StringBuilder();
         for (int i = 1; i <= 5; i++) {
             if (rating >= i) {
@@ -326,21 +316,24 @@ public class CardMovieViewController {
             subtitle.setText("Función no disponible");
         }
 
-        // Formatear y establecer calificación en estrellas
-        String starsRating = formatRatingToStars(funcion.getCalificacionPromedioPelicula(), funcion.getTotalCalificacionesPelicula());
-        ratingLabel.setText(starsRating);
-        ratingLabelExpanded.setText(starsRating);
+        // --- MODIFICACIÓN PARA LA VISTA COMPACTA ---
+        // Asegurarse de que el ratingBadge (y su label) de la vista compacta permanezcan ocultos.
+        // El FXML ya tiene ratingBadge con visible="false", así que no necesitamos establecer el texto de ratingLabel.
+        // Para mayor seguridad y claridad, lo hacemos explícito aquí:
+        if (ratingBadge != null) { // ratingBadge es el StackPane de la vista compacta
+            ratingBadge.setVisible(false);
+            ratingBadge.setManaged(false); // Importante para que no ocupe espacio en el layout
+        }
+        // No se establece texto para ratingLabel (el de la vista compacta)
 
-        // Hacer visible el badge de calificación si hay calificaciones
-        if (funcion.getTotalCalificacionesPelicula() > 0) {
-            ratingBadge.setVisible(true);
-        } else {
-            ratingBadge.setVisible(false); // Ocultar si no hay calificaciones o es N/A
+        // --- CALIFICACIÓN PARA LA VISTA EXPANDIDA (esto se mantiene) ---
+        String starsRatingExpanded = formatRatingToStars(funcion.getCalificacionPromedioPelicula(), funcion.getTotalCalificacionesPelicula());
+        if (ratingLabelExpanded != null) {
+            ratingLabelExpanded.setText(starsRatingExpanded);
         }
 
 
         posterExpanded.setImage(moviePosterImage);
-        // ratingLabelExpanded ya se estableció arriba
         titleExpanded.setText(funcion.getTituloPelicula());
         iconDuration.setText("⏱️ " + funcion.getDuracionMinutos() + " min");
 
