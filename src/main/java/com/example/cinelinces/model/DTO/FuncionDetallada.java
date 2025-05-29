@@ -17,11 +17,11 @@ public class FuncionDetallada {
     private int idPelicula;
     private String tituloPelicula;
     private int duracionMinutos;
-    private String clasificacionPelicula; // Already exists, good for "Clasificación"
+    private String clasificacionPelicula;
     private String sinopsisPelicula;
-    private String fotografiaPelicula; // URL o ruta del póster
+    private String fotografiaPelicula;
     private LocalDate fechaEstrenoPelicula;
-    private String nombreTipoPelicula; // Género
+    private String nombreTipoPelicula;
 
     // Campos de la Sala
     private int idSala;
@@ -34,12 +34,13 @@ public class FuncionDetallada {
     // Campo para los actores
     private List<ActorPeliculaDTO> actores;
 
-    // --- NUEVOS CAMPOS ---
+    // Campos de Película para Calificación y detalles adicionales
     private String nombreEstudio;
     private String nombreDirector;
     private String idiomaPelicula;
     private boolean subtituladaPelicula;
-    // --- FIN DE NUEVOS CAMPOS ---
+    private double calificacionPromedioPelicula; // <--- NUEVO
+    private int totalCalificacionesPelicula;    // <--- NUEVO
 
 
     public FuncionDetallada() {
@@ -81,8 +82,6 @@ public class FuncionDetallada {
     public void setNombreCine(String nombreCine) { this.nombreCine = nombreCine; }
     public List<ActorPeliculaDTO> getActores() { return actores; }
     public void setActores(List<ActorPeliculaDTO> actores) { this.actores = actores; }
-
-    // --- Getters y Setters para NUEVOS CAMPOS ---
     public String getNombreEstudio() { return nombreEstudio; }
     public void setNombreEstudio(String nombreEstudio) { this.nombreEstudio = nombreEstudio; }
     public String getNombreDirector() { return nombreDirector; }
@@ -91,4 +90,10 @@ public class FuncionDetallada {
     public void setIdiomaPelicula(String idiomaPelicula) { this.idiomaPelicula = idiomaPelicula; }
     public boolean isSubtituladaPelicula() { return subtituladaPelicula; }
     public void setSubtituladaPelicula(boolean subtituladaPelicula) { this.subtituladaPelicula = subtituladaPelicula; }
+
+    // --- Getters y Setters para NUEVOS CAMPOS de Calificación ---
+    public double getCalificacionPromedioPelicula() { return calificacionPromedioPelicula; }
+    public void setCalificacionPromedioPelicula(double calificacionPromedioPelicula) { this.calificacionPromedioPelicula = calificacionPromedioPelicula; }
+    public int getTotalCalificacionesPelicula() { return totalCalificacionesPelicula; }
+    public void setTotalCalificacionesPelicula(int totalCalificacionesPelicula) { this.totalCalificacionesPelicula = totalCalificacionesPelicula; }
 }

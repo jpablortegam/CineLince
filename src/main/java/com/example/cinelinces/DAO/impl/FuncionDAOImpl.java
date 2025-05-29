@@ -16,8 +16,6 @@ public class FuncionDAOImpl implements FuncionDAO {
 
     MySQLConnection ConexionBD = new MySQLConnection();
 
-    // ... (otros métodos existentes como mapResultSetToFuncion, findById, findAll, save, update, delete, deleteById, findActoresForPelicula) ...
-    // Asegúrate que el método findActoresForPelicula que te proporcioné anteriormente esté aquí.
     private Funcion mapResultSetToFuncion(ResultSet rs) throws SQLException {
         Funcion funcion = new Funcion();
         funcion.setIdFuncion(rs.getInt("IdFuncion"));
@@ -163,22 +161,20 @@ public class FuncionDAOImpl implements FuncionDAO {
                 "S.Numero AS NumeroSala, S.TipoSala, S.IdSala, " +
                 "P.Titulo AS TituloPelicula, P.Duracion AS DuracionMinutos, P.Clasificacion AS ClasificacionPelicula, " +
                 "P.IdPelicula, P.Sinopsis AS SinopsisPelicula, P.Fotografia AS FotografiaPelicula, P.FechaEstreno AS FechaEstrenoPelicula, " +
-                "P.Idioma AS IdiomaPelicula, P.Subtitulada AS SubtituladaPelicula, " + // Nuevos campos de Pelicula
+                "P.Idioma AS IdiomaPelicula, P.Subtitulada AS SubtituladaPelicula, " +
+                "P.CalificacionPromedio AS CalificacionPromedioPelicula, P.TotalCalificaciones AS TotalCalificacionesPelicula, " + // <-- CAMPOS AÑADIDOS
                 "TP.Nombre AS NombreTipoPelicula, " +
-                "Est.Nombre AS NombreEstudio, " + // Campo de Estudio
-                "Dir.Nombre AS NombreDirector, " + // Campo de Director
+                "Est.Nombre AS NombreEstudio, " +
+                "Dir.Nombre AS NombreDirector, " +
                 "F.FechaHora AS FechaHoraFuncion, F.Precio AS PrecioBoleto, F.Estado AS EstadoFuncion, F.IdFuncion " +
                 "FROM Funcion F " +
                 "JOIN Sala S ON F.IdSala = S.IdSala " +
                 "JOIN Pelicula P ON F.IdPelicula = P.IdPelicula " +
                 "JOIN Cine C ON S.IdCine = C.IdCine " +
                 "LEFT JOIN TipoPelicula TP ON P.IdTipoPelicula = TP.IdTipoPelicula " +
-                "LEFT JOIN Estudio Est ON P.IdEstudio = Est.IdEstudio " + // LEFT JOIN para Estudio
-                "LEFT JOIN Director Dir ON P.IdDirector = Dir.IdDirector ";  // LEFT JOIN para Director
-        // No se puede agregar WHERE y ORDER BY aquí directamente si la consulta continúa
-
-        // Continuación de la consulta original
-        sql += "WHERE C.IdCine = ? " +
+                "LEFT JOIN Estudio Est ON P.IdEstudio = Est.IdEstudio " +
+                "LEFT JOIN Director Dir ON P.IdDirector = Dir.IdDirector " +
+                "WHERE C.IdCine = ? " +
                 "ORDER BY F.FechaHora ASC, S.Numero ASC";
 
 
@@ -197,7 +193,7 @@ public class FuncionDAOImpl implements FuncionDAO {
                 dto.setIdSala(rs.getInt("IdSala"));
                 dto.setTituloPelicula(rs.getString("TituloPelicula"));
                 dto.setDuracionMinutos(rs.getInt("DuracionMinutos"));
-                dto.setClasificacionPelicula(rs.getString("ClasificacionPelicula")); // Ya se estaba poblando
+                dto.setClasificacionPelicula(rs.getString("ClasificacionPelicula"));
                 dto.setIdPelicula(rs.getInt("IdPelicula"));
                 dto.setSinopsisPelicula(rs.getString("SinopsisPelicula"));
                 dto.setFotografiaPelicula(rs.getString("FotografiaPelicula"));
@@ -214,11 +210,15 @@ public class FuncionDAOImpl implements FuncionDAO {
                 dto.setEstadoFuncion(rs.getString("EstadoFuncion"));
                 dto.setIdFuncion(rs.getInt("IdFuncion"));
 
-                // Poblar nuevos campos
+                // Poblar campos de Película (Estudio, Director, Idioma)
                 dto.setNombreEstudio(rs.getString("NombreEstudio"));
                 dto.setNombreDirector(rs.getString("NombreDirector"));
                 dto.setIdiomaPelicula(rs.getString("IdiomaPelicula"));
                 dto.setSubtituladaPelicula(rs.getBoolean("SubtituladaPelicula"));
+
+                // Poblar nuevos campos de Calificación
+                dto.setCalificacionPromedioPelicula(rs.getDouble("CalificacionPromedioPelicula"));
+                dto.setTotalCalificacionesPelicula(rs.getInt("TotalCalificacionesPelicula"));
 
                 // Obtener y asignar la lista de actores
                 List<ActorPeliculaDTO> actoresPelicula = findActoresForPelicula(dto.getIdPelicula(), conn);

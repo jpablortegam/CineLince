@@ -6,6 +6,7 @@ import com.example.cinelinces.utils.Animations.CardAnimationHelper;
 import com.example.cinelinces.utils.Animations.DialogAnimationHelper;
 import com.example.cinelinces.utils.Animations.OverlayHelper;
 import javafx.animation.ParallelTransition;
+import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
@@ -23,19 +24,15 @@ import javafx.scene.layout.VBox;
 
 import java.io.InputStream;
 import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
 
 public class CardMovieViewController {
 
-    // --- Root and Layouts ---
     @FXML private StackPane cardRoot;
     @FXML private VBox compactLayout;
     @FXML private HBox expandedLayout;
-
-    // --- Compact View Elements ---
     @FXML private ImageView poster;
     @FXML private StackPane ratingBadge;
     @FXML private Label ratingLabel;
@@ -45,8 +42,6 @@ public class CardMovieViewController {
     @FXML private HBox badgesContainer;
     @FXML private Label formatBadge;
     @FXML private Label genreBadge;
-
-    // --- Expanded View Elements ---
     @FXML private ImageView posterExpanded;
     @FXML private Label ratingLabelExpanded;
     @FXML private Label titleExpanded;
@@ -56,16 +51,11 @@ public class CardMovieViewController {
     @FXML private Label synopsisExpanded;
     @FXML private Label castLabelExpanded;
     @FXML private Button btnShowTimes;
-
-    // --- NUEVAS LABELS FXML ---
     @FXML private Label classificationLabel;
     @FXML private Label directorLabel;
     @FXML private Label studioLabel;
     @FXML private Label languageLabel;
-    // --- FIN NUEVAS LABELS FXML ---
 
-
-    // --- Controller Logic Fields (resto del código sin cambios) ---
     private Pane parentContainer;
     private Pane overlayPane;
     private OverlayHelper overlayHelper;
@@ -76,35 +66,40 @@ public class CardMovieViewController {
     private Image moviePosterImage;
 
     private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm 'hrs'", Locale.getDefault());
-    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withLocale(Locale.getDefault());
+    private static final String FULL_STAR = "★"; // U+2605
+    private static final String HALF_STAR = "✬"; // U+270C (VICTORY HAND - puede no ser ideal, U+00BD '½' o U+2B51 son alternativas)
+    // Si ✬ no se ve bien, prueba con "½" o busca un caracter de media estrella específico.
+    private static final String EMPTY_STAR = "☆"; // U+2606
 
-    // initContext, onCardHover, onCardHoverExit, onCardClick, expandCard, collapseCard (sin cambios)
+
     public void initContext(Pane parentContainer, Pane overlayPane, StackPane rootStack, DialogAnimationHelper dialogAnimationHelper) {
         this.parentContainer = parentContainer;
         this.overlayPane = overlayPane;
-        this.overlayHelper = new OverlayHelper(overlayPane);
+        this.overlayHelper = new OverlayHelper(this.overlayPane);
         this.dialogAnimationHelper = dialogAnimationHelper;
 
-        this.overlayHelper.getOverlay().setOnMouseClicked(e -> {
-            if (isExpanded && !isAnimating && currentlyExpanded == this) {
-                if (e.getTarget() == overlayHelper.getOverlay()) {
-                    onCardClick(null);
-                }
-            }
-        });
-        cardRoot.setEffect(CardAnimationHelper.SUBTLE_SHADOW_EFFECT);
+        if (this.overlayHelper != null && this.overlayHelper.getOverlay() != null) {
+            this.overlayHelper.getOverlay().setMouseTransparent(true);
+        }
+        if (CardAnimationHelper.SUBTLE_SHADOW_EFFECT != null) {
+            cardRoot.setEffect(CardAnimationHelper.SUBTLE_SHADOW_EFFECT);
+        } else {
+            System.err.println("Advertencia: CardMovieViewController - CardAnimationHelper.SUBTLE_SHADOW_EFFECT es null.");
+        }
     }
 
     @FXML
     void onCardHover(MouseEvent e) {
         if (isExpanded || isAnimating || (currentlyExpanded != null && currentlyExpanded != this)) return;
-        CardAnimationHelper.createHoverInAnimation(cardRoot).play();
+        Timeline hoverIn = CardAnimationHelper.createHoverInAnimation(cardRoot);
+        if (hoverIn != null) hoverIn.play();
     }
 
     @FXML
     void onCardHoverExit(MouseEvent e) {
         if (isExpanded || isAnimating || (currentlyExpanded != null && currentlyExpanded != this)) return;
-        CardAnimationHelper.createHoverOutAnimation(cardRoot).play();
+        Timeline hoverOut = CardAnimationHelper.createHoverOutAnimation(cardRoot);
+        if (hoverOut != null) hoverOut.play();
     }
 
     @FXML
@@ -142,6 +137,8 @@ public class CardMovieViewController {
             } else {
                 currentParentPane.getChildren().add(placeholder);
             }
+        } else if (parentContainer != null) {
+            parentContainer.getChildren().remove(cardRoot);
         }
 
         Point2D cardPositionInOverlay = overlayPane.sceneToLocal(cardPositionInScene);
@@ -157,31 +154,32 @@ public class CardMovieViewController {
         if (!overlayPane.getChildren().contains(cardRoot)) {
             overlayPane.getChildren().add(cardRoot);
         }
+        cardRoot.toFront();
 
         compactLayout.setVisible(false);
         compactLayout.setManaged(false);
         expandedLayout.setVisible(true);
         expandedLayout.setManaged(true);
 
-        double cardOriginalWidth = pWidth;
-        double cardOriginalHeight = pHeight;
-        if (cardOriginalWidth <= 0) cardOriginalWidth = cardRoot.getPrefWidth();
-        if (cardOriginalHeight <= 0) cardOriginalHeight = cardRoot.getPrefHeight();
+        double cardOriginalWidth = pWidth > 0 ? pWidth : cardRoot.getPrefWidth();
+        double cardOriginalHeight = pHeight > 0 ? pHeight : cardRoot.getPrefHeight();
         if (cardOriginalWidth <= 0) cardOriginalWidth = 340;
         if (cardOriginalHeight <= 0) cardOriginalHeight = 220;
 
-        double targetScaleXFactor = 3.7;
-        double targetScaleYFactor = 2.7;
+        double targetScaleXFactor = 2.9;
+        double targetScaleYFactor = 2.4;
 
         double finalTargetLayoutX = (overlayPane.getWidth() - cardOriginalWidth) / 2.0;
         double finalTargetLayoutY = (overlayPane.getHeight() - cardOriginalHeight) / 2.0;
         double targetTranslateX = finalTargetLayoutX - cardRoot.getLayoutX();
         double targetTranslateY = finalTargetLayoutY - cardRoot.getLayoutY();
 
-        dialogAnimationHelper.blurBackgroundIn(CardAnimationHelper.EXPAND_ANIM_DURATION.multiply(0.8), 8).play();
-        overlayHelper.show(CardAnimationHelper.EXPAND_ANIM_DURATION.multiply(0.8), 0.4, CardAnimationHelper.EASE_OUT_INTERPOLATOR);
+        if (this.dialogAnimationHelper != null) {
+            this.dialogAnimationHelper.blurBackgroundIn(CardAnimationHelper.EXPAND_ANIM_DURATION.multiply(0.8), 8).play();
+        } else {
+            System.err.println("CardMovieViewController: dialogAnimationHelper es null en expandCard. No se aplicará blur.");
+        }
 
-        cardRoot.toFront();
         cardRoot.setCache(true);
         cardRoot.setCacheHint(CacheHint.SPEED);
 
@@ -191,6 +189,7 @@ public class CardMovieViewController {
 
         expandAnimation.setOnFinished(event -> {
             cardRoot.setCache(false);
+            cardRoot.setOpacity(1.0);
             isAnimating = false;
             isExpanded = true;
             cardRoot.setOnMouseEntered(null);
@@ -201,13 +200,15 @@ public class CardMovieViewController {
 
     private void collapseCard() {
         cardRoot.getStyleClass().remove("expanded");
+
+        if (this.dialogAnimationHelper != null) {
+            this.dialogAnimationHelper.blurBackgroundOut(CardAnimationHelper.COLLAPSE_ANIM_DURATION.multiply(0.8)).play();
+        }
+
         cardRoot.setCache(true);
         cardRoot.setCacheHint(CacheHint.SPEED);
 
-        overlayHelper.hide(CardAnimationHelper.COLLAPSE_ANIM_DURATION.multiply(0.8), CardAnimationHelper.EASE_OUT_INTERPOLATOR, () -> {});
-        dialogAnimationHelper.blurBackgroundOut(CardAnimationHelper.COLLAPSE_ANIM_DURATION.multiply(0.8)).play();
-
-        Runnable originalOnCompleted = () -> {
+        Runnable onAllOperationsCompleted = () -> {
             this.placeholder = null;
             CardMovieViewController.currentlyExpanded = null;
             this.isAnimating = false;
@@ -220,21 +221,73 @@ public class CardMovieViewController {
 
             cardRoot.setOnMouseEntered(this::onCardHover);
             cardRoot.setOnMouseExited(this::onCardHoverExit);
+            if (CardAnimationHelper.SUBTLE_SHADOW_EFFECT != null) {
+                cardRoot.setEffect(CardAnimationHelper.SUBTLE_SHADOW_EFFECT);
+            }
         };
 
         ParallelTransition actualCollapseAnimation = CardAnimationHelper.createCollapseAnimation(
                 cardRoot, overlayPane, parentContainer, placeholder,
                 () -> {
                     cardRoot.setCache(false);
-                    originalOnCompleted.run();
+                    onAllOperationsCompleted.run();
                 }
         );
         actualCollapseAnimation.play();
     }
 
+    private String formatTextWithLineBreaks(String text, int wordsPerLine) {
+        if (text == null || text.trim().isEmpty() || wordsPerLine <= 0) {
+            return text == null ? "" : text;
+        }
+        String[] words = text.trim().split("\\s+");
+        if (words.length <= wordsPerLine && !text.contains("\n")) {
+            return text.trim();
+        }
+        StringBuilder formattedText = new StringBuilder();
+        int wordCountOnCurrentLine = 0;
+        for (int i = 0; i < words.length; i++) {
+            formattedText.append(words[i]);
+            wordCountOnCurrentLine++;
+            if (wordCountOnCurrentLine >= wordsPerLine && i < words.length - 1) {
+                formattedText.append("\n");
+                wordCountOnCurrentLine = 0;
+            } else if (i < words.length - 1) {
+                formattedText.append(" ");
+            }
+        }
+        return formattedText.toString();
+    }
+
+    /**
+     * Convierte una calificación numérica a una representación de estrellas.
+     * @param averageRating La calificación promedio (0.0 a 5.0).
+     * @param totalReviews El número total de calificaciones.
+     * @return Una cadena de 5 estrellas (ej. "★★★★✬") o "N/A" si no hay calificaciones.
+     */
+    private String formatRatingToStars(double averageRating, int totalReviews) {
+        if (totalReviews == 0) {
+            return "N/A"; // Opcionalmente, podrías retornar EMPTY_STAR.repeat(5)
+        }
+
+        // Redondea la calificación al 0.5 más cercano
+        double rating = Math.round(averageRating * 2.0) / 2.0;
+
+        StringBuilder stars = new StringBuilder();
+        for (int i = 1; i <= 5; i++) {
+            if (rating >= i) {
+                stars.append(FULL_STAR);
+            } else if (rating >= (i - 0.5)) {
+                stars.append(HALF_STAR);
+            } else {
+                stars.append(EMPTY_STAR);
+            }
+        }
+        return stars.toString();
+    }
+
 
     public void setFuncionData(FuncionDetallada funcion) {
-        // --- Carga de imagen (sin cambios) ---
         moviePosterImage = null;
         if (funcion.getFotografiaPelicula() != null && !funcion.getFotografiaPelicula().isEmpty()) {
             String imagePath = funcion.getFotografiaPelicula();
@@ -265,14 +318,29 @@ public class CardMovieViewController {
             loadPlaceholderPoster();
         }
 
-        // --- Setear datos compactos (sin cambios) ---
         poster.setImage(moviePosterImage);
         title.setText(funcion.getTituloPelicula());
-        subtitle.setText(funcion.getFechaHoraFuncion().format(TIME_FORMATTER) + " • Sala " + funcion.getNumeroSala() + " (" + funcion.getTipoSala() + ")");
+        if (funcion.getFechaHoraFuncion() != null && funcion.getTipoSala() != null) {
+            subtitle.setText(funcion.getFechaHoraFuncion().format(TIME_FORMATTER) + " • Sala " + funcion.getNumeroSala() + " (" + funcion.getTipoSala() + ")");
+        } else {
+            subtitle.setText("Función no disponible");
+        }
 
-        // --- Setear datos expandidos (MODIFICADO) ---
+        // Formatear y establecer calificación en estrellas
+        String starsRating = formatRatingToStars(funcion.getCalificacionPromedioPelicula(), funcion.getTotalCalificacionesPelicula());
+        ratingLabel.setText(starsRating);
+        ratingLabelExpanded.setText(starsRating);
+
+        // Hacer visible el badge de calificación si hay calificaciones
+        if (funcion.getTotalCalificacionesPelicula() > 0) {
+            ratingBadge.setVisible(true);
+        } else {
+            ratingBadge.setVisible(false); // Ocultar si no hay calificaciones o es N/A
+        }
+
+
         posterExpanded.setImage(moviePosterImage);
-        ratingLabelExpanded.setText("★ N/A"); // O el rating real si lo tienes
+        // ratingLabelExpanded ya se estableció arriba
         titleExpanded.setText(funcion.getTituloPelicula());
         iconDuration.setText("⏱️ " + funcion.getDuracionMinutos() + " min");
 
@@ -283,34 +351,60 @@ public class CardMovieViewController {
         iconYear.setText("📅 " + year);
         iconGenre.setText("🎭 " + (funcion.getNombreTipoPelicula() != null ? funcion.getNombreTipoPelicula() : "Desconocido"));
 
-        // Clasificación
-        classificationLabel.setText("📊 " + (funcion.getClasificacionPelicula() != null ? funcion.getClasificacionPelicula() : "N/A"));
+        if (classificationLabel != null) {
+            classificationLabel.setText("📊 " + (funcion.getClasificacionPelicula() != null ? funcion.getClasificacionPelicula() : "N/A"));
+        } else {
+            System.err.println("classificationLabel es null en setFuncionData para: " + funcion.getTituloPelicula());
+        }
 
-        synopsisExpanded.setText(funcion.getSinopsisPelicula() != null ? funcion.getSinopsisPelicula() : "Sinopsis no disponible.");
+        String originalSynopsis = funcion.getSinopsisPelicula() != null ? funcion.getSinopsisPelicula() : "Sinopsis no disponible.";
+        String formattedSynopsis = formatTextWithLineBreaks(originalSynopsis, 10);
+        if (synopsisExpanded != null) {
+            synopsisExpanded.setText(formattedSynopsis);
+        } else {
+            System.err.println("synopsisExpanded es null en setFuncionData para: " + funcion.getTituloPelicula());
+        }
 
-        // Reparto
         List<ActorPeliculaDTO> actores = funcion.getActores();
         if (actores != null && !actores.isEmpty()) {
-            String repartoStr = actores.stream()
+            String rawRepartoStr = actores.stream()
                     .map(actor -> actor.getNombreActor() + " (" + actor.getPersonaje() + ")")
                     .collect(Collectors.joining(", "));
-            castLabelExpanded.setText("⭐ Reparto: " + repartoStr);
+            String formattedRepartoStr = formatTextWithLineBreaks(rawRepartoStr, 10);
+            if (castLabelExpanded != null) {
+                castLabelExpanded.setText("⭐ Reparto: " + formattedRepartoStr);
+            } else {
+                System.err.println("castLabelExpanded es null en setFuncionData para: " + funcion.getTituloPelicula());
+            }
         } else {
-            castLabelExpanded.setText("⭐ Reparto no disponible.");
+            if (castLabelExpanded != null) {
+                castLabelExpanded.setText("⭐ Reparto no disponible.");
+            } else {
+                System.err.println("castLabelExpanded es null en setFuncionData para: " + funcion.getTituloPelicula());
+            }
         }
 
-        // Director
-        directorLabel.setText("🎬 Director: " + (funcion.getNombreDirector() != null ? funcion.getNombreDirector() : "No disponible"));
+        if (directorLabel != null) {
+            directorLabel.setText("🎬 Director: " + (funcion.getNombreDirector() != null ? funcion.getNombreDirector() : "No disponible"));
+        } else {
+            System.err.println("directorLabel es null en setFuncionData para: " + funcion.getTituloPelicula());
+        }
 
-        // Estudio
-        studioLabel.setText("🏢 Estudio: " + (funcion.getNombreEstudio() != null ? funcion.getNombreEstudio() : "No disponible"));
+        if (studioLabel != null) {
+            studioLabel.setText("🏢 Estudio: " + (funcion.getNombreEstudio() != null ? funcion.getNombreEstudio() : "No disponible"));
+        } else {
+            System.err.println("studioLabel es null en setFuncionData para: " + funcion.getTituloPelicula());
+        }
 
-        // Idioma y Subtítulos
         String idiomaTexto = "🗣️ Idioma: " + (funcion.getIdiomaPelicula() != null ? funcion.getIdiomaPelicula() : "No disponible");
-        if (funcion.getIdiomaPelicula() != null) { // Solo mostrar info de subtítulos si hay idioma
+        if (funcion.getIdiomaPelicula() != null) {
             idiomaTexto += (funcion.isSubtituladaPelicula() ? " (Subtitulada)" : " (Doblada)");
         }
-        languageLabel.setText(idiomaTexto);
+        if (languageLabel != null) {
+            languageLabel.setText(idiomaTexto);
+        } else {
+            System.err.println("languageLabel es null en setFuncionData para: " + funcion.getTituloPelicula());
+        }
     }
 
     private void loadPlaceholderPoster() {
@@ -330,6 +424,6 @@ public class CardMovieViewController {
     }
 
     @FXML private void handleShowTimes() {
-        System.out.println("Ver horarios para: " + title.getText());
+        System.out.println("Ver horarios para: " + (title != null ? title.getText() : "Película desconocida"));
     }
 }

@@ -1,5 +1,6 @@
 package com.example.cinelinces.controllers;
 
+import com.example.cinelinces.model.DTO.FuncionDetallada;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
@@ -13,4 +14,11 @@ public class DialogPaneViewController {
 
     public VBox getDialogPanel() { return dialogPanel; }
     public Button getCloseBtn()     { return closeBtn;     }
+
+    public void setMovieContext(FuncionDetallada movieData) {
+    }
+
+    public void clearMovieContext() {
+
+    }
 }

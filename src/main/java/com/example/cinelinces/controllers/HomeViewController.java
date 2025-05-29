@@ -7,14 +7,12 @@ import com.example.cinelinces.DAO.impl.FuncionDAOImpl;
 import com.example.cinelinces.model.Cine;
 import com.example.cinelinces.model.DTO.FuncionDetallada;
 import com.example.cinelinces.utils.Animations.ButtonHoverAnimator;
-import com.example.cinelinces.utils.Animations.DialogAnimationHelper;
+import com.example.cinelinces.utils.Animations.DialogAnimationHelper; // Importante que esté
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-// Ya no necesitas Rectangle2D aquí si configureFeaturedBannerImage() se elimina o cambia drásticamente
-// import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -23,10 +21,10 @@ import javafx.scene.control.ListCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.HBox; // Asegúrate de tener esta importación
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox; // Asegúrate de tener esta importación
+import javafx.scene.layout.VBox;
 import javafx.util.StringConverter;
 
 import java.io.IOException;
@@ -45,7 +43,6 @@ public class HomeViewController implements Initializable {
     @FXML private FlowPane proximamentePane;
     @FXML private ComboBox<Cine> cineComboBox;
 
-    // --- CAMPOS @FXML PARA EL NUEVO BANNER DETALLADO (Estilo Dune) ---
     @FXML private StackPane detailedFeaturedBannerPane;
     @FXML private ImageView featuredBackgroundImage;
     @FXML private ImageView featuredPosterImage;
@@ -55,21 +52,14 @@ public class HomeViewController implements Initializable {
     @FXML private Label featuredDurationText;
     @FXML private Label featuredYearText;
     @FXML private Label featuredSynopsisText;
-    @FXML private Button btnFeaturedVerHorarios; // Este es el botón "Ver horarios" DEL NUEVO BANNER
+    @FXML private Button btnFeaturedVerHorarios;
     @FXML private Button btnFeaturedMiLista;
     @FXML private Button btnFeaturedMasInfo;
-    @FXML private Button btnVerTodasProximamente; // Si le diste este fx:id al botón "Ver todas"
-
-    // --- CAMPOS @FXML ANTIGUOS (Comentados o eliminados si ya no se usan para un banner simple) ---
-    // @FXML private StackPane featuredBannerPane; // Este fx:id ya no es el banner principal
-    // @FXML private ImageView featuredImage;    // Este fx:id ya no es la imagen del banner principal
-    // @FXML private Label featuredTitle;        // Este fx:id ya no es el título del banner principal
-    // @FXML private Label featuredSubtitle;     // Este fx:id ya no es el subtítulo del banner principal
-    // @FXML private Button btnVerHorarios; // Este ID ahora se usa para btnFeaturedVerHorarios si es el mismo botón
+    @FXML private Button btnVerTodasProximamente;
 
     private CineDAO cineDAO;
     private FuncionDAO funcionDAO;
-    private DialogAnimationHelper dialogHelper;
+    private DialogAnimationHelper dialogHelper; // Esta es la instancia que se pasará
     private Node dialogPanel;
 
     @Override
@@ -77,50 +67,13 @@ public class HomeViewController implements Initializable {
         cineDAO = new CineDAOImpl();
         funcionDAO = new FuncionDAOImpl();
 
-        // Ya NO llames a configureFeaturedBannerImage() aquí, o necesitará ser reescrito
-        // para el nuevo banner. Por ahora, lo comentamos para evitar el NullPointerException.
-        // configureFeaturedBannerImage();
-
         dialogHelper = new DialogAnimationHelper(rootStack, overlayPane);
+
         setupCineComboBox();
         loadProximamenteCards();
-        setupDialogPane(); // Este método necesitará usar btnFeaturedVerHorarios
-
-        // TODO: Crear un nuevo método para inicializar/limpiar el detailedFeaturedBannerPane
-        // por ejemplo: setDefaultDetailedBannerState();
+        setupDialogPane();
+        clearDetailedBanner();
     }
-
-    // El método configureFeaturedBannerImage ESTABA DISEÑADO PARA EL BANNER ANTIGUO.
-    // Necesitarás un NUEVO método para configurar el detailedFeaturedBannerPane
-    // o eliminar este si ya no configuras un banner estático al inicio de esa forma.
-    /*
-    private void configureFeaturedBannerImage() {
-        // Este código causaba NullPointerException porque this.featuredImage y
-        // this.featuredBannerPane eran null, ya que esos fx:id ya no existen
-        // en el FXML principal como antes.
-        try {
-            String imagePath = "/com/example/images/dune_banner.jpg"; // Ruta de ejemplo
-            InputStream featuredStream = getClass().getResourceAsStream(imagePath);
-
-            if (featuredStream != null) {
-                // if (this.featuredImage != null) { // Comprobación adicional
-                //     Image image = new Image(featuredStream);
-                //     this.featuredImage.setImage(image);
-                //     // ... resto de la configuración de la imagen ...
-                // }
-            } else {
-                // System.err.println("Error: No se pudo cargar la imagen del banner. Verifica la ruta: " + imagePath);
-                // if (this.featuredBannerPane != null) this.featuredBannerPane.setStyle("-fx-background-color: #2c3e50;");
-                // if (this.featuredTitle != null) this.featuredTitle.setText("Banner no disponible");
-            }
-        } catch (Exception e) {
-            // System.err.println("Excepción al cargar o configurar la imagen del banner: " + e.getMessage());
-            // e.printStackTrace();
-            // if (this.featuredBannerPane != null) this.featuredBannerPane.setStyle("-fx-background-color: #2c3e50;");
-            // if (this.featuredTitle != null) this.featuredTitle.setText("Error al cargar banner");
-        }
-    }
-    */
 
     private void setupDialogPane() {
         try {
@@ -128,6 +81,11 @@ public class HomeViewController implements Initializable {
             Node dialogRootNode = loader.load();
             DialogPaneViewController dialogController = loader.getController();
             this.dialogPanel = dialogController.getDialogPanel();
+
+            if (this.dialogPanel == null) {
+                System.err.println("Error: HomeViewController - dialogPanel no se pudo cargar desde dialogPane-view.fxml");
+                return;
+            }
 
             this.dialogPanel.setVisible(false);
             this.dialogPanel.setOpacity(0);
@@ -139,53 +97,44 @@ public class HomeViewController implements Initializable {
             Button closeBtn = dialogController.getCloseBtn();
             if (closeBtn != null) {
                 ButtonHoverAnimator.applyHoverEffect(closeBtn);
-                // Asegúrate que el botón de cerrar se refiere al botón correcto que abrió el diálogo
-                closeBtn.setOnAction(e -> dialogHelper.hideDialog(this.dialogPanel, btnFeaturedVerHorarios));
+                closeBtn.setOnAction(e -> {
+                    if (dialogHelper != null) { // Comprobar si dialogHelper está inicializado
+                        dialogHelper.hideDialog(this.dialogPanel, btnFeaturedVerHorarios);
+                    }
+                });
             }
 
-            // Ahora el botón de "Ver horarios" principal es btnFeaturedVerHorarios
             if (btnFeaturedVerHorarios != null) {
                 ButtonHoverAnimator.applyHoverEffect(btnFeaturedVerHorarios);
                 btnFeaturedVerHorarios.setOnAction(e -> {
-                    if (this.dialogPanel != null) {
-                        // Aquí puedes pasar información de la película destacada al diálogo si es necesario
-                        // Object movieData = btnFeaturedVerHorarios.getUserData();
-                        // if (movieData instanceof FuncionDetallada) {
-                        //    dialogController.setMovieContext((FuncionDetallada) movieData);
-                        // }
+                    if (this.dialogPanel != null && dialogHelper != null) {
+                        Object movieData = btnFeaturedVerHorarios.getUserData();
+                        if (movieData instanceof FuncionDetallada) {
+                            dialogController.setMovieContext((FuncionDetallada) movieData);
+                        } else {
+                            dialogController.clearMovieContext();
+                        }
                         dialogHelper.showDialog(this.dialogPanel, btnFeaturedVerHorarios);
                     } else {
-                        System.err.println("Error: El panel del diálogo (dialogPanel) no ha sido inicializado.");
+                        System.err.println("Error: HomeViewController - dialogPanel o dialogHelper no inicializados.");
                     }
                 });
             } else {
-                System.err.println("FXML @FXML Injected Button 'btnFeaturedVerHorarios' is null. Check FXML fx:id.");
+                System.err.println("HomeViewController: FXML @FXML Injected Button 'btnFeaturedVerHorarios' is null.");
             }
 
-            // Configurar acciones para los otros botones del nuevo banner si es necesario
             if (btnFeaturedMiLista != null) {
                 ButtonHoverAnimator.applyHoverEffect(btnFeaturedMiLista);
-                btnFeaturedMiLista.setOnAction(e -> {
-                    System.out.println("Botón 'Mi Lista' clickeado");
-                    // Lógica para añadir a "Mi Lista"
-                });
+                btnFeaturedMiLista.setOnAction(e -> System.out.println("Botón 'Mi Lista' clickeado"));
             }
             if (btnFeaturedMasInfo != null) {
                 ButtonHoverAnimator.applyHoverEffect(btnFeaturedMasInfo);
-                btnFeaturedMasInfo.setOnAction(e -> {
-                    System.out.println("Botón 'Más Info' clickeado");
-                    // Lógica para mostrar más información
-                });
+                btnFeaturedMasInfo.setOnAction(e -> System.out.println("Botón 'Más Info' clickeado"));
             }
-
 
         } catch (IOException | NullPointerException e) {
-            System.err.println("Error crítico durante la configuración del diálogo: " + e.getMessage());
+            System.err.println("Error crítico durante la configuración del diálogo en HomeViewController: " + e.getMessage());
             e.printStackTrace();
-            Label errorLabel = new Label("Error al cargar opciones. Intente más tarde.");
-            if (!overlayPane.getChildren().contains(errorLabel)) {
-                overlayPane.getChildren().add(errorLabel);
-            }
         }
     }
 
@@ -207,12 +156,14 @@ public class HomeViewController implements Initializable {
                     });
                     if (!cines.isEmpty()) {
                         cineComboBox.getSelectionModel().selectFirst();
-                        // loadFuncionesEnCartelera será llamado por el listener
                     }
                 } else {
                     cineComboBox.setPromptText("No hay cines disponibles");
-                    // TODO: Limpiar o poner estado por defecto en el banner detallado si no hay cines
-                    // clearDetailedBanner();
+                    clearDetailedBanner();
+                    enCarteleraPane.getChildren().clear();
+                    Label noCinesLabel = new Label("No hay cines disponibles en este momento.");
+                    noCinesLabel.getStyleClass().add("text-body");
+                    enCarteleraPane.getChildren().add(noCinesLabel);
                 }
             });
         }).start();
@@ -221,10 +172,11 @@ public class HomeViewController implements Initializable {
             if (newVal != null) {
                 loadFuncionesEnCartelera(newVal.getIdCine());
             } else {
-                // TODO: Limpiar o poner estado por defecto en el banner detallado
-                // clearDetailedBanner();
+                clearDetailedBanner();
                 enCarteleraPane.getChildren().clear();
-                // Podrías mostrar un mensaje en enCarteleraPane
+                Label seleccioneCineLabel = new Label("Por favor, seleccione un cine.");
+                seleccioneCineLabel.getStyleClass().add("text-body");
+                enCarteleraPane.getChildren().add(seleccioneCineLabel);
             }
         });
     }
@@ -237,26 +189,20 @@ public class HomeViewController implements Initializable {
                 enCarteleraPane.getChildren().clear();
 
                 if (todasLasFuncionesEnCartelera == null || todasLasFuncionesEnCartelera.isEmpty()) {
-                    Label noFuncionesLabel = new Label("No hay funciones en cartelera para este cine en este momento.");
+                    Label noFuncionesLabel = new Label("No hay funciones en cartelera para este cine.");
                     noFuncionesLabel.getStyleClass().add("text-body");
                     enCarteleraPane.getChildren().add(noFuncionesLabel);
-                    // TODO: Limpiar el banner detallado
-                    // clearDetailedBanner();
+                    clearDetailedBanner();
                     return;
                 }
 
-                // TODO: Implementar lógica para actualizar el NUEVO BANNER DETALLADO
-                // con la primera película (o la mejor puntuada).
-                // Ejemplo:
-                // if (!todasLasFuncionesEnCartelera.isEmpty()) {
-                //    FuncionDetallada peliculaDestacada = todasLasFuncionesEnCartelera.get(0);
-                //    updateDetailedBanner(peliculaDestacada);
-                // } else {
-                //    clearDetailedBanner();
-                // }
+                if (!todasLasFuncionesEnCartelera.isEmpty()) {
+                    FuncionDetallada peliculaDestacada = todasLasFuncionesEnCartelera.get(0);
+                    updateDetailedBanner(peliculaDestacada);
+                } else {
+                    clearDetailedBanner();
+                }
 
-
-                // Lógica para las tarjetas de "En cartelera" (sin cambios importantes aquí)
                 List<FuncionDetallada> funcionesParaMostrar = new ArrayList<>();
                 Set<Integer> idPeliculasMostradas = new HashSet<>();
                 final int MAX_PELICULAS_A_MOSTRAR = 4;
@@ -272,11 +218,12 @@ public class HomeViewController implements Initializable {
                     }
                 }
 
-                if (funcionesParaMostrar.isEmpty()) {
-                    Label noPeliculasLabel = new Label("No se encontraron películas únicas en cartelera para mostrar.");
+                if (funcionesParaMostrar.isEmpty() && !todasLasFuncionesEnCartelera.isEmpty()){
+                    // No se hace nada específico aquí por ahora
+                } else if (funcionesParaMostrar.isEmpty()){
+                    Label noPeliculasLabel = new Label("No se encontraron películas únicas para mostrar en tarjetas.");
                     noPeliculasLabel.getStyleClass().add("text-body");
                     enCarteleraPane.getChildren().add(noPeliculasLabel);
-                    return;
                 }
 
                 for (FuncionDetallada funcion : funcionesParaMostrar) {
@@ -285,7 +232,11 @@ public class HomeViewController implements Initializable {
                         Node cardNode = loader.load();
                         CardMovieViewController controller = loader.getController();
                         controller.setFuncionData(funcion);
-                        controller.initContext(enCarteleraPane, overlayPane, rootStack, dialogHelper);
+
+                        // ---- LLAMADA A initContext CORREGIDA ----
+                        // Pasa this.dialogHelper (la instancia de DialogAnimationHelper de HomeViewController)
+                        controller.initContext(enCarteleraPane, overlayPane, rootStack, this.dialogHelper);
+
                         enCarteleraPane.getChildren().add(cardNode);
                     } catch (IOException e) {
                         System.err.println("Error al cargar la tarjeta para la función '" + funcion.getTituloPelicula() + "': " + e.getMessage());
@@ -296,84 +247,128 @@ public class HomeViewController implements Initializable {
         }).start();
     }
 
-    // TODO: Implementar estos métodos para el NUEVO BANNER DETALLADO
-    /*
+    private String formatTextWithLineBreaks(String text, int wordsPerLine) {
+        if (text == null || text.trim().isEmpty() || wordsPerLine <= 0) {
+            return text == null ? "" : text.trim();
+        }
+        String[] words = text.trim().split("\\s+");
+        if (words.length <= wordsPerLine && !text.contains("\n")) {
+            return text.trim();
+        }
+        StringBuilder formattedText = new StringBuilder();
+        int wordCountOnCurrentLine = 0;
+        for (int i = 0; i < words.length; i++) {
+            formattedText.append(words[i]);
+            wordCountOnCurrentLine++;
+            if (wordCountOnCurrentLine >= wordsPerLine && i < words.length - 1) {
+                formattedText.append("\n");
+                wordCountOnCurrentLine = 0;
+            } else if (i < words.length - 1) {
+                formattedText.append(" ");
+            }
+        }
+        return formattedText.toString();
+    }
+
     private void updateDetailedBanner(FuncionDetallada movie) {
         if (movie == null) {
             clearDetailedBanner();
             return;
         }
-        detailedFeaturedBannerPane.setVisible(true);
-        featuredMovieTitleText.setText(movie.getTituloPelicula());
-        featuredSynopsisText.setText(movie.getSinopsis()); // Asegúrate que FuncionDetallada tiene getSinopsis()
-        featuredGenreText.setText("🏷️ " + movie.getGeneroPelicula());
-        featuredDurationText.setText("⏱️ " + movie.getDuracionMinutos() + " min");
-        featuredYearText.setText("📅 " + movie.getAnioEstreno());
-        // featuredRatingBadge.setText("★ " + movie.getCalificacion()); // Si tienes calificación
+        if (detailedFeaturedBannerPane == null) {
+            System.err.println("HomeViewController: detailedFeaturedBannerPane es null. Revisar FXML.");
+            return;
+        }
 
-        // Cargar imagen del poster
-        try {
-            String posterPath = movie.getPathImagenPoster(); // Ejemplo: "/com/example/images/posters/dune.jpg"
+        detailedFeaturedBannerPane.setVisible(true);
+
+        if (featuredMovieTitleText != null) featuredMovieTitleText.setText(movie.getTituloPelicula());
+
+        String originalSynopsis = movie.getSinopsisPelicula();
+        String formattedSynopsisBanner = formatTextWithLineBreaks(originalSynopsis, 15);
+        if (featuredSynopsisText != null) featuredSynopsisText.setText(formattedSynopsisBanner);
+
+        if (featuredGenreText != null) featuredGenreText.setText("🏷️ " + (movie.getNombreTipoPelicula() != null ? movie.getNombreTipoPelicula() : "N/A"));
+        if (featuredDurationText != null) featuredDurationText.setText("⏱️ " + movie.getDuracionMinutos() + " min");
+
+        String year = "N/A";
+        if (movie.getFechaEstrenoPelicula() != null) {
+            year = String.valueOf(movie.getFechaEstrenoPelicula().getYear());
+        }
+        if (featuredYearText != null) featuredYearText.setText("📅 " + year);
+
+        if (featuredRatingBadge != null) featuredRatingBadge.setText("★ " + (movie.getClasificacionPelicula() != null ? movie.getClasificacionPelicula() : "N/A"));
+
+        String posterPath = movie.getFotografiaPelicula();
+        if (featuredPosterImage != null) {
             if (posterPath != null && !posterPath.isEmpty()) {
-                InputStream posterStream = getClass().getResourceAsStream(posterPath);
-                if (posterStream != null) {
-                    featuredPosterImage.setImage(new Image(posterStream));
-                } else {
-                    featuredPosterImage.setImage(null); // O imagen placeholder
-                    System.err.println("No se encontró el poster: " + posterPath);
+                if (!posterPath.startsWith("http") && !posterPath.startsWith("file:") && !posterPath.startsWith("jar:") && !posterPath.startsWith("/")) {
+                    posterPath = "/com/example/images/" + posterPath;
+                }
+                try (InputStream posterStream = getClass().getResourceAsStream(posterPath)) {
+                    if (posterStream != null) {
+                        featuredPosterImage.setImage(new Image(posterStream));
+                    } else {
+                        featuredPosterImage.setImage(null);
+                        System.err.println("Banner: No se encontró el poster: " + posterPath);
+                    }
+                } catch (Exception e) {
+                    featuredPosterImage.setImage(null);
+                    System.err.println("Banner: Error al leer poster stream: " + posterPath + " - " + e.getMessage());
                 }
             } else {
                 featuredPosterImage.setImage(null);
             }
-        } catch (Exception e) {
-            featuredPosterImage.setImage(null);
-            e.printStackTrace();
         }
 
-        // Cargar imagen de fondo (opcional, podría ser el mismo poster difuminado o una imagen ancha)
-        try {
-            String backgroundPath = movie.getPathImagenBanner(); // O usa posterPath si no hay banner específico
-             if (backgroundPath == null || backgroundPath.isEmpty()) backgroundPath = movie.getPathImagenPoster();
-
+        String backgroundPath = movie.getFotografiaPelicula();
+        if (featuredBackgroundImage != null) {
             if (backgroundPath != null && !backgroundPath.isEmpty()) {
-                InputStream bgStream = getClass().getResourceAsStream(backgroundPath);
-                if (bgStream != null) {
-                    featuredBackgroundImage.setImage(new Image(bgStream));
-                } else {
+                if (!backgroundPath.startsWith("http") && !backgroundPath.startsWith("file:") && !backgroundPath.startsWith("jar:") && !backgroundPath.startsWith("/")) {
+                    backgroundPath = "/com/example/images/" + backgroundPath;
+                }
+                try (InputStream bgStream = getClass().getResourceAsStream(backgroundPath)) {
+                    if (bgStream != null) {
+                        featuredBackgroundImage.setImage(new Image(bgStream));
+                    } else {
+                        featuredBackgroundImage.setImage(null);
+                        System.err.println("Banner: No se encontró imagen de fondo: " + backgroundPath);
+                    }
+                } catch (Exception e) {
                     featuredBackgroundImage.setImage(null);
+                    System.err.println("Banner: Error al leer imagen de fondo stream: " + backgroundPath + " - " + e.getMessage());
                 }
             } else {
                 featuredBackgroundImage.setImage(null);
             }
-        } catch (Exception e) {
-            featuredBackgroundImage.setImage(null);
-            e.printStackTrace();
         }
 
-
-        btnFeaturedVerHorarios.setUserData(movie); // Para pasar datos al diálogo
+        if (btnFeaturedVerHorarios != null) btnFeaturedVerHorarios.setUserData(movie);
     }
 
     private void clearDetailedBanner() {
-        detailedFeaturedBannerPane.setVisible(false); // O poner placeholders
-        // featuredMovieTitleText.setText("Película Destacada");
-        // featuredSynopsisText.setText("Selecciona un cine para ver detalles.");
-        // featuredPosterImage.setImage(null);
-        // featuredBackgroundImage.setImage(null);
-        // ... y limpiar otros campos ...
-        // btnFeaturedVerHorarios.setUserData(null);
+        if (detailedFeaturedBannerPane != null) detailedFeaturedBannerPane.setVisible(false);
+        if (featuredMovieTitleText != null) featuredMovieTitleText.setText("Película Destacada");
+        if (featuredSynopsisText != null) featuredSynopsisText.setText("Selecciona un cine para ver detalles.");
+        if (featuredPosterImage != null) featuredPosterImage.setImage(null);
+        if (featuredBackgroundImage != null) featuredBackgroundImage.setImage(null);
+        if (featuredGenreText != null) featuredGenreText.setText("🏷️ --");
+        if (featuredDurationText != null) featuredDurationText.setText("⏱️ -- min");
+        if (featuredYearText != null) featuredYearText.setText("📅 ----");
+        if (featuredRatingBadge != null) featuredRatingBadge.setText("★ N/A");
+        if (btnFeaturedVerHorarios != null) btnFeaturedVerHorarios.setUserData(null);
     }
-    */
 
     private void loadProximamenteCards() {
         proximamentePane.getChildren().clear();
-        List<FuncionDetallada> proximamenteFunciones = new ArrayList<>(); // Placeholder
+        List<FuncionDetallada> proximamenteFunciones = new ArrayList<>();
+
         if (proximamenteFunciones.isEmpty()) {
             Label noProximamenteLabel = new Label("No hay estrenos confirmados próximamente.");
             noProximamenteLabel.getStyleClass().add("text-body");
             proximamentePane.getChildren().add(noProximamenteLabel);
+            if(btnVerTodasProximamente != null) btnVerTodasProximamente.setDisable(true);
             return;
         }
-        // ... (Lógica para cargar tarjetas "Próximamente") ...
     }
 }
