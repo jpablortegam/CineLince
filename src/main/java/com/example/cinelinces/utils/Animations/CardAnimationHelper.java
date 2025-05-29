@@ -2,7 +2,7 @@ package com.example.cinelinces.utils.Animations;
 
 import javafx.animation.*;
 import javafx.application.Platform;
-// import javafx.geometry.Bounds; // No se usa directamente en esta clase
+import javafx.scene.CacheHint;
 import javafx.scene.Node;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.Pane;
@@ -12,7 +12,6 @@ import javafx.util.Duration;
 public class CardAnimationHelper {
 
     // --- Constantes Generales ---
-    // Duración para animaciones de hover (un poco más rápida)
     private static final Duration HOVER_ANIM_DURATION = Duration.millis(120);
 
     // --- Constantes de Hover ---
@@ -22,27 +21,26 @@ public class CardAnimationHelper {
     private static final double HOVER_SHADOW_OFFSET_Y_VALUE = 5;
     private static final Color HOVER_SHADOW_EFFECT_COLOR = Color.rgb(0, 0, 0, 0.28);
 
-    // --- Duraciones de Expandir/Colapsar (más rápidas) ---
-    public static final Duration EXPAND_ANIM_DURATION = Duration.millis(320); // Antes 450ms
-    public static final Duration COLLAPSE_ANIM_DURATION = Duration.millis(280); // Antes 350ms
+    // --- Duraciones de Expandir/Colapsar (ajustadas para mayor rapidez) ---
+    public static final Duration EXPAND_ANIM_DURATION = Duration.millis(280); // Antes 320ms
+    public static final Duration COLLAPSE_ANIM_DURATION = Duration.millis(240); // Antes 280ms
 
     // --- Efectos de Sombra ---
     public static final DropShadow SUBTLE_SHADOW_EFFECT = new DropShadow(
             8, Color.rgb(0, 0, 0, 0.12)
     );
-    static { // Configurar offsetY y offsetX para SUBTLE_SHADOW_EFFECT
+    static {
         SUBTLE_SHADOW_EFFECT.setOffsetY(2);
-        SUBTLE_SHADOW_EFFECT.setOffsetX(0); // Ya era 0 por defecto
+        SUBTLE_SHADOW_EFFECT.setOffsetX(0);
     }
 
     public static final DropShadow EXPANDED_CARD_SHADOW_EFFECT = new DropShadow(
             25, Color.rgb(0, 0, 0, 0.30)
     );
-    static { // Configurar offsetY y offsetX para EXPANDED_CARD_SHADOW_EFFECT
+    static {
         EXPANDED_CARD_SHADOW_EFFECT.setOffsetY(8);
-        EXPANDED_CARD_SHADOW_EFFECT.setOffsetX(0); // Ya era 0 por defecto
+        EXPANDED_CARD_SHADOW_EFFECT.setOffsetX(0);
     }
-
 
     // --- Interpoladores ---
     public static final Interpolator EASE_OUT_INTERPOLATOR = Interpolator.SPLINE(0.0, 0.0, 0.2, 1.0);
@@ -58,7 +56,7 @@ public class CardAnimationHelper {
 
     public static Timeline createHoverInAnimation(Node cardNode) {
         DropShadow currentEffect = (DropShadow) cardNode.getEffect();
-        if (currentEffect == null || currentEffect == SUBTLE_SHADOW_EFFECT) { // Clone if it's the shared static instance
+        if (currentEffect == null || currentEffect == SUBTLE_SHADOW_EFFECT) {
             currentEffect = new DropShadow(
                     SUBTLE_SHADOW_EFFECT.getRadius(),
                     SUBTLE_SHADOW_EFFECT.getOffsetY(),
@@ -69,36 +67,42 @@ public class CardAnimationHelper {
             cardNode.setEffect(currentEffect);
         }
 
-
         return new Timeline(new KeyFrame(HOVER_ANIM_DURATION,
                 new KeyValue(cardNode.scaleXProperty(), HOVER_SCALE_FACTOR, EASE_OUT_INTERPOLATOR),
                 new KeyValue(cardNode.scaleYProperty(), HOVER_SCALE_FACTOR, EASE_OUT_INTERPOLATOR),
                 new KeyValue(cardNode.translateYProperty(), HOVER_TRANSLATE_Y_DELTA, EASE_OUT_INTERPOLATOR),
                 new KeyValue(currentEffect.radiusProperty(), HOVER_SHADOW_RADIUS_VALUE, EASE_OUT_INTERPOLATOR),
                 new KeyValue(currentEffect.offsetYProperty(), HOVER_SHADOW_OFFSET_Y_VALUE, EASE_OUT_INTERPOLATOR),
+                new KeyValue(currentEffect.offsetXProperty(), currentEffect.getOffsetX(), EASE_OUT_INTERPOLATOR), // Mantener si no cambia o ajustar
                 new KeyValue(currentEffect.colorProperty(), HOVER_SHADOW_EFFECT_COLOR, EASE_OUT_INTERPOLATOR)
         ));
     }
 
     public static Timeline createHoverOutAnimation(Node cardNode) {
         DropShadow currentEffect = (DropShadow) cardNode.getEffect();
-        if (currentEffect == null) { // Should not happen if hoverIn set it
-            currentEffect = new DropShadow(); // Fallback, will animate from default
+        if (currentEffect == null) {
+            currentEffect = new DropShadow(); // Fallback
             cardNode.setEffect(currentEffect);
         }
 
-        return new Timeline(new KeyFrame(HOVER_ANIM_DURATION,
+        Timeline timeline = new Timeline(new KeyFrame(HOVER_ANIM_DURATION,
                 new KeyValue(cardNode.scaleXProperty(), 1.0, EASE_OUT_INTERPOLATOR),
                 new KeyValue(cardNode.scaleYProperty(), 1.0, EASE_OUT_INTERPOLATOR),
                 new KeyValue(cardNode.translateYProperty(), 0.0, EASE_OUT_INTERPOLATOR),
                 new KeyValue(currentEffect.radiusProperty(), SUBTLE_SHADOW_EFFECT.getRadius(), EASE_OUT_INTERPOLATOR),
                 new KeyValue(currentEffect.offsetYProperty(), SUBTLE_SHADOW_EFFECT.getOffsetY(), EASE_OUT_INTERPOLATOR),
+                new KeyValue(currentEffect.offsetXProperty(), SUBTLE_SHADOW_EFFECT.getOffsetX(), EASE_OUT_INTERPOLATOR),
                 new KeyValue(currentEffect.colorProperty(), SUBTLE_SHADOW_EFFECT.getColor(), EASE_OUT_INTERPOLATOR),
                 new KeyValue(currentEffect.spreadProperty(), SUBTLE_SHADOW_EFFECT.getSpread(), EASE_OUT_INTERPOLATOR)
-                // Al finalizar, podrías reemplazar el efecto con la instancia estática SUBTLE_SHADOW_EFFECT
-                // si quieres optimizar y no tener muchas instancias de DropShadow,
-                // pero requiere un onFinished handler. Por ahora, esto anima las propiedades.
         ));
+
+        timeline.setOnFinished(event -> {
+            // Restaurar la instancia estática para optimizar recursos
+            if (cardNode.getEffect() != SUBTLE_SHADOW_EFFECT) {
+                cardNode.setEffect(SUBTLE_SHADOW_EFFECT);
+            }
+        });
+        return timeline;
     }
 
 
@@ -113,7 +117,7 @@ public class CardAnimationHelper {
         move.setInterpolator(PRIMARY_MOVEMENT_INTERPOLATOR);
 
         FadeTransition fadeIn = new FadeTransition(EXPAND_ANIM_DURATION.multiply(0.6), card);
-        fadeIn.setFromValue(0.0);
+        fadeIn.setFromValue(0.0); // Asume que la opacidad de la tarjeta es 0.0 al inicio
         fadeIn.setToValue(1.0);
         fadeIn.setInterpolator(FADE_INTERPOLATOR);
 
@@ -133,7 +137,7 @@ public class CardAnimationHelper {
         );
 
         DropShadow currentEffect = (DropShadow) card.getEffect();
-        if (currentEffect == null || currentEffect == SUBTLE_SHADOW_EFFECT) { // Clone if it's the shared static instance
+        if (currentEffect == null || currentEffect == SUBTLE_SHADOW_EFFECT) {
             currentEffect = new DropShadow(
                     SUBTLE_SHADOW_EFFECT.getRadius(),
                     SUBTLE_SHADOW_EFFECT.getOffsetY(),
@@ -176,13 +180,12 @@ public class CardAnimationHelper {
 
         FadeTransition fadeOut = new FadeTransition(COLLAPSE_ANIM_DURATION.multiply(0.7), card);
         fadeOut.setFromValue(card.getOpacity());
-        fadeOut.setToValue(0.6);
+        fadeOut.setToValue(0.0); // Modificado: Desvanecer completamente
         fadeOut.setInterpolator(FADE_INTERPOLATOR);
 
         DropShadow currentEffect = (DropShadow) card.getEffect();
         Timeline shadowCollapseAnim = null;
         if (currentEffect != null) {
-            // Asegurarse de que no se modifica la instancia estática si se usa como base
             if (currentEffect == EXPANDED_CARD_SHADOW_EFFECT) {
                 currentEffect = new DropShadow(
                         EXPANDED_CARD_SHADOW_EFFECT.getRadius(),
@@ -220,8 +223,8 @@ public class CardAnimationHelper {
                 card.setTranslateY(0);
                 card.setScaleX(1.0);
                 card.setScaleY(1.0);
-                card.setOpacity(1.0);
-                card.setEffect(SUBTLE_SHADOW_EFFECT); // Restaurar la instancia estática sutil
+                card.setOpacity(1.0); // Restaurar opacidad
+                card.setEffect(SUBTLE_SHADOW_EFFECT);
 
                 if (originalParent != null) {
                     if (placeholder != null && placeholder.getParent() == originalParent) {
