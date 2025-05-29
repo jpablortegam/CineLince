@@ -3,6 +3,8 @@ package com.example.cinelinces.model.DTO;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FuncionDetallada {
     // Campos de la Función base
@@ -15,7 +17,7 @@ public class FuncionDetallada {
     private int idPelicula;
     private String tituloPelicula;
     private int duracionMinutos;
-    private String clasificacionPelicula;
+    private String clasificacionPelicula; // Already exists, good for "Clasificación"
     private String sinopsisPelicula;
     private String fotografiaPelicula; // URL o ruta del póster
     private LocalDate fechaEstrenoPelicula;
@@ -29,10 +31,22 @@ public class FuncionDetallada {
     // Campo del Cine
     private String nombreCine;
 
+    // Campo para los actores
+    private List<ActorPeliculaDTO> actores;
+
+    // --- NUEVOS CAMPOS ---
+    private String nombreEstudio;
+    private String nombreDirector;
+    private String idiomaPelicula;
+    private boolean subtituladaPelicula;
+    // --- FIN DE NUEVOS CAMPOS ---
+
+
     public FuncionDetallada() {
+        this.actores = new ArrayList<>();
     }
 
-    // Getters y Setters para todos los campos...
+    // --- Getters y Setters existentes ---
     public int getIdFuncion() { return idFuncion; }
     public void setIdFuncion(int idFuncion) { this.idFuncion = idFuncion; }
     public LocalDateTime getFechaHoraFuncion() { return fechaHoraFuncion; }
@@ -65,4 +79,16 @@ public class FuncionDetallada {
     public void setTipoSala(String tipoSala) { this.tipoSala = tipoSala; }
     public String getNombreCine() { return nombreCine; }
     public void setNombreCine(String nombreCine) { this.nombreCine = nombreCine; }
+    public List<ActorPeliculaDTO> getActores() { return actores; }
+    public void setActores(List<ActorPeliculaDTO> actores) { this.actores = actores; }
+
+    // --- Getters y Setters para NUEVOS CAMPOS ---
+    public String getNombreEstudio() { return nombreEstudio; }
+    public void setNombreEstudio(String nombreEstudio) { this.nombreEstudio = nombreEstudio; }
+    public String getNombreDirector() { return nombreDirector; }
+    public void setNombreDirector(String nombreDirector) { this.nombreDirector = nombreDirector; }
+    public String getIdiomaPelicula() { return idiomaPelicula; }
+    public void setIdiomaPelicula(String idiomaPelicula) { this.idiomaPelicula = idiomaPelicula; }
+    public boolean isSubtituladaPelicula() { return subtituladaPelicula; }
+    public void setSubtituladaPelicula(boolean subtituladaPelicula) { this.subtituladaPelicula = subtituladaPelicula; }
 }

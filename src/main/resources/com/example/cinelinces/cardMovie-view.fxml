@@ -46,22 +46,26 @@
             </Label>
         </StackPane>
 
-        <VBox spacing="10" alignment="TOP_LEFT" styleClass="text-block-expanded" HBox.hgrow="ALWAYS">
+        <VBox fx:id="textBlockExpanded" spacing="6" alignment="TOP_LEFT" styleClass="text-block-expanded" HBox.hgrow="ALWAYS">
             <Label fx:id="titleExpanded" styleClass="expanded-title" text="Título de la película" wrapText="true" maxWidth="900"/>
 
             <HBox spacing="10" alignment="CENTER_LEFT">
-                <Label fx:id="iconDuration" text="⏱️ 132 min"/>
-                <Label fx:id="iconYear"     text="📅 2019"/>
-                <Label fx:id="iconGenre"    text="🎭 Drama"/>
+                <Label fx:id="iconDuration" text="⏱️ --- min"/>
+                <Label fx:id="iconYear"     text="📅 ----"/>
+                <Label fx:id="iconGenre"    text="🎭 -------"/>
+                <Label fx:id="classificationLabel" text="📊 -------"/>
             </HBox>
 
             <Label fx:id="synopsisExpanded" wrapText="true" maxWidth="900"
-                   text="Una familia pobre se infiltra ingeniosamente en la vida de una familia rica…"/>
-            <Label fx:id="castLabelExpanded" wrapText="true" maxWidth="900" text="⭐ Reparto: Pendiente"/>
+                   text="Cargando sinopsis..."/>
+            <Label fx:id="castLabelExpanded" wrapText="true" maxWidth="900" text="⭐ Reparto: Cargando..."/>
 
-            <HBox spacing="8" alignment="CENTER_LEFT">
+            <Label fx:id="directorLabel" text="🎬 Director: Cargando..." wrapText="true" maxWidth="900"/>
+            <Label fx:id="studioLabel" text="🏢 Estudio: Cargando..." wrapText="true" maxWidth="900"/>
+            <Label fx:id="languageLabel" text="🗣️ Idioma: Cargando..." wrapText="true" maxWidth="900"/>
+
+            <HBox spacing="8" alignment="CENTER_LEFT" style="-fx-padding: 5 0 0 0;">
                 <Button fx:id="btnShowTimes" text="Ver horarios" styleClass="btn-primary" onAction="#handleShowTimes"/>
-
             </HBox>
         </VBox>
     </HBox>
