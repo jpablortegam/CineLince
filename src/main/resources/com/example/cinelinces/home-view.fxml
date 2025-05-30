@@ -34,7 +34,7 @@
             </HBox>
 
             <StackPane fx:id="detailedFeaturedBannerPane" styleClass="detailed-featured-banner-pane">
-                <ImageView fx:id="featuredBackgroundImage" styleClass="featured-background-image"/>
+
                 <HBox spacing="24" alignment="CENTER_LEFT" styleClass="featured-content-box">
                     <padding>
                         <Insets top="25" right="30" bottom="25" left="30"/>

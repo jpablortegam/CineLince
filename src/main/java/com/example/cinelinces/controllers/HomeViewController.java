@@ -45,7 +45,7 @@ public class HomeViewController implements Initializable {
     @FXML private ComboBox<Cine> cineComboBox;
 
     @FXML private StackPane detailedFeaturedBannerPane;
-    @FXML private ImageView featuredBackgroundImage;
+
     @FXML private ImageView featuredPosterImage;
     @FXML private Label featuredRatingBadge;
     @FXML private Label featuredMovieTitleText;
@@ -336,21 +336,6 @@ public class HomeViewController implements Initializable {
             loadImageIntoImageView(posterPath, featuredPosterImage, "Banner Poster");
         }
 
-        // Cargar y ajustar imagen de fondo
-        String backgroundPath = movie.getFotografiaPelicula(); // Usamos la misma imagen del póster para el fondo
-        if (featuredBackgroundImage != null) {
-            Image bgImage = loadImage(backgroundPath, "Banner Background");
-            featuredBackgroundImage.setImage(bgImage);
-            if (bgImage != null && !bgImage.isError()) {
-                featuredBackgroundImage.setPreserveRatio(true);
-                // Ajustar para que cubra la altura del banner, el StackPane recortará el ancho si es necesario
-                featuredBackgroundImage.setFitHeight(detailedFeaturedBannerPane.getPrefHeight()); // Asume que prefHeight está definido vía CSS o FXML
-                featuredBackgroundImage.setFitWidth(0); // El ancho se ajustará para mantener la proporción
-                // Para centrar la imagen si es muy ancha, el StackPane lo hace por defecto con sus hijos.
-            } else {
-                featuredBackgroundImage.setImage(null); // Limpiar si no se pudo cargar
-            }
-        }
 
         if (btnFeaturedVerHorarios != null) btnFeaturedVerHorarios.setUserData(movie);
     }
@@ -388,7 +373,6 @@ public class HomeViewController implements Initializable {
         if (featuredMovieTitleText != null) featuredMovieTitleText.setText("Película Destacada");
         if (featuredSynopsisText != null) featuredSynopsisText.setText("Selecciona un cine para ver detalles.");
         if (featuredPosterImage != null) featuredPosterImage.setImage(null);
-        if (featuredBackgroundImage != null) featuredBackgroundImage.setImage(null);
         if (featuredGenreText != null) featuredGenreText.setText("🏷️ --");
         if (featuredDurationText != null) featuredDurationText.setText("⏱️ -- min");
         if (featuredYearText != null) featuredYearText.setText("📅 ----");
