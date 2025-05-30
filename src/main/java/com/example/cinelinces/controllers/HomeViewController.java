@@ -38,25 +38,39 @@ import java.util.ResourceBundle;
 import java.util.Set;
 
 public class HomeViewController implements Initializable {
-    @FXML private StackPane rootStack;
-    @FXML private Pane overlayPane;
-    @FXML private FlowPane enCarteleraPane;
-    @FXML private FlowPane proximamentePane;
-    @FXML private ComboBox<Cine> cineComboBox;
+    @FXML
+    private StackPane rootStack;
+    @FXML
+    private Pane overlayPane;
+    @FXML
+    private FlowPane enCarteleraPane;
+    @FXML
+    private FlowPane proximamentePane;
+    @FXML
+    private ComboBox<Cine> cineComboBox;
 
-    @FXML private StackPane detailedFeaturedBannerPane;
+    @FXML
+    private StackPane detailedFeaturedBannerPane;
 
-    @FXML private ImageView featuredPosterImage;
-    @FXML private Label featuredRatingBadge;
-    @FXML private Label featuredMovieTitleText;
-    @FXML private Label featuredGenreText;
-    @FXML private Label featuredDurationText;
-    @FXML private Label featuredYearText;
-    @FXML private Label featuredSynopsisText;
-    @FXML private Button btnFeaturedVerHorarios;
-    @FXML private Button btnFeaturedMiLista;
-    @FXML private Button btnFeaturedMasInfo;
-    @FXML private Button btnVerTodasProximamente;
+    @FXML
+    private ImageView featuredPosterImage;
+    @FXML
+    private Label featuredRatingBadge;
+    @FXML
+    private Label featuredMovieTitleText;
+    @FXML
+    private Label featuredGenreText;
+    @FXML
+    private Label featuredDurationText;
+    @FXML
+    private Label featuredYearText;
+    @FXML
+    private Label featuredSynopsisText;
+    @FXML
+    private Button btnFeaturedVerHorarios;
+    private DialogPaneViewController dialogPaneController;
+    @FXML
+    private Button btnVerTodasProximamente;
 
     private CineDAO cineDAO;
     private FuncionDAO funcionDAO;
@@ -75,179 +89,104 @@ public class HomeViewController implements Initializable {
         funcionDAO = new FuncionDAOImpl();
         dialogHelper = new DialogAnimationHelper(rootStack, overlayPane);
 
+        setupDialogPane();
         setupCineComboBox();
         loadProximamenteCards();
-        setupDialogPane();
         clearDetailedBanner();
     }
 
     private void setupDialogPane() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/cinelinces/dialogPane-view.fxml"));
-            Node dialogRootNode = loader.load();
-            DialogPaneViewController dialogController = loader.getController();
-            this.dialogPanel = dialogController.getDialogPanel();
+            Node root = loader.load();
+            DialogPaneViewController ctrl = loader.getController();
+            dialogPaneController = ctrl;
+            dialogPanel = ctrl.getDialogPanel();
+            dialogPanel.setVisible(false);
+            dialogPanel.setOpacity(0);
+            overlayPane.getChildren().add(dialogPanel);
 
-            if (this.dialogPanel == null) {
-                System.err.println("Error: HomeViewController - dialogPanel no se pudo cargar desde dialogPane-view.fxml");
-                return;
-            }
-
-            this.dialogPanel.setVisible(false);
-            this.dialogPanel.setOpacity(0);
-
-            if (!overlayPane.getChildren().contains(this.dialogPanel)) {
-                overlayPane.getChildren().add(this.dialogPanel);
-            }
-
-            Button closeBtn = dialogController.getCloseBtn();
+            Button closeBtn = ctrl.getCloseBtn();
             if (closeBtn != null) {
                 ButtonHoverAnimator.applyHoverEffect(closeBtn);
-                closeBtn.setOnAction(e -> {
-                    if (dialogHelper != null) {
-                        dialogHelper.hideDialog(this.dialogPanel, btnFeaturedVerHorarios);
-                    }
-                });
+                closeBtn.setOnAction(e -> dialogHelper.hideDialog(dialogPanel, btnFeaturedVerHorarios));
             }
 
             if (btnFeaturedVerHorarios != null) {
                 ButtonHoverAnimator.applyHoverEffect(btnFeaturedVerHorarios);
                 btnFeaturedVerHorarios.setOnAction(e -> {
-                    if (this.dialogPanel != null && dialogHelper != null) {
-                        Object movieData = btnFeaturedVerHorarios.getUserData();
-                        if (movieData instanceof FuncionDetallada) {
-                            dialogController.setMovieContext((FuncionDetallada) movieData);
-                        } else {
-                            dialogController.clearMovieContext();
-                        }
-                        dialogHelper.showDialog(this.dialogPanel, btnFeaturedVerHorarios);
-                    } else {
-                        System.err.println("Error: HomeViewController - dialogPanel o dialogHelper no inicializados.");
+                    Object data = btnFeaturedVerHorarios.getUserData();
+                    if (data instanceof FuncionDetallada) {
+                        dialogPaneController.setMovieContext((FuncionDetallada) data);
+                        dialogHelper.showDialog(dialogPanel, btnFeaturedVerHorarios);
                     }
                 });
-            } else {
-                System.err.println("HomeViewController: FXML @FXML Injected Button 'btnFeaturedVerHorarios' is null.");
             }
-
-            if (btnFeaturedMiLista != null) {
-                ButtonHoverAnimator.applyHoverEffect(btnFeaturedMiLista);
-                btnFeaturedMiLista.setOnAction(e -> System.out.println("Botón 'Mi Lista' clickeado"));
-            }
-            if (btnFeaturedMasInfo != null) {
-                ButtonHoverAnimator.applyHoverEffect(btnFeaturedMasInfo);
-                btnFeaturedMasInfo.setOnAction(e -> System.out.println("Botón 'Más Info' clickeado"));
-            }
-
-        } catch (IOException | NullPointerException e) {
-            System.err.println("Error crítico durante la configuración del diálogo en HomeViewController: " + e.getMessage());
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     private void setupCineComboBox() {
         new Thread(() -> {
-            List<Cine> cines = cineDAO.findAll();
+            List<Cine> list = cineDAO.findAll();
             Platform.runLater(() -> {
-                if (cines != null && !cines.isEmpty()) {
-                    cineComboBox.setItems(FXCollections.observableArrayList(cines));
+                if (list != null && !list.isEmpty()) {
+                    cineComboBox.setItems(FXCollections.observableArrayList(list));
                     cineComboBox.setConverter(new StringConverter<Cine>() {
-                        @Override public String toString(Cine cine) { return cine != null ? cine.getNombre() : ""; }
-                        @Override public Cine fromString(String string) { return null; }
-                    });
-                    cineComboBox.setCellFactory(lv -> new ListCell<Cine>() {
-                        @Override protected void updateItem(Cine cine, boolean empty) {
-                            super.updateItem(cine, empty);
-                            setText(empty || cine == null ? null : cine.getNombre());
+                        @Override
+                        public String toString(Cine c) {
+                            return c != null ? c.getNombre() : "";
+                        }
+
+                        @Override
+                        public Cine fromString(String s) {
+                            return null;
                         }
                     });
-                    if (!cines.isEmpty()) {
-                        cineComboBox.getSelectionModel().selectFirst();
-                        // La selección inicial disparará el listener y cargará las funciones
-                    }
-                } else {
-                    cineComboBox.setPromptText("No hay cines disponibles");
-                    clearDetailedBanner();
-                    enCarteleraPane.getChildren().clear();
-                    Label noCinesLabel = new Label("No hay cines disponibles en este momento.");
-                    noCinesLabel.getStyleClass().add("text-body");
-                    enCarteleraPane.getChildren().add(noCinesLabel);
+                    cineComboBox.getSelectionModel().selectFirst();
                 }
             });
         }).start();
 
-        cineComboBox.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
-            if (newVal != null) {
-                loadFuncionesEnCartelera(newVal.getIdCine());
-            } else {
-                clearDetailedBanner();
-                enCarteleraPane.getChildren().clear();
-                Label seleccioneCineLabel = new Label("Por favor, seleccione un cine.");
-                seleccioneCineLabel.getStyleClass().add("text-body");
-                enCarteleraPane.getChildren().add(seleccioneCineLabel);
-            }
+        cineComboBox.getSelectionModel().selectedItemProperty().addListener((obs, o, n) -> {
+            if (n != null) loadFuncionesEnCartelera(n.getIdCine());
         });
     }
 
     private void loadFuncionesEnCartelera(int idCine) {
         new Thread(() -> {
-            List<FuncionDetallada> todasLasFuncionesEnCartelera = funcionDAO.findFuncionesDetalladasByCineId(idCine);
-
+            List<FuncionDetallada> funciones = funcionDAO.findFuncionesDetalladasByCineId(idCine);
             Platform.runLater(() -> {
                 enCarteleraPane.getChildren().clear();
-
-                if (todasLasFuncionesEnCartelera == null || todasLasFuncionesEnCartelera.isEmpty()) {
-                    Label noFuncionesLabel = new Label("No hay funciones en cartelera para este cine.");
-                    noFuncionesLabel.getStyleClass().add("text-body");
-                    enCarteleraPane.getChildren().add(noFuncionesLabel);
-                    clearDetailedBanner(); // Limpiar banner si no hay funciones
+                if (funciones == null || funciones.isEmpty()) {
+                    enCarteleraPane.getChildren().add(new Label("No hay funciones en cartelera."));
+                    clearDetailedBanner();
                     return;
                 }
+                // Film destacada
+                FuncionDetallada destacada = funciones.stream()
+                        .max(Comparator.comparing(FuncionDetallada::getCalificacionPromedioPelicula)
+                                .thenComparing(FuncionDetallada::getTotalCalificacionesPelicula))
+                        .orElse(funciones.get(0));
+                updateDetailedBanner(destacada);
 
-                // --- LÓGICA PARA SELECCIONAR LA PELÍCULA DESTACADA ---
-                FuncionDetallada peliculaDestacada = todasLasFuncionesEnCartelera.stream()
-                        // Opcional: Filtrar por películas que realmente están "En Cartelera" si el DAO no lo hace.
-                        // .filter(f -> "En Cartelera".equalsIgnoreCase(f.getEstadoPelicula())) // Necesitarías añadir getEstadoPelicula() a FuncionDetallada
-                        .filter(f -> f.getTotalCalificacionesPelicula() > 0) // Priorizar películas que tengan calificaciones
-                        .max(Comparator.comparingDouble(FuncionDetallada::getCalificacionPromedioPelicula)
-                                .thenComparingInt(FuncionDetallada::getTotalCalificacionesPelicula))
-                        .orElseGet(() -> todasLasFuncionesEnCartelera.get(0)); // Fallback a la primera si ninguna cumple o no hay calificaciones
-
-                updateDetailedBanner(peliculaDestacada);
-                // --- FIN DE LÓGICA PARA PELÍCULA DESTACADA ---
-
-
-                List<FuncionDetallada> funcionesParaMostrarEnTarjetas = new ArrayList<>();
-                Set<Integer> idPeliculasMostradasEnTarjetas = new HashSet<>();
-                final int MAX_PELICULAS_A_MOSTRAR_EN_TARJETAS = 4;
-
-                for (FuncionDetallada funcion : todasLasFuncionesEnCartelera) {
-                    if (!idPeliculasMostradasEnTarjetas.contains(funcion.getIdPelicula())) {
-                        if (funcionesParaMostrarEnTarjetas.size() < MAX_PELICULAS_A_MOSTRAR_EN_TARJETAS) {
-                            funcionesParaMostrarEnTarjetas.add(funcion);
-                            idPeliculasMostradasEnTarjetas.add(funcion.getIdPelicula());
-                        } else {
-                            break;
+                // Crear tarjetas
+                Set<Integer> seen = new HashSet<>();
+                int max = 4;
+                for (FuncionDetallada f : funciones) {
+                    if (seen.size() >= max) break;
+                    if (seen.add(f.getIdPelicula())) {
+                        try {
+                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/cinelinces/cardMovie-view.fxml"));
+                            Node card = loader.load();
+                            CardMovieViewController cc = loader.getController();
+                            cc.initContext(enCarteleraPane, overlayPane, rootStack, dialogHelper, dialogPaneController);
+                            cc.setFuncionData(f);
+                            enCarteleraPane.getChildren().add(card);
+                        } catch (IOException ex) {
+                            ex.printStackTrace();
                         }
-                    }
-                }
-
-                if (funcionesParaMostrarEnTarjetas.isEmpty()){
-                    Label noPeliculasLabel = new Label("No se encontraron películas únicas para mostrar en tarjetas.");
-                    noPeliculasLabel.getStyleClass().add("text-body");
-                    enCarteleraPane.getChildren().add(noPeliculasLabel);
-                }
-
-                for (FuncionDetallada funcion : funcionesParaMostrarEnTarjetas) {
-                    try {
-                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/cinelinces/cardMovie-view.fxml"));
-                        Node cardNode = loader.load();
-                        CardMovieViewController controller = loader.getController();
-                        controller.setFuncionData(funcion);
-                        controller.initContext(enCarteleraPane, overlayPane, rootStack, this.dialogHelper);
-                        enCarteleraPane.getChildren().add(cardNode);
-                    } catch (IOException e) {
-                        System.err.println("Error al cargar la tarjeta para la función '" + funcion.getTituloPelicula() + "': " + e.getMessage());
-                        e.printStackTrace();
                     }
                 }
             });
@@ -314,7 +253,8 @@ public class HomeViewController implements Initializable {
         String formattedSynopsisBanner = formatTextWithLineBreaks(originalSynopsis, 15); // Ajusta wordsPerLine según necesites
         if (featuredSynopsisText != null) featuredSynopsisText.setText(formattedSynopsisBanner);
 
-        if (featuredGenreText != null) featuredGenreText.setText("🏷️ " + (movie.getNombreTipoPelicula() != null ? movie.getNombreTipoPelicula() : "N/A"));
+        if (featuredGenreText != null)
+            featuredGenreText.setText("🏷️ " + (movie.getNombreTipoPelicula() != null ? movie.getNombreTipoPelicula() : "N/A"));
         if (featuredDurationText != null) featuredDurationText.setText("⏱️ " + movie.getDuracionMinutos() + " min");
 
         String year = "N/A";
@@ -393,7 +333,7 @@ public class HomeViewController implements Initializable {
             Label noProximamenteLabel = new Label("No hay estrenos confirmados próximamente.");
             noProximamenteLabel.getStyleClass().add("text-body");
             proximamentePane.getChildren().add(noProximamenteLabel);
-            if(btnVerTodasProximamente != null) btnVerTodasProximamente.setDisable(true);
+            if (btnVerTodasProximamente != null) btnVerTodasProximamente.setDisable(true);
             return;
         }
         // Lógica para crear tarjetas...

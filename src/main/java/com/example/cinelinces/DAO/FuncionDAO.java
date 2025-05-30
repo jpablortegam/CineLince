@@ -1,8 +1,10 @@
 package com.example.cinelinces.DAO;
 
+import com.example.cinelinces.model.DTO.FuncionDetallada;
 import com.example.cinelinces.model.Funcion;
-import com.example.cinelinces.model.DTO.FuncionDetallada; // Importa el DTO
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface FuncionDAO extends GenericDao<Funcion, Integer> {
@@ -10,9 +12,11 @@ public interface FuncionDAO extends GenericDao<Funcion, Integer> {
     /**
      * Encuentra todas las funciones detalladas (incluyendo información de película, sala y cine)
      * para un cine específico.
-     *
-     * @param idCine el ID del cine.
-     * @return una lista de objetos FuncionDetallada.
      */
     List<FuncionDetallada> findFuncionesDetalladasByCineId(int idCine);
+
+    /**
+     * Obtiene la lista de horarios (FechaHora) para una película en un cine y fecha dados.
+     */
+    List<LocalDateTime> findHorariosByCinePeliculaFecha(int idCine, int idPelicula, LocalDate fecha);
 }

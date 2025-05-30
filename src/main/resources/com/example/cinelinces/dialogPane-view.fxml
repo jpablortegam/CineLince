@@ -6,6 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.control.DatePicker?>
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.example.cinelinces.controllers.DialogPaneViewController"
@@ -29,25 +30,29 @@
 
         <Label fx:id="titleLabel"
                text="Horarios Disponibles"
-               style="-fx-font-size: 20px;
-              -fx-font-weight: bold;
-              -fx-text-fill: #2c3e50;"/>
+               style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
 
+        <!-- Selector de fecha -->
+        <DatePicker fx:id="datePicker"
+                    promptText="Selecciona fecha"
+                    style="-fx-font-size: 14px;"/>
+
+        <!-- Contenedor de horarios -->
+        <VBox fx:id="horariosContainer" spacing="6" prefWidth="300" />
+
+        <!-- Texto placeholder -->
         <Label fx:id="placeholderContent"
-               text="Próximamente se mostrarán los horarios detallados aquí."
+               text="Selecciona una fecha para ver horarios."
                wrapText="true"
-               style="-fx-text-fill: #7f8c8d;
-              -fx-font-size: 14px;"/>
+               style="-fx-text-fill: #7f8c8d; -fx-font-size: 14px;"/>
 
         <Button fx:id="closeBtn"
                 text="Cerrar"
                 style="-fx-background-color: linear-gradient(to bottom, #e74c3c, #c0392b);
-               -fx-text-fill: white;
-               -fx-background-radius: 8;
-               -fx-font-weight: bold;
-               -fx-padding: 12 24;
-               -fx-font-size: 14px;
-               -fx-cursor: hand;
-               -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 4, 0.3, 0, 2);"/>
+                   -fx-text-fill: white;
+                   -fx-background-radius: 8;
+                   -fx-font-weight: bold;
+                   -fx-padding: 8 20;
+                   -fx-font-size: 14px;"/>
     </VBox>
 </AnchorPane>

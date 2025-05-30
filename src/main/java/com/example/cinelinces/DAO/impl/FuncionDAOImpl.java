@@ -14,14 +14,14 @@ import java.util.List;
 
 public class FuncionDAOImpl implements FuncionDAO {
 
-    MySQLConnection ConexionBD = new MySQLConnection();
+    private final MySQLConnection conexionBD = new MySQLConnection();
 
     private Funcion mapResultSetToFuncion(ResultSet rs) throws SQLException {
         Funcion funcion = new Funcion();
         funcion.setIdFuncion(rs.getInt("IdFuncion"));
-        Timestamp fechaHoraSQL = rs.getTimestamp("FechaHora");
-        if (fechaHoraSQL != null) {
-            funcion.setFechaHora(fechaHoraSQL.toLocalDateTime());
+        Timestamp ts = rs.getTimestamp("FechaHora");
+        if (ts != null) {
+            funcion.setFechaHora(ts.toLocalDateTime());
         }
         funcion.setPrecio(rs.getBigDecimal("Precio"));
         funcion.setEstado(rs.getString("Estado"));
@@ -33,16 +33,15 @@ public class FuncionDAOImpl implements FuncionDAO {
     @Override
     public Funcion findById(Integer id) {
         String sql = "SELECT * FROM Funcion WHERE IdFuncion = ?";
-        try (Connection conn = ConexionBD.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setInt(1, id);
-            try (ResultSet rs = pstmt.executeQuery()) {
+        try (Connection conn = conexionBD.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, id);
+            try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     return mapResultSetToFuncion(rs);
                 }
             }
         } catch (SQLException e) {
-            System.err.println("Error en FuncionDAOImpl.findById: " + e.getMessage());
             e.printStackTrace();
         }
         return null;
@@ -50,64 +49,57 @@ public class FuncionDAOImpl implements FuncionDAO {
 
     @Override
     public List<Funcion> findAll() {
-        List<Funcion> funciones = new ArrayList<>();
+        List<Funcion> lista = new ArrayList<>();
         String sql = "SELECT * FROM Funcion";
-        try (Connection conn = ConexionBD.getConnection();
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
+        try (Connection conn = conexionBD.getConnection();
+             Statement st = conn.createStatement();
+             ResultSet rs = st.executeQuery(sql)) {
             while (rs.next()) {
-                funciones.add(mapResultSetToFuncion(rs));
+                lista.add(mapResultSetToFuncion(rs));
             }
         } catch (SQLException e) {
-            System.err.println("Error en FuncionDAOImpl.findAll: " + e.getMessage());
             e.printStackTrace();
         }
-        return funciones;
+        return lista;
     }
 
     @Override
     public void save(Funcion entity) {
         String sql = "INSERT INTO Funcion (FechaHora, Precio, Estado, IdPelicula, IdSala) VALUES (?, ?, ?, ?, ?)";
-        try (Connection conn = ConexionBD.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-            pstmt.setTimestamp(1, entity.getFechaHora() != null ? Timestamp.valueOf(entity.getFechaHora()) : null);
-            pstmt.setBigDecimal(2, entity.getPrecio());
-            pstmt.setString(3, entity.getEstado());
-            pstmt.setInt(4, entity.getIdPelicula());
-            pstmt.setInt(5, entity.getIdSala());
-
-            int affectedRows = pstmt.executeUpdate();
-            if (affectedRows > 0) {
-                try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
-                    if (generatedKeys.next()) {
-                        entity.setIdFuncion(generatedKeys.getInt(1));
+        try (Connection conn = conexionBD.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            ps.setTimestamp(1, entity.getFechaHora() != null ? Timestamp.valueOf(entity.getFechaHora()) : null);
+            ps.setBigDecimal(2, entity.getPrecio());
+            ps.setString(3, entity.getEstado());
+            ps.setInt(4, entity.getIdPelicula());
+            ps.setInt(5, entity.getIdSala());
+            int affected = ps.executeUpdate();
+            if (affected > 0) {
+                try (ResultSet keys = ps.getGeneratedKeys()) {
+                    if (keys.next()) {
+                        entity.setIdFuncion(keys.getInt(1));
                     }
                 }
             }
         } catch (SQLException e) {
-            System.err.println("Error en FuncionDAOImpl.save: " + e.getMessage());
             e.printStackTrace();
         }
     }
 
     @Override
     public Funcion update(Funcion entity) {
-        String sql = "UPDATE Funcion SET FechaHora = ?, Precio = ?, Estado = ?, IdPelicula = ?, IdSala = ? WHERE IdFuncion = ?";
-        try (Connection conn = ConexionBD.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setTimestamp(1, entity.getFechaHora() != null ? Timestamp.valueOf(entity.getFechaHora()) : null);
-            pstmt.setBigDecimal(2, entity.getPrecio());
-            pstmt.setString(3, entity.getEstado());
-            pstmt.setInt(4, entity.getIdPelicula());
-            pstmt.setInt(5, entity.getIdSala());
-            pstmt.setInt(6, entity.getIdFuncion());
-
-            int affectedRows = pstmt.executeUpdate();
-            if (affectedRows > 0) {
-                return entity;
-            }
+        String sql = "UPDATE Funcion SET FechaHora=?, Precio=?, Estado=?, IdPelicula=?, IdSala=? WHERE IdFuncion=?";
+        try (Connection conn = conexionBD.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setTimestamp(1, entity.getFechaHora() != null ? Timestamp.valueOf(entity.getFechaHora()) : null);
+            ps.setBigDecimal(2, entity.getPrecio());
+            ps.setString(3, entity.getEstado());
+            ps.setInt(4, entity.getIdPelicula());
+            ps.setInt(5, entity.getIdSala());
+            ps.setInt(6, entity.getIdFuncion());
+            int affected = ps.executeUpdate();
+            if (affected > 0) return entity;
         } catch (SQLException e) {
-            System.err.println("Error en FuncionDAOImpl.update: " + e.getMessage());
             e.printStackTrace();
         }
         return null;
@@ -115,121 +107,121 @@ public class FuncionDAOImpl implements FuncionDAO {
 
     @Override
     public void delete(Funcion entity) {
-        if (entity != null) {
-            deleteById(entity.getIdFuncion());
-        }
+        if (entity != null) deleteById(entity.getIdFuncion());
     }
 
     @Override
     public void deleteById(Integer id) {
         String sql = "DELETE FROM Funcion WHERE IdFuncion = ?";
-        try (Connection conn = ConexionBD.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setInt(1, id);
-            pstmt.executeUpdate();
+        try (Connection conn = conexionBD.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, id);
+            ps.executeUpdate();
         } catch (SQLException e) {
-            System.err.println("Error en FuncionDAOImpl.deleteById: " + e.getMessage());
             e.printStackTrace();
         }
     }
 
     private List<ActorPeliculaDTO> findActoresForPelicula(int idPelicula, Connection conn) throws SQLException {
-        List<ActorPeliculaDTO> actores = new ArrayList<>();
+        List<ActorPeliculaDTO> list = new ArrayList<>();
         String sql = "SELECT A.Nombre AS NombreActor, PA.Personaje " +
-                "FROM Actor A " +
-                "JOIN PeliculaActor PA ON A.IdActor = PA.IdActor " +
+                "FROM Actor A JOIN PeliculaActor PA ON A.IdActor = PA.IdActor " +
                 "WHERE PA.IdPelicula = ?";
-        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setInt(1, idPelicula);
-            try (ResultSet rs = pstmt.executeQuery()) {
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, idPelicula);
+            try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
-                    actores.add(new ActorPeliculaDTO(
-                            rs.getString("NombreActor"),
-                            rs.getString("Personaje")
-                    ));
+                    list.add(new ActorPeliculaDTO(rs.getString("NombreActor"), rs.getString("Personaje")));
                 }
             }
         }
-        return actores;
+        return list;
     }
 
     @Override
     public List<FuncionDetallada> findFuncionesDetalladasByCineId(int idCine) {
-        List<FuncionDetallada> funcionesDetalladas = new ArrayList<>();
-        String sql = "SELECT " +
-                "C.Nombre AS NombreCine, " +
-                "S.Numero AS NumeroSala, S.TipoSala, S.IdSala, " +
-                "P.Titulo AS TituloPelicula, P.Duracion AS DuracionMinutos, P.Clasificacion AS ClasificacionPelicula, " +
-                "P.IdPelicula, P.Sinopsis AS SinopsisPelicula, P.Fotografia AS FotografiaPelicula, P.FechaEstreno AS FechaEstrenoPelicula, " +
-                "P.Idioma AS IdiomaPelicula, P.Subtitulada AS SubtituladaPelicula, " +
-                "P.CalificacionPromedio AS CalificacionPromedioPelicula, P.TotalCalificaciones AS TotalCalificacionesPelicula, " + // <-- CAMPOS AÑADIDOS
-                "TP.Nombre AS NombreTipoPelicula, " +
-                "Est.Nombre AS NombreEstudio, " +
-                "Dir.Nombre AS NombreDirector, " +
-                "F.FechaHora AS FechaHoraFuncion, F.Precio AS PrecioBoleto, F.Estado AS EstadoFuncion, F.IdFuncion " +
-                "FROM Funcion F " +
-                "JOIN Sala S ON F.IdSala = S.IdSala " +
-                "JOIN Pelicula P ON F.IdPelicula = P.IdPelicula " +
-                "JOIN Cine C ON S.IdCine = C.IdCine " +
-                "LEFT JOIN TipoPelicula TP ON P.IdTipoPelicula = TP.IdTipoPelicula " +
-                "LEFT JOIN Estudio Est ON P.IdEstudio = Est.IdEstudio " +
-                "LEFT JOIN Director Dir ON P.IdDirector = Dir.IdDirector " +
-                "WHERE C.IdCine = ? " +
-                "ORDER BY F.FechaHora ASC, S.Numero ASC";
+        List<FuncionDetallada> lista = new ArrayList<>();
+        String sql =
+                "SELECT C.IdCine AS IdCine, C.Nombre AS NombreCine, " +
+                        "S.IdSala, S.Numero AS NumeroSala, S.TipoSala, " +
+                        "P.IdPelicula, P.Titulo AS TituloPelicula, P.Duracion AS DuracionMinutos, P.Clasificacion AS ClasificacionPelicula, " +
+                        "P.Sinopsis AS SinopsisPelicula, P.Fotografia AS FotografiaPelicula, P.FechaEstreno AS FechaEstrenoPelicula, " +
+                        "P.Idioma AS IdiomaPelicula, P.Subtitulada AS SubtituladaPelicula, " +
+                        "P.CalificacionPromedio AS CalificacionPromedioPelicula, P.TotalCalificaciones AS TotalCalificacionesPelicula, " +
+                        "TP.Nombre AS NombreTipoPelicula, Est.Nombre AS NombreEstudio, Dir.Nombre AS NombreDirector, " +
+                        "F.IdFuncion, F.FechaHora AS FechaHoraFuncion, F.Precio AS PrecioBoleto, F.Estado AS EstadoFuncion " +
+                        "FROM Funcion F " +
+                        "JOIN Sala S ON F.IdSala = S.IdSala " +
+                        "JOIN Pelicula P ON F.IdPelicula = P.IdPelicula " +
+                        "JOIN Cine C ON S.IdCine = C.IdCine " +
+                        "LEFT JOIN TipoPelicula TP ON P.IdTipoPelicula = TP.IdTipoPelicula " +
+                        "LEFT JOIN Estudio Est ON P.IdEstudio = Est.IdEstudio " +
+                        "LEFT JOIN Director Dir ON P.IdDirector = Dir.IdDirector " +
+                        "WHERE C.IdCine = ? " +
+                        "ORDER BY F.FechaHora, S.Numero";
 
-
-        try (Connection conn = ConexionBD.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
-            pstmt.setInt(1, idCine);
-            ResultSet rs = pstmt.executeQuery();
-
-            while (rs.next()) {
-                FuncionDetallada dto = new FuncionDetallada();
-                // Poblar campos existentes
-                dto.setNombreCine(rs.getString("NombreCine"));
-                dto.setNumeroSala(rs.getInt("NumeroSala"));
-                dto.setTipoSala(rs.getString("TipoSala"));
-                dto.setIdSala(rs.getInt("IdSala"));
-                dto.setTituloPelicula(rs.getString("TituloPelicula"));
-                dto.setDuracionMinutos(rs.getInt("DuracionMinutos"));
-                dto.setClasificacionPelicula(rs.getString("ClasificacionPelicula"));
-                dto.setIdPelicula(rs.getInt("IdPelicula"));
-                dto.setSinopsisPelicula(rs.getString("SinopsisPelicula"));
-                dto.setFotografiaPelicula(rs.getString("FotografiaPelicula"));
-                Date fechaEstrenoSQL = rs.getDate("FechaEstrenoPelicula");
-                if (fechaEstrenoSQL != null) {
-                    dto.setFechaEstrenoPelicula(fechaEstrenoSQL.toLocalDate());
+        try (Connection conn = conexionBD.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, idCine);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    FuncionDetallada dto = new FuncionDetallada();
+                    dto.setIdCine(rs.getInt("IdCine"));
+                    dto.setNombreCine(rs.getString("NombreCine"));
+                    dto.setIdSala(rs.getInt("IdSala"));
+                    dto.setNumeroSala(rs.getInt("NumeroSala"));
+                    dto.setTipoSala(rs.getString("TipoSala"));
+                    dto.setIdPelicula(rs.getInt("IdPelicula"));
+                    dto.setTituloPelicula(rs.getString("TituloPelicula"));
+                    dto.setDuracionMinutos(rs.getInt("DuracionMinutos"));
+                    dto.setClasificacionPelicula(rs.getString("ClasificacionPelicula"));
+                    dto.setSinopsisPelicula(rs.getString("SinopsisPelicula"));
+                    dto.setFotografiaPelicula(rs.getString("FotografiaPelicula"));
+                    Date d = rs.getDate("FechaEstrenoPelicula");
+                    if (d != null) dto.setFechaEstrenoPelicula(d.toLocalDate());
+                    dto.setIdiomaPelicula(rs.getString("IdiomaPelicula"));
+                    dto.setSubtituladaPelicula(rs.getBoolean("SubtituladaPelicula"));
+                    dto.setCalificacionPromedioPelicula(rs.getDouble("CalificacionPromedioPelicula"));
+                    dto.setTotalCalificacionesPelicula(rs.getInt("TotalCalificacionesPelicula"));
+                    dto.setNombreTipoPelicula(rs.getString("NombreTipoPelicula"));
+                    dto.setNombreEstudio(rs.getString("NombreEstudio"));
+                    dto.setNombreDirector(rs.getString("NombreDirector"));
+                    Timestamp ts2 = rs.getTimestamp("FechaHoraFuncion");
+                    if (ts2 != null) dto.setFechaHoraFuncion(ts2.toLocalDateTime());
+                    dto.setPrecioBoleto(rs.getBigDecimal("PrecioBoleto"));
+                    dto.setEstadoFuncion(rs.getString("EstadoFuncion"));
+                    dto.setIdFuncion(rs.getInt("IdFuncion"));
+                    dto.setActores(findActoresForPelicula(dto.getIdPelicula(), conn));
+                    lista.add(dto);
                 }
-                dto.setNombreTipoPelicula(rs.getString("NombreTipoPelicula"));
-                Timestamp fechaHoraSQL = rs.getTimestamp("FechaHoraFuncion");
-                if (fechaHoraSQL != null) {
-                    dto.setFechaHoraFuncion(fechaHoraSQL.toLocalDateTime());
-                }
-                dto.setPrecioBoleto(rs.getBigDecimal("PrecioBoleto"));
-                dto.setEstadoFuncion(rs.getString("EstadoFuncion"));
-                dto.setIdFuncion(rs.getInt("IdFuncion"));
-
-                // Poblar campos de Película (Estudio, Director, Idioma)
-                dto.setNombreEstudio(rs.getString("NombreEstudio"));
-                dto.setNombreDirector(rs.getString("NombreDirector"));
-                dto.setIdiomaPelicula(rs.getString("IdiomaPelicula"));
-                dto.setSubtituladaPelicula(rs.getBoolean("SubtituladaPelicula"));
-
-                // Poblar nuevos campos de Calificación
-                dto.setCalificacionPromedioPelicula(rs.getDouble("CalificacionPromedioPelicula"));
-                dto.setTotalCalificacionesPelicula(rs.getInt("TotalCalificacionesPelicula"));
-
-                // Obtener y asignar la lista de actores
-                List<ActorPeliculaDTO> actoresPelicula = findActoresForPelicula(dto.getIdPelicula(), conn);
-                dto.setActores(actoresPelicula);
-
-                funcionesDetalladas.add(dto);
             }
         } catch (SQLException e) {
-            System.err.println("Error en FuncionDAOImpl.findFuncionesDetalladasByCineId: " + e.getMessage());
             e.printStackTrace();
         }
-        return funcionesDetalladas;
+        return lista;
+    }
+
+    @Override
+    public List<LocalDateTime> findHorariosByCinePeliculaFecha(int idCine, int idPelicula, LocalDate fecha) {
+        List<LocalDateTime> horarios = new ArrayList<>();
+        String sql = "SELECT F.FechaHora FROM Funcion F " +
+                "JOIN Sala S ON F.IdSala = S.IdSala " +
+                "WHERE S.IdCine = ? AND F.IdPelicula = ? AND DATE(F.FechaHora)=? " +
+                "AND F.Estado='En Venta' ORDER BY F.FechaHora";
+        try (Connection conn = conexionBD.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, idCine);
+            ps.setInt(2, idPelicula);
+            ps.setDate(3, Date.valueOf(fecha));
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Timestamp ts3 = rs.getTimestamp("FechaHora");
+                    if (ts3 != null) horarios.add(ts3.toLocalDateTime());
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return horarios;
     }
 }

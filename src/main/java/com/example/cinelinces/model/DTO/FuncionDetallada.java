@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FuncionDetallada {
+    // <-- Nuevo campo para el ID del cine
+    private int idCine;
+
     // Campos de la Función base
     private int idFuncion;
     private LocalDateTime fechaHoraFuncion;
@@ -39,15 +42,22 @@ public class FuncionDetallada {
     private String nombreDirector;
     private String idiomaPelicula;
     private boolean subtituladaPelicula;
-    private double calificacionPromedioPelicula; // <--- NUEVO
-    private int totalCalificacionesPelicula;    // <--- NUEVO
-
+    private double calificacionPromedioPelicula;
+    private int totalCalificacionesPelicula;
 
     public FuncionDetallada() {
         this.actores = new ArrayList<>();
     }
 
-    // --- Getters y Setters existentes ---
+    // Getter y Setter para el nuevo campo idCine
+    public int getIdCine() {
+        return idCine;
+    }
+    public void setIdCine(int idCine) {
+        this.idCine = idCine;
+    }
+
+
     public int getIdFuncion() { return idFuncion; }
     public void setIdFuncion(int idFuncion) { this.idFuncion = idFuncion; }
     public LocalDateTime getFechaHoraFuncion() { return fechaHoraFuncion; }
@@ -90,8 +100,6 @@ public class FuncionDetallada {
     public void setIdiomaPelicula(String idiomaPelicula) { this.idiomaPelicula = idiomaPelicula; }
     public boolean isSubtituladaPelicula() { return subtituladaPelicula; }
     public void setSubtituladaPelicula(boolean subtituladaPelicula) { this.subtituladaPelicula = subtituladaPelicula; }
-
-    // --- Getters y Setters para NUEVOS CAMPOS de Calificación ---
     public double getCalificacionPromedioPelicula() { return calificacionPromedioPelicula; }
     public void setCalificacionPromedioPelicula(double calificacionPromedioPelicula) { this.calificacionPromedioPelicula = calificacionPromedioPelicula; }
     public int getTotalCalificacionesPelicula() { return totalCalificacionesPelicula; }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="dataSourceStorageLocal" created-in="IU-251.26094.37">
+  <component name="dataSourceStorageLocal" created-in="IU-251.26094.98">
     <data-source name="cinemasystem@localhost" uuid="babdc01b-9301-4d2d-b503-e728a0cc224a">
       <database-info product="MariaDB" version="10.4.32-MariaDB" jdbc-version="4.2" driver-name="MariaDB Connector/J" driver-version="3.3.3" dbms="MARIADB" exact-version="10.4.32" exact-driver-version="3.3">
         <extra-name-characters>#@</extra-name-characters>
