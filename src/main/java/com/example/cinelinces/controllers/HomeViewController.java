@@ -17,14 +17,11 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.util.StringConverter;
 
 import java.io.IOException;
@@ -97,7 +94,7 @@ public class HomeViewController implements Initializable {
 
     private void setupDialogPane() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/cinelinces/dialogPane-view.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/cinelinces/dialog-pane-view.fxml"));
             Node root = loader.load();
             DialogPaneViewController ctrl = loader.getController();
             dialogPaneController = ctrl;

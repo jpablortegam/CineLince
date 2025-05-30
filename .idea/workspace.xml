@@ -4,15 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6f94096a-8f21-4170-a76e-4c2b50d8bf02" name="Changes" comment="feat: update CardMovieView layout and styles; enhance rating display and improve image handling">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+    <list default="true" id="6f94096a-8f21-4170-a76e-4c2b50d8bf02" name="Changes" comment="feat: add functionality to display movie schedules by date; enhance dialog pane for better user interaction">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/DAO/AsientoDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/DAO/impl/AsientoDAOImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/SeatSelectionViewController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/model/DTO/AsientoDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/utils/SummaryContext.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/cinelinces/seatSelection-view.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/DAO/FuncionDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/DAO/FuncionDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/DAO/impl/FuncionDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/DAO/impl/FuncionDAOImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/DialogPaneViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/DialogPaneViewController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/HomeViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/HomeViewController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/model/DTO/FuncionDetallada.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/model/DTO/FuncionDetallada.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/cinelinces/dialogPane-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/cinelinces/dialogPane-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/cinelinces/dialogPane-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/cinelinces/dialog-pane-view.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -679,7 +683,15 @@
       <option name="project" value="LOCAL" />
       <updated>1748564803003</updated>
     </task>
-    <option name="localTasksCounter" value="49" />
+    <task id="LOCAL-00049" summary="feat: add functionality to display movie schedules by date; enhance dialog pane for better user interaction">
+      <option name="closed" value="true" />
+      <created>1748647099490</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1748647099490</updated>
+    </task>
+    <option name="localTasksCounter" value="50" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -709,7 +721,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="add database connection and refactor services; implement movie card animations and overlay functionality" />
     <MESSAGE value="refactor card animations; adjust expand/collapse durations and improve fade transitions" />
     <MESSAGE value="refactor card animations; enhance hover effects and adjust expand/collapse durations" />
     <MESSAGE value="refactor dialog animations; optimize show/hide durations and improve layout positioning" />
@@ -734,6 +745,7 @@
     <MESSAGE value="refactor CardMovieViewController and movie-card.css; update rating display for compact view and enhance styles" />
     <MESSAGE value="feat: enhance HomeView layout; add detailed featured banner styles and improve image loading functionality" />
     <MESSAGE value="feat: update CardMovieView layout and styles; enhance rating display and improve image handling" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: update CardMovieView layout and styles; enhance rating display and improve image handling" />
+    <MESSAGE value="feat: add functionality to display movie schedules by date; enhance dialog pane for better user interaction" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: add functionality to display movie schedules by date; enhance dialog pane for better user interaction" />
   </component>
 </project>

@@ -19,4 +19,6 @@ public interface FuncionDAO extends GenericDao<Funcion, Integer> {
      * Obtiene la lista de horarios (FechaHora) para una película en un cine y fecha dados.
      */
     List<LocalDateTime> findHorariosByCinePeliculaFecha(int idCine, int idPelicula, LocalDate fecha);
+
+    List<LocalDate> findFechasDisponiblesByCinePelicula(int idCine, int idPelicula);
 }

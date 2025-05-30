@@ -224,4 +224,29 @@ public class FuncionDAOImpl implements FuncionDAO {
         }
         return horarios;
     }
+
+    @Override
+    public List<LocalDate> findFechasDisponiblesByCinePelicula(int idCine, int idPelicula) {
+        List<LocalDate> fechas = new ArrayList<>();
+        String sql =
+                "SELECT DISTINCT DATE(F.FechaHora) AS Fecha " +
+                        "FROM Funcion F " +
+                        "JOIN Sala S ON F.IdSala = S.IdSala " +
+                        "WHERE S.IdCine = ? AND F.IdPelicula = ? " +
+                        "ORDER BY Fecha";
+        try (Connection conn = conexionBD.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, idCine);
+            ps.setInt(2, idPelicula);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Date d = rs.getDate("Fecha");
+                    if (d != null) fechas.add(d.toLocalDate());
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return fechas;
+    }
 }
