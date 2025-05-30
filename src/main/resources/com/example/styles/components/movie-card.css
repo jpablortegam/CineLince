@@ -1,113 +1,154 @@
-.movie-card {
-    -fx-background-color: #ffffff;
-    -fx-background-radius: 12px;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 10, 0, 2, 4);
+/* home.css */
+
+/* ... (otros estilos existentes como .scroll-pane-background, .main-vbox-container, etc. se mantienen) ... */
+
+/* === INICIO: ESTILOS PARA TARJETAS DE PELÍCULA (MOVIE CARD) === */
+
+.movie-card { /* El contenedor raíz de la tarjeta (StackPane fx:id="cardRoot") */
+    -fx-background-color: #3D3567;
+    -fx-background-radius: 10px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 12, 0.15, 0, 3);
 }
 
-.movie-card.expanded {
-    -fx-background-color: linear-gradient(to right, #4e54c8, #8f94fb);
-    -fx-padding: 20px;
-}
-
-/* --- MODIFICADO para tarjeta COMPACTA --- */
-.image-container {
-    /* Ahora usa el gradiente para "enmarcar" la foto */
-    -fx-background-color: linear-gradient(to right, #4e54c8, #8f94fb);
-    -fx-background-radius: 8px 8px 0 0; /* Mantiene esquinas superiores redondeadas para el gradiente */
+.movie-card .image-container {
+    -fx-background-color: #2A2447;
+    -fx-padding: 4px;
+    -fx-background-radius: 6px 6px 0 0;
     -fx-alignment: CENTER;
-    -fx-padding: 2px; /* Este padding permite que el gradiente sea visible como un marco */
-}
-.movie-image { /* ImageView dentro de .image-container */
-    -fx-background-radius: 6px 6px 0 0; /* Ligeramente menor que el contenedor para que el marco se vea bien */
-    /* Asegúrate que la imagen también tenga este radius si es necesario */
 }
 
-/* --- ESTILOS MODIFICADOS PARA LA CALIFICACIÓN EN VISTA COMPACTA --- */
-.rating-badge { /* Contenedor de la calificación en la vista compacta */
-    -fx-background-color: rgba(0, 0, 0, 0.65); /* Opacidad ligeramente ajustada, opcional */
-    -fx-background-radius: 5px;      /* Radio del borde ligeramente reducido */
-    -fx-padding: 3px 7px;          /* Padding reducido para un aspecto más compacto */
-}
-.rating-text { /* Texto de las estrellas en la vista compacta */
-    -fx-font-size: 13px;          /* CAMBIO CLAVE: Tamaño de fuente reducido significativamente */
-    -fx-font-weight: bold;
-    -fx-text-fill: #FFD700;       /* Color dorado para las estrellas */
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 1, 0, 0, 1); /* Sombra sutil para mejor definición */
-}
-/* --- FIN DE ESTILOS MODIFICADOS PARA LA CALIFICACIÓN --- */
-
-.card-title {
-    -fx-font-size: 15px;
-    -fx-font-weight: bold;
-    -fx-text-fill: #2c3e50;
-    -fx-padding: 0 4px;
-}
-.card-subtitle {
-    -fx-font-size: 12px;
-    -fx-text-fill: #7f8c8d;
-    -fx-padding: 0 4px;
-}
-.text-container { /* Contenedor de texto en la tarjeta compacta, debajo de la imagen */
-    -fx-padding: 8px 4px 12px 4px;
-    -fx-background-color: #ffffff; /* Asegura que esta parte siga siendo blanca si .image-container tiene gradiente */
-    -fx-background-radius: 0 0 8px 8px; /* Redondear esquinas inferiores si es necesario */
-}
-.genre-badge {
-    -fx-background-color: #e0e0e0;
-    -fx-background-radius: 4px;
-    -fx-padding: 2px 6px;
-    -fx-font-size: 10px;
+.movie-card .movie-image {
+    -fx-background-radius: 4px 4px 0 0;
 }
 
-/* Expanded layout specific styles */
-.expanded-content-area {
+.movie-card .text-container {
+    -fx-padding: 8px 12px 12px 12px;
     -fx-background-color: transparent;
-    -fx-padding: 10px;
+    -fx-background-radius: 0 0 6px 6px;
 }
 
-.image-container-expanded {
-    -fx-background-color: transparent;
-    -fx-background-radius: 8px;
-    -fx-alignment: CENTER;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 8, 0, 0, 2);
-}
-#posterExpanded {
-    -fx-background-radius: 8px;
-}
-
-.rating-badge-expanded { /* Estilos para la calificación en vista expandida (ya se veían bien) */
-    -fx-background-color: rgba(0,0,0,0.7);
-    -fx-background-radius: 8px;
-    -fx-padding: 3px 6px;
-    -fx-font-size: 10px;
+.movie-card .card-title {
+    -fx-font-size: 16px;
     -fx-font-weight: bold;
-    -fx-text-fill: #FFD700;
-}
-
-.text-block-expanded {
-    -fx-background-color: transparent;
     -fx-text-fill: white;
-    -fx-padding: 0 0 0 6px;
+    -fx-padding: 2px 4px;
 }
 
-.expanded-title {
+.movie-card .card-subtitle {
     -fx-font-size: 13px;
+    -fx-text-fill: #D1CDE4;
+    -fx-padding: 0 4px;
+}
+
+.movie-card .genre-badge {
+    -fx-background-color: #6A5F9E;
+    -fx-background-radius: 4px;
+    -fx-padding: 3px 7px;
+    -fx-font-size: 10px;
+    -fx-text-fill: white;
+}
+
+/* --- Estilos para la tarjeta EXPANDIDA --- */
+.movie-card.expanded {
+    -fx-background-color: #4A3F78;
+    -fx-background-radius: 12px;
+    -fx-padding: 20px; /* Reducido ligeramente el padding general para dar más espacio al contenido */
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.35), 20, 0.25, 0, 5);
+}
+
+.movie-card.expanded .expanded-content-area {
+    -fx-background-color: transparent;
+    -fx-spacing: 18px; /* Espacio entre poster y bloque de texto, ligeramente reducido */
+}
+
+.movie-card.expanded .image-container-expanded {
+    -fx-background-color: #1A1629;
+    -fx-padding: 4px; /* Marco del póster */
+    -fx-background-radius: 8px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 10, 0.3, 0, 2);
+}
+
+.movie-card.expanded #posterExpanded {
+    -fx-background-radius: 6px;
+}
+
+/* MODIFICADO: Calificación en la vista EXPANDIDA */
+.movie-card.expanded .rating-badge-expanded {
+    -fx-background-color: #FFC107;
+    -fx-text-fill: black;
+    -fx-font-weight: bold;
+    -fx-padding: 5px 8px; /* Reducido */
+    -fx-background-radius: 5px; /* Reducido */
+    -fx-font-size: 12px; /* Reducido */
+}
+
+.movie-card.expanded .text-block-expanded {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
+/* MODIFICADO: Título expandido */
+.movie-card.expanded .expanded-title {
+    -fx-font-size: 22px; /* Reducido */
     -fx-font-weight: bold;
     -fx-text-fill: white;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.7), 3, 0, 1, 1);
+    -fx-padding: 0 0 6px 0; /* Reducido padding inferior */
 }
 
-#iconDuration, #iconYear, #iconGenre, #classificationLabel,
-#synopsisExpanded, #castLabelExpanded,
-#directorLabel, #studioLabel, #languageLabel {
-    -fx-text-fill: #f0f0f0;
-    -fx-font-size: 6px;
+/* MODIFICADO: Labels de metadatos */
+.movie-card.expanded #iconDuration,
+.movie-card.expanded #iconYear,
+.movie-card.expanded #iconGenre,
+.movie-card.expanded #classificationLabel {
+    -fx-text-fill: #D1CDE4;
+    -fx-font-size: 12px; /* Reducido */
+}
+.movie-card.expanded #iconDuration .ikonli-font-icon,
+.movie-card.expanded #iconYear .ikonli-font-icon,
+.movie-card.expanded #iconGenre .ikonli-font-icon,
+.movie-card.expanded #classificationLabel .ikonli-font-icon {
+    -fx-icon-color: #D1CDE4;
+    -fx-icon-size: 13px; /* Ajustado */
 }
 
-#synopsisExpanded {
-    -fx-line-spacing: 1.2px;
+/* MODIFICADO: Sinopsis */
+.movie-card.expanded #synopsisExpanded {
+    -fx-text-fill: #E0E0E0;
+    -fx-font-size: 12px; /* Reducido */
+    -fx-line-spacing: 1.8px; /* Ajustado */
 }
 
+/* MODIFICADO: Otros labels de información */
+.movie-card.expanded #castLabelExpanded,
+.movie-card.expanded #directorLabel,
+.movie-card.expanded #studioLabel,
+.movie-card.expanded #languageLabel {
+    -fx-text-fill: #E0E0E0;
+    -fx-font-size: 11px; /* Reducido */
+    -fx-line-spacing: 1.4px; /* Ajustado */
+}
+
+/* MODIFICADO: Botón primario expandido */
+.movie-card.expanded .btn-primary {
+    -fx-background-color: #E44D2E;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 8px 18px; /* Reducido */
+    -fx-background-radius: 5px;
+    -fx-font-size: 13px; /* Reducido */
+    -fx-cursor: hand;
+}
+.movie-card.expanded .btn-primary:hover {
+    -fx-background-color: #F85D3F;
+}
+
+/* === FIN: ESTILOS PARA TARJETAS DE PELÍCULA === */
+
+/* ... (Estilos existentes para el banner principal se mantienen) ... */
+
+/* Estos estilos genéricos de botones al final pueden causar conflictos o no ser deseados.
+   Los he dejado como los proporcionaste, pero considera si son necesarios
+   o si deben eliminarse/ajustarse para no afectar los botones específicos del banner y las tarjetas. */
 .btn-primary, .btn-outline, .btn-info {
     -fx-font-size: 5px;
     -fx-padding: 5px 10px;
@@ -115,13 +156,13 @@
     -fx-alignment: CENTER_LEFT;
 }
 
-.btn-primary {
+.btn-primary { /* Este es un selector .btn-primary genérico, diferente al .movie-card.expanded .btn-primary */
     -fx-background-color: #E44D2E;
     -fx-text-fill: white;
     -fx-font-weight: bold;
-    -fx-padding: 10px 20px;
+    -fx-padding: 10px 20px; /* Esto podría ser anulado por selectores más específicos */
     -fx-background-radius: 5px;
-    -fx-font-size: 5px;
+    /* -fx-font-size: 5px; */ /* Este fue el valor original aquí, pero el anterior .btn-primary tenía 14px */
     -fx-cursor: hand;
 }
 .btn-primary:hover {

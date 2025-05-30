@@ -4,7 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6f94096a-8f21-4170-a76e-4c2b50d8bf02" name="Changes" comment="feat: enhance HomeView layout; add detailed featured banner styles and improve image loading functionality" />
+    <list default="true" id="6f94096a-8f21-4170-a76e-4c2b50d8bf02" name="Changes" comment="feat: update CardMovieView layout and styles; enhance rating display and improve image handling">
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/images/posters/barbie.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/images/posters/dune2.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/images/posters/gato_con_botas2.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/images/posters/lalaland.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/images/posters/oppenheimer.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/images/posters/wonka.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/CardMovieViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/CardMovieViewController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/PurchaseCardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/PurchaseCardController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/cinelinces/cardMovie-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/cinelinces/cardMovie-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/styles/components/movie-card.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/styles/components/movie-card.css" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -284,7 +296,7 @@
       <workItem from="1748378511440" duration="13018000" />
       <workItem from="1748395709034" duration="3100000" />
       <workItem from="1748471666356" duration="305000" />
-      <workItem from="1748554364197" duration="10052000" />
+      <workItem from="1748554364197" duration="12550000" />
     </task>
     <task id="LOCAL-00001" summary="initialize project structure with basic JavaFX application and Gradle setup">
       <option name="closed" value="true" />
@@ -662,7 +674,15 @@
       <option name="project" value="LOCAL" />
       <updated>1748564465946</updated>
     </task>
-    <option name="localTasksCounter" value="48" />
+    <task id="LOCAL-00048" summary="feat: enhance HomeView layout; add detailed featured banner styles and improve image loading functionality">
+      <option name="closed" value="true" />
+      <created>1748564803003</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1748564803003</updated>
+    </task>
+    <option name="localTasksCounter" value="49" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -692,7 +712,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="add movie card functionality; implement dynamic scaling, hover effects, and expand/collapse animations" />
     <MESSAGE value="add database connection and refactor services; implement movie card animations and overlay functionality" />
     <MESSAGE value="refactor card animations; adjust expand/collapse durations and improve fade transitions" />
     <MESSAGE value="refactor card animations; enhance hover effects and adjust expand/collapse durations" />
@@ -717,6 +736,7 @@
     <MESSAGE value="feat: enhance movie details display; add rating and additional information to CardMovieView and DialogPane" />
     <MESSAGE value="refactor CardMovieViewController and movie-card.css; update rating display for compact view and enhance styles" />
     <MESSAGE value="feat: enhance HomeView layout; add detailed featured banner styles and improve image loading functionality" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: enhance HomeView layout; add detailed featured banner styles and improve image loading functionality" />
+    <MESSAGE value="feat: update CardMovieView layout and styles; enhance rating display and improve image handling" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: update CardMovieView layout and styles; enhance rating display and improve image handling" />
   </component>
 </project>

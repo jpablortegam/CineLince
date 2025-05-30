@@ -21,7 +21,7 @@
     <VBox fx:id="compactLayout" spacing="16" alignment="TOP_CENTER" visible="true" managed="true">
         <StackPane styleClass="image-container">
             <ImageView fx:id="poster" styleClass="movie-image" fitWidth="316" fitHeight="400" preserveRatio="true" smooth="true" cache="true"/>
-            <StackPane fx:id="ratingBadge" styleClass="rating-badge" alignment="CENTER" visible="false" StackPane.alignment="TOP_RIGHT">
+            <StackPane fx:id="ratingBadge" styleClass="rating-badge" alignment="CENTER" visible="false" managed="false" StackPane.alignment="TOP_RIGHT">
                 <Label fx:id="ratingLabel" styleClass="rating-text" text="★ 8.5"/>
                 <StackPane.margin><Insets top="12" right="12"/></StackPane.margin>
             </StackPane>
@@ -40,13 +40,13 @@
 
     <HBox fx:id="expandedLayout" styleClass="expanded-content-area" spacing="16" alignment="CENTER_LEFT" visible="false" managed="false">
         <StackPane styleClass="image-container-expanded">
-            <ImageView fx:id="posterExpanded" fitWidth="100" fitHeight="150" preserveRatio="true" smooth="true" cache="true"/>
+            <ImageView fx:id="posterExpanded" fitWidth="110" fitHeight="165" preserveRatio="true" smooth="true" cache="true"/>
             <Label fx:id="ratingLabelExpanded" text="★ N/A" styleClass="rating-badge-expanded" StackPane.alignment="TOP_RIGHT">
                 <StackPane.margin><Insets top="10" right="10"/></StackPane.margin>
             </Label>
         </StackPane>
 
-        <VBox fx:id="textBlockExpanded" spacing="6" alignment="TOP_LEFT" styleClass="text-block-expanded" HBox.hgrow="ALWAYS">
+        <VBox fx:id="textBlockExpanded" spacing="5" alignment="TOP_LEFT" styleClass="text-block-expanded" HBox.hgrow="ALWAYS">
             <Label fx:id="titleExpanded" styleClass="expanded-title" text="Título de la película" wrapText="true" maxWidth="900"/>
 
             <HBox spacing="10" alignment="CENTER_LEFT">
@@ -64,8 +64,7 @@
             <Label fx:id="studioLabel" text="🏢 Estudio: Cargando..." wrapText="true" maxWidth="900"/>
             <Label fx:id="languageLabel" text="🗣️ Idioma: Cargando..." wrapText="true" maxWidth="900"/>
 
-            <HBox spacing="8" alignment="CENTER_LEFT" style="-fx-padding: 5 0 0 0;">
-                <Button fx:id="btnShowTimes" text="Ver horarios" styleClass="btn-primary" onAction="#handleShowTimes"/>
+            <HBox spacing="8" alignment="CENTER_LEFT" style="-fx-padding: 8 0 0 0;"> <Button fx:id="btnShowTimes" text="Ver horarios" styleClass="btn-primary" onAction="#handleShowTimes"/>
             </HBox>
         </VBox>
     </HBox>

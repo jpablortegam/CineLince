@@ -67,7 +67,7 @@ public class CardMovieViewController {
 
     private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm 'hrs'", Locale.getDefault());
     private static final String FULL_STAR = "★";
-    private static final String HALF_STAR = "✬"; // Considera alternativas si este carácter no renderiza bien: "½", U+2B51 (✫)
+    private static final String HALF_STAR = "✬";
     private static final String EMPTY_STAR = "☆";
 
 
@@ -134,11 +134,12 @@ public class CardMovieViewController {
             if (idx != -1) {
                 currentParentPane.getChildren().set(idx, placeholder);
             } else {
-                currentParentPane.getChildren().add(placeholder);
+                currentParentPane.getChildren().add(placeholder); // Fallback, should not happen if card is already in parent
             }
-        } else if (parentContainer != null) {
+        } else if (parentContainer != null) { // Should ideally not reach here if structure is consistent
             parentContainer.getChildren().remove(cardRoot);
         }
+
 
         Point2D cardPositionInOverlay = overlayPane.sceneToLocal(cardPositionInScene);
         cardRoot.setLayoutX(cardPositionInOverlay.getX());
@@ -162,11 +163,12 @@ public class CardMovieViewController {
 
         double cardOriginalWidth = pWidth > 0 ? pWidth : cardRoot.getPrefWidth();
         double cardOriginalHeight = pHeight > 0 ? pHeight : cardRoot.getPrefHeight();
-        if (cardOriginalWidth <= 0) cardOriginalWidth = 340;
-        if (cardOriginalHeight <= 0) cardOriginalHeight = 220;
+        if (cardOriginalWidth <= 0) cardOriginalWidth = 340; // Fallback from FXML prefWidth
+        if (cardOriginalHeight <= 0) cardOriginalHeight = 220; // Fallback from FXML prefHeight
 
-        double targetScaleXFactor = 2.9;
-        double targetScaleYFactor = 2.4;
+        // --- MODIFICADO: Factores de escala para hacer la tarjeta más ancha ---
+        double targetScaleXFactor = 3.4; // Aumentado de 2.9
+        double targetScaleYFactor = 2.5; // Ligeramente aumentado de 2.4
 
         double finalTargetLayoutX = (overlayPane.getWidth() - cardOriginalWidth) / 2.0;
         double finalTargetLayoutY = (overlayPane.getHeight() - cardOriginalHeight) / 2.0;
@@ -240,7 +242,7 @@ public class CardMovieViewController {
             return text == null ? "" : text;
         }
         String[] words = text.trim().split("\\s+");
-        if (words.length <= wordsPerLine && !text.contains("\n")) {
+        if (words.length <= wordsPerLine && !text.contains("\n")) { // Evita saltos innecesarios
             return text.trim();
         }
         StringBuilder formattedText = new StringBuilder();
@@ -262,7 +264,7 @@ public class CardMovieViewController {
         if (totalReviews == 0) {
             return "N/A";
         }
-        double rating = Math.round(averageRating * 2.0) / 2.0;
+        double rating = Math.round(averageRating * 2.0) / 2.0; // Redondea a 0.5 más cercano
         StringBuilder stars = new StringBuilder();
         for (int i = 1; i <= 5; i++) {
             if (rating >= i) {
@@ -278,16 +280,17 @@ public class CardMovieViewController {
 
 
     public void setFuncionData(FuncionDetallada funcion) {
-        moviePosterImage = null;
+        moviePosterImage = null; // Resetear por si acaso
         if (funcion.getFotografiaPelicula() != null && !funcion.getFotografiaPelicula().isEmpty()) {
             String imagePath = funcion.getFotografiaPelicula();
+            // Normalizar la ruta si es relativa
             if (!imagePath.startsWith("http") && !imagePath.startsWith("file:") && !imagePath.startsWith("jar:") && !imagePath.startsWith("/")) {
-                imagePath = "/com/example/images/" + imagePath;
+                imagePath = "/com/example/images/" + imagePath; // Asume una ruta base en resources
             }
             try {
                 if (imagePath.startsWith("http") || imagePath.startsWith("file:")) {
-                    moviePosterImage = new Image(imagePath, true);
-                } else {
+                    moviePosterImage = new Image(imagePath, true); // Carga en segundo plano para URLs
+                } else { // Carga desde resources
                     InputStream imageStream = getClass().getResourceAsStream(imagePath);
                     if (imageStream != null) {
                         moviePosterImage = new Image(imageStream);
@@ -300,12 +303,13 @@ public class CardMovieViewController {
             }
         }
 
+        // Manejo de imagen nula o con error
         if (moviePosterImage == null || moviePosterImage.isError()) {
             if (moviePosterImage != null && moviePosterImage.getException() != null) {
                 System.err.println("Image loading exception for " + funcion.getTituloPelicula() + ": " + moviePosterImage.getException().getMessage());
             }
             System.err.println("Failed to load image or image path was null for: " + funcion.getTituloPelicula() + ". Loading placeholder.");
-            loadPlaceholderPoster();
+            loadPlaceholderPoster(); // Carga una imagen por defecto
         }
 
         poster.setImage(moviePosterImage);
@@ -316,22 +320,15 @@ public class CardMovieViewController {
             subtitle.setText("Función no disponible");
         }
 
-        // --- MODIFICACIÓN PARA LA VISTA COMPACTA ---
-        // Asegurarse de que el ratingBadge (y su label) de la vista compacta permanezcan ocultos.
-        // El FXML ya tiene ratingBadge con visible="false", así que no necesitamos establecer el texto de ratingLabel.
-        // Para mayor seguridad y claridad, lo hacemos explícito aquí:
-        if (ratingBadge != null) { // ratingBadge es el StackPane de la vista compacta
+        if (ratingBadge != null) {
             ratingBadge.setVisible(false);
-            ratingBadge.setManaged(false); // Importante para que no ocupe espacio en el layout
+            ratingBadge.setManaged(false);
         }
-        // No se establece texto para ratingLabel (el de la vista compacta)
 
-        // --- CALIFICACIÓN PARA LA VISTA EXPANDIDA (esto se mantiene) ---
         String starsRatingExpanded = formatRatingToStars(funcion.getCalificacionPromedioPelicula(), funcion.getTotalCalificacionesPelicula());
         if (ratingLabelExpanded != null) {
             ratingLabelExpanded.setText(starsRatingExpanded);
         }
-
 
         posterExpanded.setImage(moviePosterImage);
         titleExpanded.setText(funcion.getTituloPelicula());
@@ -346,16 +343,13 @@ public class CardMovieViewController {
 
         if (classificationLabel != null) {
             classificationLabel.setText("📊 " + (funcion.getClasificacionPelicula() != null ? funcion.getClasificacionPelicula() : "N/A"));
-        } else {
-            System.err.println("classificationLabel es null en setFuncionData para: " + funcion.getTituloPelicula());
         }
 
         String originalSynopsis = funcion.getSinopsisPelicula() != null ? funcion.getSinopsisPelicula() : "Sinopsis no disponible.";
-        String formattedSynopsis = formatTextWithLineBreaks(originalSynopsis, 10);
+        // --- MODIFICADO: Ajuste de palabras por línea ---
+        String formattedSynopsis = formatTextWithLineBreaks(originalSynopsis, 13); // Aumentado de 10
         if (synopsisExpanded != null) {
             synopsisExpanded.setText(formattedSynopsis);
-        } else {
-            System.err.println("synopsisExpanded es null en setFuncionData para: " + funcion.getTituloPelicula());
         }
 
         List<ActorPeliculaDTO> actores = funcion.getActores();
@@ -363,30 +357,23 @@ public class CardMovieViewController {
             String rawRepartoStr = actores.stream()
                     .map(actor -> actor.getNombreActor() + " (" + actor.getPersonaje() + ")")
                     .collect(Collectors.joining(", "));
-            String formattedRepartoStr = formatTextWithLineBreaks(rawRepartoStr, 10);
+            // --- MODIFICADO: Ajuste de palabras por línea ---
+            String formattedRepartoStr = formatTextWithLineBreaks(rawRepartoStr, 13); // Aumentado de 10
             if (castLabelExpanded != null) {
                 castLabelExpanded.setText("⭐ Reparto: " + formattedRepartoStr);
-            } else {
-                System.err.println("castLabelExpanded es null en setFuncionData para: " + funcion.getTituloPelicula());
             }
         } else {
             if (castLabelExpanded != null) {
                 castLabelExpanded.setText("⭐ Reparto no disponible.");
-            } else {
-                System.err.println("castLabelExpanded es null en setFuncionData para: " + funcion.getTituloPelicula());
             }
         }
 
         if (directorLabel != null) {
             directorLabel.setText("🎬 Director: " + (funcion.getNombreDirector() != null ? funcion.getNombreDirector() : "No disponible"));
-        } else {
-            System.err.println("directorLabel es null en setFuncionData para: " + funcion.getTituloPelicula());
         }
 
         if (studioLabel != null) {
             studioLabel.setText("🏢 Estudio: " + (funcion.getNombreEstudio() != null ? funcion.getNombreEstudio() : "No disponible"));
-        } else {
-            System.err.println("studioLabel es null en setFuncionData para: " + funcion.getTituloPelicula());
         }
 
         String idiomaTexto = "🗣️ Idioma: " + (funcion.getIdiomaPelicula() != null ? funcion.getIdiomaPelicula() : "No disponible");
@@ -395,8 +382,6 @@ public class CardMovieViewController {
         }
         if (languageLabel != null) {
             languageLabel.setText(idiomaTexto);
-        } else {
-            System.err.println("languageLabel es null en setFuncionData para: " + funcion.getTituloPelicula());
         }
     }
 
@@ -407,8 +392,9 @@ public class CardMovieViewController {
             if (placeholderStream != null) {
                 moviePosterImage = new Image(placeholderStream);
             } else {
-                System.err.println("Placeholder image not found at: " + placeholderPath);
-                moviePosterImage = null;
+                System.err.println("Placeholder image not found at: " + placeholderPath + ". Ensure it is in the correct resources path.");
+                // Consider creating a simple colored rectangle image programmatically as an ultimate fallback if needed.
+                moviePosterImage = null; // Explicitly null if not found
             }
         } catch (Exception e) {
             System.err.println("Error loading placeholder image: " + e.getMessage());
@@ -418,5 +404,6 @@ public class CardMovieViewController {
 
     @FXML private void handleShowTimes() {
         System.out.println("Ver horarios para: " + (title != null ? title.getText() : "Película desconocida"));
+        // Aquí iría la lógica para mostrar horarios, posiblemente usando el dialogAnimationHelper
     }
 }
