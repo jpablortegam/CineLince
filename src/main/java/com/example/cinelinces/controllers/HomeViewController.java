@@ -7,7 +7,7 @@ import com.example.cinelinces.DAO.impl.FuncionDAOImpl;
 import com.example.cinelinces.model.Cine;
 import com.example.cinelinces.model.DTO.FuncionDetallada;
 import com.example.cinelinces.utils.Animations.ButtonHoverAnimator;
-import com.example.cinelinces.utils.Animations.DialogAnimationHelper; // Importante que esté
+import com.example.cinelinces.utils.Animations.DialogAnimationHelper;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -31,6 +31,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Comparator; // Importar Comparator
 import java.util.HashSet;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -59,14 +60,19 @@ public class HomeViewController implements Initializable {
 
     private CineDAO cineDAO;
     private FuncionDAO funcionDAO;
-    private DialogAnimationHelper dialogHelper; // Esta es la instancia que se pasará
+    private DialogAnimationHelper dialogHelper;
     private Node dialogPanel;
+
+    // Constantes para las estrellas (igual que en CardMovieViewController)
+    private static final String FULL_STAR = "★";
+    private static final String HALF_STAR = "✬";
+    private static final String EMPTY_STAR = "☆";
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         cineDAO = new CineDAOImpl();
         funcionDAO = new FuncionDAOImpl();
-
         dialogHelper = new DialogAnimationHelper(rootStack, overlayPane);
 
         setupCineComboBox();
@@ -98,7 +104,7 @@ public class HomeViewController implements Initializable {
             if (closeBtn != null) {
                 ButtonHoverAnimator.applyHoverEffect(closeBtn);
                 closeBtn.setOnAction(e -> {
-                    if (dialogHelper != null) { // Comprobar si dialogHelper está inicializado
+                    if (dialogHelper != null) {
                         dialogHelper.hideDialog(this.dialogPanel, btnFeaturedVerHorarios);
                     }
                 });
@@ -156,6 +162,7 @@ public class HomeViewController implements Initializable {
                     });
                     if (!cines.isEmpty()) {
                         cineComboBox.getSelectionModel().selectFirst();
+                        // La selección inicial disparará el listener y cargará las funciones
                     }
                 } else {
                     cineComboBox.setPromptText("No hay cines disponibles");
@@ -192,51 +199,51 @@ public class HomeViewController implements Initializable {
                     Label noFuncionesLabel = new Label("No hay funciones en cartelera para este cine.");
                     noFuncionesLabel.getStyleClass().add("text-body");
                     enCarteleraPane.getChildren().add(noFuncionesLabel);
-                    clearDetailedBanner();
+                    clearDetailedBanner(); // Limpiar banner si no hay funciones
                     return;
                 }
 
-                if (!todasLasFuncionesEnCartelera.isEmpty()) {
-                    FuncionDetallada peliculaDestacada = todasLasFuncionesEnCartelera.get(0);
-                    updateDetailedBanner(peliculaDestacada);
-                } else {
-                    clearDetailedBanner();
-                }
+                // --- LÓGICA PARA SELECCIONAR LA PELÍCULA DESTACADA ---
+                FuncionDetallada peliculaDestacada = todasLasFuncionesEnCartelera.stream()
+                        // Opcional: Filtrar por películas que realmente están "En Cartelera" si el DAO no lo hace.
+                        // .filter(f -> "En Cartelera".equalsIgnoreCase(f.getEstadoPelicula())) // Necesitarías añadir getEstadoPelicula() a FuncionDetallada
+                        .filter(f -> f.getTotalCalificacionesPelicula() > 0) // Priorizar películas que tengan calificaciones
+                        .max(Comparator.comparingDouble(FuncionDetallada::getCalificacionPromedioPelicula)
+                                .thenComparingInt(FuncionDetallada::getTotalCalificacionesPelicula))
+                        .orElseGet(() -> todasLasFuncionesEnCartelera.get(0)); // Fallback a la primera si ninguna cumple o no hay calificaciones
 
-                List<FuncionDetallada> funcionesParaMostrar = new ArrayList<>();
-                Set<Integer> idPeliculasMostradas = new HashSet<>();
-                final int MAX_PELICULAS_A_MOSTRAR = 4;
+                updateDetailedBanner(peliculaDestacada);
+                // --- FIN DE LÓGICA PARA PELÍCULA DESTACADA ---
+
+
+                List<FuncionDetallada> funcionesParaMostrarEnTarjetas = new ArrayList<>();
+                Set<Integer> idPeliculasMostradasEnTarjetas = new HashSet<>();
+                final int MAX_PELICULAS_A_MOSTRAR_EN_TARJETAS = 4;
 
                 for (FuncionDetallada funcion : todasLasFuncionesEnCartelera) {
-                    if (!idPeliculasMostradas.contains(funcion.getIdPelicula())) {
-                        if (funcionesParaMostrar.size() < MAX_PELICULAS_A_MOSTRAR) {
-                            funcionesParaMostrar.add(funcion);
-                            idPeliculasMostradas.add(funcion.getIdPelicula());
+                    if (!idPeliculasMostradasEnTarjetas.contains(funcion.getIdPelicula())) {
+                        if (funcionesParaMostrarEnTarjetas.size() < MAX_PELICULAS_A_MOSTRAR_EN_TARJETAS) {
+                            funcionesParaMostrarEnTarjetas.add(funcion);
+                            idPeliculasMostradasEnTarjetas.add(funcion.getIdPelicula());
                         } else {
                             break;
                         }
                     }
                 }
 
-                if (funcionesParaMostrar.isEmpty() && !todasLasFuncionesEnCartelera.isEmpty()){
-                    // No se hace nada específico aquí por ahora
-                } else if (funcionesParaMostrar.isEmpty()){
+                if (funcionesParaMostrarEnTarjetas.isEmpty()){
                     Label noPeliculasLabel = new Label("No se encontraron películas únicas para mostrar en tarjetas.");
                     noPeliculasLabel.getStyleClass().add("text-body");
                     enCarteleraPane.getChildren().add(noPeliculasLabel);
                 }
 
-                for (FuncionDetallada funcion : funcionesParaMostrar) {
+                for (FuncionDetallada funcion : funcionesParaMostrarEnTarjetas) {
                     try {
                         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/cinelinces/cardMovie-view.fxml"));
                         Node cardNode = loader.load();
                         CardMovieViewController controller = loader.getController();
                         controller.setFuncionData(funcion);
-
-                        // ---- LLAMADA A initContext CORREGIDA ----
-                        // Pasa this.dialogHelper (la instancia de DialogAnimationHelper de HomeViewController)
                         controller.initContext(enCarteleraPane, overlayPane, rootStack, this.dialogHelper);
-
                         enCarteleraPane.getChildren().add(cardNode);
                     } catch (IOException e) {
                         System.err.println("Error al cargar la tarjeta para la función '" + funcion.getTituloPelicula() + "': " + e.getMessage());
@@ -245,6 +252,25 @@ public class HomeViewController implements Initializable {
                 }
             });
         }).start();
+    }
+
+    // Método para formatear la calificación a estrellas (similar al de CardMovieViewController)
+    private String formatRatingToStars(double averageRating, int totalReviews) {
+        if (totalReviews == 0) {
+            return "N/A";
+        }
+        double rating = Math.round(averageRating * 2.0) / 2.0;
+        StringBuilder stars = new StringBuilder();
+        for (int i = 1; i <= 5; i++) {
+            if (rating >= i) {
+                stars.append(FULL_STAR);
+            } else if (rating >= (i - 0.5)) {
+                stars.append(HALF_STAR);
+            } else {
+                stars.append(EMPTY_STAR);
+            }
+        }
+        return stars.toString();
     }
 
     private String formatTextWithLineBreaks(String text, int wordsPerLine) {
@@ -285,7 +311,7 @@ public class HomeViewController implements Initializable {
         if (featuredMovieTitleText != null) featuredMovieTitleText.setText(movie.getTituloPelicula());
 
         String originalSynopsis = movie.getSinopsisPelicula();
-        String formattedSynopsisBanner = formatTextWithLineBreaks(originalSynopsis, 15);
+        String formattedSynopsisBanner = formatTextWithLineBreaks(originalSynopsis, 15); // Ajusta wordsPerLine según necesites
         if (featuredSynopsisText != null) featuredSynopsisText.setText(formattedSynopsisBanner);
 
         if (featuredGenreText != null) featuredGenreText.setText("🏷️ " + (movie.getNombreTipoPelicula() != null ? movie.getNombreTipoPelicula() : "N/A"));
@@ -297,54 +323,65 @@ public class HomeViewController implements Initializable {
         }
         if (featuredYearText != null) featuredYearText.setText("📅 " + year);
 
-        if (featuredRatingBadge != null) featuredRatingBadge.setText("★ " + (movie.getClasificacionPelicula() != null ? movie.getClasificacionPelicula() : "N/A"));
-
-        String posterPath = movie.getFotografiaPelicula();
-        if (featuredPosterImage != null) {
-            if (posterPath != null && !posterPath.isEmpty()) {
-                if (!posterPath.startsWith("http") && !posterPath.startsWith("file:") && !posterPath.startsWith("jar:") && !posterPath.startsWith("/")) {
-                    posterPath = "/com/example/images/" + posterPath;
-                }
-                try (InputStream posterStream = getClass().getResourceAsStream(posterPath)) {
-                    if (posterStream != null) {
-                        featuredPosterImage.setImage(new Image(posterStream));
-                    } else {
-                        featuredPosterImage.setImage(null);
-                        System.err.println("Banner: No se encontró el poster: " + posterPath);
-                    }
-                } catch (Exception e) {
-                    featuredPosterImage.setImage(null);
-                    System.err.println("Banner: Error al leer poster stream: " + posterPath + " - " + e.getMessage());
-                }
-            } else {
-                featuredPosterImage.setImage(null);
-            }
+        // --- ACTUALIZAR BADGE DE CALIFICACIÓN CON ESTRELLAS ---
+        if (featuredRatingBadge != null) {
+            String stars = formatRatingToStars(movie.getCalificacionPromedioPelicula(), movie.getTotalCalificacionesPelicula());
+            featuredRatingBadge.setText(stars);
+            featuredRatingBadge.setVisible(movie.getTotalCalificacionesPelicula() > 0 || !"N/A".equals(stars));
         }
 
-        String backgroundPath = movie.getFotografiaPelicula();
+        // Cargar imagen del póster
+        String posterPath = movie.getFotografiaPelicula();
+        if (featuredPosterImage != null) {
+            loadImageIntoImageView(posterPath, featuredPosterImage, "Banner Poster");
+        }
+
+        // Cargar y ajustar imagen de fondo
+        String backgroundPath = movie.getFotografiaPelicula(); // Usamos la misma imagen del póster para el fondo
         if (featuredBackgroundImage != null) {
-            if (backgroundPath != null && !backgroundPath.isEmpty()) {
-                if (!backgroundPath.startsWith("http") && !backgroundPath.startsWith("file:") && !backgroundPath.startsWith("jar:") && !backgroundPath.startsWith("/")) {
-                    backgroundPath = "/com/example/images/" + backgroundPath;
-                }
-                try (InputStream bgStream = getClass().getResourceAsStream(backgroundPath)) {
-                    if (bgStream != null) {
-                        featuredBackgroundImage.setImage(new Image(bgStream));
-                    } else {
-                        featuredBackgroundImage.setImage(null);
-                        System.err.println("Banner: No se encontró imagen de fondo: " + backgroundPath);
-                    }
-                } catch (Exception e) {
-                    featuredBackgroundImage.setImage(null);
-                    System.err.println("Banner: Error al leer imagen de fondo stream: " + backgroundPath + " - " + e.getMessage());
-                }
+            Image bgImage = loadImage(backgroundPath, "Banner Background");
+            featuredBackgroundImage.setImage(bgImage);
+            if (bgImage != null && !bgImage.isError()) {
+                featuredBackgroundImage.setPreserveRatio(true);
+                // Ajustar para que cubra la altura del banner, el StackPane recortará el ancho si es necesario
+                featuredBackgroundImage.setFitHeight(detailedFeaturedBannerPane.getPrefHeight()); // Asume que prefHeight está definido vía CSS o FXML
+                featuredBackgroundImage.setFitWidth(0); // El ancho se ajustará para mantener la proporción
+                // Para centrar la imagen si es muy ancha, el StackPane lo hace por defecto con sus hijos.
             } else {
-                featuredBackgroundImage.setImage(null);
+                featuredBackgroundImage.setImage(null); // Limpiar si no se pudo cargar
             }
         }
 
         if (btnFeaturedVerHorarios != null) btnFeaturedVerHorarios.setUserData(movie);
     }
+
+    // Método auxiliar para cargar imágenes
+    private Image loadImage(String path, String imageTypeDesc) {
+        if (path != null && !path.isEmpty()) {
+            String fullPath = path;
+            if (!fullPath.startsWith("http") && !fullPath.startsWith("file:") && !fullPath.startsWith("jar:") && !fullPath.startsWith("/")) {
+                fullPath = "/com/example/images/" + fullPath;
+            }
+            try (InputStream stream = getClass().getResourceAsStream(fullPath)) {
+                if (stream != null) {
+                    return new Image(stream);
+                } else {
+                    System.err.println(imageTypeDesc + ": No se encontró recurso de imagen en: " + fullPath);
+                }
+            } catch (Exception e) {
+                System.err.println(imageTypeDesc + ": Error al cargar imagen desde stream: " + fullPath + " - " + e.getMessage());
+            }
+        }
+        return null; // Retorna null si no se puede cargar
+    }
+
+    // Método auxiliar para cargar imagen en ImageView específico
+    private void loadImageIntoImageView(String path, ImageView imageView, String imageTypeDesc) {
+        if (imageView == null) return;
+        Image image = loadImage(path, imageTypeDesc);
+        imageView.setImage(image); // Asigna la imagen (o null si falló la carga)
+    }
+
 
     private void clearDetailedBanner() {
         if (detailedFeaturedBannerPane != null) detailedFeaturedBannerPane.setVisible(false);
@@ -355,13 +392,18 @@ public class HomeViewController implements Initializable {
         if (featuredGenreText != null) featuredGenreText.setText("🏷️ --");
         if (featuredDurationText != null) featuredDurationText.setText("⏱️ -- min");
         if (featuredYearText != null) featuredYearText.setText("📅 ----");
-        if (featuredRatingBadge != null) featuredRatingBadge.setText("★ N/A");
+        if (featuredRatingBadge != null) {
+            featuredRatingBadge.setText("N/A");
+            featuredRatingBadge.setVisible(false);
+        }
         if (btnFeaturedVerHorarios != null) btnFeaturedVerHorarios.setUserData(null);
     }
 
     private void loadProximamenteCards() {
         proximamentePane.getChildren().clear();
-        List<FuncionDetallada> proximamenteFunciones = new ArrayList<>();
+        // Aquí iría la lógica para cargar películas "Próximamente", actualmente está vacía.
+        // List<FuncionDetallada> proximamenteFunciones = funcionDAO.findProximamente...(); // Ejemplo
+        List<FuncionDetallada> proximamenteFunciones = new ArrayList<>(); // Placeholder
 
         if (proximamenteFunciones.isEmpty()) {
             Label noProximamenteLabel = new Label("No hay estrenos confirmados próximamente.");
@@ -370,5 +412,6 @@ public class HomeViewController implements Initializable {
             if(btnVerTodasProximamente != null) btnVerTodasProximamente.setDisable(true);
             return;
         }
+        // Lógica para crear tarjetas...
     }
 }

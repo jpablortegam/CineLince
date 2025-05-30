@@ -193,5 +193,27 @@
     /* Puedes añadir estilos aquí si quieres un fondo o algo específico para los FlowPanes */
 }
 
+.detailed-featured-banner-pane {
+    -fx-background-color: #4A3F78; /* Color de fondo principal del banner */
+    -fx-background-radius: 12px;
+    -fx-min-height: 380px; /* Altura mínima como en FXML */
+    -fx-pref-height: 380px; /* Altura preferida */
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 15, 0.2, 0, 4);
+    /* Asegúrate que el StackPane recorte a sus hijos. Esto es el comportamiento por defecto.
+       Si la imagen de fondo aún se desborda, podría ser un problema de cómo se añade al StackPane
+       o si el ImageView está forzando un tamaño mayor que el StackPane puede acomodar.
+       Una propiedad que a veces se olvida es que los Panes pueden crecer si sus hijos lo "necesitan",
+       a menos que tengan max-width/max-height definidos.
+       Dado que el ancho del banner viene del ScrollPane (fitToWidth), el ancho es variable.
+       La altura es fija (380px).
+    */
+}
 
+.featured-background-image {
+    -fx-opacity: 0.15; /* Opacidad para la imagen de fondo */
+    /* No necesita -fx-fit-width o -fx-fit-height aquí si se maneja en Java. */
+    /* -fx-background-radius: 12px; Si la imagen de fondo debe tener sus propias esquinas redondeadas
+                                     dentro de un contenedor que también las tiene.
+                                     Pero si el StackPane padre ya tiene radius y recorta, esto no es necesario. */
+}
 
