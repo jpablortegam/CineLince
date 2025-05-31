@@ -7,4 +7,6 @@ import java.util.List;
 public interface ProductoDAO {
     /** Devuelve todos los productos activos (Estado = 'Activo') */
     List<ProductoDTO> findAllAvailable();
+
+    void decrementStock(int idProducto, int cantidad);
 }
