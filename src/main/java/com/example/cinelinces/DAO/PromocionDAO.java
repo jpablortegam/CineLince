@@ -30,4 +30,6 @@ public interface PromocionDAO {
      *   Optional<PromocionDTO> op = promocionDAO.findByCodigo("COMBOESTRENO10");
      */
     Optional<PromocionDTO> findByCodigo(String codigo);
+
+    Optional<PromocionDTO> findActiveByCodigoAndDate(String codigo, LocalDate fecha);
 }
