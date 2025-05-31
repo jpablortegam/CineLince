@@ -10,6 +10,7 @@ public class AsientoDTO implements Serializable {
     private String fila;
     private int numero;
     private String tipoAsiento;
+    private String estado; // NUEVO CAMPO
 
     /** Constructor vacío. */
     public AsientoDTO() {
@@ -22,12 +23,14 @@ public class AsientoDTO implements Serializable {
      * @param fila         Letra o código de la fila.
      * @param numero       Número del asiento en la fila.
      * @param tipoAsiento  Tipo de asiento (Normal, VIP, Preferente, etc.).
+     * @param estado       Estado actual del asiento (Disponible, Ocupado, Mantenimiento, etc.)
      */
-    public AsientoDTO(int idAsiento, String fila, int numero, String tipoAsiento) {
+    public AsientoDTO(int idAsiento, String fila, int numero, String tipoAsiento, String estado) { // AÑADIDO estado
         this.idAsiento = idAsiento;
         this.fila = fila;
         this.numero = numero;
         this.tipoAsiento = tipoAsiento;
+        this.estado = estado; // AÑADIDO estado
     }
 
     public int getIdAsiento() {
@@ -62,10 +65,18 @@ public class AsientoDTO implements Serializable {
         this.tipoAsiento = tipoAsiento;
     }
 
+    // MÉTODO getEstado() CORREGIDO Y SETTER AÑADIDO
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
     @Override
     public String toString() {
-        // Ejemplo de representación: "C10 (VIP)" o "A5 (Normal)"
-        return String.format("%s%d (%s)", fila, numero, tipoAsiento);
+        return String.format("%s%d (%s) - %s", fila, numero, tipoAsiento, estado != null ? estado : "Estado no definido");
     }
 
     //

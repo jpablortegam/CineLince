@@ -13,23 +13,38 @@
             fx:controller="com.example.cinelinces.controllers.ClientDashboardViewController"
             prefHeight="400.0" prefWidth="600.0">
 
-    <VBox fx:id="headerSection" spacing="10" AnchorPane.topAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
+    <VBox fx:id="headerSection" spacing="10"
+          AnchorPane.topAnchor="20.0"
+          AnchorPane.leftAnchor="20.0"
+          AnchorPane.rightAnchor="20.0">
         <padding>
-            <Insets bottom="15.0"/> </padding>
+            <Insets bottom="15.0"/>
+        </padding>
         <Label text="Panel de Cliente" styleClass="dashboard-title"/>
-        <HBox spacing="15" styleClass="user-info-hbox"> <Label fx:id="welcomeLabel" styleClass="welcome-text"/>
+        <HBox spacing="15" styleClass="user-info-hbox">
+            <Label fx:id="welcomeLabel" styleClass="welcome-text"/>
             <Label fx:id="emailLabel" styleClass="user-detail-text"/>
             <Label fx:id="registroLabel" styleClass="user-detail-text"/>
         </HBox>
     </VBox>
 
-    <ScrollPane fx:id="purchasesScrollPane" fitToWidth="true" styleClass="purchases-scroll-pane"
-                AnchorPane.topAnchor="120.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
-        <VBox fx:id="purchasesContainer" spacing="12"> <padding>
-            <Insets top="10" right="5" bottom="10" left="5"/> </padding>
+    <ScrollPane fx:id="purchasesScrollPane"
+                fitToWidth="true"
+                styleClass="purchases-scroll-pane"
+                AnchorPane.topAnchor="120.0"
+                AnchorPane.bottomAnchor="60.0"
+                AnchorPane.leftAnchor="20.0"
+                AnchorPane.rightAnchor="20.0">
+        <VBox fx:id="purchasesContainer" spacing="12">
+            <padding>
+                <Insets top="10" right="5" bottom="10" left="5"/>
+            </padding>
         </VBox>
     </ScrollPane>
 
-    <Button text="Cerrar Sesión" onAction="#handleLogout" styleClass="button-accent, logout-button-custom"
-            AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0"/>
+    <Button text="Cerrar Sesión"
+            onAction="#handleLogout"
+            styleClass="button-accent, logout-button-custom"
+            AnchorPane.bottomAnchor="20.0"
+            AnchorPane.rightAnchor="20.0"/>
 </AnchorPane>
