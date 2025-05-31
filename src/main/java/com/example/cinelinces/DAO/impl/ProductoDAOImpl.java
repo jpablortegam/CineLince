@@ -48,17 +48,19 @@ public class ProductoDAOImpl implements ProductoDAO {
 
     /**
      * Decrementa el stock de un producto en la cantidad indicada.
+     * Esta versión abre SU PROPIA conexión para verificar y actualizar stock.
      * Si no hay suficiente stock o ocurre un error, lanza RuntimeException.
      */
     @Override
     public void decrementStock(int idProducto, int cantidad) {
-        // Primero, verificar que haya suficiente stock
+        // 1) Verificar que haya suficiente stock
         String selectSql = "SELECT Stock FROM Producto WHERE IdProducto = ?";
         String updateSql = "UPDATE Producto SET Stock = Stock - ? WHERE IdProducto = ? AND Stock >= ?";
 
         try (Connection conn = MySQLConnection.getConnection()) {
-            // 1) Verificar stock actual
             int stockActual;
+
+            // 1.1) SELECT para ver stock actual
             try (PreparedStatement psSelect = conn.prepareStatement(selectSql)) {
                 psSelect.setInt(1, idProducto);
                 try (ResultSet rs = psSelect.executeQuery()) {
@@ -74,7 +76,7 @@ public class ProductoDAOImpl implements ProductoDAO {
                         + idProducto + ". Stock disponible: " + stockActual);
             }
 
-            // 2) Realizar la actualización
+            // 1.2) UPDATE para restar stock
             try (PreparedStatement psUpdate = conn.prepareStatement(updateSql)) {
                 psUpdate.setInt(1, cantidad);
                 psUpdate.setInt(2, idProducto);
@@ -82,8 +84,7 @@ public class ProductoDAOImpl implements ProductoDAO {
 
                 int filasAfectadas = psUpdate.executeUpdate();
                 if (filasAfectadas == 0) {
-                    // Esto no debería suceder si el SELECT anterior encontró stock suficiente,
-                    // pero lo chequeamos por seguridad.
+                    // Esto no debería pasar si el SELECT anterior halló stock suficiente.
                     throw new RuntimeException("Error al decrementar stock del producto ID "
                             + idProducto + ". Quizás no había suficiente stock.");
                 }
@@ -92,5 +93,54 @@ public class ProductoDAOImpl implements ProductoDAO {
         } catch (SQLException e) {
             throw new RuntimeException("Error al decrementar stock en la base de datos: " + e.getMessage(), e);
         }
+    }
+
+    /**
+     * Decrementa el stock de un producto usando la CONEXIÓN EXTERNA que se le pase.
+     * Se usa cuando queremos incluir este UPDATE dentro de la misma transacción
+     * que inserta Venta/Boleto/DetalleVenta en CompraDAOImpl.
+     *
+     * @param idProducto  ID del producto cuyo stock deseamos restar.
+     * @param cantidad    Cuántas unidades restar.
+     * @param conn        Conexión ya abierta (autoCommit=false) que controla la transacción completa.
+     * @throws SQLException Si algo falla (producto no existe, falta stock, etc.).
+     */
+    public void decrementStock(int idProducto, int cantidad, Connection conn) throws SQLException {
+        // 2) Misma lógica, pero usando conn que viene por parámetro (sin abrir nueva conexión).
+        String selectSql = "SELECT Stock FROM Producto WHERE IdProducto = ?";
+        String updateSql = "UPDATE Producto SET Stock = Stock - ? WHERE IdProducto = ? AND Stock >= ?";
+
+        int stockActual;
+
+        // 2.1) SELECT para ver stock actual (misma conexión)
+        try (PreparedStatement psSelect = conn.prepareStatement(selectSql)) {
+            psSelect.setInt(1, idProducto);
+            try (ResultSet rs = psSelect.executeQuery()) {
+                if (!rs.next()) {
+                    throw new SQLException("El producto con ID " + idProducto + " no existe.");
+                }
+                stockActual = rs.getInt("Stock");
+            }
+        }
+
+        if (stockActual < cantidad) {
+            throw new SQLException("No hay suficiente stock para el producto ID "
+                    + idProducto + ". Stock disponible: " + stockActual);
+        }
+
+        // 2.2) UPDATE para restar stock (misma conexión, sin hacer commit aquí)
+        try (PreparedStatement psUpdate = conn.prepareStatement(updateSql)) {
+            psUpdate.setInt(1, cantidad);
+            psUpdate.setInt(2, idProducto);
+            psUpdate.setInt(3, cantidad);
+
+            int filasAfectadas = psUpdate.executeUpdate();
+            if (filasAfectadas == 0) {
+                // No debería ocurrir si SELECT anterior encontró stock.
+                throw new SQLException("Error al decrementar stock del producto ID "
+                        + idProducto + ". Quizás no había suficiente stock.");
+            }
+        }
+        // NOTA: NO se cierra ni se hace commit/rollback de conn aquí. Lo hace el llamador.
     }
 }

@@ -4,12 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6f94096a-8f21-4170-a76e-4c2b50d8bf02" name="Changes" comment="feat: enhance DTOs and UI components; add new fields to CompraProductoDetalladaDTO and AsientoDTO, improve purchase summary display, and update seat selection logic">
+    <list default="true" id="6f94096a-8f21-4170-a76e-4c2b50d8bf02" name="Changes" comment="feat: implement product stock management; add decrementStock method to ProductoDAOImpl and integrate product handling in CompraDAOImpl">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/DAO/ProductoDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/DAO/ProductoDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/DAO/impl/CompraDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/DAO/impl/CompraDAOImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/DAO/impl/ProductoDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/DAO/impl/ProductoDAOImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/PurchaseSummaryViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/PurchaseSummaryViewController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/database/MySQLConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/database/MySQLConnection.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -291,15 +290,7 @@
       <workItem from="1748395709034" duration="3100000" />
       <workItem from="1748471666356" duration="305000" />
       <workItem from="1748554364197" duration="12550000" />
-      <workItem from="1748664529508" duration="11294000" />
-    </task>
-    <task id="LOCAL-00010" summary="add pagination for movie listings and implement movie card display">
-      <option name="closed" value="true" />
-      <created>1747710987157</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1747710987157</updated>
+      <workItem from="1748664529508" duration="12611000" />
     </task>
     <task id="LOCAL-00011" summary="add styles for buttons, content area, and pagination; implement main application view and controllers">
       <option name="closed" value="true" />
@@ -685,7 +676,15 @@
       <option name="project" value="LOCAL" />
       <updated>1748674467167</updated>
     </task>
-    <option name="localTasksCounter" value="59" />
+    <task id="LOCAL-00059" summary="feat: implement product stock management; add decrementStock method to ProductoDAOImpl and integrate product handling in CompraDAOImpl">
+      <option name="closed" value="true" />
+      <created>1748676165513</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1748676165513</updated>
+    </task>
+    <option name="localTasksCounter" value="60" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -715,7 +714,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="refactor client dashboard and login view controllers; implement session management and improve user data handling" />
     <MESSAGE value="update sidebar title and add SQL scripts for database setup and client management" />
     <MESSAGE value="add Dockerfile and docker-compose.yml for application containerization; update login-view.fxml and login.css for improved UI layout and styles" />
     <MESSAGE value="refactor UI styles and layout; update app title, sidebar title, and image handling for improved user experience" />
@@ -740,6 +738,7 @@
     <MESSAGE value="feat: enhance purchase summary view; improve layout and add detailed purchase preview for logged-in and guest users" />
     <MESSAGE value="feat: update purchase details handling; modify CompraDetalladaDTO to include product list and enhance purchase summary view" />
     <MESSAGE value="feat: enhance DTOs and UI components; add new fields to CompraProductoDetalladaDTO and AsientoDTO, improve purchase summary display, and update seat selection logic" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: enhance DTOs and UI components; add new fields to CompraProductoDetalladaDTO and AsientoDTO, improve purchase summary display, and update seat selection logic" />
+    <MESSAGE value="feat: implement product stock management; add decrementStock method to ProductoDAOImpl and integrate product handling in CompraDAOImpl" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: implement product stock management; add decrementStock method to ProductoDAOImpl and integrate product handling in CompraDAOImpl" />
   </component>
 </project>
