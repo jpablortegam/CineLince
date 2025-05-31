@@ -20,7 +20,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.math.RoundingMode; // Asegúrate de tener esta importación
+import java.time.LocalDate;    // Asegúrate de tener esta importación
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
@@ -51,108 +52,86 @@ public class PurchaseSummaryViewController {
     @FXML private Button btnCancelSummary;
     @FXML private Button btnConfirmSummary;
 
-    // Nuevo campo de texto para ingresar un código de promoción
+    // Campo de texto para ingresar un código de promoción
     @FXML private TextField promoCodeField;
     // Botón que dispara la comprobación/aplicación del código manual
-    @FXML private Button applyPromoButton;
-    // Nuevo ComboBox para seleccionar el método de pago
+    @FXML private Button applyPromoButton; // Este ID debe coincidir con tu FXML si el botón se llama así
+    // ComboBox para seleccionar el método de pago
     @FXML private ComboBox<String> paymentMethodCombo;
 
     private final SummaryContext ctx = SummaryContext.getInstance();
-    private final PromocionDAO promocionDAO = new PromocionDAOImpl();
+    private final PromocionDAO promocionDAO = new PromocionDAOImpl(); // Asegúrate que PromocionDAO y su Impl estén actualizados
     private final CompraDAO compraDAO = new CompraDAOImpl();
 
-    // Para guardar internamente si ya apliqué un código (para que no duplique promos)
+    // Para guardar internamente si ya apliqué un código manualmente
     private String promoAplicadaManualmente = null;
     private BigDecimal descuentoAplicadoManualmente = BigDecimal.ZERO;
 
     /**
      * initialize() se ejecuta automáticamente después de cargar el FXML.
-     * Rellena las tres secciones (boletos, productos y promoción + totales).
+     * Rellena las secciones de boletos, productos y totales.
+     * Ya NO aplica promociones automáticamente.
      */
     @FXML
     public void initialize() {
         // 1) Listar boletos (asientos) seleccionados
         List<AsientoDTO> asientos = ctx.getSelectedSeats();
         FuncionDetallada funcion = ctx.getSelectedFunction();
-
         BigDecimal subtotalBoletos = BigDecimal.ZERO;
-        int rowA = 0;
-        for (AsientoDTO asiento : asientos) {
-            // a) “Película — FechaHora”
-            String textoPeli = funcion.getTituloPelicula()
-                    + " | "
-                    + funcion.getFechaHoraFuncion().format(
-                    DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")
-            );
-            Label lblPelicula = new Label(textoPeli);
 
-            // b) “Sala X”
-            Label lblSala = new Label("Sala " + funcion.getNumeroSala());
+        if (asientos != null && funcion != null) {
+            int rowA = 0;
+            for (AsientoDTO asiento : asientos) {
+                String textoPeli = funcion.getTituloPelicula()
+                        + " | "
+                        + funcion.getFechaHoraFuncion().format(
+                        DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")
+                );
+                Label lblPelicula = new Label(textoPeli);
+                Label lblSala = new Label("Sala " + funcion.getNumeroSala());
+                Label lblAsiento = new Label(asiento.getFila() + asiento.getNumero());
+                BigDecimal precioBoleto = funcion.getPrecioBoleto();
+                Label lblPrecio = new Label("$" + precioBoleto.setScale(2, RoundingMode.HALF_UP));
 
-            // c) “Asiento” (p. ej. “C10”)
-            Label lblAsiento = new Label(asiento.getFila() + asiento.getNumero());
-
-            // d) Precio unitario de boleto (desde la función)
-            BigDecimal precioBoleto = funcion.getPrecioBoleto();
-            Label lblPrecio = new Label("$" + precioBoleto);
-
-            boletosBox.add(lblPelicula, 0, rowA);
-            boletosBox.add(lblSala,     1, rowA);
-            boletosBox.add(lblAsiento,  2, rowA);
-            boletosBox.add(lblPrecio,   3, rowA);
-
-            subtotalBoletos = subtotalBoletos.add(precioBoleto);
-            rowA++;
+                boletosBox.add(lblPelicula, 0, rowA);
+                boletosBox.add(lblSala, 1, rowA);
+                boletosBox.add(lblAsiento, 2, rowA);
+                boletosBox.add(lblPrecio, 3, rowA);
+                subtotalBoletos = subtotalBoletos.add(precioBoleto);
+                rowA++;
+            }
         }
-        subtotalBoletosLabel.setText("$" + subtotalBoletos);
+        subtotalBoletosLabel.setText("$" + subtotalBoletos.setScale(2, RoundingMode.HALF_UP));
 
         // 2) Listar productos seleccionados
         List<ProductoSelectionDTO> prods = ctx.getSelectedProducts();
-
         BigDecimal subtotalProds = BigDecimal.ZERO;
-        int rowP = 0;
-        for (ProductoSelectionDTO p : prods) {
-            Label lblProd = new Label(p.getNombre() + " — $" + p.getPrecioUnitario());
-            Label lblCant = new Label(String.valueOf(p.getCantidad()));
-            Label lblSubt = new Label("$" + p.getSubtotal());
+        if (prods != null) {
+            int rowP = 0;
+            for (ProductoSelectionDTO p : prods) {
+                Label lblProd = new Label(p.getNombre() + " — $" + p.getPrecioUnitario().setScale(2, RoundingMode.HALF_UP));
+                Label lblCant = new Label(String.valueOf(p.getCantidad()));
+                Label lblSubt = new Label("$" + p.getSubtotal().setScale(2, RoundingMode.HALF_UP));
 
-            productosBox.add(lblProd, 0, rowP);
-            productosBox.add(lblCant, 1, rowP);
-            productosBox.add(lblSubt, 2, rowP);
-
-            subtotalProds = subtotalProds.add(p.getSubtotal());
-            rowP++;
+                productosBox.add(lblProd, 0, rowP);
+                productosBox.add(lblCant, 1, rowP);
+                productosBox.add(lblSubt, 2, rowP);
+                subtotalProds = subtotalProds.add(p.getSubtotal());
+                rowP++;
+            }
         }
-        subtotalProductosLabel.setText("$" + subtotalProds);
+        subtotalProductosLabel.setText("$" + subtotalProds.setScale(2, RoundingMode.HALF_UP));
 
-        // 3) Buscar promoción activa automáticamente (si existe)
-        LocalDate hoy = LocalDate.now();
-        List<PromocionDTO> promos = promocionDAO.findActiveByDate(hoy);
-
-        BigDecimal descuentoTotal = BigDecimal.ZERO;
-        if (!promos.isEmpty()) {
-            // Aplica solo la PRIMERA promoción activa
-            PromocionDTO promo = promos.get(0);
-            BigDecimal porcentaje = promo.getDescuento(); // ej. 0.10 = 10%
-            BigDecimal base = subtotalBoletos.add(subtotalProds);
-            descuentoTotal = base.multiply(porcentaje);
-
-            Label lblTituloPromo = new Label("Promoción aplicada:");
-            Label lblCodigo     = new Label(promo.getCodigo() + " (" + promo.getNombre() + ")");
-            int pctEntero = porcentaje.multiply(new BigDecimal("100")).intValue();
-            Label lblPct       = new Label("-" + pctEntero + "%");
-
-            promoBox.add(lblTituloPromo, 0, 0);
-            promoBox.add(lblCodigo,      1, 0);
-            promoBox.add(lblPct,         2, 0);
+        // 3) Inicializar sección de promoción como vacía y descuento como cero
+        if (promoBox != null) {
+            promoBox.getChildren().clear(); // Limpia el área de detalles de promoción
         }
-        descuentoLabel.setText("-$" + descuentoTotal);
+        BigDecimal descuentoInicial = BigDecimal.ZERO;
+        descuentoLabel.setText("-$" + descuentoInicial.setScale(2, RoundingMode.HALF_UP));
 
-        // 4) Mostrar total provisional (antes de que el usuario ingrese manualmente promoción
-        //    o cambie el método de pago). Más adelante se recalculará si aplica código manual.
-        BigDecimal totalPagar = subtotalBoletos.add(subtotalProds).subtract(descuentoTotal);
-        totalPagarLabel.setText("$" + totalPagar);
+        // 4) Mostrar total provisional (sin descuento inicial)
+        BigDecimal totalPagar = subtotalBoletos.add(subtotalProds).subtract(descuentoInicial);
+        totalPagarLabel.setText("$" + totalPagar.setScale(2, RoundingMode.HALF_UP));
 
         // 5) Inicializar el ComboBox de métodos de pago
         paymentMethodCombo.getItems().clear();
@@ -167,9 +146,8 @@ public class PurchaseSummaryViewController {
 
     /**
      * Método invocado cuando el usuario hace clic en “Aplicar” código de promoción.
-     * Se buscará si existe una promoción con ese código (independientemente de la fecha),
-     * y si es válida, se recalcula el descuento y el total. Si no existe o no es válida,
-     * se muestra un diálogo de error.
+     * Se buscará si existe una promoción con ese código, que esté activa y sea vigente para la fecha actual.
+     * Si es válida, se recalcula el descuento y el total. Si no, se muestra un diálogo de error.
      */
     @FXML
     private void handleApplyPromo() {
@@ -179,22 +157,20 @@ public class PurchaseSummaryViewController {
             return;
         }
 
-        // Suponemos que nuestro DAO de promociones puede buscar por código exacto:
-        Optional<PromocionDTO> optPromo = promocionDAO.findAllActivePromos() // hipotético: retorna TODAS las promos activas
-                .stream()
-                .filter(p -> p.getCodigo().equalsIgnoreCase(codigoIngresado))
-                .findFirst();
+        LocalDate hoy = LocalDate.now();
+        // Usar el método del DAO que busca por código, estado 'Activa' Y VALIDEZ DE FECHA
+        // Asegúrate de que PromocionDAO y su implementación tengan el método findActiveByCodigoAndDate
+        Optional<PromocionDTO> optPromo = promocionDAO.findActiveByCodigoAndDate(codigoIngresado, hoy);
 
         if (optPromo.isEmpty()) {
-            showAlert(Alert.AlertType.ERROR, "Promoción no válida", "El código ingresado no corresponde a ninguna promoción activa.");
+            showAlert(Alert.AlertType.ERROR, "Promoción no válida", "El código ingresado no corresponde a ninguna promoción activa o vigente para la fecha actual.");
             return;
         }
 
-        // Si llegó aquí, la promo existe y está activa:
+        // Si llegó aquí, la promo existe, está activa y es vigente para hoy:
         PromocionDTO promo = optPromo.get();
         promoAplicadaManualmente = promo.getCodigo();
 
-        // Recalculamos el descuento en pantalla, ignorando la promo automática anterior:
         BigDecimal subtotalBoletos = parseCurrencyLabel(subtotalBoletosLabel.getText());
         BigDecimal subtotalProds   = parseCurrencyLabel(subtotalProductosLabel.getText());
         BigDecimal porcentaje      = promo.getDescuento();
@@ -202,32 +178,36 @@ public class PurchaseSummaryViewController {
 
         // Aplicamos el descuento manual
         descuentoAplicadoManualmente = base.multiply(porcentaje);
-        descuentoLabel.setText("-$" + descuentoAplicadoManualmente);
+        descuentoLabel.setText("-$" + descuentoAplicadoManualmente.setScale(2, RoundingMode.HALF_UP));
 
         // Vaciamos el GridPane de promoBox y ponemos solo ésta:
-        promoBox.getChildren().clear();
+        if (promoBox != null) {
+            promoBox.getChildren().clear();
+        }
         Label lblTituloPromo = new Label("Promoción aplicada:");
         Label lblCodigo     = new Label(promo.getCodigo() + " (" + promo.getNombre() + ")");
         int pctEntero       = porcentaje.multiply(new BigDecimal("100")).intValue();
         Label lblPct        = new Label("-" + pctEntero + "%");
-        promoBox.add(lblTituloPromo, 0, 0);
-        promoBox.add(lblCodigo,      1, 0);
-        promoBox.add(lblPct,         2, 0);
+
+        if (promoBox != null) {
+            promoBox.add(lblTituloPromo, 0, 0);
+            promoBox.add(lblCodigo,      1, 0);
+            promoBox.add(lblPct,         2, 0);
+        }
 
         // Volver a calcular y mostrar el total final
         BigDecimal totalFinal = base.subtract(descuentoAplicadoManualmente);
-        totalPagarLabel.setText("$" + totalFinal);
+        totalPagarLabel.setText("$" + totalFinal.setScale(2, RoundingMode.HALF_UP));
     }
 
     /**
      * Al dar clic en “Confirmar pago”:
-     *  - Verificamos si el usuario está logueado (SessionManager.isLoggedIn()).
-     *    * Si está logueado → redirigimos a la vista de “Mi cuenta” (por ejemplo, cargar otro FXML).
-     *    * Si NO está logueado → abrimos un modal con PurchaseCardController para mostrar los detalles + QR.
+     * - Verificamos si el usuario está logueado (SessionManager.isLoggedIn()).
+     * * Si está logueado → redirigimos a la vista de “Mi cuenta”.
+     * * Si NO está logueado → abrimos un modal con PurchaseCardController.
      */
     @FXML
     private void handleConfirmSummary() {
-        // 1) Tomar método de pago seleccionado
         String metodoPagoSeleccionado = paymentMethodCombo.getValue();
         if (metodoPagoSeleccionado == null || metodoPagoSeleccionado.isBlank()) {
             showAlert(Alert.AlertType.WARNING, "Método de pago", "Debes seleccionar un método de pago.");
@@ -235,19 +215,21 @@ public class PurchaseSummaryViewController {
         }
         ctx.setMetodoPago(metodoPagoSeleccionado);
 
-        // 2) Tomar código de promo (si aplicó), se guardó en promoAplicadaManualmente
         if (promoAplicadaManualmente != null) {
+            // Si se aplicó una promoción manualmente, se usa ese código
             ctx.setCodigoPromocion(promoAplicadaManualmente);
+        } else {
+            // Si no se aplicó ninguna promoción manualmente, se limpia cualquier código previo en el contexto
+            // Esto es opcional, depende de si quieres que el contexto recuerde una promo auto-aplicada
+            // que ya no existe. Como ya no hay auto-aplicación, esto asegura que solo las manuales se guarden.
+            ctx.setCodigoPromocion(null);
         }
 
-        // 3) Llamar a DAO para guardar en BD (venta, boletos, detalle venta, etc.)
-        compraDAO.saveFromSummary(ctx);
 
-        // 4) Revisar si el usuario está logueado
+        compraDAO.saveFromSummary(ctx);
         boolean isLoggedIn = SessionManager.getInstance().isLoggedIn();
 
         if (isLoggedIn) {
-            // Si está logueado, redirijo a “MiCuentaView.fxml”
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/cinelinces/views/mi-cuenta-view.fxml"));
                 Stage stage = new Stage();
@@ -260,7 +242,6 @@ public class PurchaseSummaryViewController {
                 showAlert(Alert.AlertType.ERROR, "Error", "No se pudo abrir la vista de Mi cuenta.");
             }
         } else {
-            // Si NO está logueado, abro modal con “PurchaseCard.fxml”
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/cinelinces/views/purchase-card-view.fxml"));
                 Stage dialog = new Stage();
@@ -269,16 +250,12 @@ public class PurchaseSummaryViewController {
                 dialog.setScene(new Scene(loader.load()));
                 dialog.setResizable(false);
 
-                // Antes de mostrar, le paso el DTO resultante al PurchaseCardController
-                // El método saveFromSummary() ya habrá generado un CompraDetalladaDTO dentro de ctx
-                // Supongamos que ctx.getUltimaCompraDetallada() retorna ese DTO recién guardado:
                 Object controller = loader.getController();
                 if (controller instanceof com.example.cinelinces.controllers.PurchaseCardController) {
                     com.example.cinelinces.controllers.PurchaseCardController cardCtrl =
                             (com.example.cinelinces.controllers.PurchaseCardController) controller;
                     cardCtrl.setData(ctx.getUltimaCompraDetallada());
                 }
-
                 dialog.showAndWait();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -286,7 +263,6 @@ public class PurchaseSummaryViewController {
             }
         }
 
-        // 5) Por último, cierro esta ventana de “Resumen de compra”
         Stage st = (Stage) btnConfirmSummary.getScene().getWindow();
         st.close();
     }
@@ -313,13 +289,14 @@ public class PurchaseSummaryViewController {
      * Convierte un string de etiqueta (“$123.45”) en BigDecimal, quitando el símbolo.
      */
     private BigDecimal parseCurrencyLabel(String text) {
-        // Ejemplo: si text = "$150.00", quita el “$” y parsea
         try {
+            String parsableText = text;
             if (text.startsWith("$")) {
-                return new BigDecimal(text.substring(1));
+                parsableText = text.substring(1);
             }
-            return new BigDecimal(text);
+            return new BigDecimal(parsableText.trim()); // Añadido trim por si acaso
         } catch (NumberFormatException e) {
+            System.err.println("Error al parsear valor monetario: " + text + " - " + e.getMessage());
             return BigDecimal.ZERO;
         }
     }
