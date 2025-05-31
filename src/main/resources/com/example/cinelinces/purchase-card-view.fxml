@@ -14,7 +14,7 @@
       fx:controller="com.example.cinelinces.controllers.PurchaseCardController">
 
     <padding>
-        <Insets bottom="12.0" left="15.0" right="15.0" top="12.0" />
+        <Insets bottom="12.0" left="15.0" right="15.0" top="12.0"/>
     </padding>
 
     <HBox spacing="15" alignment="TOP_LEFT">
@@ -22,42 +22,45 @@
                    fitHeight="120.0" fitWidth="80.0"
                    pickOnBounds="true"
                    preserveRatio="true"
-                   styleClass="movie-poster-thumbnail" />
+                   styleClass="movie-poster-thumbnail"/>
         <VBox spacing="5" HBox.hgrow="ALWAYS">
             <Label fx:id="movieTitleLabel"
                    styleClass="movie-title-in-card"
-                   wrapText="true" />
+                   wrapText="true"/>
             <Label fx:id="cinemaAndSalaLabel"
-                   styleClass="details-label-secondary" />
+                   styleClass="details-label-secondary"/>
             <Label fx:id="functionDateTimeLabel"
-                   styleClass="details-label-secondary" />
+                   styleClass="details-label-secondary"/>
         </VBox>
     </HBox>
 
     <VBox spacing="8" styleClass="purchase-details-section">
         <HBox spacing="20">
             <VBox spacing="3" HBox.hgrow="ALWAYS">
-                <Label text="DETALLES DE COMPRA" styleClass="section-title-label" />
-                <Label fx:id="purchaseDateTimeLabel" styleClass="details-label" />
-                <Label fx:id="seatLabel" styleClass="details-label" /> <Label fx:id="ticketIdLabel" styleClass="details-label" /> </VBox>
+                <Label text="DETALLES DE COMPRA" styleClass="section-title-label"/>
+                <Label fx:id="purchaseDateTimeLabel" styleClass="details-label"/>
+                <Label fx:id="seatLabel" styleClass="details-label"/>
+                <Label fx:id="ticketIdLabel" styleClass="details-label"/>
+            </VBox>
             <VBox spacing="3" alignment="TOP_RIGHT">
-                <Label text="PAGO" styleClass="section-title-label" />
-                <Label fx:id="priceLabel" styleClass="price-label" />
-                <Label fx:id="paymentMethodLabel" styleClass="details-label" />
+                <Label text="PAGO" styleClass="section-title-label"/>
+                <Label fx:id="priceLabel" styleClass="price-label"/>
+                <Label fx:id="paymentMethodLabel" styleClass="details-label"/>
             </VBox>
         </HBox>
 
         <VBox fx:id="productsVBox" spacing="3">
-            <Label text="PRODUCTOS ADQUIRIDOS" styleClass="section-title-label" />
-            <Label fx:id="noProductsLabel" text="No se adquirieron productos." managed="false" visible="false" styleClass="details-label-italic"/>
+            <Label text="PRODUCTOS ADQUIRIDOS" styleClass="section-title-label"/>
+            <Label fx:id="noProductsLabel" text="No se adquirieron productos." managed="false" visible="false"
+                   styleClass="details-label-italic"/>
         </VBox>
 
         <HBox spacing="10" alignment="CENTER_LEFT">
-            <Label fx:id="purchaseStatusLabel" styleClass="status-label" />
+            <Label fx:id="purchaseStatusLabel" styleClass="status-label"/>
             <Label fx:id="qrInfoLabel"
                    styleClass="details-label-small"
                    HBox.hgrow="ALWAYS"
-                   alignment="CENTER_RIGHT" />
+                   alignment="CENTER_RIGHT"/>
         </HBox>
     </VBox>
 </VBox>

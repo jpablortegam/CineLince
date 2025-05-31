@@ -1,9 +1,5 @@
 package com.example.cinelinces.utils.Forms;
 
-/*
- * Show alerts standard.
- */
-
 import javafx.scene.control.Alert;
 
 public class AlertUtil {

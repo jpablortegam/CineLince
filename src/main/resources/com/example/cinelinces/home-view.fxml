@@ -25,12 +25,13 @@
                 <Insets top="24" right="24" bottom="32" left="24"/>
             </padding>
 
-            <HBox alignment="CENTER_LEFT" spacing="10" >
+            <HBox alignment="CENTER_LEFT" spacing="10">
                 <padding>
                     <Insets top="8" bottom="8" left="16" right="16"/>
                 </padding>
                 <Label text="Selecciona un Cine:" styleClass="text-body-strong"/>
-                <ComboBox fx:id="cineComboBox" promptText="Cargando cines..." HBox.hgrow="ALWAYS" styleClass="combo-box"/>
+                <ComboBox fx:id="cineComboBox" promptText="Cargando cines..." HBox.hgrow="ALWAYS"
+                          styleClass="combo-box"/>
             </HBox>
 
             <StackPane fx:id="detailedFeaturedBannerPane" styleClass="detailed-featured-banner-pane">
@@ -39,7 +40,8 @@
                     <padding>
                         <Insets top="25" right="30" bottom="25" left="30"/>
                     </padding>
-                    <StackPane fx:id="featuredPosterContainer" styleClass="featured-poster-container" alignment="TOP_RIGHT">
+                    <StackPane fx:id="featuredPosterContainer" styleClass="featured-poster-container"
+                               alignment="TOP_RIGHT">
                         <ImageView fx:id="featuredPosterImage" styleClass="featured-poster-image"/>
                         <Label fx:id="featuredRatingBadge" text="★ N/A" styleClass="rating-badge-featured">
                             <StackPane.margin>
@@ -48,7 +50,8 @@
                         </Label>
                     </StackPane>
                     <VBox spacing="10" alignment="TOP_LEFT" HBox.hgrow="ALWAYS" styleClass="featured-info-vbox">
-                        <Label fx:id="featuredMovieTitleText" text="Título de la Película" styleClass="featured-title-text" wrapText="true"/>
+                        <Label fx:id="featuredMovieTitleText" text="Título de la Película"
+                               styleClass="featured-title-text" wrapText="true"/>
                         <HBox spacing="15" alignment="CENTER_LEFT" styleClass="featured-meta-hbox">
                             <Label fx:id="featuredGenreText" text="🏷️ Género" styleClass="featured-meta-label"/>
                             <Label fx:id="featuredDurationText" text="⏱️ Duración" styleClass="featured-meta-label"/>
@@ -63,9 +66,12 @@
                             <padding>
                                 <Insets top="10"/>
                             </padding>
-                            <Button fx:id="btnFeaturedVerHorarios" text="▶ Ver horarios" styleClass="button-featured-primary"/>
-                            <Button fx:id="btnFeaturedMiLista" text="+ Mi lista" styleClass="button-featured-secondary"/>
-                            <Button fx:id="btnFeaturedMasInfo" text="ℹ️ Más info" styleClass="button-featured-tertiary"/>
+                            <Button fx:id="btnFeaturedVerHorarios" text="▶ Ver horarios"
+                                    styleClass="button-featured-primary"/>
+                            <Button fx:id="btnFeaturedMiLista" text="+ Mi lista"
+                                    styleClass="button-featured-secondary"/>
+                            <Button fx:id="btnFeaturedMasInfo" text="ℹ️ Más info"
+                                    styleClass="button-featured-tertiary"/>
                         </HBox>
                     </VBox>
                 </HBox>
@@ -76,7 +82,7 @@
                 </Label>
             </StackPane>
 
-            <VBox spacing="16" >
+            <VBox spacing="16">
                 <HBox alignment="CENTER_LEFT" spacing="16">
                     <Label styleClass="text-section" text="En cartelera"/>
                     <Region HBox.hgrow="ALWAYS"/>

@@ -5,14 +5,13 @@ import com.example.cinelinces.database.MySQLConnection;
 import com.example.cinelinces.model.Cliente;
 
 import java.sql.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ClienteDAOImpl implements ClienteDAO {
 
-    MySQLConnection conexionBD = new MySQLConnection(); // Asumiendo que tienes esta clase para la conexión
+    MySQLConnection conexionBD = new MySQLConnection();
 
     private Cliente mapResultSetToCliente(ResultSet rs) throws SQLException {
         Cliente cliente = new Cliente();
@@ -20,20 +19,16 @@ public class ClienteDAOImpl implements ClienteDAO {
         cliente.setNombre(rs.getString("Nombre"));
         cliente.setApellido(rs.getString("Apellido"));
         cliente.setEmail(rs.getString("Email"));
-        cliente.setContrasenaHash(rs.getString("ContrasenaHash")); // Mapear la contraseña hasheada
+        cliente.setContrasenaHash(rs.getString("ContrasenaHash"));
         cliente.setTelefono(rs.getString("Telefono"));
-
         Date fechaNacSQL = rs.getDate("FechaNacimiento");
         if (fechaNacSQL != null) {
             cliente.setFechaNacimiento(fechaNacSQL.toLocalDate());
         }
-
         Timestamp fechaRegSQL = rs.getTimestamp("FechaRegistro");
         if (fechaRegSQL != null) {
             cliente.setFechaRegistro(fechaRegSQL.toLocalDateTime());
         }
-
-        // Manejar IdMembresia que puede ser NULL
         int idMembresia = rs.getInt("IdMembresia");
         if (rs.wasNull()) {
             cliente.setIdMembresia(null);
@@ -79,7 +74,6 @@ public class ClienteDAOImpl implements ClienteDAO {
         return null;
     }
 
-
     @Override
     public List<Cliente> findAll() {
         List<Cliente> clientes = new ArrayList<>();
@@ -99,7 +93,6 @@ public class ClienteDAOImpl implements ClienteDAO {
 
     @Override
     public void save(Cliente entity) {
-        // El IdCliente es AUTO_INCREMENT, ContrasenaHash debe ser hasheada ANTES de llamar a save.
         String sql = "INSERT INTO Cliente (Nombre, Apellido, Email, ContrasenaHash, Telefono, FechaNacimiento, FechaRegistro, IdMembresia) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         try (Connection conn = conexionBD.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -107,11 +100,10 @@ public class ClienteDAOImpl implements ClienteDAO {
             pstmt.setString(1, entity.getNombre());
             pstmt.setString(2, entity.getApellido());
             pstmt.setString(3, entity.getEmail());
-            pstmt.setString(4, entity.getContrasenaHash()); // Guardar el hash
+            pstmt.setString(4, entity.getContrasenaHash());
             pstmt.setString(5, entity.getTelefono());
             pstmt.setDate(6, entity.getFechaNacimiento() != null ? Date.valueOf(entity.getFechaNacimiento()) : null);
-            pstmt.setTimestamp(7, entity.getFechaRegistro() != null ? Timestamp.valueOf(entity.getFechaRegistro()) : Timestamp.valueOf(LocalDateTime.now())); // Fecha actual si es null
-
+            pstmt.setTimestamp(7, entity.getFechaRegistro() != null ? Timestamp.valueOf(entity.getFechaRegistro()) : Timestamp.valueOf(LocalDateTime.now()));
             if (entity.getIdMembresia() != null) {
                 pstmt.setInt(8, entity.getIdMembresia());
             } else {
@@ -134,7 +126,6 @@ public class ClienteDAOImpl implements ClienteDAO {
 
     @Override
     public Cliente update(Cliente entity) {
-        // ContrasenaHash debe ser hasheada ANTES de llamar a update si se está cambiando.
         String sql = "UPDATE Cliente SET Nombre = ?, Apellido = ?, Email = ?, ContrasenaHash = ?, Telefono = ?, FechaNacimiento = ?, FechaRegistro = ?, IdMembresia = ? WHERE IdCliente = ?";
         try (Connection conn = conexionBD.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -142,7 +133,7 @@ public class ClienteDAOImpl implements ClienteDAO {
             pstmt.setString(1, entity.getNombre());
             pstmt.setString(2, entity.getApellido());
             pstmt.setString(3, entity.getEmail());
-            pstmt.setString(4, entity.getContrasenaHash()); // Actualizar el hash
+            pstmt.setString(4, entity.getContrasenaHash());
             pstmt.setString(5, entity.getTelefono());
             pstmt.setDate(6, entity.getFechaNacimiento() != null ? Date.valueOf(entity.getFechaNacimiento()) : null);
             pstmt.setTimestamp(7, entity.getFechaRegistro() != null ? Timestamp.valueOf(entity.getFechaRegistro()) : null);
@@ -174,8 +165,6 @@ public class ClienteDAOImpl implements ClienteDAO {
 
     @Override
     public void deleteById(Integer id) {
-        // Considerar restricciones de clave foránea (ej. en la tabla Boleto)
-        // Puede que necesites eliminar o desasociar boletos primero, o usar SET FOREIGN_KEY_CHECKS=0; temporalmente.
         String sql = "DELETE FROM Cliente WHERE IdCliente = ?";
         try (Connection conn = conexionBD.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -184,7 +173,6 @@ public class ClienteDAOImpl implements ClienteDAO {
         } catch (SQLException e) {
             System.err.println("Error en ClienteDAOImpl.deleteById: " + e.getMessage());
             e.printStackTrace();
-            // Podrías lanzar una excepción personalizada aquí si la eliminación falla debido a FK
         }
     }
 }

@@ -1,34 +1,34 @@
 .root {
     /* Colores Primarios y Secundarios */
-    -fx-primary: #868686;             /* Gris medio - tu definición */
-    -fx-primary-light: #AEAEAE;       /* NUEVO/AJUSTADO: Un gris más claro que -fx-primary */
-    -fx-primary-dark: #5E5E5E;        /* NUEVO: Un gris más oscuro que -fx-primary */
-    -fx-secondary: #6366f1;           /* Tu definición */
-    -fx-secondary-hover: #5855eb;     /* Tu definición */
+    -fx-primary: #868686; /* Gris medio - tu definición */
+    -fx-primary-light: #AEAEAE; /* NUEVO/AJUSTADO: Un gris más claro que -fx-primary */
+    -fx-primary-dark: #5E5E5E; /* NUEVO: Un gris más oscuro que -fx-primary */
+    -fx-secondary: #6366f1; /* Tu definición */
+    -fx-secondary-hover: #5855eb; /* Tu definición */
 
     /* Colores de Acento y Estado */
-    -fx-accent: #10b981;              /* Tu definición */
-    -fx-accent-hover: #059669;        /* Tu definición */
-    -fx-success: #28a745;             /* NUEVO: Un verde para éxito */
-    -fx-success-dark: #1e7e34;        /* NUEVO: Un verde más oscuro para texto sobre fondo claro de éxito */
-    -fx-text-disabled: #a3a3a3;       /* Tu definición */
+    -fx-accent: #10b981; /* Tu definición */
+    -fx-accent-hover: #059669; /* Tu definición */
+    -fx-success: #28a745; /* NUEVO: Un verde para éxito */
+    -fx-success-dark: #1e7e34; /* NUEVO: Un verde más oscuro para texto sobre fondo claro de éxito */
+    -fx-text-disabled: #a3a3a3; /* Tu definición */
 
     /* Variantes de Contorno */
-    -fx-outline-variant: #D0D0D0;     /* Tu definición - ¡Esta ya está bien! */
+    -fx-outline-variant: #D0D0D0; /* Tu definición - ¡Esta ya está bien! */
 
     /* Colores Neutros de Fondo y Superficie */
-    -fx-background: #fafafa;          /* Tu definición */
-    -fx-surface: #ffffff;             /* Tu definición */
-    -fx-outline: #e5e5e5;             /* Tu definición */
+    -fx-background: #fafafa; /* Tu definición */
+    -fx-surface: #ffffff; /* Tu definición */
+    -fx-outline: #e5e5e5; /* Tu definición */
 
     /* Colores de Texto */
-    -fx-text-primary: #312f2f;        /* Tu definición */
-    -fx-text-secondary: #737373;      /* Tu definición */
-    -fx-text-tertiary: #ababab;       /* NUEVO: Para texto menos prominente */
+    -fx-text-primary: #312f2f; /* Tu definición */
+    -fx-text-secondary: #737373; /* Tu definición */
+    -fx-text-tertiary: #ababab; /* NUEVO: Para texto menos prominente */
 
     /* Sombras (Elevación) */
-    -fx-elevation-1: dropshadow(gaussian, rgba(0,0,0,0.04), 2, 0, 0, 1); /* Tu definición */
-    -fx-elevation-2: dropshadow(gaussian, rgba(0,0,0,0.08), 4, 0, 0, 2); /* Tu definición */
+    -fx-elevation-1: dropshadow(gaussian, rgba(0, 0, 0, 0.04), 2, 0, 0, 1); /* Tu definición */
+    -fx-elevation-2: dropshadow(gaussian, rgba(0, 0, 0, 0.08), 4, 0, 0, 2); /* Tu definición */
 }
 
 /* Reseteo de Foco (opcional, pero lo tienes) */

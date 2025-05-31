@@ -8,29 +8,27 @@ public class Cliente {
     private String nombre;
     private String apellido;
     private String email;
-    private String contrasenaHash; // Nuevo campo para la contraseña hasheada
+    private String contrasenaHash;
     private String telefono;
     private LocalDate fechaNacimiento;
     private LocalDateTime fechaRegistro;
-    private Integer idMembresia; // Puede ser Integer si es nullable
+    private Integer idMembresia;
 
     public Cliente() {
     }
 
-    // Constructor actualizado
     public Cliente(int idCliente, String nombre, String apellido, String email, String contrasenaHash, String telefono, LocalDate fechaNacimiento, LocalDateTime fechaRegistro, Integer idMembresia) {
         this.idCliente = idCliente;
         this.nombre = nombre;
         this.apellido = apellido;
         this.email = email;
-        this.contrasenaHash = contrasenaHash; // Incluir en el constructor
+        this.contrasenaHash = contrasenaHash;
         this.telefono = telefono;
         this.fechaNacimiento = fechaNacimiento;
         this.fechaRegistro = fechaRegistro;
         this.idMembresia = idMembresia;
     }
 
-    // Getters y Setters
     public int getIdCliente() {
         return idCliente;
     }
@@ -110,7 +108,6 @@ public class Cliente {
                 ", nombre='" + nombre + '\'' +
                 ", apellido='" + apellido + '\'' +
                 ", email='" + email + '\'' +
-                // No incluyas contrasenaHash en toString() por seguridad
                 ", telefono='" + telefono + '\'' +
                 ", fechaNacimiento=" + fechaNacimiento +
                 ", fechaRegistro=" + fechaRegistro +

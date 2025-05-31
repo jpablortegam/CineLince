@@ -8,7 +8,7 @@
 /* Botones de flecha */
 .carousel-pagination .arrow-button {
     -fx-background-color: transparent;
-    -fx-shape: "M1 1 L7 8 L1 15";     /* triángulo apuntando a la derecha */
+    -fx-shape: "M1 1 L7 8 L1 15"; /* triángulo apuntando a la derecha */
     -fx-scale-x: 1.4;
     -fx-scale-y: 1.4;
     -fx-text-fill: #2C3E50;

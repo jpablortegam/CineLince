@@ -1,13 +1,14 @@
 .featured-banner {
     -fx-background-radius: 12px;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 4,0,0,2);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.08), 4, 0, 0, 2);
     -fx-min-height: 240px;
 }
+
 .gradient-overlay {
     -fx-background-color: linear-gradient(
             from 0% 100% to 0% 0%,
-            rgba(0,0,0,0.85) 0%,
-            rgba(0,0,0,0.6) 40%,
-            rgba(0,0,0,0)    100%
+            rgba(0, 0, 0, 0.85) 0%,
+            rgba(0, 0, 0, 0.6) 40%,
+            rgba(0, 0, 0, 0) 100%
     );
 }

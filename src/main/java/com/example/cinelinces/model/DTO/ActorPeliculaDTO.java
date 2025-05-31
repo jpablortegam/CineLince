@@ -9,7 +9,6 @@ public class ActorPeliculaDTO {
         this.personaje = personaje;
     }
 
-    // Getters
     public String getNombreActor() {
         return nombreActor;
     }
@@ -18,7 +17,6 @@ public class ActorPeliculaDTO {
         return personaje;
     }
 
-    // Setters (optional, if you only set values via constructor)
     public void setNombreActor(String nombreActor) {
         this.nombreActor = nombreActor;
     }
@@ -27,7 +25,6 @@ public class ActorPeliculaDTO {
         this.personaje = personaje;
     }
 
-    // toString can be useful for debugging or simple display
     @Override
     public String toString() {
         return nombreActor + " como " + personaje;

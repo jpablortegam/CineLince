@@ -8,15 +8,11 @@ import com.example.cinelinces.utils.SummaryContext;
 import java.util.List;
 
 public interface CompraDAO {
-    /** Historial “genérico” (por compatibilidad) */
     List<CompraDetalladaDTO> findComprasByClienteId(int idCliente);
 
-    /** Historial de boletos para un cliente */
     List<CompraDetalladaDTO> findComprasDeBoletosByClienteId(int idCliente);
 
-    /** Historial de productos (dulcería) para un cliente */
     List<CompraProductoDetalladaDTO> findComprasDeProductosByClienteId(int idCliente);
 
-    /** Guarda la compra completa (boletos + productos) a partir del SummaryContext */
     void saveFromSummary(SummaryContext ctx);
 }

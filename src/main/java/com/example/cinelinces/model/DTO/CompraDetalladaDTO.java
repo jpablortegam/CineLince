@@ -2,39 +2,33 @@ package com.example.cinelinces.model.DTO;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.List; // Para la lista de productos
+import java.util.List;
 
 public class CompraDetalladaDTO {
-    // —— Datos de Boleto ——
-    private String idBoleto; // Cambiado a String
+    private String idBoleto;
     private BigDecimal precioFinal;
     private LocalDateTime fechaCompra;
     private String codigoQR;
-    private String idAsiento; // Cambiado a String para mostrar "C10, D5", etc.
-
-    // —— Datos de Venta ——
+    private String idAsiento;
     private int idVenta;
     private BigDecimal totalVenta;
     private String metodoPago;
     private String estadoVenta;
     private boolean facturado;
     private Integer idPromocion;
-
-    // —— Datos de Función + Película + Sala + Cine ——
     private FuncionDetallada funcion;
 
-    // NUEVO: Para almacenar los productos comprados
     private List<ProductoSelectionDTO> productosComprados;
 
-    public CompraDetalladaDTO() {}
+    public CompraDetalladaDTO() {
+    }
 
-    // Constructor actualizado (puedes añadir productosComprados aquí o usar setters)
     public CompraDetalladaDTO(
-            String idBoleto, // Cambiado
+            String idBoleto,
             BigDecimal precioFinal,
             LocalDateTime fechaCompra,
             String codigoQR,
-            String idAsiento, // Cambiado
+            String idAsiento,
             int idVenta,
             BigDecimal totalVenta,
             String metodoPago,
@@ -42,7 +36,7 @@ public class CompraDetalladaDTO {
             boolean facturado,
             Integer idPromocion,
             FuncionDetallada funcion,
-            List<ProductoSelectionDTO> productosComprados // Nuevo
+            List<ProductoSelectionDTO> productosComprados
     ) {
         this.idBoleto = idBoleto;
         this.precioFinal = precioFinal;
@@ -56,48 +50,111 @@ public class CompraDetalladaDTO {
         this.facturado = facturado;
         this.idPromocion = idPromocion;
         this.funcion = funcion;
-        this.productosComprados = productosComprados; // Nuevo
+        this.productosComprados = productosComprados;
     }
 
-    // --- Getters & Setters ---
 
-    public String getIdBoleto() { return idBoleto; } // Cambiado
-    public void setIdBoleto(String idBoleto) { this.idBoleto = idBoleto; } // Cambiado
+    public String getIdBoleto() {
+        return idBoleto;
+    }
 
-    public BigDecimal getPrecioFinal() { return precioFinal; }
-    public void setPrecioFinal(BigDecimal precioFinal) { this.precioFinal = precioFinal; }
+    public void setIdBoleto(String idBoleto) {
+        this.idBoleto = idBoleto;
+    }
 
-    public LocalDateTime getFechaCompra() { return fechaCompra; }
-    public void setFechaCompra(LocalDateTime fechaCompra) { this.fechaCompra = fechaCompra; }
+    public BigDecimal getPrecioFinal() {
+        return precioFinal;
+    }
 
-    public String getCodigoQR() { return codigoQR; }
-    public void setCodigoQR(String codigoQR) { this.codigoQR = codigoQR; }
+    public void setPrecioFinal(BigDecimal precioFinal) {
+        this.precioFinal = precioFinal;
+    }
 
-    public String getIdAsiento() { return idAsiento; } // Cambiado
-    public void setIdAsiento(String idAsiento) { this.idAsiento = idAsiento; } // Cambiado
+    public LocalDateTime getFechaCompra() {
+        return fechaCompra;
+    }
 
-    public int getIdVenta() { return idVenta; }
-    public void setIdVenta(int idVenta) { this.idVenta = idVenta; }
+    public void setFechaCompra(LocalDateTime fechaCompra) {
+        this.fechaCompra = fechaCompra;
+    }
 
-    public BigDecimal getTotalVenta() { return totalVenta; }
-    public void setTotalVenta(BigDecimal totalVenta) { this.totalVenta = totalVenta; }
+    public String getCodigoQR() {
+        return codigoQR;
+    }
 
-    public String getMetodoPago() { return metodoPago; }
-    public void setMetodoPago(String metodoPago) { this.metodoPago = metodoPago; }
+    public void setCodigoQR(String codigoQR) {
+        this.codigoQR = codigoQR;
+    }
 
-    public String getEstadoVenta() { return estadoVenta; }
-    public void setEstadoVenta(String estadoVenta) { this.estadoVenta = estadoVenta; }
+    public String getIdAsiento() {
+        return idAsiento;
+    }
 
-    public boolean isFacturado() { return facturado; }
-    public void setFacturado(boolean facturado) { this.facturado = facturado; }
+    public void setIdAsiento(String idAsiento) {
+        this.idAsiento = idAsiento;
+    }
 
-    public Integer getIdPromocion() { return idPromocion; }
-    public void setIdPromocion(Integer idPromocion) { this.idPromocion = idPromocion; }
+    public int getIdVenta() {
+        return idVenta;
+    }
 
-    public FuncionDetallada getFuncion() { return funcion; }
-    public void setFuncion(FuncionDetallada funcion) { this.funcion = funcion; }
+    public void setIdVenta(int idVenta) {
+        this.idVenta = idVenta;
+    }
 
-    // NUEVO: Getter y Setter para productosComprados
-    public List<ProductoSelectionDTO> getProductosComprados() { return productosComprados; }
-    public void setProductosComprados(List<ProductoSelectionDTO> productosComprados) { this.productosComprados = productosComprados; }
+    public BigDecimal getTotalVenta() {
+        return totalVenta;
+    }
+
+    public void setTotalVenta(BigDecimal totalVenta) {
+        this.totalVenta = totalVenta;
+    }
+
+    public String getMetodoPago() {
+        return metodoPago;
+    }
+
+    public void setMetodoPago(String metodoPago) {
+        this.metodoPago = metodoPago;
+    }
+
+    public String getEstadoVenta() {
+        return estadoVenta;
+    }
+
+    public void setEstadoVenta(String estadoVenta) {
+        this.estadoVenta = estadoVenta;
+    }
+
+    public boolean isFacturado() {
+        return facturado;
+    }
+
+    public void setFacturado(boolean facturado) {
+        this.facturado = facturado;
+    }
+
+    public Integer getIdPromocion() {
+        return idPromocion;
+    }
+
+    public void setIdPromocion(Integer idPromocion) {
+        this.idPromocion = idPromocion;
+    }
+
+    public FuncionDetallada getFuncion() {
+        return funcion;
+    }
+
+    public void setFuncion(FuncionDetallada funcion) {
+        this.funcion = funcion;
+    }
+
+    public List<ProductoSelectionDTO> getProductosComprados() {
+        return productosComprados;
+    }
+
+    public void setProductosComprados(List<ProductoSelectionDTO> productosComprados) {
+        this.productosComprados = productosComprados;
+    }
 }

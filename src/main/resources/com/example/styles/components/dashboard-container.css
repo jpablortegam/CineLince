@@ -8,7 +8,7 @@
 /* Header Section VBox */
 #headerSection { /* If you give fx:id="headerSection" to the VBox */
     /* -fx-border-color: -fx-outline; */ /* Optional border */
-    /* -fx-border-width: 0 0 1px 0; */  /* Bottom border only */
+    /* -fx-border-width: 0 0 1px 0; */ /* Bottom border only */
 }
 
 .dashboard-title { /* Your existing class, ensure it's prominent */

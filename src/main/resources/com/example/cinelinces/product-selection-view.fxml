@@ -4,7 +4,6 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.Spinner?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -14,29 +13,18 @@
       fx:controller="com.example.cinelinces.controllers.ProductSelectionViewController"
       spacing="12" alignment="TOP_CENTER">
 
-    <!-- Padding general -->
     <padding>
         <Insets top="20" right="20" bottom="20" left="20"/>
     </padding>
 
-    <!-- Título -->
     <Label text="Agregar Productos (Opcional)"
            styleClass="title-label"/>
-
-    <!-- ScrollPane conteniendo la lista de productos -->
     <ScrollPane fitToWidth="true" prefHeight="380">
         <GridPane fx:id="productsGrid"
                   hgap="10"
                   vgap="10">
-            <!--
-                Aquí se irán agregando filas dinámicamente:
-                Columna 0: Label con “Nombre — $Precio”
-                Columna 1: Spinner<Integer> para cantidad (0..stock)
-            -->
         </GridPane>
     </ScrollPane>
-
-    <!-- Botón Siguiente (sin “Omitir”) -->
     <HBox alignment="CENTER_RIGHT">
         <Button fx:id="btnNext"
                 text="Siguiente"

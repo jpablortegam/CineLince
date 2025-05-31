@@ -19,12 +19,14 @@
     -fx-background-color: white;
     -fx-border-radius: 8px;
     -fx-background-radius: 8px;
-    -fx-effect: dropshadow(two-pass-box, rgba(0,0,0,0.05), 4, 0, 0, 2);
+    -fx-effect: dropshadow(two-pass-box, rgba(0, 0, 0, 0.05), 4, 0, 0, 2);
 }
+
 .filter-label {
     -fx-font-size: 14px;
     -fx-text-fill: #555;
 }
+
 .filter-combo, .filter-search {
     -fx-background-radius: 6px;
     -fx-border-radius: 6px;
@@ -32,9 +34,11 @@
     -fx-border-width: 1px;
     -fx-padding: 4px 8px;
 }
+
 .filter-combo:hover, .filter-search:hover {
     -fx-border-color: #3498DB;
 }
+
 .filter-search {
     -fx-pref-width: 200px;
 }
@@ -44,10 +48,12 @@
 .pagination-container {
     -fx-padding: 16px 0;
 }
+
 .movie-pagination {
     -fx-page-information-visible: false;
     -fx-max-page-indicator-count: 5;
 }
+
 .movie-pagination .control-buttons .increment-button,
 .movie-pagination .control-buttons .decrement-button {
     -fx-background-color: transparent;
@@ -56,6 +62,7 @@
     -fx-scale-y: 1.2;
     -fx-cursor: hand;
 }
+
 .movie-pagination .control-buttons .increment-button:hover,
 .movie-pagination .control-buttons .decrement-button:hover {
     -fx-text-fill: #3498DB;

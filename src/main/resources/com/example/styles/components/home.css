@@ -1,7 +1,6 @@
 /* home.css */
 
 
-
 .scroll-pane-background {
     -fx-background-color: transparent; /* Hacer el scrollpane transparente */
     -fx-hbar-policy: AS_NEEDED;
@@ -17,7 +16,7 @@
     -fx-background-color: #2B2B47; /* Un color ligeramente más claro para las tarjetas */
     -fx-padding: 16px;
     -fx-background-radius: 8px;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0.1, 0, 2);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.1, 0, 2);
 }
 
 /* Estilos para Textos Generales (ejemplos, ajusta a tus necesidades) */
@@ -42,6 +41,7 @@
 .combo-box {
     -fx-font-size: 14px;
 }
+
 .combo-box .list-cell { /* Estilo para los items en el ComboBox desplegado */
     -fx-text-fill: #333333; /* Texto oscuro para items en el popup */
 }
@@ -53,7 +53,7 @@
     -fx-background-radius: 12px;
     -fx-min-height: 380px; /* Altura mínima como en FXML */
     -fx-pref-height: 380px; /* Altura preferida */
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 15, 0.2, 0, 4);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 15, 0.2, 0, 4);
 }
 
 .featured-background-image {
@@ -73,7 +73,7 @@
 .featured-poster-image {
     /* ImageView para el poster */
     -fx-background-color: #1A1629; /* Placeholder si no hay imagen */
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 10, 0.3, 0, 1);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0.3, 0, 1);
     -fx-background-radius: 6px; /* Si quieres redondear el poster mismo */
     -fx-fit-height: 330px; /* Como en FXML */
     -fx-preserve-ratio: true;
@@ -107,6 +107,7 @@
     -fx-text-fill: #D1CDE4; /* Color de texto para metadatos */
     -fx-font-size: 13px;
 }
+
 .featured-meta-label .ikonli-font-icon { /* Si usas iconos de Ikonli */
     -fx-icon-color: #D1CDE4;
     -fx-icon-size: 14px;
@@ -134,6 +135,7 @@
     -fx-font-size: 14px;
     -fx-cursor: hand;
 }
+
 .button-featured-primary:hover {
     -fx-background-color: #F85D3F;
 }
@@ -147,6 +149,7 @@
     -fx-font-size: 14px;
     -fx-cursor: hand;
 }
+
 .button-featured-secondary:hover {
     -fx-background-color: #7F73B7;
 }
@@ -160,18 +163,20 @@
     -fx-font-size: 14px;
     -fx-cursor: hand;
 }
+
 .button-featured-tertiary:hover {
     -fx-background-color: #605392;
 }
 
 .tag-pelicula-destacada {
-    -fx-background-color: rgba(0,0,0,0.45); /* Fondo semitransparente para la etiqueta */
+    -fx-background-color: rgba(0, 0, 0, 0.45); /* Fondo semitransparente para la etiqueta */
     -fx-text-fill: white;
     -fx-padding: 5px 10px;
     -fx-font-size: 11px;
     -fx-font-weight: bold;
     -fx-background-radius: 0 0 8px 0; /* Redondeo solo esquina inferior derecha de la etiqueta */
 }
+
 /* === FIN: ESTILOS PARA EL BANNER DETALLADO === */
 
 
@@ -184,6 +189,7 @@
     -fx-background-radius: 4px;
     -fx-cursor: hand;
 }
+
 .button-view-all:hover {
     -fx-background-color: #605392;
 }
@@ -198,7 +204,7 @@
     -fx-background-radius: 12px;
     -fx-min-height: 380px; /* Altura mínima como en FXML */
     -fx-pref-height: 380px; /* Altura preferida */
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 15, 0.2, 0, 4);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 15, 0.2, 0, 4);
     /* Asegúrate que el StackPane recorte a sus hijos. Esto es el comportamiento por defecto.
        Si la imagen de fondo aún se desborda, podría ser un problema de cómo se añade al StackPane
        o si el ImageView está forzando un tamaño mayor que el StackPane puede acomodar.

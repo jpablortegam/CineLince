@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 public class PromocionDTO {
     private final int id;
     private final String nombre;
-    private final BigDecimal descuento; // e.g. 0.10 = 10%
+    private final BigDecimal descuento;
     private final String codigo;
 
     public PromocionDTO(int id, String nombre, BigDecimal descuento, String codigo) {

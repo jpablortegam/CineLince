@@ -1,9 +1,5 @@
 package com.example.cinelinces.utils.Forms;
 
-/*
- * Permite disparar acciones al presionar ENTER.
- */
-
 import javafx.scene.control.TextInputControl;
 import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;

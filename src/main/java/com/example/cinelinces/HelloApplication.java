@@ -2,7 +2,6 @@ package com.example.cinelinces;
 
 import com.example.cinelinces.controllers.MainViewController;
 import com.example.cinelinces.controllers.SideBarViewController;
-import com.example.cinelinces.database.MySQLConnection;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -30,11 +29,9 @@ public class HelloApplication extends Application {
         sideCtrl.setMainController(mainCtrl);
         mainCtrl.getRootPane().setLeft(sidebarNode);
         Scene scene = new Scene(root);
-
-        // 6) Le añado tu hoja de estilos principal
         scene.getStylesheets().add(
                 Objects.requireNonNull(getClass()
-                                .getResource("/com/example/styles/main.css")).toExternalForm()
+                        .getResource("/com/example/styles/main.css")).toExternalForm()
         );
 
         stage.setScene(scene);

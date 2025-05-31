@@ -2,7 +2,7 @@ package com.example.cinelinces.DAO.impl;
 
 
 import com.example.cinelinces.DAO.CineDAO;
-import com.example.cinelinces.database.MySQLConnection; // Asegúrate que esta sea tu clase de conexión
+import com.example.cinelinces.database.MySQLConnection;
 import com.example.cinelinces.model.Cine;
 
 import java.sql.*;
@@ -10,9 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CineDAOImpl implements CineDAO {
-
-    // No necesitas instanciar MySQLConnection si sus métodos son estáticos
-    // MySQLConnection ConexionBD = new MySQLConnection();
 
     private Cine mapResultSetToCine(ResultSet rs) throws SQLException {
         Cine cine = new Cine();
@@ -37,7 +34,6 @@ public class CineDAOImpl implements CineDAO {
     @Override
     public Cine findById(Integer id) {
         String sql = "SELECT * FROM Cine WHERE IdCine = ?";
-        // Usar la llamada estática a MySQLConnection.getConnection()
         try (Connection conn = MySQLConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, id);
@@ -59,8 +55,7 @@ public class CineDAOImpl implements CineDAO {
     @Override
     public List<Cine> findAll() {
         List<Cine> cines = new ArrayList<>();
-        String sql = "SELECT * FROM Cine ORDER BY Nombre ASC"; // Ordenar para el ComboBox
-        // Usar la llamada estática a MySQLConnection.getConnection()
+        String sql = "SELECT * FROM Cine ORDER BY Nombre ASC";
         try (Connection conn = MySQLConnection.getConnection();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
@@ -80,7 +75,6 @@ public class CineDAOImpl implements CineDAO {
     @Override
     public void save(Cine entity) {
         String sql = "INSERT INTO Cine (Nombre, Direccion, Ciudad, Estado, CodigoPostal, Telefono, HoraApertura, HoraCierre) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-        // Usar la llamada estática a MySQLConnection.getConnection()
         try (Connection conn = MySQLConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             pstmt.setString(1, entity.getNombre());
@@ -112,7 +106,6 @@ public class CineDAOImpl implements CineDAO {
     @Override
     public Cine update(Cine entity) {
         String sql = "UPDATE Cine SET Nombre = ?, Direccion = ?, Ciudad = ?, Estado = ?, CodigoPostal = ?, Telefono = ?, HoraApertura = ?, HoraCierre = ? WHERE IdCine = ?";
-        // Usar la llamada estática a MySQLConnection.getConnection()
         try (Connection conn = MySQLConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, entity.getNombre());
@@ -149,7 +142,6 @@ public class CineDAOImpl implements CineDAO {
     @Override
     public void deleteById(Integer id) {
         String sql = "DELETE FROM Cine WHERE IdCine = ?";
-        // Usar la llamada estática a MySQLConnection.getConnection()
         try (Connection conn = MySQLConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, id);

@@ -19,7 +19,6 @@ public class PeliculaDAOImpl implements GenericDao<Pelicula, Integer> {
         pelicula.setTitulo(rs.getString("Titulo"));
         pelicula.setDuracion(rs.getInt("Duracion"));
         pelicula.setSinopsis(rs.getString("Sinopsis"));
-        // java.sql.Date a java.time.LocalDate
         Date fechaEstrenoSQL = rs.getDate("FechaEstreno");
         if (fechaEstrenoSQL != null) {
             pelicula.setFechaEstreno(fechaEstrenoSQL.toLocalDate());
@@ -30,8 +29,6 @@ public class PeliculaDAOImpl implements GenericDao<Pelicula, Integer> {
         pelicula.setFotografia(rs.getString("Fotografia"));
         pelicula.setFormato(rs.getString("Formato"));
         pelicula.setEstado(rs.getString("Estado"));
-
-        // Para campos FK que pueden ser NULL, usamos getObject y luego verificamos antes de getInt
         pelicula.setIdEstudio(rs.getObject("IdEstudio") != null ? rs.getInt("IdEstudio") : null);
         pelicula.setIdDirector(rs.getObject("IdDirector") != null ? rs.getInt("IdDirector") : null);
         pelicula.setIdTipoPelicula(rs.getObject("IdTipoPelicula") != null ? rs.getInt("IdTipoPelicula") : null);
@@ -50,7 +47,6 @@ public class PeliculaDAOImpl implements GenericDao<Pelicula, Integer> {
                 }
             }
         } catch (SQLException e) {
-            // Manejo de excepciones (log, relanzar, etc.)
             e.printStackTrace();
         }
         return null;
@@ -89,7 +85,6 @@ public class PeliculaDAOImpl implements GenericDao<Pelicula, Integer> {
             pstmt.setString(9, entity.getFormato());
             pstmt.setString(10, entity.getEstado());
 
-            // Manejo de FKs nullable
             if (entity.getIdEstudio() != null) pstmt.setInt(11, entity.getIdEstudio());
             else pstmt.setNull(11, Types.INTEGER);
 
@@ -143,12 +138,12 @@ public class PeliculaDAOImpl implements GenericDao<Pelicula, Integer> {
 
             int affectedRows = pstmt.executeUpdate();
             if (affectedRows > 0) {
-                return entity; // Retorna la entidad actualizada (o podrías re-obtenerla de la BD)
+                return entity;
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null; // O manejar el error de forma diferente
+        return null;
     }
 
     @Override

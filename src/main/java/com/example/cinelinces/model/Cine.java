@@ -28,7 +28,6 @@ public class Cine {
         this.horaCierre = horaCierre;
     }
 
-    // Getters y Setters
     public int getIdCine() {
         return idCine;
     }

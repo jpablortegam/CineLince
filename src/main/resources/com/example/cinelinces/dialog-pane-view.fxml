@@ -38,7 +38,7 @@
                     style="-fx-font-size: 14px;"/>
 
         <!-- Contenedor de horarios -->
-        <VBox fx:id="horariosContainer" spacing="6" prefWidth="300" />
+        <VBox fx:id="horariosContainer" spacing="6" prefWidth="300"/>
 
         <!-- Texto placeholder -->
         <Label fx:id="placeholderContent"

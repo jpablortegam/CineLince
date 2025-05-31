@@ -1,4 +1,3 @@
-// CompraDAOImpl.java
 package com.example.cinelinces.DAO.impl;
 
 import com.example.cinelinces.DAO.CompraDAO;
@@ -24,18 +23,11 @@ import java.util.*;
 import java.util.Date;
 import java.util.stream.Collectors;
 
-/**
- * Implementación de CompraDAO que inserta Venta, Boleto y DetalleVenta
- * en una sola transacción, y actualiza stock en la misma conexión.
- */
 public class CompraDAOImpl implements CompraDAO {
 
     private final PromocionDAO promoDAO = new PromocionDAOImpl();
     private final ProductoDAO productoDAO = new ProductoDAOImpl();
 
-    // --------------------------------------------------------------------------------
-    // 1) Recupera todas las compras de un cliente registrado (boletos + productos).
-    // --------------------------------------------------------------------------------
     @Override
     public List<CompraDetalladaDTO> findComprasByClienteId(int idCliente) {
         List<CompraDetalladaDTO> comprasBoletos = findComprasDeBoletosByClienteId(idCliente);
@@ -65,9 +57,6 @@ public class CompraDAOImpl implements CompraDAO {
         return comprasBoletos;
     }
 
-    // --------------------------------------------------------------------------------
-    // 2) Obtiene todos los boletos (asientos) de un cliente, con datos de Venta y Función.
-    // --------------------------------------------------------------------------------
     @Override
     public List<CompraDetalladaDTO> findComprasDeBoletosByClienteId(int idCliente) {
         String sql =
@@ -150,9 +139,6 @@ public class CompraDAOImpl implements CompraDAO {
         return compras;
     }
 
-    // --------------------------------------------------------------------------------
-    // 3) Recupera los productos comprados por el cliente, agrupados por idVenta.
-    // --------------------------------------------------------------------------------
     @Override
     public List<CompraProductoDetalladaDTO> findComprasDeProductosByClienteId(int idCliente) {
         String sql =
@@ -188,11 +174,6 @@ public class CompraDAOImpl implements CompraDAO {
         return lista;
     }
 
-    // --------------------------------------------------------------------------------
-    // 4) Inserta Venta + Boleto(s) + DetalleVenta (productos), todo en UNA SOLA transacción.
-    //    Si el usuario es invitado (currentClient == null), inserta IdCliente = NULL.
-    //    Y decrementa el stock en la MISMA conexión, evitando deadlocks.
-    // --------------------------------------------------------------------------------
     @Override
     public void saveFromSummary(SummaryContext ctx) {
         List<AsientoDTO> seats = ctx.getSelectedSeats();
@@ -202,13 +183,11 @@ public class CompraDAOImpl implements CompraDAO {
         Cliente currentClient = SessionManager.getInstance().getCurrentCliente();
         Integer clientId = (currentClient != null) ? currentClient.getIdCliente() : null;
 
-        // 4.1) Sumar boletos
         BigDecimal sumTickets = BigDecimal.ZERO;
         if (func != null && func.getPrecioBoleto() != null && seats != null && !seats.isEmpty()) {
             sumTickets = func.getPrecioBoleto().multiply(BigDecimal.valueOf(seats.size()));
         }
 
-        // 4.2) Sumar productos
         BigDecimal sumProds = BigDecimal.ZERO;
         if (prods != null && !prods.isEmpty()) {
             sumProds = prods.stream()
@@ -217,7 +196,6 @@ public class CompraDAOImpl implements CompraDAO {
                     .reduce(BigDecimal.ZERO, BigDecimal::add);
         }
 
-        // 4.3) Aplicar promoción (si la hay)
         PromocionDTO promoAplicada = null;
         BigDecimal discount = BigDecimal.ZERO;
         String codigoPromoManual = ctx.getCodigoPromocion();
@@ -231,11 +209,9 @@ public class CompraDAOImpl implements CompraDAO {
             }
         }
 
-        // 4.4) Calcular total final
         BigDecimal totalFinal = sumTickets.add(sumProds).subtract(discount);
         LocalDateTime ventaTimestamp = LocalDateTime.now();
 
-        // 4.5) Sentencias SQL
         String insertVenta =
                 "INSERT INTO Venta (Fecha, Total, MetodoPago, Estado, Facturado, IdPromocion, IdCliente) " +
                         "VALUES (?,?,?,?,?,?,?)";
@@ -249,16 +225,15 @@ public class CompraDAOImpl implements CompraDAO {
         Connection conn = null;
         try {
             conn = MySQLConnection.getConnection();
-            conn.setAutoCommit(false);  // ⁍⁍ INICIO DE LA TRANSACCIÓN ⁍⁍
+            conn.setAutoCommit(false);
 
             int idVenta;
-            // ---- 4.6) INSERT en Venta ----
             try (PreparedStatement psVenta = conn.prepareStatement(insertVenta, Statement.RETURN_GENERATED_KEYS)) {
-                psVenta.setTimestamp(1, Timestamp.valueOf(ventaTimestamp)); // Fecha
-                psVenta.setBigDecimal(2, totalFinal);                       // Total
-                psVenta.setString(3, ctx.getMetodoPago());                  // MetodoPago
-                psVenta.setString(4, "Completado");                         // Estado
-                psVenta.setBoolean(5, false);                                // Facturado
+                psVenta.setTimestamp(1, Timestamp.valueOf(ventaTimestamp));
+                psVenta.setBigDecimal(2, totalFinal);
+                psVenta.setString(3, ctx.getMetodoPago());
+                psVenta.setString(4, "Completado");
+                psVenta.setBoolean(5, false);
 
                 if (promoAplicada != null) {
                     psVenta.setInt(6, promoAplicada.getId());
@@ -282,7 +257,6 @@ public class CompraDAOImpl implements CompraDAO {
                 }
             }
 
-            // ---- 4.7) INSERT en Boleto (uno por cada asiento) ----
             if (seats != null && !seats.isEmpty() && func != null && func.getPrecioBoleto() != null) {
                 try (PreparedStatement psBoleto = conn.prepareStatement(insertBoleto)) {
                     BigDecimal descuentoPorBoleto = BigDecimal.ZERO;
@@ -290,13 +264,13 @@ public class CompraDAOImpl implements CompraDAO {
                         descuentoPorBoleto = discount.divide(BigDecimal.valueOf(seats.size()), 2, RoundingMode.HALF_UP);
                     }
                     for (AsientoDTO a : seats) {
-                        psBoleto.setTimestamp(1, Timestamp.valueOf(ventaTimestamp)); // FechaCompra
+                        psBoleto.setTimestamp(1, Timestamp.valueOf(ventaTimestamp));
                         BigDecimal precioNetoBoleto = func.getPrecioBoleto().subtract(descuentoPorBoleto);
-                        psBoleto.setBigDecimal(2, precioNetoBoleto.max(BigDecimal.ZERO)); // PrecioFinal
+                        psBoleto.setBigDecimal(2, precioNetoBoleto.max(BigDecimal.ZERO));
                         psBoleto.setString(3, "QR-" + UUID.randomUUID().toString().substring(0, 12).toUpperCase());
-                        psBoleto.setInt(4, a.getIdAsiento());    // IdAsiento
-                        psBoleto.setInt(5, func.getIdFuncion());  // IdFuncion
-                        psBoleto.setInt(6, idVenta);              // IdVenta (FK)
+                        psBoleto.setInt(4, a.getIdAsiento());
+                        psBoleto.setInt(5, func.getIdFuncion());
+                        psBoleto.setInt(6, idVenta);
 
                         if (clientId != null) {
                             psBoleto.setInt(7, clientId);
@@ -310,7 +284,6 @@ public class CompraDAOImpl implements CompraDAO {
                 }
             }
 
-            // ---- 4.8) INSERT en DetalleVenta (productos) ----
             if (prods != null && !prods.isEmpty()) {
                 try (PreparedStatement psDetalle = conn.prepareStatement(insertDetalle)) {
                     for (ProductoSelectionDTO p : prods) {
@@ -324,15 +297,10 @@ public class CompraDAOImpl implements CompraDAO {
                     psDetalle.executeBatch();
                 }
 
-                // 4.8.1) **Decrementar stock de cada producto EN LA MISMA CONEXIÓN**
-                // Llamamos a la sobrecarga que recibe Connection, evitando abrir otra transacción:
                 for (ProductoSelectionDTO p : prods) {
-                    // Aquí usamos la firma que recibe Connection para no abrir una nueva conexión.
                     ((ProductoDAOImpl) productoDAO).decrementStock(p.getIdProducto(), p.getCantidad(), conn);
                 }
             }
-
-            // ---- 4.9) Commit de la transacción ----
             conn.commit();
 
         } catch (SQLException e) {
@@ -357,11 +325,6 @@ public class CompraDAOImpl implements CompraDAO {
             }
         }
     }
-
-    // --------------------------------------------------------------------------------
-    // 5) Recupera la última venta realizada por INVITADO (IdCliente = NULL),
-    //    construye el DTO con todos los detalles (boletos + productos).
-    // --------------------------------------------------------------------------------
     public CompraDetalladaDTO findLastCompraGuest() {
         String sql =
                 "SELECT b.IdBoleto, b.PrecioFinal AS PrecioFinalBoleto, b.FechaCompra AS FechaCompraBoleto, " +
@@ -431,7 +394,6 @@ public class CompraDAOImpl implements CompraDAO {
                 compra.setIdPromocion((Integer) rs.getObject("IdPromocion"));
                 compra.setFuncion(fd);
 
-                // 5.1) Recuperar productos para esta venta
                 List<CompraProductoDetalladaDTO> prodList = findComprasDeProductosByVentaId(compra.getIdVenta());
                 List<ProductoSelectionDTO> listaProductos = prodList.stream()
                         .map(prodDet -> new ProductoSelectionDTO(
@@ -452,9 +414,6 @@ public class CompraDAOImpl implements CompraDAO {
         return null;
     }
 
-    // --------------------------------------------------------------------------------
-    // 6) Recupera todos los productos comprados para una venta específica.
-    // --------------------------------------------------------------------------------
     private List<CompraProductoDetalladaDTO> findComprasDeProductosByVentaId(int idVenta) {
         String sql =
                 "SELECT dv.IdDetalleVenta, dv.IdVenta, dv.IdProducto, p.Nombre AS NombreProducto, " +

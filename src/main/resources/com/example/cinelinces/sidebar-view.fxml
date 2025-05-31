@@ -5,25 +5,24 @@
 <?import javafx.scene.layout.*?>
 
 <VBox id="sidebar" fx:id="sidebar" minWidth="228" prefHeight="364.0" prefWidth="264.0" spacing="8"
-       xmlns="http://javafx.com/javafx/17.0.6"
+      xmlns="http://javafx.com/javafx/17.0.6"
       stylesheets="@/com/example/styles/components/sidebar.css"
       xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cinelinces.controllers.SideBarViewController">
 
     <padding>
-        <Insets bottom="24" left="24" right="24" top="24" />
+        <Insets bottom="24" left="24" right="24" top="24"/>
     </padding>
 
-    <Label styleClass="sidebar-title" text="🎬 Lincine" />
+    <Label styleClass="sidebar-title" text="🎬 Lincine"/>
 
-    <Region prefHeight="12" />
+    <Region prefHeight="12"/>
 
     <VBox spacing="8" styleClass="sidebar-buttons">
-        <Button fx:id="btnHome" onAction="#showHome" styleClass="side-button" text="😊 Home" />
-        <Button fx:id="btnPopulares" onAction="#showPopular" styleClass="side-button" text="🔥 Populares" />
-        <Button fx:id="btnMiCuenta" onAction="#showAccount" styleClass="side-button" text="👤 Mi cuenta" />
+        <Button fx:id="btnHome" onAction="#showHome" styleClass="side-button" text="😊 Home"/>
+        <Button fx:id="btnPopulares" onAction="#showPopular" styleClass="side-button" text="🔥 Populares"/>
+        <Button fx:id="btnMiCuenta" onAction="#showAccount" styleClass="side-button" text="👤 Mi cuenta"/>
     </VBox>
 
-    <Region VBox.vgrow="ALWAYS" />
+    <Region VBox.vgrow="ALWAYS"/>
 
-   <!--   -->
 </VBox>

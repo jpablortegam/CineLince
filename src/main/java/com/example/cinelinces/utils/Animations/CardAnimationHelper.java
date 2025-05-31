@@ -11,24 +11,19 @@ import javafx.util.Duration;
 
 public class CardAnimationHelper {
 
-    // --- Constantes Generales ---
-    private static final Duration HOVER_ANIM_DURATION = Duration.millis(120);
 
-    // --- Constantes de Hover ---
+    private static final Duration HOVER_ANIM_DURATION = Duration.millis(120);
     private static final double HOVER_SCALE_FACTOR = 1.03;
     private static final double HOVER_TRANSLATE_Y_DELTA = -6;
     private static final double HOVER_SHADOW_RADIUS_VALUE = 15;
     private static final double HOVER_SHADOW_OFFSET_Y_VALUE = 5;
     private static final Color HOVER_SHADOW_EFFECT_COLOR = Color.rgb(0, 0, 0, 0.28);
-
-    // --- Duraciones de Expandir/Colapsar (ajustadas para mayor rapidez) ---
-    public static final Duration EXPAND_ANIM_DURATION = Duration.millis(280); // Antes 320ms
-    public static final Duration COLLAPSE_ANIM_DURATION = Duration.millis(240); // Antes 280ms
-
-    // --- Efectos de Sombra ---
+    public static final Duration EXPAND_ANIM_DURATION = Duration.millis(280);
+    public static final Duration COLLAPSE_ANIM_DURATION = Duration.millis(240);
     public static final DropShadow SUBTLE_SHADOW_EFFECT = new DropShadow(
             8, Color.rgb(0, 0, 0, 0.12)
     );
+
     static {
         SUBTLE_SHADOW_EFFECT.setOffsetY(2);
         SUBTLE_SHADOW_EFFECT.setOffsetX(0);
@@ -37,6 +32,7 @@ public class CardAnimationHelper {
     public static final DropShadow EXPANDED_CARD_SHADOW_EFFECT = new DropShadow(
             25, Color.rgb(0, 0, 0, 0.30)
     );
+
     static {
         EXPANDED_CARD_SHADOW_EFFECT.setOffsetY(8);
         EXPANDED_CARD_SHADOW_EFFECT.setOffsetX(0);
@@ -50,9 +46,6 @@ public class CardAnimationHelper {
     private static final Interpolator PRIMARY_MOVEMENT_INTERPOLATOR = EASE_IN_OUT_INTERPOLATOR;
     private static final Interpolator SCALE_SETTLE_INTERPOLATOR = EASE_OUT_INTERPOLATOR;
     private static final Interpolator FADE_INTERPOLATOR = EASE_OUT_INTERPOLATOR;
-
-
-    // ---------------- HOVER ANIMATIONS ----------------
 
     public static Timeline createHoverInAnimation(Node cardNode) {
         DropShadow currentEffect = (DropShadow) cardNode.getEffect();
@@ -73,7 +66,7 @@ public class CardAnimationHelper {
                 new KeyValue(cardNode.translateYProperty(), HOVER_TRANSLATE_Y_DELTA, EASE_OUT_INTERPOLATOR),
                 new KeyValue(currentEffect.radiusProperty(), HOVER_SHADOW_RADIUS_VALUE, EASE_OUT_INTERPOLATOR),
                 new KeyValue(currentEffect.offsetYProperty(), HOVER_SHADOW_OFFSET_Y_VALUE, EASE_OUT_INTERPOLATOR),
-                new KeyValue(currentEffect.offsetXProperty(), currentEffect.getOffsetX(), EASE_OUT_INTERPOLATOR), // Mantener si no cambia o ajustar
+                new KeyValue(currentEffect.offsetXProperty(), currentEffect.getOffsetX(), EASE_OUT_INTERPOLATOR),
                 new KeyValue(currentEffect.colorProperty(), HOVER_SHADOW_EFFECT_COLOR, EASE_OUT_INTERPOLATOR)
         ));
     }
@@ -81,7 +74,7 @@ public class CardAnimationHelper {
     public static Timeline createHoverOutAnimation(Node cardNode) {
         DropShadow currentEffect = (DropShadow) cardNode.getEffect();
         if (currentEffect == null) {
-            currentEffect = new DropShadow(); // Fallback
+            currentEffect = new DropShadow();
             cardNode.setEffect(currentEffect);
         }
 
@@ -97,7 +90,6 @@ public class CardAnimationHelper {
         ));
 
         timeline.setOnFinished(event -> {
-            // Restaurar la instancia estática para optimizar recursos
             if (cardNode.getEffect() != SUBTLE_SHADOW_EFFECT) {
                 cardNode.setEffect(SUBTLE_SHADOW_EFFECT);
             }
@@ -105,8 +97,6 @@ public class CardAnimationHelper {
         return timeline;
     }
 
-
-    // ---------------- EXPAND CARD ANIMATION ----------------
     public static ParallelTransition createExpandAnimation(Node card,
                                                            double targetTranslateX, double targetTranslateY,
                                                            double finalScaleX, double finalScaleY) {
@@ -117,7 +107,7 @@ public class CardAnimationHelper {
         move.setInterpolator(PRIMARY_MOVEMENT_INTERPOLATOR);
 
         FadeTransition fadeIn = new FadeTransition(EXPAND_ANIM_DURATION.multiply(0.6), card);
-        fadeIn.setFromValue(0.0); // Asume que la opacidad de la tarjeta es 0.0 al inicio
+        fadeIn.setFromValue(0.0);
         fadeIn.setToValue(1.0);
         fadeIn.setInterpolator(FADE_INTERPOLATOR);
 
@@ -161,7 +151,6 @@ public class CardAnimationHelper {
         return new ParallelTransition(card, move, fadeIn, scaleAnim, shadowAnim);
     }
 
-    // ---------------- COLLAPSE CARD ANIMATION ----------------
     public static ParallelTransition createCollapseAnimation(Node card,
                                                              Pane overlayPane,
                                                              Pane originalParent,
@@ -180,7 +169,7 @@ public class CardAnimationHelper {
 
         FadeTransition fadeOut = new FadeTransition(COLLAPSE_ANIM_DURATION.multiply(0.7), card);
         fadeOut.setFromValue(card.getOpacity());
-        fadeOut.setToValue(0.0); // Modificado: Desvanecer completamente
+        fadeOut.setToValue(0.0);
         fadeOut.setInterpolator(FADE_INTERPOLATOR);
 
         DropShadow currentEffect = (DropShadow) card.getEffect();
@@ -223,7 +212,7 @@ public class CardAnimationHelper {
                 card.setTranslateY(0);
                 card.setScaleX(1.0);
                 card.setScaleY(1.0);
-                card.setOpacity(1.0); // Restaurar opacidad
+                card.setOpacity(1.0);
                 card.setEffect(SUBTLE_SHADOW_EFFECT);
 
                 if (originalParent != null) {

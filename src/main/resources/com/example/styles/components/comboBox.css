@@ -58,6 +58,7 @@
 .combo-box:hover .arrow-button .arrow {
     -fx-background-color: -fx-secondary; /* Arrow color changes to purple on hover */
 }
+
 .combo-box:focused .arrow-button .arrow {
     -fx-background-color: -fx-secondary;
 }
@@ -85,14 +86,14 @@
 
 .combo-box-popup .list-cell:hover {
     /* -fx-background-color: -fx-primary-light; */ /* Color anterior que causaba bajo contraste */
-    -fx-background-color: -fx-outline;         /* NUEVO: Usa -fx-outline (un gris más claro) para el fondo del hover */
-    -fx-text-fill: -fx-text-primary;           /* El texto oscuro se mantiene, ahora tendrá buen contraste */
+    -fx-background-color: -fx-outline; /* NUEVO: Usa -fx-outline (un gris más claro) para el fondo del hover */
+    -fx-text-fill: -fx-text-primary; /* El texto oscuro se mantiene, ahora tendrá buen contraste */
 }
 
 .combo-box-popup .list-cell:filled:selected {
     /* -fx-background-color: -fx-secondary; */ /* Color anterior para la selección */
     -fx-background-color: -fx-secondary-hover; /* NUEVO: Usa -fx-secondary-hover (morado un poco más oscuro) */
-    -fx-text-fill: white;                      /* El texto blanco se mantiene, ahora con mejor contraste */
+    -fx-text-fill: white; /* El texto blanco se mantiene, ahora con mejor contraste */
 }
 
 /* For selected item when the ComboBox itself is focused (shows in the ComboBox display area) */

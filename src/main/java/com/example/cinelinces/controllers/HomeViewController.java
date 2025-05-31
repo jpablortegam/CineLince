@@ -28,7 +28,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Comparator; // Importar Comparator
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -45,10 +45,8 @@ public class HomeViewController implements Initializable {
     private FlowPane proximamentePane;
     @FXML
     private ComboBox<Cine> cineComboBox;
-
     @FXML
     private StackPane detailedFeaturedBannerPane;
-
     @FXML
     private ImageView featuredPosterImage;
     @FXML
@@ -73,8 +71,6 @@ public class HomeViewController implements Initializable {
     private FuncionDAO funcionDAO;
     private DialogAnimationHelper dialogHelper;
     private Node dialogPanel;
-
-    // Constantes para las estrellas (igual que en CardMovieViewController)
     private static final String FULL_STAR = "★";
     private static final String HALF_STAR = "✬";
     private static final String EMPTY_STAR = "☆";
@@ -161,14 +157,8 @@ public class HomeViewController implements Initializable {
                     clearDetailedBanner();
                     return;
                 }
-                // Film destacada
-                FuncionDetallada destacada = funciones.stream()
-                        .max(Comparator.comparing(FuncionDetallada::getCalificacionPromedioPelicula)
-                                .thenComparing(FuncionDetallada::getTotalCalificacionesPelicula))
-                        .orElse(funciones.get(0));
+                FuncionDetallada destacada = funciones.stream().max(Comparator.comparing(FuncionDetallada::getCalificacionPromedioPelicula).thenComparing(FuncionDetallada::getTotalCalificacionesPelicula)).orElse(funciones.get(0));
                 updateDetailedBanner(destacada);
-
-                // Crear tarjetas
                 Set<Integer> seen = new HashSet<>();
                 int max = 4;
                 for (FuncionDetallada f : funciones) {
@@ -247,7 +237,7 @@ public class HomeViewController implements Initializable {
         if (featuredMovieTitleText != null) featuredMovieTitleText.setText(movie.getTituloPelicula());
 
         String originalSynopsis = movie.getSinopsisPelicula();
-        String formattedSynopsisBanner = formatTextWithLineBreaks(originalSynopsis, 15); // Ajusta wordsPerLine según necesites
+        String formattedSynopsisBanner = formatTextWithLineBreaks(originalSynopsis, 15);
         if (featuredSynopsisText != null) featuredSynopsisText.setText(formattedSynopsisBanner);
 
         if (featuredGenreText != null)
@@ -260,24 +250,19 @@ public class HomeViewController implements Initializable {
         }
         if (featuredYearText != null) featuredYearText.setText("📅 " + year);
 
-        // --- ACTUALIZAR BADGE DE CALIFICACIÓN CON ESTRELLAS ---
         if (featuredRatingBadge != null) {
             String stars = formatRatingToStars(movie.getCalificacionPromedioPelicula(), movie.getTotalCalificacionesPelicula());
             featuredRatingBadge.setText(stars);
             featuredRatingBadge.setVisible(movie.getTotalCalificacionesPelicula() > 0 || !"N/A".equals(stars));
         }
 
-        // Cargar imagen del póster
         String posterPath = movie.getFotografiaPelicula();
         if (featuredPosterImage != null) {
             loadImageIntoImageView(posterPath, featuredPosterImage, "Banner Poster");
         }
-
-
         if (btnFeaturedVerHorarios != null) btnFeaturedVerHorarios.setUserData(movie);
     }
 
-    // Método auxiliar para cargar imágenes
     private Image loadImage(String path, String imageTypeDesc) {
         if (path != null && !path.isEmpty()) {
             String fullPath = path;
@@ -294,17 +279,13 @@ public class HomeViewController implements Initializable {
                 System.err.println(imageTypeDesc + ": Error al cargar imagen desde stream: " + fullPath + " - " + e.getMessage());
             }
         }
-        return null; // Retorna null si no se puede cargar
+        return null;
     }
-
-    // Método auxiliar para cargar imagen en ImageView específico
     private void loadImageIntoImageView(String path, ImageView imageView, String imageTypeDesc) {
         if (imageView == null) return;
         Image image = loadImage(path, imageTypeDesc);
-        imageView.setImage(image); // Asigna la imagen (o null si falló la carga)
+        imageView.setImage(image);
     }
-
-
     private void clearDetailedBanner() {
         if (detailedFeaturedBannerPane != null) detailedFeaturedBannerPane.setVisible(false);
         if (featuredMovieTitleText != null) featuredMovieTitleText.setText("Película Destacada");
@@ -322,9 +303,7 @@ public class HomeViewController implements Initializable {
 
     private void loadProximamenteCards() {
         proximamentePane.getChildren().clear();
-        // Aquí iría la lógica para cargar películas "Próximamente", actualmente está vacía.
-        // List<FuncionDetallada> proximamenteFunciones = funcionDAO.findProximamente...(); // Ejemplo
-        List<FuncionDetallada> proximamenteFunciones = new ArrayList<>(); // Placeholder
+        List<FuncionDetallada> proximamenteFunciones = new ArrayList<>();
 
         if (proximamenteFunciones.isEmpty()) {
             Label noProximamenteLabel = new Label("No hay estrenos confirmados próximamente.");

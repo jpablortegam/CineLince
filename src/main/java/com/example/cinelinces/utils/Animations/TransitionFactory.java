@@ -16,18 +16,6 @@ public class TransitionFactory {
         return tt;
     }
 
-    /**
-     * Crea una ScaleTransition que anima desde una escala X/Y específica hacia otra escala X/Y específica.
-     *
-     * @param node El nodo a animar.
-     * @param dur La duración de la animación.
-     * @param fromX La escala X inicial.
-     * @param fromY La escala Y inicial.
-     * @param toX La escala X final.
-     * @param toY La escala Y final.
-     * @param interp El interpolador a usar.
-     * @return La ScaleTransition configurada.
-     */
     public static ScaleTransition scale(Node node, Duration dur, double fromX, double fromY, double toX, double toY, Interpolator interp) {
         ScaleTransition st = new ScaleTransition(dur, node);
         st.setFromX(fromX);
@@ -49,20 +37,8 @@ public class TransitionFactory {
         return ft;
     }
 
-    /**
-     * Crea una ScaleTransition que anima desde la escala X/Y actual del nodo hacia una escala X/Y específica.
-     *
-     * @param node El nodo a animar.
-     * @param duration La duración de la animación.
-     * @param toX La escala X final.
-     * @param toY La escala Y final.
-     * @param interpolator El interpolador a usar.
-     * @return La ScaleTransition configurada.
-     */
     public static ScaleTransition scale(Node node, Duration duration, double toX, double toY, Interpolator interpolator) {
         ScaleTransition st = new ScaleTransition(duration, node);
-        // Si fromX/fromY no se establecen, la ScaleTransition usa la escala actual del nodo
-        // al momento de iniciar la animación, lo cual es el comportamiento deseado aquí.
         st.setToX(toX);
         st.setToY(toY);
         st.setInterpolator(interpolator);

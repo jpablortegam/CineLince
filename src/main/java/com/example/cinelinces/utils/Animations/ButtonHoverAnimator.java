@@ -5,9 +5,6 @@ import javafx.animation.ScaleTransition;
 import javafx.scene.control.Button;
 import javafx.util.Duration;
 
-/**
- * Aplica efecto hover de escalado a un botón.
- */
 public class ButtonHoverAnimator {
     private static final Duration HOVER_DUR = Duration.millis(150);
     private static final Interpolator EASE = Interpolator.SPLINE(0.25, 0.46, 0.45, 0.94);

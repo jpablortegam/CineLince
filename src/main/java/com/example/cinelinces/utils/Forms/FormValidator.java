@@ -1,10 +1,6 @@
 package com.example.cinelinces.utils.Forms;
 
 import java.util.regex.Pattern;
-
-/*
- * Validación de formularios.
- */
 public class FormValidator {
     private static final Pattern EMAIL_PATTERN =
             Pattern.compile("^[\\w-.]+@([\\w-]+\\.)+[\\w-]{2,}$");

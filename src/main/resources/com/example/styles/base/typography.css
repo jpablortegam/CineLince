@@ -3,13 +3,14 @@
 /* ----------------------------------------------------
    1) Nuevas familias tipográficas
 ---------------------------------------------------- */
-.text-headline {   /* Títulos principales */
+.text-headline { /* Títulos principales */
     -fx-font-family: "Segoe UI", sans-serif;
     -fx-font-size: 28px;
     -fx-font-weight: 700;
     -fx-text-fill: #2C3E50;
-    -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.1), 1, 0, 0, 1);
+    -fx-effect: dropshadow(one-pass-box, rgba(0, 0, 0, 0.1), 1, 0, 0, 1);
 }
+
 /* ----------------------------------------------------
    2) Títulos principales (Destacados de la semana)
 ---------------------------------------------------- */

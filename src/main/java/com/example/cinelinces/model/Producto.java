@@ -11,7 +11,8 @@ public class Producto {
     private String estado;
     private int idCategoria;
 
-    public Producto() {}
+    public Producto() {
+    }
 
     public Producto(int idProducto, String nombre, String descripcion,
                     BigDecimal precio, int stock, String estado, int idCategoria) {
@@ -24,25 +25,60 @@ public class Producto {
         this.idCategoria = idCategoria;
     }
 
-    // Getters y setters...
-    public int getIdProducto() { return idProducto; }
-    public void setIdProducto(int idProducto) { this.idProducto = idProducto; }
 
-    public String getNombre() { return nombre; }
-    public void setNombre(String nombre) { this.nombre = nombre; }
+    public int getIdProducto() {
+        return idProducto;
+    }
 
-    public String getDescripcion() { return descripcion; }
-    public void setDescripcion(String descripcion) { this.descripcion = descripcion; }
+    public void setIdProducto(int idProducto) {
+        this.idProducto = idProducto;
+    }
 
-    public BigDecimal getPrecio() { return precio; }
-    public void setPrecio(BigDecimal precio) { this.precio = precio; }
+    public String getNombre() {
+        return nombre;
+    }
 
-    public int getStock() { return stock; }
-    public void setStock(int stock) { this.stock = stock; }
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
 
-    public String getEstado() { return estado; }
-    public void setEstado(String estado) { this.estado = estado; }
+    public String getDescripcion() {
+        return descripcion;
+    }
 
-    public int getIdCategoria() { return idCategoria; }
-    public void setIdCategoria(int idCategoria) { this.idCategoria = idCategoria; }
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public BigDecimal getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(BigDecimal precio) {
+        this.precio = precio;
+    }
+
+    public int getStock() {
+        return stock;
+    }
+
+    public void setStock(int stock) {
+        this.stock = stock;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public int getIdCategoria() {
+        return idCategoria;
+    }
+
+    public void setIdCategoria(int idCategoria) {
+        this.idCategoria = idCategoria;
+    }
 }

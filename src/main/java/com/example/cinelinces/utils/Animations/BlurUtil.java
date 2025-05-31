@@ -1,9 +1,5 @@
 package com.example.cinelinces.utils.Animations;
 
-/*
- * Utilidad para crear animaciones de blur sobre nodos.
- */
-
 import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;

@@ -25,27 +25,36 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
-import java.util.stream.Collectors;
 
 public class PurchaseSummaryViewController {
 
-    @FXML private GridPane boletosBox;
-    @FXML private GridPane productosBox;
-    @FXML private GridPane promoBox;
-    @FXML private Label subtotalBoletosLabel;
-    @FXML private Label subtotalProductosLabel;
-    @FXML private Label descuentoLabel;
-    @FXML private Label totalPagarLabel;
-    @FXML private Button btnCancelSummary;
-    @FXML private Button btnConfirmSummary;
-    @FXML private TextField promoCodeField;
-    @FXML private Button applyPromoButton;
-    @FXML private ComboBox<String> paymentMethodCombo;
+    @FXML
+    private GridPane boletosBox;
+    @FXML
+    private GridPane productosBox;
+    @FXML
+    private GridPane promoBox;
+    @FXML
+    private Label subtotalBoletosLabel;
+    @FXML
+    private Label subtotalProductosLabel;
+    @FXML
+    private Label descuentoLabel;
+    @FXML
+    private Label totalPagarLabel;
+    @FXML
+    private Button btnCancelSummary;
+    @FXML
+    private Button btnConfirmSummary;
+    @FXML
+    private TextField promoCodeField;
+    @FXML
+    private Button applyPromoButton;
+    @FXML
+    private ComboBox<String> paymentMethodCombo;
 
     private final SummaryContext ctx = SummaryContext.getInstance();
     private final PromocionDAO promocionDAO = new PromocionDAOImpl();
@@ -140,9 +149,9 @@ public class PurchaseSummaryViewController {
         promoAplicadaManualmente = promo.getCodigo();
 
         BigDecimal subtotalBoletos = parseCurrencyLabel(subtotalBoletosLabel.getText());
-        BigDecimal subtotalProds   = parseCurrencyLabel(subtotalProductosLabel.getText());
-        BigDecimal porcentaje      = promo.getDescuento();
-        BigDecimal base            = subtotalBoletos.add(subtotalProds);
+        BigDecimal subtotalProds = parseCurrencyLabel(subtotalProductosLabel.getText());
+        BigDecimal porcentaje = promo.getDescuento();
+        BigDecimal base = subtotalBoletos.add(subtotalProds);
 
         descuentoAplicadoManualmente = base.multiply(porcentaje);
         descuentoLabel.setText("-$" + descuentoAplicadoManualmente.setScale(2, RoundingMode.HALF_UP));
@@ -150,12 +159,12 @@ public class PurchaseSummaryViewController {
         if (promoBox != null) {
             promoBox.getChildren().clear();
             Label lblTituloPromo = new Label("Promoción aplicada:");
-            Label lblCodigo     = new Label(promo.getCodigo() + " (" + promo.getNombre() + ")");
-            int pctEntero       = porcentaje.multiply(new BigDecimal("100")).intValue();
-            Label lblPct        = new Label("-" + pctEntero + "%");
+            Label lblCodigo = new Label(promo.getCodigo() + " (" + promo.getNombre() + ")");
+            int pctEntero = porcentaje.multiply(new BigDecimal("100")).intValue();
+            Label lblPct = new Label("-" + pctEntero + "%");
             promoBox.add(lblTituloPromo, 0, 0);
-            promoBox.add(lblCodigo,      1, 0);
-            promoBox.add(lblPct,         2, 0);
+            promoBox.add(lblCodigo, 1, 0);
+            promoBox.add(lblPct, 2, 0);
         }
 
         BigDecimal totalFinal = base.subtract(descuentoAplicadoManualmente);
@@ -181,7 +190,6 @@ public class PurchaseSummaryViewController {
         CompraDetalladaDTO compraParaMostrar = null;
 
         if (isLoggedIn) {
-            // Usuario registrado
             try {
                 compraDAO.saveFromSummary(ctx);
 
@@ -195,11 +203,9 @@ public class PurchaseSummaryViewController {
                 if (comprasGuardadas != null && !comprasGuardadas.isEmpty()) {
                     compraParaMostrar = comprasGuardadas.get(0);
 
-                    // ① Forzar el precio final de la UI
                     BigDecimal totalCorrecto = parseCurrencyLabel(totalPagarLabel.getText());
                     compraParaMostrar.setPrecioFinal(totalCorrecto);
 
-                    // ② Forzar la lista de productos
                     List<ProductoSelectionDTO> productosSeleccionados = ctx.getSelectedProducts();
                     compraParaMostrar.setProductosComprados(productosSeleccionados);
 
@@ -215,19 +221,14 @@ public class PurchaseSummaryViewController {
             }
 
         } else {
-            // Invitado: guardamos aunque no haya cliente logueado
             try {
                 compraDAO.saveFromSummary(ctx);
-
-                // Recuperar la última compra insertada (invitado)
                 CompraDetalladaDTO dtoInvitado = ((CompraDAOImpl) compraDAO).findLastCompraGuest();
                 if (dtoInvitado == null) {
                     showAlert(Alert.AlertType.ERROR, "Error", "No se pudieron recuperar los detalles de la compra (invitado).");
                     return;
                 }
                 compraParaMostrar = dtoInvitado;
-
-                // Asegurar que precioFinal y productos sean correctos
                 BigDecimal totalCorrecto = parseCurrencyLabel(totalPagarLabel.getText());
                 compraParaMostrar.setPrecioFinal(totalCorrecto);
                 compraParaMostrar.setProductosComprados(ctx.getSelectedProducts());
@@ -240,8 +241,6 @@ public class PurchaseSummaryViewController {
                 return;
             }
         }
-
-        // Mostrar tarjeta
         if (compraParaMostrar != null) {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/cinelinces/purchase-card-view.fxml"));

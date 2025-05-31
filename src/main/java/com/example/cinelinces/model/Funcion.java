@@ -23,7 +23,6 @@ public class Funcion {
         this.idSala = idSala;
     }
 
-    // Getters y Setters
     public int getIdFuncion() {
         return idFuncion;
     }

@@ -46,7 +46,6 @@ public class SessionManager {
         return this.currentCliente != null;
     }
 
-    /** CompraDetalladaDTO: cada llamada abre su propia Connection */
     public List<CompraDetalladaDTO> getComprasDetalladas() {
         if (!isLoggedIn()) return Collections.emptyList();
         return compraDAO.findComprasByClienteId(currentCliente.getIdCliente());

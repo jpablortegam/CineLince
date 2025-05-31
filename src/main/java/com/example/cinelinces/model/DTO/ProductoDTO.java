@@ -1,4 +1,3 @@
-// ProductoDTO.java
 package com.example.cinelinces.model.DTO;
 
 import java.math.BigDecimal;
@@ -18,9 +17,23 @@ public class ProductoDTO {
         this.stock = stock;
     }
 
-    public int getIdProducto() { return idProducto; }
-    public String getNombre() { return nombre; }
-    public String getDescripcion() { return descripcion; }
-    public BigDecimal getPrecio() { return precio; }
-    public int getStock() { return stock; }
+    public int getIdProducto() {
+        return idProducto;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public BigDecimal getPrecio() {
+        return precio;
+    }
+
+    public int getStock() {
+        return stock;
+    }
 }

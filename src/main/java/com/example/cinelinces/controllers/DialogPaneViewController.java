@@ -1,4 +1,3 @@
-// com/example/cinelinces/controllers/DialogPaneViewController.java
 package com.example.cinelinces.controllers;
 
 import com.example.cinelinces.DAO.FuncionDAO;
@@ -24,12 +23,18 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class DialogPaneViewController {
-    @FXML private VBox dialogPanel;
-    @FXML private Button closeBtn;
-    @FXML private Label titleLabel;
-    @FXML private Label placeholderContent;
-    @FXML private DatePicker datePicker;
-    @FXML private VBox horariosContainer;
+    @FXML
+    private VBox dialogPanel;
+    @FXML
+    private Button closeBtn;
+    @FXML
+    private Label titleLabel;
+    @FXML
+    private Label placeholderContent;
+    @FXML
+    private DatePicker datePicker;
+    @FXML
+    private VBox horariosContainer;
 
     private final FuncionDAO funcionDAO = new FuncionDAOImpl();
     private FuncionDetallada currentMovie;
@@ -37,33 +42,26 @@ public class DialogPaneViewController {
 
     @FXML
     private void initialize() {
-        // Cerrar diálogo
         closeBtn.setOnAction(e -> {
             dialogPanel.setVisible(false);
             dialogPanel.setOpacity(0);
         });
-
-        // Cuando se seleccione otra fecha, recargar horarios
         datePicker.setOnAction(e -> loadHorarios());
     }
 
-    public VBox getDialogPanel() { return dialogPanel; }
-    public Button getCloseBtn()     { return closeBtn;     }
+    public VBox getDialogPanel() {
+        return dialogPanel;
+    }
 
-    /**
-     * Inicializa el diálogo con la película seleccionada.
-     * Carga la lista de fechas disponibles y aplica el DayCellFactory.
-     */
+    public Button getCloseBtn() {
+        return closeBtn;
+    }
+
     public void setMovieContext(FuncionDetallada movie) {
         this.currentMovie = movie;
         titleLabel.setText("Horarios - " + movie.getTituloPelicula());
 
-        // Obtener fechas con funciones
-        availableDates = funcionDAO.findFechasDisponiblesByCinePelicula(
-                movie.getIdCine(), movie.getIdPelicula()
-        );
-
-        // Highlight y disable en el DatePicker
+        availableDates = funcionDAO.findFechasDisponiblesByCinePelicula(movie.getIdCine(), movie.getIdPelicula());
         datePicker.setDayCellFactory(dp -> new DateCell() {
             @Override
             public void updateItem(LocalDate date, boolean empty) {
@@ -81,8 +79,6 @@ public class DialogPaneViewController {
                 }
             }
         });
-
-        // Seleccionar hoy o la primera fecha disponible
         LocalDate start = LocalDate.now();
         if (availableDates.contains(start)) {
             datePicker.setValue(start);
@@ -96,9 +92,6 @@ public class DialogPaneViewController {
         loadHorarios();
     }
 
-    /**
-     * Limpia el estado del diálogo.
-     */
     public void clearMovieContext() {
         this.currentMovie = null;
         titleLabel.setText("Horarios Disponibles");
@@ -107,25 +100,16 @@ public class DialogPaneViewController {
         placeholderContent.setVisible(true);
     }
 
-    /**
-     * Carga y muestra los horarios disponibles en el VBox.
-     * Cada Label de horario es clicable y abre la vista de selección de asientos.
-     */
     private void loadHorarios() {
         if (currentMovie == null) return;
 
         LocalDate fecha = datePicker.getValue();
-        List<LocalDateTime> horas = funcionDAO.findHorariosByCinePeliculaFecha(
-                currentMovie.getIdCine(),
-                currentMovie.getIdPelicula(),
-                fecha
-        );
+        List<LocalDateTime> horas = funcionDAO.findHorariosByCinePeliculaFecha(currentMovie.getIdCine(), currentMovie.getIdPelicula(), fecha);
 
         horariosContainer.getChildren().clear();
 
         if (horas.isEmpty()) {
-            placeholderContent.setText("No hay funciones para " +
-                    fecha.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+            placeholderContent.setText("No hay funciones para " + fecha.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
             placeholderContent.setVisible(true);
         } else {
             placeholderContent.setVisible(false);
@@ -142,19 +126,11 @@ public class DialogPaneViewController {
         }
     }
 
-
-    /**
-     * Abre una nueva ventana con la vista de selección de asientos
-     * para la función, cine y horario indicados.
-     */
     private void openSeatSelection(LocalDateTime dateTime) {
         try {
-            FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource("/com/example/cinelinces/seatSelection-view.fxml")
-            );
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/cinelinces/seatSelection-view.fxml"));
             Pane pane = loader.load();
             SeatSelectionViewController ctrl = loader.getController();
-            // Le pasas la función y el horario
             ctrl.initData(currentMovie, dateTime);
 
             Stage stage = new Stage();

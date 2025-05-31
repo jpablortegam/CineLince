@@ -5,24 +5,18 @@ import java.time.LocalDate;
 public class Pelicula {
     private int idPelicula;
     private String titulo;
-    private int duracion; // en minutos
+    private int duracion;
     private String sinopsis;
     private LocalDate fechaEstreno;
     private String clasificacion;
     private String idioma;
     private boolean subtitulada;
-    private String fotografia; // Corresponde a tu posterUrl
+    private String fotografia;
     private String formato;
     private String estado;
-    private Integer idEstudio; // Puede ser Integer si es nullable
-    private Integer idDirector; // Puede ser Integer si es nullable
-    private Integer idTipoPelicula; // Puede ser Integer si es nullable
-
-    // Campos adicionales que podrías llenar con el DAO (opcional aquí)
-    // private String nombreEstudio;
-    // private String nombreDirector;
-    // private String nombreTipoPelicula;
-    // private List<Actor> actores; // o List<String> nombresActores
+    private Integer idEstudio;
+    private Integer idDirector;
+    private Integer idTipoPelicula;
 
     public Pelicula() {
     }
@@ -44,7 +38,6 @@ public class Pelicula {
         this.idTipoPelicula = idTipoPelicula;
     }
 
-    // Getters y Setters
     public int getIdPelicula() {
         return idPelicula;
     }
@@ -157,23 +150,20 @@ public class Pelicula {
         this.idTipoPelicula = idTipoPelicula;
     }
 
-    // Método para obtener el año del título, si está presente
     public String getYearFromTitle() {
         if (titulo != null) {
             int open = titulo.lastIndexOf('(');
             int close = titulo.lastIndexOf(')');
-            if (open > 0 && close > open && (close == titulo.length() - 1) ) { // Asegura que esté al final
+            if (open > 0 && close > open && (close == titulo.length() - 1)) {
                 try {
-                    // Verifica si es un año de 4 dígitos
                     String yearStr = titulo.substring(open + 1, close);
-                    if(yearStr.matches("\\d{4}")) {
+                    if (yearStr.matches("\\d{4}")) {
                         return yearStr;
                     }
                 } catch (NumberFormatException e) {
-                    // No es un número, o no es el formato esperado
                 }
             }
         }
-        return ""; // O podrías devolver null o lanzar una excepción
+        return "";
     }
 }

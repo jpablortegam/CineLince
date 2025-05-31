@@ -7,7 +7,7 @@
 .movie-card { /* El contenedor raíz de la tarjeta (StackPane fx:id="cardRoot") */
     -fx-background-color: #3D3567;
     -fx-background-radius: 10px;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 12, 0.15, 0, 3);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 12, 0.15, 0, 3);
 }
 
 .movie-card .image-container {
@@ -53,7 +53,7 @@
     -fx-background-color: #4A3F78;
     -fx-background-radius: 12px;
     -fx-padding: 20px; /* Reducido ligeramente el padding general para dar más espacio al contenido */
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.35), 20, 0.25, 0, 5);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.35), 20, 0.25, 0, 5);
 }
 
 .movie-card.expanded .expanded-content-area {
@@ -65,7 +65,7 @@
     -fx-background-color: #1A1629;
     -fx-padding: 4px; /* Marco del póster */
     -fx-background-radius: 8px;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 10, 0.3, 0, 2);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0.3, 0, 2);
 }
 
 .movie-card.expanded #posterExpanded {
@@ -103,6 +103,7 @@
     -fx-text-fill: #D1CDE4;
     -fx-font-size: 12px; /* Reducido */
 }
+
 .movie-card.expanded #iconDuration .ikonli-font-icon,
 .movie-card.expanded #iconYear .ikonli-font-icon,
 .movie-card.expanded #iconGenre .ikonli-font-icon,
@@ -138,6 +139,7 @@
     -fx-font-size: 13px; /* Reducido */
     -fx-cursor: hand;
 }
+
 .movie-card.expanded .btn-primary:hover {
     -fx-background-color: #F85D3F;
 }
@@ -165,6 +167,7 @@
     /* -fx-font-size: 5px; */ /* Este fue el valor original aquí, pero el anterior .btn-primary tenía 14px */
     -fx-cursor: hand;
 }
+
 .btn-primary:hover {
     -fx-background-color: #F85D3F;
 }
@@ -176,15 +179,17 @@
     -fx-border-width: 1px;
     -fx-border-radius: 6px;
 }
+
 .btn-outline:hover {
-    -fx-background-color: rgba(255,255,255,0.1);
+    -fx-background-color: rgba(255, 255, 255, 0.1);
 }
 
 .btn-info {
-    -fx-background-color: rgba(255,255,255,0.2);
+    -fx-background-color: rgba(255, 255, 255, 0.2);
     -fx-text-fill: white;
     -fx-font-weight: normal;
 }
+
 .btn-info:hover {
-    -fx-background-color: rgba(255,255,255,0.3);
+    -fx-background-color: rgba(255, 255, 255, 0.3);
 }

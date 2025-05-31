@@ -1,9 +1,5 @@
 package com.example.cinelinces.utils.Animations;
 
-/*
- * Animaciones genéricas (por ahora solo "shake").
- */
-
 import javafx.animation.TranslateTransition;
 import javafx.util.Duration;
 import javafx.scene.Node;

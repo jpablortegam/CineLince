@@ -6,29 +6,31 @@ import javafx.scene.layout.VBox;
 
 public class SideBarViewController {
     @FXML
-    public VBox sidebar;  // tu contenedor
-    @FXML private Button btnHome, btnPopulares, btnMiCuenta;
+    public VBox sidebar;
+    @FXML
+    private Button btnHome, btnPopulares, btnMiCuenta;
 
     private MainViewController mainController;
 
-    /** Este setter lo llama MainViewController.initialize() */
     public void setMainController(MainViewController main) {
         this.mainController = main;
-
-        // marcamos ya el primer botón
         highlightButton(btnHome);
     }
 
-    @FXML private void showHome() {
+    @FXML
+    private void showHome() {
         mainController.showHome();
         highlightButton(btnHome);
     }
 
-    @FXML private void showPopular() {
+    @FXML
+    private void showPopular() {
         mainController.showPopular();
         highlightButton(btnPopulares);
     }
-    @FXML private void showAccount() {
+
+    @FXML
+    private void showAccount() {
         mainController.showAccount();
         highlightButton(btnMiCuenta);
     }

@@ -50,12 +50,11 @@
    ---------------------------------------------------------- */
 .button-secondary {
     /* Fondo con degradado muy suave */
-    -fx-background-color:
-            linear-gradient(
-                    to bottom,
-                    rgba(255,255,255,0.9) 0%,
-                    rgba(245,245,245,0.9) 100%
-            );
+    -fx-background-color: linear-gradient(
+            to bottom,
+            rgba(255, 255, 255, 0.9) 0%,
+            rgba(245, 245, 245, 0.9) 100%
+    );
     -fx-background-insets: 0, 1;
     -fx-background-radius: 8px;
 
@@ -67,7 +66,7 @@
     /* Sombra sutil */
     -fx-effect: dropshadow(
             two-pass-box,
-            rgba(0,0,0,0.08),
+            rgba(0, 0, 0, 0.08),
             4, 0, 0, 2
     );
 
@@ -84,26 +83,24 @@
     -fx-focus-width: 0;
 
     /* Transiciones suaves */
-    -fx-transition-property:
-            -fx-background-color,
-            -fx-effect,
-            -fx-translate-y,
-            -fx-scale-x,
-            -fx-scale-y;
+    -fx-transition-property: -fx-background-color,
+    -fx-effect,
+    -fx-translate-y,
+    -fx-scale-x,
+    -fx-scale-y;
     -fx-transition-duration: 0.2s;
     -fx-transition-timing-function: ease-in-out;
 }
 
 .button-secondary:hover {
-    -fx-background-color:
-            linear-gradient(
-                    to bottom,
-                    rgba(255,255,255,1) 0%,
-                    rgba(235,235,235,1) 100%
-            );
+    -fx-background-color: linear-gradient(
+            to bottom,
+            rgba(255, 255, 255, 1) 0%,
+            rgba(235, 235, 235, 1) 100%
+    );
     -fx-effect: dropshadow(
             two-pass-box,
-            rgba(0,0,0,0.15),
+            rgba(0, 0, 0, 0.15),
             6, 0, 0, 3
     );
     -fx-translate-y: -1px;
@@ -113,15 +110,14 @@
 }
 
 .button-secondary:pressed {
-    -fx-background-color:
-            linear-gradient(
-                    to bottom,
-                    rgba(230,230,230,1) 0%,
-                    rgba(215,215,215,1) 100%
-            );
+    -fx-background-color: linear-gradient(
+            to bottom,
+            rgba(230, 230, 230, 1) 0%,
+            rgba(215, 215, 215, 1) 100%
+    );
     -fx-effect: dropshadow(
             two-pass-box,
-            rgba(0,0,0,0.06),
+            rgba(0, 0, 0, 0.06),
             2, 0, 0, 1
     );
     -fx-translate-y: 1px;
@@ -138,7 +134,7 @@
     -fx-border-color: #C0C0C0;
     -fx-border-width: 1px;
     -fx-border-radius: 8px;
-    -fx-effect: dropshadow(two-pass-box, rgba(0,0,0,0.08), 4, 0, 0, 2);
+    -fx-effect: dropshadow(two-pass-box, rgba(0, 0, 0, 0.08), 4, 0, 0, 2);
 
     -fx-focus-color: transparent;
     -fx-faint-focus-color: transparent;

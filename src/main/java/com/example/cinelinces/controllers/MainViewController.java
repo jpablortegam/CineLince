@@ -8,13 +8,16 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.layout.BorderPane;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
 public class MainViewController implements Initializable {
-    @FXML private BorderPane rootPane;
-    @FXML private BorderPane contentArea;
+    @FXML
+    private BorderPane rootPane;
+    @FXML
+    private BorderPane contentArea;
 
     private final Map<String, Parent> viewCache = new HashMap<>();
     private String currentViewPath = "";
@@ -28,6 +31,7 @@ public class MainViewController implements Initializable {
     public void showHome() {
         loadCachedView("/com/example/cinelinces/home-view.fxml");
     }
+
     public void showPopular() {
         loadCachedView("/com/example/cinelinces/popular-view.fxml");
     }
@@ -78,5 +82,7 @@ public class MainViewController implements Initializable {
         }
     }
 
-    public BorderPane getRootPane() { return rootPane; }
+    public BorderPane getRootPane() {
+        return rootPane;
+    }
 }
