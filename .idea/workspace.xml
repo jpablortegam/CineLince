@@ -288,15 +288,7 @@
       <workItem from="1748395709034" duration="3100000" />
       <workItem from="1748471666356" duration="305000" />
       <workItem from="1748554364197" duration="12550000" />
-      <workItem from="1748664529508" duration="2185000" />
-    </task>
-    <task id="LOCAL-00006" summary="refactor UI layout and enhance styles for featured section">
-      <option name="closed" value="true" />
-      <created>1747621266374</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1747621266374</updated>
+      <workItem from="1748664529508" duration="3479000" />
     </task>
     <task id="LOCAL-00007" summary="refactor UI layout and enhance styles for main application view">
       <option name="closed" value="true" />
@@ -682,7 +674,15 @@
       <option name="project" value="LOCAL" />
       <updated>1748665592123</updated>
     </task>
-    <option name="localTasksCounter" value="55" />
+    <task id="LOCAL-00055" summary="feat: add method to find active promotion by code and date; update SQL queries to use CodigoPromo">
+      <option name="closed" value="true" />
+      <created>1748666807822</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1748666807822</updated>
+    </task>
+    <option name="localTasksCounter" value="56" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
