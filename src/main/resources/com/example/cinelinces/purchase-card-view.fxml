@@ -23,7 +23,6 @@
                    pickOnBounds="true"
                    preserveRatio="true"
                    styleClass="movie-poster-thumbnail" />
-
         <VBox spacing="5" HBox.hgrow="ALWAYS">
             <Label fx:id="movieTitleLabel"
                    styleClass="movie-title-in-card"
@@ -40,15 +39,19 @@
             <VBox spacing="3" HBox.hgrow="ALWAYS">
                 <Label text="DETALLES DE COMPRA" styleClass="section-title-label" />
                 <Label fx:id="purchaseDateTimeLabel" styleClass="details-label" />
-                <Label fx:id="seatLabel" styleClass="details-label" />
-                <Label fx:id="ticketIdLabel" styleClass="details-label" />
-            </VBox>
+                <Label fx:id="seatLabel" styleClass="details-label" /> <Label fx:id="ticketIdLabel" styleClass="details-label" /> </VBox>
             <VBox spacing="3" alignment="TOP_RIGHT">
                 <Label text="PAGO" styleClass="section-title-label" />
                 <Label fx:id="priceLabel" styleClass="price-label" />
                 <Label fx:id="paymentMethodLabel" styleClass="details-label" />
             </VBox>
         </HBox>
+
+        <VBox fx:id="productsVBox" spacing="3">
+            <Label text="PRODUCTOS ADQUIRIDOS" styleClass="section-title-label" />
+            <Label fx:id="noProductsLabel" text="No se adquirieron productos." managed="false" visible="false" styleClass="details-label-italic"/>
+        </VBox>
+
         <HBox spacing="10" alignment="CENTER_LEFT">
             <Label fx:id="purchaseStatusLabel" styleClass="status-label" />
             <Label fx:id="qrInfoLabel"

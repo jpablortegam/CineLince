@@ -4,6 +4,7 @@ import com.example.cinelinces.DAO.CompraDAO;
 import com.example.cinelinces.DAO.PromocionDAO;
 import com.example.cinelinces.DAO.impl.CompraDAOImpl;
 import com.example.cinelinces.DAO.impl.PromocionDAOImpl;
+import com.example.cinelinces.model.Cliente; // Necesario para obtener IdCliente
 import com.example.cinelinces.model.DTO.AsientoDTO;
 import com.example.cinelinces.model.DTO.FuncionDetallada;
 import com.example.cinelinces.model.DTO.ProductoSelectionDTO;
@@ -27,7 +28,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors; // Asegúrate que esta importación esté presente
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class PurchaseSummaryViewController {
 
@@ -69,7 +71,7 @@ public class PurchaseSummaryViewController {
                 );
                 Label lblPelicula = new Label(textoPeli);
                 Label lblSala = new Label("Sala " + funcion.getNumeroSala());
-                Label lblAsiento = new Label(asiento.getFila() + asiento.getNumero()); // Esto es para la vista resumen
+                Label lblAsiento = new Label(asiento.getFila() + asiento.getNumero());
                 BigDecimal precioBoleto = funcion.getPrecioBoleto();
                 Label lblPrecio = new Label("$" + precioBoleto.setScale(2, RoundingMode.HALF_UP));
 
@@ -167,7 +169,7 @@ public class PurchaseSummaryViewController {
     }
 
     @FXML
-    private void handleConfirmSummary() {
+    private void handleConfirmSummary() throws NoSuchMethodException {
         String metodoPagoSeleccionado = paymentMethodCombo.getValue();
         if (metodoPagoSeleccionado == null || metodoPagoSeleccionado.isBlank()) {
             showAlert(Alert.AlertType.WARNING, "Método de pago", "Debes seleccionar un método de pago.");
@@ -186,16 +188,34 @@ public class PurchaseSummaryViewController {
 
         if (isLoggedIn) {
             try {
+                // 1. Guardar la compra
                 compraDAO.saveFromSummary(ctx);
-                compraParaMostrar = ctx.getUltimaCompraDetallada();
-                if (compraParaMostrar == null) {
-                    showAlert(Alert.AlertType.ERROR, "Error", "No se pudieron obtener los detalles de la compra guardada.");
-                    System.err.println("ctx.getUltimaCompraDetallada() es null después de saveFromSummary para usuario logueado.");
+
+                // 2. Obtener los detalles de la compra recién guardada para mostrar en la tarjeta
+                Cliente currentClient = SessionManager.getInstance().getCurrentCliente();
+                if (currentClient == null) { // Doble verificación, aunque saveFromSummary ya lo haría
+                    showAlert(Alert.AlertType.ERROR, "Error de Sesión", "No se pudo identificar al cliente para mostrar la compra.");
                     return;
                 }
+                List<CompraDetalladaDTO> comprasGuardadas = compraDAO.findComprasByClienteId(currentClient.getIdCliente());
+
+                if (comprasGuardadas != null && !comprasGuardadas.isEmpty()) {
+                    compraParaMostrar = comprasGuardadas.get(0); // Tomamos la más reciente (asumiendo ordenación en DAO)
+                    // El DAO ya debería haber generado el QR y otros detalles.
+                    // Si necesitas un QR específico para la tarjeta diferente al de la BD (poco común):
+                    // if (compraParaMostrar.getCodigoQR() == null || compraParaMostrar.getCodigoQR().isEmpty()) {
+                    //     compraParaMostrar.setCodigoQR(UUID.randomUUID().toString().substring(0, 18).toUpperCase());
+                    // }
+                } else {
+                    showAlert(Alert.AlertType.ERROR, "Error", "No se pudieron recuperar los detalles de la compra después de guardarla.");
+                    System.err.println("findComprasByClienteId devolvió vacío o null después de saveFromSummary.");
+                    return;
+                }
+                ctx.setUltimaCompraDetallada(compraParaMostrar); // Actualizamos el contexto
+
             } catch (Exception e) {
                 e.printStackTrace();
-                showAlert(Alert.AlertType.ERROR, "Error al guardar compra", "Ocurrió un error al guardar la compra: " + e.getMessage());
+                showAlert(Alert.AlertType.ERROR, "Error al Procesar Compra", "Ocurrió un error: " + e.getMessage());
                 return;
             }
         } else {
@@ -204,24 +224,38 @@ public class PurchaseSummaryViewController {
             FuncionDetallada funcionActual = ctx.getSelectedFunction();
 
             if (funcionActual != null) {
-                compraParaMostrar.setFuncion(funcionActual); // Asume que CompraDetalladaDTO tiene setFuncion(FuncionDetallada)
+                compraParaMostrar.setFuncion(funcionActual);
             }
 
             compraParaMostrar.setFechaCompra(LocalDateTime.now());
 
             List<AsientoDTO> asientosSeleccionados = ctx.getSelectedSeats();
-            int asientoIdParaTarjeta = 0; // Placeholder int para idAsiento
+            int asientoIdParaTarjeta = 0; // Placeholder para el int idAsiento
+            String asientosConcatenados = "N/A"; // String para mostrar todos los asientos
             if (asientosSeleccionados != null && !asientosSeleccionados.isEmpty()) {
-                // Si AsientoDTO tiene un ID numérico, podrías usarlo aquí:
-                // Ejemplo: AsientoDTO primerAsiento = asientosSeleccionados.get(0);
-                // if (primerAsiento.getIdDB() != null) { /* o alguna forma de obtener un int */
-                //     asientoIdParaTarjeta = primerAsiento.getIdDB();
-                // }
-                // Por ahora, mantenemos 0 como placeholder si no tenemos un ID int del asiento.
-                // La información visual del asiento (ej. "C10") está en boletosBox.
+                // Para el int idAsiento, podríamos usar el ID del primer asiento si AsientoDTO lo tiene
+                // Ejemplo: asientoIdParaTarjeta = asientosSeleccionados.get(0).getId(); (si existe y es int)
+
+                // Para mostrar en la tarjeta (si modificas PurchaseCardController para usar un String más descriptivo)
+                asientosConcatenados = asientosSeleccionados.stream()
+                        .map(asiento -> asiento.getFila() + asiento.getNumero())
+                        .collect(Collectors.joining(", "));
+                // Dado que CompraDetalladaDTO.idAsiento es int, y PurchaseCard muestra ese int:
+                // Si quieres que la tarjeta muestre "C10, C11", necesitarías que CompraDetalladaDTO.idAsiento sea String.
+                // Por ahora, como CompraDetalladaDTO tiene int idAsiento, le pasamos el placeholder.
+                // Y el PurchaseCardController.setData() usará compra.getIdAsiento() (que será 0).
+                // Para mostrar "C10, C11", la lógica de visualización de asientos en PurchaseCardController
+                // tendría que acceder a una lista de asientos dentro de CompraDetalladaDTO, o CompraDetalladaDTO.idAsiento
+                // debería ser String y lo seteamos con asientosConcatenados.
+                // VOY A ASUMIR QUE MODIFICASTE CompraDetalladaDTO para que idAsiento sea String para mayor claridad en la tarjeta
+                compraParaMostrar.setIdAsiento(asientosConcatenados);
+            } else {
+                compraParaMostrar.setIdAsiento("N/A"); // Si es String
+                // compraParaMostrar.setIdAsiento(0); // Si mantienes int y usas placeholder
             }
-            compraParaMostrar.setIdAsiento(asientoIdParaTarjeta);
-            compraParaMostrar.setIdBoleto(0); // Placeholder int para idBoleto
+
+            // VOY A ASUMIR QUE MODIFICASTE CompraDetalladaDTO para que idBoleto sea String
+            compraParaMostrar.setIdBoleto("Vista Previa");
 
             try {
                 compraParaMostrar.setPrecioFinal(parseCurrencyLabel(totalPagarLabel.getText()));
@@ -231,7 +265,13 @@ public class PurchaseSummaryViewController {
             }
             compraParaMostrar.setMetodoPago(ctx.getMetodoPago());
             compraParaMostrar.setEstadoVenta("Vista Previa (No Guardada)");
-            compraParaMostrar.setCodigoQR(null);
+            compraParaMostrar.setCodigoQR(UUID.randomUUID().toString().substring(0, 18).toUpperCase());
+
+            // Asumiendo que CompraDetalladaDTO fue modificado para incluir productos
+            if (CompraDetalladaDTO.class.getMethod("setProductosComprados", List.class) != null) {
+                compraParaMostrar.setProductosComprados(ctx.getSelectedProducts());
+            }
+
 
             ctx.setUltimaCompraDetallada(compraParaMostrar);
         }
@@ -255,6 +295,9 @@ public class PurchaseSummaryViewController {
             } catch (IOException e) {
                 e.printStackTrace();
                 showAlert(Alert.AlertType.ERROR, "Error de Interfaz", "No se pudo mostrar la tarjeta de compra: " + e.getMessage());
+            } catch (Exception e) { // Captura genérica por si hay problemas con la reflexión para setProductosComprados
+                e.printStackTrace();
+                showAlert(Alert.AlertType.ERROR, "Error Inesperado", "Ocurrió un error al preparar los datos de la compra: " + e.getMessage());
             }
         } else {
             showAlert(Alert.AlertType.INFORMATION, "Información", "No hay detalles de compra para mostrar.");
