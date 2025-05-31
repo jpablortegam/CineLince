@@ -97,7 +97,6 @@ public class PromocionDAOImpl implements PromocionDAO {
 
     @Override
     public Optional<PromocionDTO> findActiveByCodigoAndDate(String codigo, LocalDate fecha) {
-        // Nuevo método: Usa CodigoPromo y filtra por fecha
         String sql = "SELECT IdPromocion, Nombre, Descuento, CodigoPromo " +
                 "FROM Promocion " +
                 "WHERE CodigoPromo = ? " +

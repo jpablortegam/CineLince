@@ -180,7 +180,7 @@ public class HomeViewController implements Initializable {
         }).start();
     }
 
-    // Método para formatear la calificación a estrellas (similar al de CardMovieViewController)
+
     private String formatRatingToStars(double averageRating, int totalReviews) {
         if (totalReviews == 0) {
             return "N/A";

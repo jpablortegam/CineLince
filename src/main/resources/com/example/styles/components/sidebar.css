@@ -25,7 +25,6 @@
     -fx-padding: 0 0 0 8px;
 }
 
-/* 4) Botones a TODO ancho */
 .side-button {
     -fx-background-color: transparent;
     -fx-text-fill: #ECF0F1;

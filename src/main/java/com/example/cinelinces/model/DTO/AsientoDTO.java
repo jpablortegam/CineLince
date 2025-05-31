@@ -52,7 +52,6 @@ public class AsientoDTO implements Serializable {
         this.tipoAsiento = tipoAsiento;
     }
 
-    // MÉTODO getEstado() CORREGIDO Y SETTER AÑADIDO
     public String getEstado() {
         return estado;
     }
