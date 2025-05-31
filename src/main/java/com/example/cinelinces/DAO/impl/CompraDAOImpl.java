@@ -2,27 +2,32 @@
 package com.example.cinelinces.DAO.impl;
 
 import com.example.cinelinces.DAO.CompraDAO;
+import com.example.cinelinces.DAO.PromocionDAO;
+import com.example.cinelinces.DAO.impl.PromocionDAOImpl;
 import com.example.cinelinces.database.MySQLConnection;
+import com.example.cinelinces.model.DTO.AsientoDTO;
 import com.example.cinelinces.model.DTO.CompraDetalladaDTO;
 import com.example.cinelinces.model.DTO.CompraProductoDetalladaDTO;
 import com.example.cinelinces.model.DTO.FuncionDetallada;
+import com.example.cinelinces.model.DTO.ProductoSelectionDTO;
+import com.example.cinelinces.model.DTO.PromocionDTO;
+import com.example.cinelinces.utils.SessionManager;
+import com.example.cinelinces.utils.SummaryContext;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.math.BigDecimal;
+import java.sql.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class CompraDAOImpl implements CompraDAO {
 
-    public CompraDAOImpl() {
-        // Constructor vacío
-    }
+    private final PromocionDAO promoDAO = new PromocionDAOImpl();
 
     @Override
     public List<CompraDetalladaDTO> findComprasByClienteId(int idCliente) {
-        // Para retrocompatibilidad devolvemos los boletos
         return findComprasDeBoletosByClienteId(idCliente);
     }
 
@@ -128,5 +133,101 @@ public class CompraDAOImpl implements CompraDAO {
             e.printStackTrace();
         }
         return lista;
+    }
+
+    @Override
+    public void saveFromSummary(SummaryContext ctx) {
+        var seats   = ctx.getSelectedSeats();
+        var prods   = ctx.getSelectedProducts();
+        var func    = ctx.getSelectedFunction();
+        var dateTime= ctx.getSelectedDateTime();
+        int clientId = SessionManager.getInstance().getCurrentCliente().getIdCliente();
+
+        // 1) calcular subtotales
+        BigDecimal sumTickets = func.getPrecioBoleto()
+                .multiply(BigDecimal.valueOf(seats.size()));
+        BigDecimal sumProds = prods.stream()
+                .map(ProductoSelectionDTO::getSubtotal)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+        // 2) buscar promoción activa
+        List<PromocionDTO> promos = promoDAO.findActiveByDate(dateTime.toLocalDate());
+        PromocionDTO promo = promos.isEmpty() ? null : promos.get(0);
+        BigDecimal discount = promo == null
+                ? BigDecimal.ZERO
+                : sumTickets.add(sumProds).multiply(promo.getDescuento());
+
+        BigDecimal totalFinal = sumTickets.add(sumProds).subtract(discount);
+
+        String insertVenta =
+                "INSERT INTO Venta (FechaVenta, Total, MetodoPago, Estado, Facturado, IdPromocion, IdCliente) " +
+                        "VALUES (?,?,?,?,?,?,?)";
+
+        String insertBoleto =
+                "INSERT INTO Boleto (FechaCompra, PrecioFinal, CodigoQR, IdAsiento, IdFuncion, IdVenta, IdCliente) " +
+                        "VALUES (?,?,?,?,?,?,?)";
+
+        String insertDetalle =
+                "INSERT INTO DetalleVenta (IdVenta, IdProducto, Cantidad, PrecioUnitario, Subtotal) " +
+                        "VALUES (?,?,?,?,?)";
+
+        try (Connection conn = MySQLConnection.getConnection()) {
+            conn.setAutoCommit(false);
+
+            // a) Venta
+            int idVenta;
+            try (PreparedStatement ps = conn.prepareStatement(insertVenta, Statement.RETURN_GENERATED_KEYS)) {
+                ps.setTimestamp(1, Timestamp.valueOf(LocalDateTime.now()));
+                ps.setBigDecimal(2, totalFinal);
+                ps.setString(3, "Efectivo");
+                ps.setString(4, "Completado");
+                ps.setBoolean(5, false);
+                if (promo != null) ps.setInt(6, promo.getId());
+                else          ps.setNull(6, Types.INTEGER);
+                ps.setInt(7, clientId);
+                ps.executeUpdate();
+                try (ResultSet keys = ps.getGeneratedKeys()) {
+                    if (!keys.next()) throw new SQLException("No se obtuvo IdVenta");
+                    idVenta = keys.getInt(1);
+                }
+            }
+
+            // b) Boletos
+            try (PreparedStatement ps = conn.prepareStatement(insertBoleto)) {
+                for (AsientoDTO a : seats) {
+                    ps.setTimestamp(1, Timestamp.valueOf(LocalDateTime.now()));
+                    // distribuir descuento proporcionalmente si lo deseas; aquí usamos precio neto total/tickets
+                    BigDecimal neto = func.getPrecioBoleto()
+                            .subtract(discount.divide(BigDecimal.valueOf(seats.size()), 2, BigDecimal.ROUND_HALF_UP));
+                    ps.setBigDecimal(2, neto);
+                    ps.setString(3, "QR-" + UUID.randomUUID());
+                    ps.setInt(4, a.getIdAsiento());
+                    ps.setInt(5, func.getIdFuncion());
+                    ps.setInt(6, idVenta);
+                    ps.setInt(7, clientId);
+                    ps.addBatch();
+                }
+                ps.executeBatch();
+            }
+
+            // c) DetalleVenta
+            try (PreparedStatement ps = conn.prepareStatement(insertDetalle)) {
+                for (ProductoSelectionDTO p : prods) {
+                    ps.setInt(1, idVenta);
+                    ps.setInt(2, p.getIdProducto());
+                    ps.setInt(3, p.getCantidad());
+                    ps.setBigDecimal(4, p.getPrecioUnitario());
+                    ps.setBigDecimal(5, p.getSubtotal());
+                    ps.addBatch();
+                }
+                ps.executeBatch();
+            }
+
+            conn.commit();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            try { MySQLConnection.getConnection().rollback(); }
+            catch (SQLException ignore) {}
+        }
     }
 }

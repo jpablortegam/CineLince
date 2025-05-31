@@ -1,10 +1,10 @@
+// ProductoDAO.java
 package com.example.cinelinces.DAO;
 
-import com.example.cinelinces.model.Producto;
+import com.example.cinelinces.model.DTO.ProductoDTO;
 import java.util.List;
 
 public interface ProductoDAO {
-    List<Producto> findAll();
-    List<Producto> findAvailableByCategoria(int idCategoria);
-    Producto findById(int idProducto);
+    /** Devuelve todos los productos activos (Estado = 'Activo') */
+    List<ProductoDTO> findAllAvailable();
 }

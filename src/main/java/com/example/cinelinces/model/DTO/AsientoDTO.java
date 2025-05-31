@@ -1,22 +1,23 @@
 package com.example.cinelinces.model.DTO;
 
+import java.io.Serializable;
+
 /**
  * Data Transfer Object para representar la información de un asiento.
  */
-public class AsientoDTO {
+public class AsientoDTO implements Serializable {
     private int idAsiento;
     private String fila;
     private int numero;
     private String tipoAsiento;
 
-    /**
-     * Constructor vacío.
-     */
+    /** Constructor vacío. */
     public AsientoDTO() {
     }
 
     /**
-     * Constructor con todos los campos.
+     * Constructor completo.
+     *
      * @param idAsiento    Identificador único del asiento.
      * @param fila         Letra o código de la fila.
      * @param numero       Número del asiento en la fila.
@@ -63,6 +64,12 @@ public class AsientoDTO {
 
     @Override
     public String toString() {
+        // Ejemplo de representación: "C10 (VIP)" o "A5 (Normal)"
         return String.format("%s%d (%s)", fila, numero, tipoAsiento);
     }
+
+    //
+    //  NOTA: No implementamos aquí getTituloPelicula(), getFechaHoraFuncion(), getNumeroSala() ni getPrecioUnitario().
+    //  Esa información permanece en FuncionDetallada, y el PurchaseSummaryViewController la obtendrá desde allí.
+    //
 }

@@ -4,20 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6f94096a-8f21-4170-a76e-4c2b50d8bf02" name="Changes" comment="feat: implement seat selection functionality; add DAO for seat management and enhance dialog interactions">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/DAO/ProductoDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/DAO/impl/ProductoDAOImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/ProductSelectionViewController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/PurchaseSummaryViewController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/cinelinces/product-selection-view.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/cinelinces/purchase-summary-view.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/styles/components/seat-selection.css" afterDir="false" />
+    <list default="true" id="6f94096a-8f21-4170-a76e-4c2b50d8bf02" name="Changes" comment="feat: implement product selection functionality; add DAO for product management and enhance seat selection view">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/DAO/PromocionDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/DAO/impl/PromocionDAOImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/model/DTO/ProductoDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/model/DTO/ProductoSelectionDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/model/DTO/PromocionDTO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/SeatSelectionViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/SeatSelectionViewController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/model/Producto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/model/Producto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/DAO/CompraDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/DAO/CompraDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/DAO/ProductoDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/DAO/ProductoDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/DAO/impl/CompraDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/DAO/impl/CompraDAOImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/DAO/impl/ProductoDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/DAO/impl/ProductoDAOImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/ProductSelectionViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/ProductSelectionViewController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/PurchaseSummaryViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/PurchaseSummaryViewController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/model/DTO/AsientoDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/model/DTO/AsientoDTO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/utils/SummaryContext.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/utils/SummaryContext.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/cinelinces/seatSelection-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/cinelinces/seatSelection-view.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/styles/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/styles/main.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/cinelinces/product-selection-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/cinelinces/product-selection-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/cinelinces/purchase-summary-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/cinelinces/purchase-summary-view.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -299,14 +302,6 @@
       <workItem from="1748395709034" duration="3100000" />
       <workItem from="1748471666356" duration="305000" />
       <workItem from="1748554364197" duration="12550000" />
-    </task>
-    <task id="LOCAL-00002" summary="add README file with initial greeting">
-      <option name="closed" value="true" />
-      <created>1747465424268</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1747465424268</updated>
     </task>
     <task id="LOCAL-00003" summary="refactor UI layout and add styles for sidebar and main content">
       <option name="closed" value="true" />
@@ -692,7 +687,15 @@
       <option name="project" value="LOCAL" />
       <updated>1748648925858</updated>
     </task>
-    <option name="localTasksCounter" value="51" />
+    <task id="LOCAL-00051" summary="feat: implement product selection functionality; add DAO for product management and enhance seat selection view">
+      <option name="closed" value="true" />
+      <created>1748651549825</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1748651549825</updated>
+    </task>
+    <option name="localTasksCounter" value="52" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -722,7 +725,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="refactor card animations; enhance hover effects and adjust expand/collapse durations" />
     <MESSAGE value="refactor dialog animations; optimize show/hide durations and improve layout positioning" />
     <MESSAGE value="refactor dialog animations; optimize show/hide durations and update task management" />
     <MESSAGE value="add model and DAO classes for cinema application; implement Actor, Movie, and related entities" />
@@ -747,6 +749,7 @@
     <MESSAGE value="feat: update CardMovieView layout and styles; enhance rating display and improve image handling" />
     <MESSAGE value="feat: add functionality to display movie schedules by date; enhance dialog pane for better user interaction" />
     <MESSAGE value="feat: implement seat selection functionality; add DAO for seat management and enhance dialog interactions" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: implement seat selection functionality; add DAO for seat management and enhance dialog interactions" />
+    <MESSAGE value="feat: implement product selection functionality; add DAO for product management and enhance seat selection view" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: implement product selection functionality; add DAO for product management and enhance seat selection view" />
   </component>
 </project>

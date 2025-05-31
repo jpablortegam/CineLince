@@ -3,6 +3,7 @@ package com.example.cinelinces.DAO;
 
 import com.example.cinelinces.model.DTO.CompraDetalladaDTO;
 import com.example.cinelinces.model.DTO.CompraProductoDetalladaDTO;
+import com.example.cinelinces.utils.SummaryContext;
 
 import java.util.List;
 
@@ -15,4 +16,7 @@ public interface CompraDAO {
 
     /** Historial de productos (dulcería) para un cliente */
     List<CompraProductoDetalladaDTO> findComprasDeProductosByClienteId(int idCliente);
+
+    /** Guarda la compra completa (boletos + productos) a partir del SummaryContext */
+    void saveFromSummary(SummaryContext ctx);
 }
