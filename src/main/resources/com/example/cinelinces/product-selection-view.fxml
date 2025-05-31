@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.layout.HBox?>
+<VBox xmlns="http://javafx.com/javafx/17.0.12"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.example.cinelinces.controllers.ProductSelectionViewController"
+      spacing="10" alignment="TOP_CENTER">
+
+    <padding>
+        <Insets top="16" right="16" bottom="16" left="16"/>
+    </padding>
+
+    <Label text="Agregar Productos (Opcional)" style="-fx-font-size: 16px; -fx-font-weight:bold;"/>
+    <VBox fx:id="productsContainer" spacing="8"/>
+
+    <HBox spacing="12" alignment="CENTER">
+        <Button fx:id="btnSkip" text="Omitir" onAction="#handleSkip"/>
+        <Button fx:id="btnNext" text="Siguiente" onAction="#handleNext"/>
+    </HBox>
+</VBox>
