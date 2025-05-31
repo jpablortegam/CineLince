@@ -6,7 +6,6 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
 <VBox xmlns="http://javafx.com/javafx/17.0.12"
@@ -20,13 +19,13 @@
     </padding>
 
     <!-- Título -->
-    <Label text="Resumen de compra" styleClass="title-label"/>
+    <Label text="Resumen de compra"/>
 
     <!-- ===============================
          1) Sección de boletos (GridPane)
          Cada fila: [ Película—FechaHora ] [ Sala ] [ Asiento ] [ Precio ]
          =============================== -->
-    <Label text="Boletos" styleClass="section-label"/>
+    <Label text="Boletos"/>
     <GridPane fx:id="boletosBox" hgap="10" vgap="8">
         <!-- Columnas definidas para que se vean alineadas -->
         <columnConstraints>
@@ -41,15 +40,15 @@
         </columnConstraints>
     </GridPane>
     <HBox alignment="CENTER_RIGHT">
-        <Label text="Subtotal boletos: " styleClass="label-bold"/>
-        <Label fx:id="subtotalBoletosLabel" text="0" styleClass="label-value"/>
+        <Label text="Subtotal boletos: "/>
+        <Label fx:id="subtotalBoletosLabel" text="0"/>
     </HBox>
 
     <!-- ===============================
          2) Sección de productos (GridPane)
          Cada fila: [ Nombre prod—Precio ] [ Cantidad ] [ Subtotal ]
          =============================== -->
-    <Label text="Productos (Dulcería)" styleClass="section-label"/>
+    <Label text="Productos (Dulcería)"/>
     <GridPane fx:id="productosBox" hgap="10" vgap="8">
         <!-- Columnas para los productos -->
         <columnConstraints>
@@ -62,15 +61,15 @@
         </columnConstraints>
     </GridPane>
     <HBox alignment="CENTER_RIGHT">
-        <Label text="Subtotal productos: " styleClass="label-bold"/>
-        <Label fx:id="subtotalProductosLabel" text="0" styleClass="label-value"/>
+        <Label text="Subtotal productos: "/>
+        <Label fx:id="subtotalProductosLabel" text="0"/>
     </HBox>
 
     <!-- ===============================
          3) Sección de Promoción (GridPane)
          Se rellena solo si hay promoción activa.
          =============================== -->
-    <Label text="Promoción aplicada" styleClass="section-label"/>
+    <Label text="Promoción aplicada"/>
     <GridPane fx:id="promoBox" hgap="10" vgap="8">
         <!-- Columnas para mostrar: [“Promoción aplicada”] [Código (Nombre)] [%-Desc] -->
         <columnConstraints>
@@ -80,16 +79,16 @@
         </columnConstraints>
     </GridPane>
     <HBox alignment="CENTER_RIGHT">
-        <Label text="Descuento: " styleClass="label-bold"/>
-        <Label fx:id="descuentoLabel" text="-$0" styleClass="label-value"/>
+        <Label text="Descuento: "/>
+        <Label fx:id="descuentoLabel" text="-$0"/>
     </HBox>
 
     <!-- ===============================
          Total a Pagar
          =============================== -->
     <HBox alignment="CENTER_RIGHT" spacing="8">
-        <Label text="Total a pagar: " styleClass="label-bold-large"/>
-        <Label fx:id="totalPagarLabel" text="0" styleClass="label-value-large"/>
+        <Label text="Total a pagar: "/>
+        <Label fx:id="totalPagarLabel" text="0"/>
     </HBox>
 
     <!-- ===============================
@@ -98,11 +97,9 @@
     <HBox spacing="12" alignment="CENTER_RIGHT">
         <Button fx:id="btnCancelSummary"
                 text="Cancelar"
-                onAction="#handleCancelSummary"
-                styleClass="button-secondary"/>
+                onAction="#handleCancelSummary"/>
         <Button fx:id="btnConfirmSummary"
                 text="Confirmar pago"
-                onAction="#handleConfirmSummary"
-                styleClass="button-primary"/>
+                onAction="#handleConfirmSummary"/>
     </HBox>
 </VBox>

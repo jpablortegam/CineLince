@@ -6,19 +6,35 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="cardRoot" spacing="10" styleClass="purchase-card" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/21"
-fx:controller="com.example.cinelinces.controllers.PurchaseCardController">
+<VBox fx:id="cardRoot"
+      spacing="10"
+      styleClass="purchase-card"
+      xmlns:fx="http://javafx.com/fxml/1"
+      xmlns="http://javafx.com/javafx/21"
+      fx:controller="com.example.cinelinces.controllers.PurchaseCardController">
+
     <padding>
         <Insets bottom="12.0" left="15.0" right="15.0" top="12.0" />
     </padding>
+
     <HBox spacing="15" alignment="TOP_LEFT">
-        <ImageView fx:id="moviePosterImageView" fitHeight="120.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" styleClass="movie-poster-thumbnail" />
+        <ImageView fx:id="moviePosterImageView"
+                   fitHeight="120.0" fitWidth="80.0"
+                   pickOnBounds="true"
+                   preserveRatio="true"
+                   styleClass="movie-poster-thumbnail" />
+
         <VBox spacing="5" HBox.hgrow="ALWAYS">
-            <Label fx:id="movieTitleLabel" styleClass="movie-title-in-card" wrapText="true" />
-            <Label fx:id="cinemaAndSalaLabel" styleClass="details-label-secondary" />
-            <Label fx:id="functionDateTimeLabel" styleClass="details-label-secondary" />
+            <Label fx:id="movieTitleLabel"
+                   styleClass="movie-title-in-card"
+                   wrapText="true" />
+            <Label fx:id="cinemaAndSalaLabel"
+                   styleClass="details-label-secondary" />
+            <Label fx:id="functionDateTimeLabel"
+                   styleClass="details-label-secondary" />
         </VBox>
     </HBox>
+
     <VBox spacing="8" styleClass="purchase-details-section">
         <HBox spacing="20">
             <VBox spacing="3" HBox.hgrow="ALWAYS">
@@ -35,7 +51,10 @@ fx:controller="com.example.cinelinces.controllers.PurchaseCardController">
         </HBox>
         <HBox spacing="10" alignment="CENTER_LEFT">
             <Label fx:id="purchaseStatusLabel" styleClass="status-label" />
-            <Label fx:id="qrInfoLabel" styleClass="details-label-small" HBox.hgrow="ALWAYS" alignment="CENTER_RIGHT" />
+            <Label fx:id="qrInfoLabel"
+                   styleClass="details-label-small"
+                   HBox.hgrow="ALWAYS"
+                   alignment="CENTER_RIGHT" />
         </HBox>
     </VBox>
 </VBox>

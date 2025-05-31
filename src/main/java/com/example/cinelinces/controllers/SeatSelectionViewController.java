@@ -23,8 +23,15 @@ import java.util.List;
 
 /**
  * Controlador de la ventana de selección de asientos.
+ *
+ * Flujo:
+ *   1) El usuario elige asientos → guarda datos en SummaryContext
+ *   2) Cierra esta ventana
+ *   3) Abre product-selection-view.fxml (modal). [Optional]
+ *   4) Al cerrar la ventana de productos, abre purchase-summary-view.fxml (modal)
  */
 public class SeatSelectionViewController {
+
     @FXML private Label titleLabel;
     @FXML private GridPane seatGrid;
     @FXML private Label selectedCountLabel;
@@ -39,11 +46,13 @@ public class SeatSelectionViewController {
     private final AsientoDAO asientoDAO = new AsientoDAOImpl();
 
     /**
-     * Inicializa la vista con función y horario.
+     * Este método debe llamarse desde el controlador padre justo después
+     * de cargar el FXML, para pasar la función y la fecha/hora.
      */
     public void initData(FuncionDetallada function, LocalDateTime dateTime) {
         this.currentFunction  = function;
         this.selectedDateTime = dateTime;
+
         titleLabel.setText(
                 function.getTituloPelicula() + "  |  " +
                         dateTime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm 'hrs'"))
@@ -51,24 +60,36 @@ public class SeatSelectionViewController {
         loadSeats();
     }
 
+    /**
+     * Consulta todos los asientos de la sala (currentFunction.getIdSala()),
+     * marca como “ocupados” los que ya están reservados para esta función,
+     * y permite seleccionar/des-seleccionar el resto.
+     */
     private void loadSeats() {
+        // 1) Obtener todos los asientos de la sala de la función
         seats = asientoDAO.findAsientosBySala(currentFunction.getIdSala());
+
+        // 2) Obtener IDs de asientos ya reservados para esta función
         List<Integer> bookedIds =
                 asientoDAO.findBookedSeatIdsByFuncion(currentFunction.getIdFuncion());
 
-        int cols = 8, row = 0, col = 0;
+        // 3) Construir la grilla con ToggleButtons
+        int cols = 8;
+        int row = 0, col = 0;
         for (AsientoDTO asiento : seats) {
             ToggleButton btn = new ToggleButton(asiento.getFila() + asiento.getNumero());
             btn.getStyleClass().add("seat-button");
             btn.setUserData(asiento);
 
+            // Si está reservado, deshabilitar y marcar como “ocupado”
             if (bookedIds.contains(asiento.getIdAsiento())) {
                 btn.setDisable(true);
                 btn.getStyleClass().add("seat-occupied");
             } else {
+                // asiento libre: aplicar estilo “available” y listener
                 btn.getStyleClass().add("seat-available");
-                btn.selectedProperty().addListener((obs, was, isSel) -> {
-                    if (isSel) {
+                btn.selectedProperty().addListener((obs, wasSelected, isNowSelected) -> {
+                    if (isNowSelected) {
                         btn.getStyleClass().remove("seat-available");
                         btn.getStyleClass().add("seat-selected");
                         selectedSeats.add(asiento);
@@ -77,50 +98,75 @@ public class SeatSelectionViewController {
                         btn.getStyleClass().add("seat-available");
                         selectedSeats.remove(asiento);
                     }
+                    // Mostrar cuántos asientos lleva seleccionados
                     selectedCountLabel.setText(String.valueOf(selectedSeats.size()));
                 });
             }
 
             seatGrid.add(btn, col, row);
-            if (++col >= cols) { col = 0; row++; }
+            col++;
+            if (col >= cols) {
+                col = 0;
+                row++;
+            }
         }
     }
 
     /**
-     * 1) Guarda la selección de asientos en el contexto.
-     * 2) Cierra esta ventana.
-     * 3) Abre la ventana de selección de productos.
+     * Cuando el usuario hace clic en “Confirmar”:
+     * 1) Guarda currentFunction, selectedDateTime y selectedSeats en SummaryContext.
+     * 2) Cierra la ventana de asientos.
+     * 3) Abre product-selection-view.fxml como modal.
+     * 4) Al cerrar la ventana de productos, abre purchase-summary-view.fxml como modal.
      */
     @FXML
     private void handleConfirm() {
-        // 1) Guardar en el contexto
+        // 1) Guardar en el contexto global
         SummaryContext ctx = SummaryContext.getInstance();
         ctx.setSelectedFunction(currentFunction);
         ctx.setSelectedDateTime(selectedDateTime);
         ctx.setSelectedSeats(new ArrayList<>(selectedSeats));
 
-        // 2) Cerrar esta ventana
+        // 2) Cerrar esta ventana de selección de asientos
         Stage thisStage = (Stage) btnConfirm.getScene().getWindow();
         thisStage.close();
 
-        // 3) Abrir selección de productos (modal)
+        // 3) Abrir la ventana de selección de productos (modal)
         try {
-            FXMLLoader loader = new FXMLLoader(
+            FXMLLoader loaderProd = new FXMLLoader(
                     getClass().getResource("/com/example/cinelinces/product-selection-view.fxml")
             );
-            Parent root = loader.load();
+            Parent rootProd = loaderProd.load();
             Stage prodStage = new Stage();
             prodStage.initModality(Modality.APPLICATION_MODAL);
             prodStage.setTitle("Agregar Productos (Opcional)");
-            prodStage.setScene(new Scene(root));
+            prodStage.setScene(new Scene(rootProd));
+            prodStage.setResizable(false);
             prodStage.showAndWait();
-            // al cerrar esa ventana, el flujo seguirá al PurchaseSummaryController.showSummary()
+            // Al cerrar product-selection-view.fxml, el flujo sigue aquí
+
+            // 4) Abrir la ventana de Resumen de compra (modal)
+            FXMLLoader loaderSummary = new FXMLLoader(
+                    getClass().getResource("/com/example/cinelinces/purchase-summary-view.fxml")
+            );
+            Parent rootSummary = loaderSummary.load();
+            Stage summaryStage = new Stage();
+            summaryStage.initModality(Modality.APPLICATION_MODAL);
+            summaryStage.setTitle("Resumen de compra");
+            summaryStage.setScene(new Scene(rootSummary));
+            summaryStage.setResizable(false);
+            summaryStage.showAndWait();
+            // Al cerrar la ventana de resumen, finaliza el flujo
+
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    /** Cancela y cierra sin guardar nada. */
+    /**
+     * Si el usuario hace clic en “Cancelar”, solo cierra esta ventana
+     * (sin guardar nada en el contexto).
+     */
     @FXML
     private void handleCancel() {
         ((Stage) btnCancel.getScene().getWindow()).close();

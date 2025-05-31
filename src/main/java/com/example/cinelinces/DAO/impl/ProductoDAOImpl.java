@@ -1,4 +1,3 @@
-// ProductoDAOImpl.java
 package com.example.cinelinces.DAO.impl;
 
 import com.example.cinelinces.DAO.ProductoDAO;
@@ -13,8 +12,12 @@ import java.util.List;
 public class ProductoDAOImpl implements ProductoDAO {
     @Override
     public List<ProductoDTO> findAllAvailable() {
+        // Ahora filtramos WHERE Estado = 'Disponible',
+        // ya que en tu BD los productos activos tienen Estado = 'Disponible'
         String sql = "SELECT IdProducto, Nombre, Descripcion, Precio, Stock " +
-                "FROM Producto WHERE Estado = 'Activo'";
+                "FROM Producto " +
+                "WHERE Estado = 'Disponible'";
+
         List<ProductoDTO> lista = new ArrayList<>();
         try (Connection conn = MySQLConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql);
