@@ -1,6 +1,5 @@
 package com.example.cinelinces.controllers;
 
-
 import com.example.cinelinces.model.DTO.CompraDetalladaDTO;
 import com.example.cinelinces.utils.SessionManager;
 import javafx.fxml.FXML;
@@ -58,6 +57,7 @@ public class MainViewController implements Initializable {
             }
 
             contentArea.setCenter(node);
+            currentViewPath = path;
 
         } catch (IOException e) {
             e.printStackTrace();
