@@ -51,7 +51,7 @@
 /* --- Estilos para la tarjeta EXPANDIDA --- */
 .movie-card.expanded {
     -fx-background-color: #4A3F78;
-    -fx-background-radius: 12px;
+    -fx-background-radius: 6px;
     -fx-padding: 20px; /* Reducido ligeramente el padding general para dar más espacio al contenido */
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.35), 20, 0.25, 0, 5);
 }
@@ -101,7 +101,7 @@
 .movie-card.expanded #iconGenre,
 .movie-card.expanded #classificationLabel {
     -fx-text-fill: #D1CDE4;
-    -fx-font-size: 12px; /* Reducido */
+    -fx-font-size: 6px; /* Reducido */
 }
 
 .movie-card.expanded #iconDuration .ikonli-font-icon,
@@ -109,13 +109,13 @@
 .movie-card.expanded #iconGenre .ikonli-font-icon,
 .movie-card.expanded #classificationLabel .ikonli-font-icon {
     -fx-icon-color: #D1CDE4;
-    -fx-icon-size: 13px; /* Ajustado */
+    -fx-icon-size: 6px; /* Ajustado */
 }
 
 /* MODIFICADO: Sinopsis */
 .movie-card.expanded #synopsisExpanded {
     -fx-text-fill: #E0E0E0;
-    -fx-font-size: 12px; /* Reducido */
+    -fx-font-size: 6px; /* Reducido */
     -fx-line-spacing: 1.8px; /* Ajustado */
 }
 
@@ -125,7 +125,7 @@
 .movie-card.expanded #studioLabel,
 .movie-card.expanded #languageLabel {
     -fx-text-fill: #E0E0E0;
-    -fx-font-size: 11px; /* Reducido */
+    -fx-font-size: 4px; /* Reducido */
     -fx-line-spacing: 1.4px; /* Ajustado */
 }
 

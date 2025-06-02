@@ -14,12 +14,11 @@
 <?import javafx.scene.layout.VBox?>
 
 <StackPane fx:id="rootStack"
-
            xmlns="http://javafx.com/javafx/17.0.12"
            xmlns:fx="http://javafx.com/fxml/1"
            fx:controller="com.example.cinelinces.controllers.HomeViewController">
 
-    <ScrollPane fitToWidth="true" styleClass="scroll-pane-background">
+    <ScrollPane fx:id="mainScrollPane" fitToWidth="true" fitToHeight="true" styleClass="scroll-pane-background">
         <VBox spacing="32" styleClass="main-vbox-container">
             <padding>
                 <Insets top="24" right="24" bottom="32" left="24"/>
@@ -35,7 +34,6 @@
             </HBox>
 
             <StackPane fx:id="detailedFeaturedBannerPane" styleClass="detailed-featured-banner-pane">
-
                 <HBox spacing="24" alignment="CENTER_LEFT" styleClass="featured-content-box">
                     <padding>
                         <Insets top="25" right="30" bottom="25" left="30"/>
@@ -101,5 +99,6 @@
 
         </VBox>
     </ScrollPane>
+
     <Pane fx:id="overlayPane" pickOnBounds="false"/>
 </StackPane>
