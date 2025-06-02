@@ -148,7 +148,7 @@ public class FuncionDAOImpl implements FuncionDAO {
                         "P.Sinopsis AS SinopsisPelicula, P.Fotografia AS FotografiaPelicula, P.FechaEstreno AS FechaEstrenoPelicula, " +
                         "P.Idioma AS IdiomaPelicula, P.Subtitulada AS SubtituladaPelicula, " +
                         "P.CalificacionPromedio AS CalificacionPromedioPelicula, P.TotalCalificaciones AS TotalCalificacionesPelicula, " +
-                        "TP.Nombre AS NombreTipoPelicula, Est.Nombre AS NombreEstudio, Dir.Nombre AS NombreDirector, " +
+                        "P.IdTipoPelicula, TP.Nombre AS NombreTipoPelicula, Est.Nombre AS NombreEstudio, Dir.Nombre AS NombreDirector, " +
                         "F.IdFuncion, F.FechaHora AS FechaHoraFuncion, F.Precio AS PrecioBoleto, F.Estado AS EstadoFuncion " +
                         "FROM Funcion F " +
                         "JOIN Sala S ON F.IdSala = S.IdSala " +
@@ -183,6 +183,8 @@ public class FuncionDAOImpl implements FuncionDAO {
                     dto.setSubtituladaPelicula(rs.getBoolean("SubtituladaPelicula"));
                     dto.setCalificacionPromedioPelicula(rs.getDouble("CalificacionPromedioPelicula"));
                     dto.setTotalCalificacionesPelicula(rs.getInt("TotalCalificacionesPelicula"));
+                    int tipoId = rs.getInt("IdTipoPelicula");
+                    dto.setIdTipoPelicula(rs.wasNull() ? null : tipoId);
                     dto.setNombreTipoPelicula(rs.getString("NombreTipoPelicula"));
                     dto.setNombreEstudio(rs.getString("NombreEstudio"));
                     dto.setNombreDirector(rs.getString("NombreDirector"));

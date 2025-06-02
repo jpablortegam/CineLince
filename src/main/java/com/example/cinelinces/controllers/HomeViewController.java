@@ -27,12 +27,7 @@ import javafx.util.StringConverter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.HashSet;
-import java.util.List;
-import java.util.ResourceBundle;
-import java.util.Set;
+import java.util.*;
 
 public class HomeViewController implements Initializable {
     @FXML
@@ -86,6 +81,14 @@ public class HomeViewController implements Initializable {
         setupCineComboBox();
         loadProximamenteCards();
         clearDetailedBanner();
+
+        cineComboBox.setOnAction(e -> {
+            Cine seleccionado = cineComboBox.getSelectionModel().getSelectedItem();
+            if (seleccionado != null) {
+                loadFuncionesEnCartelera(seleccionado.getIdCine());
+            }
+        });
+
     }
 
     private void setupDialogPane() {
@@ -148,17 +151,48 @@ public class HomeViewController implements Initializable {
     }
 
     private void loadFuncionesEnCartelera(int idCine) {
+        Platform.runLater(() -> {
+            enCarteleraPane.getChildren().clear();
+            clearDetailedBanner(); // Siempre limpia el banner al cambiar de cine
+        });
+
         new Thread(() -> {
             List<FuncionDetallada> funciones = funcionDAO.findFuncionesDetalladasByCineId(idCine);
+
             Platform.runLater(() -> {
                 enCarteleraPane.getChildren().clear();
+
                 if (funciones == null || funciones.isEmpty()) {
                     enCarteleraPane.getChildren().add(new Label("No hay funciones en cartelera."));
                     clearDetailedBanner();
                     return;
                 }
-                FuncionDetallada destacada = funciones.stream().max(Comparator.comparing(FuncionDetallada::getCalificacionPromedioPelicula).thenComparing(FuncionDetallada::getTotalCalificacionesPelicula)).orElse(funciones.get(0));
-                updateDetailedBanner(destacada);
+// 1. Agrupar por película (una función representativa por película)
+                Map<Integer, FuncionDetallada> unaPorPelicula = new HashMap<>();
+                for (FuncionDetallada f : funciones) {
+                    unaPorPelicula.putIfAbsent(f.getIdPelicula(), f);
+                }
+
+// 2. Encontrar la calificación máxima entre películas únicas
+                double maxRating = unaPorPelicula.values().stream()
+                        .mapToDouble(FuncionDetallada::getCalificacionPromedioPelicula)
+                        .max()
+                        .orElse(0);
+
+// 3. Filtrar solo las películas con ese rating
+                List<FuncionDetallada> candidatas = unaPorPelicula.values().stream()
+                        .filter(f -> Double.compare(f.getCalificacionPromedioPelicula(), maxRating) == 0)
+                        .toList();
+
+                if (candidatas.isEmpty()) {
+                    updateDetailedBanner(unaPorPelicula.values().iterator().next());
+                } else {
+                    // 4. Seleccionar aleatoriamente
+                    FuncionDetallada destacada = candidatas.get((int) (Math.random() * candidatas.size()));
+                    updateDetailedBanner(destacada);
+                }
+
+                // Mostrar máximo 4 películas diferentes
                 Set<Integer> seen = new HashSet<>();
                 int max = 4;
                 for (FuncionDetallada f : funciones) {
@@ -179,6 +213,8 @@ public class HomeViewController implements Initializable {
             });
         }).start();
     }
+
+
 
 
     private String formatRatingToStars(double averageRating, int totalReviews) {

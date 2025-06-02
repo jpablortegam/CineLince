@@ -19,6 +19,7 @@ public class FuncionDetallada {
     private String sinopsisPelicula;
     private String fotografiaPelicula;
     private LocalDate fechaEstrenoPelicula;
+    private Integer idTipoPelicula; // Añadido para el filtro de categoría
     private String nombreTipoPelicula;
     private int idSala;
     private int numeroSala;
@@ -131,6 +132,15 @@ public class FuncionDetallada {
 
     public void setFechaEstrenoPelicula(LocalDate fechaEstrenoPelicula) {
         this.fechaEstrenoPelicula = fechaEstrenoPelicula;
+    }
+
+    // Nuevo getter y setter para idTipoPelicula
+    public Integer getIdTipoPelicula() {
+        return idTipoPelicula;
+    }
+
+    public void setIdTipoPelicula(Integer idTipoPelicula) {
+        this.idTipoPelicula = idTipoPelicula;
     }
 
     public String getNombreTipoPelicula() {

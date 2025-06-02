@@ -4,17 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6f94096a-8f21-4170-a76e-4c2b50d8bf02" name="Changes" comment="refactor: update MainViewController and README; improve code structure and enhance documentation">
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="6f94096a-8f21-4170-a76e-4c2b50d8bf02" name="Changes" comment="refactor: update project configuration; upgrade Java and JavaFX versions, enhance animation durations, and improve CSS styles">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/DAO/TipoPeliculaDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/DAO/impl/TipoPeliculaDAOImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/model/TipoPelicula.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/CardMovieViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/CardMovieViewController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/HomeViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/HomeViewController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/utils/Animations/CardAnimationHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/utils/Animations/CardAnimationHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/utils/Animations/DialogAnimationHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/utils/Animations/DialogAnimationHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/PopularViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/PopularViewController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/model/DTO/FuncionDetallada.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/model/DTO/FuncionDetallada.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/cinelinces/home-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/cinelinces/home-view.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/styles/components/movie-card.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/styles/components/movie-card.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/cinelinces/popular-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/cinelinces/popular-view.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -275,15 +274,7 @@
       <workItem from="1748554364197" duration="12550000" />
       <workItem from="1748664529508" duration="12854000" />
       <workItem from="1748724715723" duration="4273000" />
-      <workItem from="1748826087789" duration="12052000" />
-    </task>
-    <task id="LOCAL-00015" summary="add movie card display and upcoming movies section; enhance styles and pagination">
-      <option name="closed" value="true" />
-      <created>1747859694875</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1747859694875</updated>
+      <workItem from="1748826087789" duration="16901000" />
     </task>
     <task id="LOCAL-00016" summary="enhance movie card display; maximize application window and update styles for upcoming movies">
       <option name="closed" value="true" />
@@ -669,7 +660,15 @@
       <option name="project" value="LOCAL" />
       <updated>1748827310002</updated>
     </task>
-    <option name="localTasksCounter" value="64" />
+    <task id="LOCAL-00064" summary="refactor: update project configuration; upgrade Java and JavaFX versions, enhance animation durations, and improve CSS styles">
+      <option name="closed" value="true" />
+      <created>1748839087825</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1748839087825</updated>
+    </task>
+    <option name="localTasksCounter" value="65" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -699,7 +698,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="add Boleto model and DAO implementation; create CompraDetalladaDTO and PurchaseCardController for enhanced purchase details display" />
     <MESSAGE value="refactor CardMovieView layout and controller; enhance UI with expanded view and improved styles" />
     <MESSAGE value="refactor CardMovieView layout and controller; improve expanded view with enhanced styles and interaction logic" />
     <MESSAGE value="refactor CardMovieView layout and controller; optimize expanded view dimensions and improve button styles" />
@@ -724,7 +722,8 @@
     <MESSAGE value="feat: enhance transaction handling; implement decrementStock method in ProductoDAOImpl for stock management within a single transaction in CompraDAOImpl" />
     <MESSAGE value="refactor: clean up code; remove unnecessary comments and improve formatting across multiple files" />
     <MESSAGE value="refactor: update MainViewController and README; improve code structure and enhance documentation" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactor: update MainViewController and README; improve code structure and enhance documentation" />
+    <MESSAGE value="refactor: update project configuration; upgrade Java and JavaFX versions, enhance animation durations, and improve CSS styles" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor: update project configuration; upgrade Java and JavaFX versions, enhance animation durations, and improve CSS styles" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

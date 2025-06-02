@@ -66,10 +66,6 @@
                             </padding>
                             <Button fx:id="btnFeaturedVerHorarios" text="▶ Ver horarios"
                                     styleClass="button-featured-primary"/>
-                            <Button fx:id="btnFeaturedMiLista" text="+ Mi lista"
-                                    styleClass="button-featured-secondary"/>
-                            <Button fx:id="btnFeaturedMasInfo" text="ℹ️ Más info"
-                                    styleClass="button-featured-tertiary"/>
                         </HBox>
                     </VBox>
                 </HBox>
