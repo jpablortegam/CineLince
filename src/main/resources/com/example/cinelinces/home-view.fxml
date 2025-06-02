@@ -50,15 +50,23 @@
                     <VBox spacing="10" alignment="TOP_LEFT" HBox.hgrow="ALWAYS" styleClass="featured-info-vbox">
                         <Label fx:id="featuredMovieTitleText" text="Título de la Película"
                                styleClass="featured-title-text" wrapText="true"/>
+
                         <HBox spacing="15" alignment="CENTER_LEFT" styleClass="featured-meta-hbox">
                             <Label fx:id="featuredGenreText" text="🏷️ Género" styleClass="featured-meta-label"/>
                             <Label fx:id="featuredDurationText" text="⏱️ Duración" styleClass="featured-meta-label"/>
                             <Label fx:id="featuredYearText" text="📅 Año" styleClass="featured-meta-label"/>
                         </HBox>
+
+                        <HBox spacing="8" alignment="CENTER_LEFT" styleClass="featured-badges-hbox">
+                            <Label fx:id="featuredFormatBadge" text="IMAX" styleClass="genre-badge" visible="false"/>
+                            <Label fx:id="featuredGenreBadge" text="Acción" styleClass="genre-badge" visible="false"/>
+                        </HBox>
+
                         <Label fx:id="featuredSynopsisText"
                                text="Sinopsis de la película..."
                                styleClass="featured-synopsis-text"
                                wrapText="true"/>
+
                         <Region VBox.vgrow="ALWAYS" minHeight="10"/>
                         <HBox spacing="12" alignment="CENTER_LEFT" styleClass="featured-buttons-hbox">
                             <padding>
@@ -88,7 +96,6 @@
                 <HBox alignment="CENTER_LEFT" spacing="16">
                     <Label styleClass="text-section" text="Próximamente"/>
                     <Region HBox.hgrow="ALWAYS"/>
-                    <Button fx:id="btnVerTodasProximamente" styleClass="button-view-all" text="Ver todas"/>
                 </HBox>
                 <FlowPane fx:id="proximamentePane" hgap="16" vgap="16" styleClass="movie-grid"/>
             </VBox>

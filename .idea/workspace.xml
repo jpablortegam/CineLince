@@ -4,16 +4,29 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6f94096a-8f21-4170-a76e-4c2b50d8bf02" name="Changes" comment="refactor: update project configuration; upgrade Java and JavaFX versions, enhance animation durations, and improve CSS styles">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/DAO/TipoPeliculaDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/DAO/impl/TipoPeliculaDAOImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/model/TipoPelicula.java" afterDir="false" />
+    <list default="true" id="6f94096a-8f21-4170-a76e-4c2b50d8bf02" name="Changes" comment="feat: add TipoPelicula model and DAO; implement filtering for popular movies by category in PopularViewController">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/model/DTO/BoletoGeneradoDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/images/posters/placeholder.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/DAO/AsientoDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/DAO/AsientoDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/DAO/CompraDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/DAO/CompraDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/DAO/FuncionDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/DAO/FuncionDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/DAO/impl/AsientoDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/DAO/impl/AsientoDAOImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/DAO/impl/CompraDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/DAO/impl/CompraDAOImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/CardMovieViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/CardMovieViewController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/ClientDashboardViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/ClientDashboardViewController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/HomeViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/HomeViewController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/PopularViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/PopularViewController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/model/DTO/FuncionDetallada.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/model/DTO/FuncionDetallada.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/PurchaseCardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/PurchaseCardController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/PurchaseSummaryViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/PurchaseSummaryViewController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/SeatSelectionViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/controllers/SeatSelectionViewController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/model/DTO/CompraDetalladaDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/model/DTO/CompraDetalladaDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/utils/SummaryContext.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cinelinces/utils/SummaryContext.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/cinelinces/home-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/cinelinces/home-view.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/cinelinces/popular-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/cinelinces/popular-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/images/img.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/images/placeholder.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/images/placeholder.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/styles/components/home.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/styles/components/home.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/styles/components/movie-card.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/styles/components/movie-card.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/styles/components/section.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/styles/components/section.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -274,15 +287,7 @@
       <workItem from="1748554364197" duration="12550000" />
       <workItem from="1748664529508" duration="12854000" />
       <workItem from="1748724715723" duration="4273000" />
-      <workItem from="1748826087789" duration="16901000" />
-    </task>
-    <task id="LOCAL-00016" summary="enhance movie card display; maximize application window and update styles for upcoming movies">
-      <option name="closed" value="true" />
-      <created>1747861425209</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1747861425209</updated>
+      <workItem from="1748826087789" duration="25787000" />
     </task>
     <task id="LOCAL-00017" summary="enhance dialog display and animations; improve button hover effects and background overlay">
       <option name="closed" value="true" />
@@ -668,7 +673,15 @@
       <option name="project" value="LOCAL" />
       <updated>1748839087825</updated>
     </task>
-    <option name="localTasksCounter" value="65" />
+    <task id="LOCAL-00065" summary="feat: add TipoPelicula model and DAO; implement filtering for popular movies by category in PopularViewController">
+      <option name="closed" value="true" />
+      <created>1748844030685</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1748844030685</updated>
+    </task>
+    <option name="localTasksCounter" value="66" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -698,7 +711,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="refactor CardMovieView layout and controller; enhance UI with expanded view and improved styles" />
     <MESSAGE value="refactor CardMovieView layout and controller; improve expanded view with enhanced styles and interaction logic" />
     <MESSAGE value="refactor CardMovieView layout and controller; optimize expanded view dimensions and improve button styles" />
     <MESSAGE value="refactor CardMovieView layout and controller; adjust dimensions and styles for improved UI and interaction" />
@@ -723,7 +735,8 @@
     <MESSAGE value="refactor: clean up code; remove unnecessary comments and improve formatting across multiple files" />
     <MESSAGE value="refactor: update MainViewController and README; improve code structure and enhance documentation" />
     <MESSAGE value="refactor: update project configuration; upgrade Java and JavaFX versions, enhance animation durations, and improve CSS styles" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactor: update project configuration; upgrade Java and JavaFX versions, enhance animation durations, and improve CSS styles" />
+    <MESSAGE value="feat: add TipoPelicula model and DAO; implement filtering for popular movies by category in PopularViewController" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: add TipoPelicula model and DAO; implement filtering for popular movies by category in PopularViewController" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

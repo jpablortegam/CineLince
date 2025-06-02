@@ -19,6 +19,14 @@
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.1, 0, 2);
 }
 
+.genre-badge {
+    -fx-background-color: #6A5F9E;
+    -fx-background-radius: 4px;
+    -fx-padding: 3px 7px;
+    -fx-font-size: 10px;
+    -fx-text-fill: white;
+}
+
 /* Estilos para Textos Generales (ejemplos, ajusta a tus necesidades) */
 .text-body-strong {
     -fx-font-size: 14px;

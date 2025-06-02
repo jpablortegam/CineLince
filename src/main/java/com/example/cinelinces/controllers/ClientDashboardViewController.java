@@ -1,6 +1,8 @@
 package com.example.cinelinces.controllers;
 
+// Importar todas las clases necesarias
 import com.example.cinelinces.model.Cliente;
+import com.example.cinelinces.model.DTO.BoletoGeneradoDTO; // Importar la nueva DTO para boletos individuales
 import com.example.cinelinces.model.DTO.CompraDetalladaDTO;
 import com.example.cinelinces.utils.SessionManager;
 import javafx.fxml.FXML;
@@ -10,12 +12,13 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
+// Ya no necesitamos BigDecimal si solo mostramos el total de la CompraDetalladaDTO
+// import java.math.BigDecimal;
+import java.time.LocalDateTime; // Asegúrate de importar LocalDateTime si aún lo usas para agrupar
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
+import java.util.Map; // Para Collectors.groupingBy
+import java.util.stream.Collectors; // Para Collectors
 
 public class ClientDashboardViewController {
 
@@ -26,26 +29,30 @@ public class ClientDashboardViewController {
     @FXML
     private Label registroLabel;
     @FXML
-    private VBox purchasesContainer;
+    private VBox purchasesContainer; // Contenedor para las tarjetas de compra
 
     private MainViewController mainController;
-    private Cliente cliente;
+    private Cliente cliente; // El cliente actualmente loggeado
 
+    // Setter para el controlador principal (si lo usas para navegación)
     public void setMainViewController(MainViewController m) {
         this.mainController = m;
     }
 
+    // Setter para los datos del cliente, para mostrar en la interfaz
     public void setClienteData(Cliente c) {
         this.cliente = c;
         welcomeLabel.setText("¡Bienvenido, " + c.getNombre() + " " + c.getApellido() + "!");
         emailLabel.setText("Email: " + c.getEmail());
-        String fmt = "dd/MM/yyyy 'a las' HH:mm";
+        String fmt = "dd/MM/yyyy 'a las' HH:mm"; // Formato de fecha
         registroLabel.setText("Registrado: " + c.getFechaRegistro().format(DateTimeFormatter.ofPattern(fmt)));
     }
 
+    // Método para establecer y mostrar las compras del cliente
     public void setCompras(List<CompraDetalladaDTO> compras) {
-        purchasesContainer.getChildren().clear();
+        purchasesContainer.getChildren().clear(); // Limpia cualquier compra anterior
 
+        // Si no hay compras, mostrar un mensaje
         if (compras == null || compras.isEmpty()) {
             Label noPurchasesLabel = new Label("Aún no has realizado ninguna compra.");
             noPurchasesLabel.getStyleClass().add("no-purchases-label");
@@ -53,57 +60,37 @@ public class ClientDashboardViewController {
             return;
         }
 
-        Map<LocalDateTime, List<CompraDetalladaDTO>> agrupadoPorFecha = compras.stream()
-                .collect(Collectors.groupingBy(CompraDetalladaDTO::getFechaCompra));
+        // Ya no agrupamos por fecha aquí, ya que cada CompraDetalladaDTO
+        // debería representar una única transacción de venta completa.
+        // La lista 'compras' ya debe venir de la DAO correctamente agrupada por venta.
 
-        for (List<CompraDetalladaDTO> grupo : agrupadoPorFecha.values()) {
-            CompraDetalladaDTO base = grupo.get(0);
-            CompraDetalladaDTO combinado = new CompraDetalladaDTO();
-            combinado.setFuncion(base.getFuncion());
-            combinado.setFechaCompra(base.getFechaCompra());
-            combinado.setMetodoPago(base.getMetodoPago());
-            combinado.setEstadoVenta(base.getEstadoVenta());
-            combinado.setCodigoQR(base.getCodigoQR());
-
-
-            String asientosConcat = grupo.stream()
-                    .map(CompraDetalladaDTO::getIdAsiento)
-                    .filter(s -> s != null && !s.isEmpty())
-                    .collect(Collectors.joining(", "));
-            combinado.setIdAsiento(asientosConcat.isEmpty() ? "N/A" : asientosConcat);
-            String boletosConcat = grupo.stream()
-                    .map(CompraDetalladaDTO::getIdBoleto)
-                    .filter(s -> s != null && !s.isEmpty())
-                    .collect(Collectors.joining(", "));
-            combinado.setIdBoleto(boletosConcat.isEmpty() ? "N/A" : boletosConcat);
-            BigDecimal totalReal = base.getTotalVenta() != null
-                    ? base.getTotalVenta()
-                    : BigDecimal.ZERO;
-            combinado.setPrecioFinal(totalReal);
-            combinado.setProductosComprados(base.getProductosComprados());
+        for (CompraDetalladaDTO compra : compras) { // Iteramos directamente sobre las compras
             try {
+                // Cargar el FXML de la tarjeta de compra
                 FXMLLoader loader = new FXMLLoader(
                         getClass().getResource("/com/example/cinelinces/purchase-card-view.fxml")
                 );
-                Node purchaseCardNode = loader.load();
+                Node purchaseCardNode = loader.load(); // Carga el nodo de la tarjeta
 
-                PurchaseCardController cardController = loader.getController();
-                cardController.setData(combinado);
+                PurchaseCardController cardController = loader.getController(); // Obtiene el controlador de la tarjeta
+                cardController.setData(compra); // Pasa la CompraDetalladaDTO completa a la tarjeta
 
-                purchasesContainer.getChildren().add(purchaseCardNode);
+                purchasesContainer.getChildren().add(purchaseCardNode); // Añade la tarjeta al contenedor
             } catch (IOException e) {
                 e.printStackTrace();
+                // Manejo de errores si la tarjeta no se puede cargar
                 Label errorLabel = new Label(
-                        "Error al cargar detalle de la compra: " + base.getFuncion().getTituloPelicula()
+                        "Error al cargar detalle de la compra. ID Venta: " + compra.getIdVenta() + " - " + e.getMessage()
                 );
                 purchasesContainer.getChildren().add(errorLabel);
             }
         }
     }
 
+    // Manejador del botón de cerrar sesión
     @FXML
     private void handleLogout() {
-        SessionManager.getInstance().clearSession();
-        mainController.showAccount();
+        SessionManager.getInstance().clearSession(); // Limpia la sesión actual
+        mainController.showAccount(); // Navega a la vista de la cuenta (probablemente la pantalla de inicio de sesión)
     }
 }

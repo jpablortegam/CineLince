@@ -37,7 +37,8 @@ public class DialogPaneViewController {
     private VBox horariosContainer;
 
     private final FuncionDAO funcionDAO = new FuncionDAOImpl();
-    private FuncionDetallada currentMovie;
+    private FuncionDetallada currentMovie; // Esta es la FuncionDetallada de la tarjeta de la película.
+    // Se usa para obtener el IdCine e IdPelicula para buscar horarios.
     private List<LocalDate> availableDates;
 
     @FXML
@@ -104,34 +105,37 @@ public class DialogPaneViewController {
         if (currentMovie == null) return;
 
         LocalDate fecha = datePicker.getValue();
-        List<LocalDateTime> horas = funcionDAO.findHorariosByCinePeliculaFecha(currentMovie.getIdCine(), currentMovie.getIdPelicula(), fecha);
+        // MODIFICADO: Ahora obtenemos una lista de FuncionDetallada para cada horario
+        List<FuncionDetallada> funcionesEnFecha = funcionDAO.findFuncionesByCinePeliculaFecha(currentMovie.getIdCine(), currentMovie.getIdPelicula(), fecha);
 
         horariosContainer.getChildren().clear();
 
-        if (horas.isEmpty()) {
+        if (funcionesEnFecha.isEmpty()) {
             placeholderContent.setText("No hay funciones para " + fecha.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
             placeholderContent.setVisible(true);
         } else {
             placeholderContent.setVisible(false);
             DateTimeFormatter fmt = DateTimeFormatter.ofPattern("HH:mm 'hrs'");
-            for (LocalDateTime dt : horas) {
-                Label lbl = new Label(dt.format(fmt));
+            for (FuncionDetallada funcionParaHorario : funcionesEnFecha) { // Itera sobre objetos FuncionDetallada
+                Label lbl = new Label(funcionParaHorario.getFechaHoraFuncion().format(fmt)); // Usa el LocalDateTime del DTO
                 lbl.getStyleClass().add("text-body");
                 // cambia el cursor al pasar
                 lbl.setCursor(Cursor.HAND);
-                // al hacer clic abre selección de asientos
-                lbl.setOnMouseClicked(e -> openSeatSelection(dt));
+                // MODIFICADO: Al hacer clic, pasa el objeto FuncionDetallada COMPLETO
+                lbl.setOnMouseClicked(e -> openSeatSelection(funcionParaHorario)); // Pasa el DTO completo
                 horariosContainer.getChildren().add(lbl);
             }
         }
     }
 
-    private void openSeatSelection(LocalDateTime dateTime) {
+    // MODIFICADO: Recibe el objeto FuncionDetallada completo
+    private void openSeatSelection(FuncionDetallada selectedFuncion) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/cinelinces/seatSelection-view.fxml"));
             Pane pane = loader.load();
             SeatSelectionViewController ctrl = loader.getController();
-            ctrl.initData(currentMovie, dateTime);
+            // Pasa el objeto FuncionDetallada completo y su fecha/hora a SeatSelectionViewController
+            ctrl.initData(selectedFuncion, selectedFuncion.getFechaHoraFuncion()); // Pasamos el DTO correcto
 
             Stage stage = new Stage();
             stage.setScene(new Scene(pane));

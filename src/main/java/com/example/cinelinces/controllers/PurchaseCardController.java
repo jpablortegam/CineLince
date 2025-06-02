@@ -1,5 +1,6 @@
 package com.example.cinelinces.controllers;
 
+import com.example.cinelinces.model.DTO.BoletoGeneradoDTO;
 import com.example.cinelinces.model.DTO.CompraDetalladaDTO;
 import com.example.cinelinces.model.DTO.ProductoSelectionDTO;
 import javafx.fxml.FXML;
@@ -10,9 +11,11 @@ import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigDecimal; // Importar BigDecimal
 import java.math.RoundingMode;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.stream.Collectors; // Para Collectors.joining
 
 public class PurchaseCardController {
 
@@ -27,17 +30,17 @@ public class PurchaseCardController {
     @FXML
     private Label purchaseDateTimeLabel;
     @FXML
-    private Label seatLabel;
+    private Label seatLabel; // Para mostrar una lista de asientos
     @FXML
-    private Label ticketIdLabel;
+    private Label ticketIdLabel; // Para mostrar una lista de IDs de boletos
     @FXML
-    private Label priceLabel;
+    private Label priceLabel; // Ahora mostrará el Total de la Venta
     @FXML
     private Label paymentMethodLabel;
     @FXML
     private Label purchaseStatusLabel;
     @FXML
-    private Label qrInfoLabel;
+    private Label qrInfoLabel; // Para mostrar una lista de referencias QR
     @FXML
     private VBox productsVBox;
     @FXML
@@ -45,7 +48,8 @@ public class PurchaseCardController {
 
     private static final DateTimeFormatter DATETIME_FORMATTER =
             DateTimeFormatter.ofPattern("dd/MM/yyyy 'a las' HH:mm");
-    private static final String PLACEHOLDER_IMAGE_PATH = "/com/example/images/placeholder_poster.png";
+    // Asumo que estas rutas son correctas en tu proyecto
+    private static final String PLACEHOLDER_IMAGE_PATH = "/com/example/images/placeholder.jpg"; // Usar el placeholder genérico
     private static final String DEFAULT_POSTER_RESOURCE_PREFIX = "/com/example/images/";
 
     public void setData(CompraDetalladaDTO compra) {
@@ -53,6 +57,8 @@ public class PurchaseCardController {
             movieTitleLabel.setText("Error: Datos de compra no disponibles.");
             return;
         }
+
+        // Información de la Película y Función
         if (compra.getFuncion() != null) {
             movieTitleLabel.setText(compra.getFuncion().getTituloPelicula());
             loadPosterImage(compra.getFuncion().getFotografiaPelicula());
@@ -64,41 +70,57 @@ public class PurchaseCardController {
             );
         } else {
             movieTitleLabel.setText("Función no especificada");
-            loadPosterImage(null);
+            loadPosterImage(null); // Carga el placeholder
         }
+
+        // Información General de la Compra/Venta
         purchaseDateTimeLabel.setText(
                 "Compra: " + (compra.getFechaCompra() != null
                         ? compra.getFechaCompra().format(DATETIME_FORMATTER)
                         : "N/A")
         );
-        seatLabel.setText("Asiento(s): " +
-                (compra.getIdAsiento() != null && !compra.getIdAsiento().isEmpty()
-                        ? compra.getIdAsiento()
-                        : "N/A")
-        );
-        ticketIdLabel.setText("ID Boleto(s): " +
-                (compra.getIdBoleto() != null && !compra.getIdBoleto().isEmpty()
-                        ? compra.getIdBoleto()
-                        : "N/A")
-        );
+
+        // **MODIFICACIÓN CLAVE AQUÍ:** Formatear IDs de boletos, asientos y QR de la lista boletosGenerados
+        if (compra.getBoletosGenerados() != null && !compra.getBoletosGenerados().isEmpty()) {
+            String asientosInfo = compra.getBoletosGenerados().stream()
+                    .map(b -> b.getFilaAsiento() + b.getNumeroAsiento())
+                    .collect(Collectors.joining(", "));
+            seatLabel.setText("Asiento(s): " + asientosInfo);
+
+            String ticketIds = compra.getBoletosGenerados().stream()
+                    .map(b -> String.valueOf(b.getIdBoleto()))
+                    .collect(Collectors.joining(", "));
+            ticketIdLabel.setText("ID Boleto(s): " + ticketIds);
+
+            // Para el QR, puedes concatenarlos o mostrar solo uno si hay muchos
+            String qrCodes = compra.getBoletosGenerados().stream()
+                    .map(BoletoGeneradoDTO::getCodigoQR)
+                    .collect(Collectors.joining(", "));
+            if (qrCodes.length() > 50) { // Limitar la longitud si son muchos QR
+                qrCodes = qrCodes.substring(0, 50) + "...";
+            }
+            qrInfoLabel.setText("QR Ref: " + qrCodes);
+
+        } else {
+            seatLabel.setText("Asiento(s): N/A");
+            ticketIdLabel.setText("ID Boleto(s): N/A");
+            qrInfoLabel.setText("QR Ref: No disponible");
+        }
+
+        // Precio total de la venta
         priceLabel.setText(String.format("$%.2f",
-                compra.getPrecioFinal() != null ? compra.getPrecioFinal() : 0.00)
+                compra.getTotalVenta() != null ? compra.getTotalVenta() : BigDecimal.ZERO)
         );
+
         paymentMethodLabel.setText("Pago: " +
                 (compra.getMetodoPago() != null ? compra.getMetodoPago() : "N/A")
         );
         purchaseStatusLabel.setText("Estado: " +
                 (compra.getEstadoVenta() != null ? compra.getEstadoVenta() : "N/A")
         );
-        if (compra.getCodigoQR() != null && !compra.getCodigoQR().isEmpty()) {
-            String truncated = compra.getCodigoQR().length() > 20
-                    ? compra.getCodigoQR().substring(0, 20) + "..."
-                    : compra.getCodigoQR();
-            qrInfoLabel.setText("QR Ref: " + truncated);
-        } else {
-            qrInfoLabel.setText("QR Ref: No disponible");
-        }
-        if (productsVBox.getChildren().size() > 1) {
+
+        // Limpiar y mostrar productos adquiridos
+        if (productsVBox.getChildren().size() > 1) { // Mantener el Label "PRODUCTOS ADQUIRIDOS"
             productsVBox.getChildren().remove(1, productsVBox.getChildren().size());
         }
         noProductsLabel.setVisible(false);
@@ -160,6 +182,7 @@ public class PurchaseCardController {
                 finalImageToShow = null;
             }
         }
+        // Si no se pudo cargar la imagen del póster o es nula, usar el placeholder
         if (finalImageToShow == null) {
             try {
                 InputStream placeholderStream = getClass().getResourceAsStream(PLACEHOLDER_IMAGE_PATH);

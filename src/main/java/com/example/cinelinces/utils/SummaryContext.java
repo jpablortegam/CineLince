@@ -5,6 +5,7 @@ import com.example.cinelinces.model.DTO.FuncionDetallada;
 import com.example.cinelinces.model.DTO.ProductoSelectionDTO;
 import com.example.cinelinces.model.DTO.CompraDetalladaDTO;
 
+import java.math.BigDecimal; // Importar BigDecimal
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,20 +13,15 @@ import java.util.List;
 public class SummaryContext {
     private static SummaryContext instance;
 
-
     private List<AsientoDTO> selectedSeats = new ArrayList<>();
-
     private FuncionDetallada selectedFunction;
-
     private LocalDateTime selectedDateTime;
-
     private List<ProductoSelectionDTO> selectedProducts = new ArrayList<>();
-
     private String metodoPago;
-
     private String codigoPromocion;
-
     private CompraDetalladaDTO ultimaCompraDetallada;
+
+    private BigDecimal totalVentaCalculado; // **NUEVO CAMPO**
 
     private SummaryContext() {
     }
@@ -37,6 +33,7 @@ public class SummaryContext {
         return instance;
     }
 
+    // Getters y Setters existentes
     public List<AsientoDTO> getSelectedSeats() {
         return selectedSeats;
     }
@@ -91,5 +88,14 @@ public class SummaryContext {
 
     public void setUltimaCompraDetallada(CompraDetalladaDTO dto) {
         this.ultimaCompraDetallada = dto;
+    }
+
+    // **NUEVO GETTER Y SETTER**
+    public BigDecimal getTotalVentaCalculado() {
+        return totalVentaCalculado;
+    }
+
+    public void setTotalVentaCalculado(BigDecimal totalVentaCalculado) {
+        this.totalVentaCalculado = totalVentaCalculado;
     }
 }

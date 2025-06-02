@@ -203,29 +203,76 @@ public class FuncionDAOImpl implements FuncionDAO {
         return lista;
     }
 
+    // MODIFICADO: Este método ahora devuelve List<FuncionDetallada>
     @Override
-    public List<LocalDateTime> findHorariosByCinePeliculaFecha(int idCine, int idPelicula, LocalDate fecha) {
-        List<LocalDateTime> horarios = new ArrayList<>();
-        String sql = "SELECT F.FechaHora FROM Funcion F " +
-                "JOIN Sala S ON F.IdSala = S.IdSala " +
-                "WHERE S.IdCine = ? AND F.IdPelicula = ? AND DATE(F.FechaHora)=? " +
-                "AND F.Estado='En Venta' ORDER BY F.FechaHora";
+    public List<FuncionDetallada> findFuncionesByCinePeliculaFecha(int idCine, int idPelicula, LocalDate fecha) {
+        List<FuncionDetallada> lista = new ArrayList<>();
+        String sql =
+                "SELECT C.IdCine AS IdCine, C.Nombre AS NombreCine, " +
+                        "S.IdSala, S.Numero AS NumeroSala, S.TipoSala, " +
+                        "P.IdPelicula, P.Titulo AS TituloPelicula, P.Duracion AS DuracionMinutos, P.Clasificacion AS ClasificacionPelicula, " +
+                        "P.Sinopsis AS SinopsisPelicula, P.Fotografia AS FotografiaPelicula, P.FechaEstreno AS FechaEstrenoPelicula, " +
+                        "P.Idioma AS IdiomaPelicula, P.Subtitulada AS SubtituladaPelicula, " +
+                        "P.CalificacionPromedio AS CalificacionPromedioPelicula, P.TotalCalificaciones AS TotalCalificacionesPelicula, " +
+                        "P.IdTipoPelicula, TP.Nombre AS NombreTipoPelicula, Est.Nombre AS NombreEstudio, Dir.Nombre AS NombreDirector, " +
+                        "F.IdFuncion, F.FechaHora AS FechaHoraFuncion, F.Precio AS PrecioBoleto, F.Estado AS EstadoFuncion " +
+                        "FROM Funcion F " +
+                        "JOIN Sala S ON F.IdSala = S.IdSala " +
+                        "JOIN Pelicula P ON F.IdPelicula = P.IdPelicula " +
+                        "JOIN Cine C ON S.IdCine = C.IdCine " +
+                        "LEFT JOIN TipoPelicula TP ON P.IdTipoPelicula = TP.IdTipoPelicula " +
+                        "LEFT JOIN Estudio Est ON P.IdEstudio = Est.IdEstudio " +
+                        "LEFT JOIN Director Dir ON P.IdDirector = Dir.IdDirector " +
+                        "WHERE C.IdCine = ? AND P.IdPelicula = ? AND DATE(F.FechaHora) = ? " + // Nuevos filtros
+                        "ORDER BY F.FechaHora, S.Numero";
+
         try (Connection conn = conexionBD.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, idCine);
             ps.setInt(2, idPelicula);
             ps.setDate(3, Date.valueOf(fecha));
+
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
-                    Timestamp ts3 = rs.getTimestamp("FechaHora");
-                    if (ts3 != null) horarios.add(ts3.toLocalDateTime());
+                    // Mapear el ResultSet a un objeto FuncionDetallada
+                    FuncionDetallada dto = new FuncionDetallada();
+                    dto.setIdCine(rs.getInt("IdCine"));
+                    dto.setNombreCine(rs.getString("NombreCine"));
+                    dto.setIdSala(rs.getInt("IdSala"));
+                    dto.setNumeroSala(rs.getInt("NumeroSala"));
+                    dto.setTipoSala(rs.getString("TipoSala"));
+                    dto.setIdPelicula(rs.getInt("IdPelicula"));
+                    dto.setTituloPelicula(rs.getString("TituloPelicula"));
+                    dto.setDuracionMinutos(rs.getInt("DuracionMinutos"));
+                    dto.setClasificacionPelicula(rs.getString("ClasificacionPelicula"));
+                    dto.setSinopsisPelicula(rs.getString("SinopsisPelicula"));
+                    dto.setFotografiaPelicula(rs.getString("FotografiaPelicula"));
+                    Date d = rs.getDate("FechaEstrenoPelicula");
+                    if (d != null) dto.setFechaEstrenoPelicula(d.toLocalDate());
+                    dto.setIdiomaPelicula(rs.getString("IdiomaPelicula"));
+                    dto.setSubtituladaPelicula(rs.getBoolean("SubtituladaPelicula"));
+                    dto.setCalificacionPromedioPelicula(rs.getDouble("CalificacionPromedioPelicula"));
+                    dto.setTotalCalificacionesPelicula(rs.getInt("TotalCalificacionesPelicula"));
+                    int tipoId = rs.getInt("IdTipoPelicula");
+                    dto.setIdTipoPelicula(rs.wasNull() ? null : tipoId);
+                    dto.setNombreTipoPelicula(rs.getString("NombreTipoPelicula"));
+                    dto.setNombreEstudio(rs.getString("NombreEstudio"));
+                    dto.setNombreDirector(rs.getString("NombreDirector"));
+                    Timestamp ts2 = rs.getTimestamp("FechaHoraFuncion");
+                    if (ts2 != null) dto.setFechaHoraFuncion(ts2.toLocalDateTime());
+                    dto.setPrecioBoleto(rs.getBigDecimal("PrecioBoleto"));
+                    dto.setEstadoFuncion(rs.getString("EstadoFuncion"));
+                    dto.setIdFuncion(rs.getInt("IdFuncion")); // ¡CRUCIAL! Asegurarse de capturar el IdFuncion específico
+                    dto.setActores(findActoresForPelicula(dto.getIdPelicula(), conn));
+                    lista.add(dto);
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return horarios;
+        return lista;
     }
+
 
     @Override
     public List<LocalDate> findFechasDisponiblesByCinePelicula(int idCine, int idPelicula) {

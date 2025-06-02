@@ -10,7 +10,8 @@ import java.util.List;
 public interface FuncionDAO extends GenericDao<Funcion, Integer> {
     List<FuncionDetallada> findFuncionesDetalladasByCineId(int idCine);
 
-    List<LocalDateTime> findHorariosByCinePeliculaFecha(int idCine, int idPelicula, LocalDate fecha);
+    // MODIFICADO: Ahora devuelve List<FuncionDetallada>
+    List<FuncionDetallada> findFuncionesByCinePeliculaFecha(int idCine, int idPelicula, LocalDate fecha);
 
     List<LocalDate> findFechasDisponiblesByCinePelicula(int idCine, int idPelicula);
 }

@@ -5,3 +5,57 @@
     -fx-text-fill: -fx-text-primary;
     -fx-padding: 24px 0 12px 0;
 }
+
+
+/* styles.css */
+
+.legend-dot-modern {
+    -fx-min-width: 15px;
+    -fx-min-height: 15px;
+    -fx-max-width: 15px;
+    -fx-max-height: 15px;
+    -fx-background-radius: 50%;
+    -fx-border-radius: 50%;
+}
+
+
+
+
+
+/* Aplicar los colores a clases CSS */
+.legend-dot-available {
+    -fx-background-color: -color-seat-available;
+}
+
+.legend-dot-occupied {
+    -fx-background-color: -color-seat-occupied;
+}
+
+.legend-dot-selected {
+    -fx-background-color: -color-seat-selected;
+}
+
+.legend-dot-unavailable { /* Si tienes un estado "indisponible" que no sea ocupado */
+    -fx-background-color: -color-seat-unavailable;
+}
+
+/* Y para los botones de asientos */
+.seat-button {
+    /* ... estilos base del botón ... */
+}
+
+.seat-available {
+    -fx-background-color: -color-seat-available;
+}
+
+.seat-occupied {
+    -fx-background-color: -color-seat-occupied;
+}
+
+.seat-selected {
+    -fx-background-color: -color-seat-selected;
+}
+
+.seat-unavailable { /* Para asientos en mantenimiento, etc. */
+    -fx-background-color: -color-seat-unavailable;
+}

@@ -2,159 +2,175 @@ package com.example.cinelinces.model.DTO;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CompraDetalladaDTO {
-    private String idBoleto;
-    private BigDecimal precioFinal;
-    private LocalDateTime fechaCompra;
-    private String codigoQR;
-    private String idAsiento;
+    // Campos de la Venta (compra principal)
     private int idVenta;
-    private BigDecimal totalVenta;
+    private LocalDateTime fechaCompra;
+    private Integer idCliente; // Puede ser null para invitados
+    private String nombreCliente; // Nombre completo del cliente o "Invitado"
+    private BigDecimal totalVenta; // El total de la venta (boletos + productos - descuento)
     private String metodoPago;
     private String estadoVenta;
     private boolean facturado;
-    private Integer idPromocion;
+    private Integer idPromocion; // ID de la promoción aplicada
+    private String codigoPromocion; // Código de la promoción
+    private String nombrePromocion; // Nombre de la promoción
+
+    // Información de la Función (asumiendo que una venta es para una sola función)
+    // Si una venta pudiera abarcar funciones diferentes, este campo debería ser null
+    // y la función estaría en cada BoletoGeneradoDTO. Para tu caso, está bien aquí.
     private FuncionDetallada funcion;
 
+    // Lista de productos comprados en esta venta
     private List<ProductoSelectionDTO> productosComprados;
 
+    // **CAMPO CRÍTICO:** Lista de los boletos individuales generados para esta compra
+    private List<BoletoGeneradoDTO> boletosGenerados;
+
+    // Constructor vacío (necesario para frameworks como JavaFX)
     public CompraDetalladaDTO() {
+        this.boletosGenerados = new ArrayList<>(); // Inicializar para evitar NullPointerException
+        this.productosComprados = new ArrayList<>(); // También inicializar
     }
 
-    public CompraDetalladaDTO(
-            String idBoleto,
-            BigDecimal precioFinal,
-            LocalDateTime fechaCompra,
-            String codigoQR,
-            String idAsiento,
-            int idVenta,
-            BigDecimal totalVenta,
-            String metodoPago,
-            String estadoVenta,
-            boolean facturado,
-            Integer idPromocion,
-            FuncionDetallada funcion,
-            List<ProductoSelectionDTO> productosComprados
-    ) {
-        this.idBoleto = idBoleto;
-        this.precioFinal = precioFinal;
-        this.fechaCompra = fechaCompra;
-        this.codigoQR = codigoQR;
-        this.idAsiento = idAsiento;
+    // Constructor más completo (puedes ajustar este según tus necesidades)
+    public CompraDetalladaDTO(int idVenta, LocalDateTime fechaCompra, Integer idCliente, String nombreCliente,
+                              BigDecimal totalVenta, String metodoPago, String estadoVenta, boolean facturado,
+                              Integer idPromocion, String codigoPromocion, String nombrePromocion,
+                              FuncionDetallada funcion, List<ProductoSelectionDTO> productosComprados,
+                              List<BoletoGeneradoDTO> boletosGenerados) {
         this.idVenta = idVenta;
+        this.fechaCompra = fechaCompra;
+        this.idCliente = idCliente;
+        this.nombreCliente = nombreCliente;
         this.totalVenta = totalVenta;
         this.metodoPago = metodoPago;
         this.estadoVenta = estadoVenta;
         this.facturado = facturado;
         this.idPromocion = idPromocion;
+        this.codigoPromocion = codigoPromocion;
+        this.nombrePromocion = nombrePromocion;
         this.funcion = funcion;
         this.productosComprados = productosComprados;
+        this.boletosGenerados = boletosGenerados; // Se asigna la lista directamente
+        if (this.productosComprados == null) this.productosComprados = new ArrayList<>(); // Asegurar que no sea null
+        if (this.boletosGenerados == null) this.boletosGenerados = new ArrayList<>(); // Asegurar que no sea null
     }
 
-
-    public String getIdBoleto() {
-        return idBoleto;
-    }
-
-    public void setIdBoleto(String idBoleto) {
-        this.idBoleto = idBoleto;
-    }
-
-    public BigDecimal getPrecioFinal() {
-        return precioFinal;
-    }
-
-    public void setPrecioFinal(BigDecimal precioFinal) {
-        this.precioFinal = precioFinal;
+    // Getters
+    public int getIdVenta() {
+        return idVenta;
     }
 
     public LocalDateTime getFechaCompra() {
         return fechaCompra;
     }
 
-    public void setFechaCompra(LocalDateTime fechaCompra) {
-        this.fechaCompra = fechaCompra;
+    public Integer getIdCliente() {
+        return idCliente;
     }
 
-    public String getCodigoQR() {
-        return codigoQR;
-    }
-
-    public void setCodigoQR(String codigoQR) {
-        this.codigoQR = codigoQR;
-    }
-
-    public String getIdAsiento() {
-        return idAsiento;
-    }
-
-    public void setIdAsiento(String idAsiento) {
-        this.idAsiento = idAsiento;
-    }
-
-    public int getIdVenta() {
-        return idVenta;
-    }
-
-    public void setIdVenta(int idVenta) {
-        this.idVenta = idVenta;
+    public String getNombreCliente() {
+        return nombreCliente;
     }
 
     public BigDecimal getTotalVenta() {
         return totalVenta;
     }
 
-    public void setTotalVenta(BigDecimal totalVenta) {
-        this.totalVenta = totalVenta;
-    }
-
     public String getMetodoPago() {
         return metodoPago;
-    }
-
-    public void setMetodoPago(String metodoPago) {
-        this.metodoPago = metodoPago;
     }
 
     public String getEstadoVenta() {
         return estadoVenta;
     }
 
-    public void setEstadoVenta(String estadoVenta) {
-        this.estadoVenta = estadoVenta;
-    }
-
     public boolean isFacturado() {
         return facturado;
-    }
-
-    public void setFacturado(boolean facturado) {
-        this.facturado = facturado;
     }
 
     public Integer getIdPromocion() {
         return idPromocion;
     }
 
-    public void setIdPromocion(Integer idPromocion) {
-        this.idPromocion = idPromocion;
+    public String getCodigoPromocion() {
+        return codigoPromocion;
+    }
+
+    public String getNombrePromocion() {
+        return nombrePromocion;
     }
 
     public FuncionDetallada getFuncion() {
         return funcion;
     }
 
-    public void setFuncion(FuncionDetallada funcion) {
-        this.funcion = funcion;
-    }
-
     public List<ProductoSelectionDTO> getProductosComprados() {
         return productosComprados;
     }
 
+    public List<BoletoGeneradoDTO> getBoletosGenerados() {
+        return boletosGenerados;
+    }
+
+    // Setters
+    public void setIdVenta(int idVenta) {
+        this.idVenta = idVenta;
+    }
+
+    public void setFechaCompra(LocalDateTime fechaCompra) {
+        this.fechaCompra = fechaCompra;
+    }
+
+    public void setIdCliente(Integer idCliente) {
+        this.idCliente = idCliente;
+    }
+
+    public void setNombreCliente(String nombreCliente) {
+        this.nombreCliente = nombreCliente;
+    }
+
+    public void setTotalVenta(BigDecimal totalVenta) {
+        this.totalVenta = totalVenta;
+    }
+
+    public void setMetodoPago(String metodoPago) {
+        this.metodoPago = metodoPago;
+    }
+
+    public void setEstadoVenta(String estadoVenta) {
+        this.estadoVenta = estadoVenta;
+    }
+
+    public void setFacturado(boolean facturado) {
+        this.facturado = facturado;
+    }
+
+    public void setIdPromocion(Integer idPromocion) {
+        this.idPromocion = idPromocion;
+    }
+
+    public void setCodigoPromocion(String codigoPromocion) {
+        this.codigoPromocion = codigoPromocion;
+    }
+
+    public void setNombrePromocion(String nombrePromocion) {
+        this.nombrePromocion = nombrePromocion;
+    }
+
+    public void setFuncion(FuncionDetallada funcion) {
+        this.funcion = funcion;
+    }
+
     public void setProductosComprados(List<ProductoSelectionDTO> productosComprados) {
         this.productosComprados = productosComprados;
+    }
+
+    public void setBoletosGenerados(List<BoletoGeneradoDTO> boletosGenerados) {
+        this.boletosGenerados = boletosGenerados;
     }
 }

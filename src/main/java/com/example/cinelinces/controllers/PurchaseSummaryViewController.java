@@ -1,17 +1,16 @@
-// PurchaseSummaryViewController.java
 package com.example.cinelinces.controllers;
 
 import com.example.cinelinces.DAO.CompraDAO;
 import com.example.cinelinces.DAO.PromocionDAO;
 import com.example.cinelinces.DAO.impl.CompraDAOImpl;
 import com.example.cinelinces.DAO.impl.PromocionDAOImpl;
-import com.example.cinelinces.model.Cliente;
+// import com.example.cinelinces.model.Cliente; // No directamente necesario aquí, lo maneja SessionManager
 import com.example.cinelinces.model.DTO.AsientoDTO;
 import com.example.cinelinces.model.DTO.FuncionDetallada;
 import com.example.cinelinces.model.DTO.ProductoSelectionDTO;
 import com.example.cinelinces.model.DTO.PromocionDTO;
 import com.example.cinelinces.model.DTO.CompraDetalladaDTO;
-import com.example.cinelinces.utils.SessionManager;
+// import com.example.cinelinces.utils.SessionManager; // No directamente necesario, si no lo usas en el controlador
 import com.example.cinelinces.utils.SummaryContext;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -26,6 +25,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -61,12 +61,15 @@ public class PurchaseSummaryViewController {
     private final CompraDAO compraDAO = new CompraDAOImpl();
 
     private String promoAplicadaManualmente = null;
-    private BigDecimal descuentoAplicadoManualmente = BigDecimal.ZERO;
 
     @FXML
     public void initialize() {
-        List<AsientoDTO> asientos = ctx.getSelectedSeats();
+        renderSummary(); // Llamamos a un método para inicializar el resumen
+    }
+
+    private void renderSummary() {
         FuncionDetallada funcion = ctx.getSelectedFunction();
+        List<AsientoDTO> asientos = ctx.getSelectedSeats();
         BigDecimal subtotalBoletos = BigDecimal.ZERO;
 
         if (boletosBox != null) boletosBox.getChildren().clear();
@@ -117,18 +120,54 @@ public class PurchaseSummaryViewController {
         }
         subtotalProductosLabel.setText("$" + subtotalProds.setScale(2, RoundingMode.HALF_UP));
 
+        // Calcular y mostrar promoción y total
+        applyCurrentPromoAndCalculateTotal();
+
+        if (paymentMethodCombo.getItems().isEmpty()) { // Solo carga una vez
+            paymentMethodCombo.getItems().addAll(
+                    "Efectivo", "Tarjeta de Crédito", "Tarjeta de Débito", "PayPal"
+            );
+            paymentMethodCombo.setValue("Efectivo");
+        }
+    }
+
+    private void applyCurrentPromoAndCalculateTotal() {
         promoBox.getChildren().clear();
         descuentoLabel.setText("-$" + BigDecimal.ZERO.setScale(2, RoundingMode.HALF_UP));
 
-        BigDecimal totalPagar = subtotalBoletos.add(subtotalProds);
-        totalPagarLabel.setText("$" + totalPagar.setScale(2, RoundingMode.HALF_UP));
+        BigDecimal subtotalBoletos = parseCurrencyLabel(subtotalBoletosLabel.getText());
+        BigDecimal subtotalProds = parseCurrencyLabel(subtotalProductosLabel.getText());
+        BigDecimal baseTotal = subtotalBoletos.add(subtotalProds);
 
-        paymentMethodCombo.getItems().clear();
-        paymentMethodCombo.getItems().addAll(
-                "Efectivo", "Tarjeta de Crédito", "Tarjeta de Débito", "PayPal"
-        );
-        paymentMethodCombo.setValue("Efectivo");
+        BigDecimal currentDiscountAmount = BigDecimal.ZERO; // Cantidad de descuento actual
+
+        String promoCode = promoAplicadaManualmente != null ? promoAplicadaManualmente : promoCodeField.getText().trim();
+
+        if (promoCode != null && !promoCode.isEmpty()) {
+            LocalDate hoy = LocalDate.now();
+            Optional<PromocionDTO> optPromo = promocionDAO.findActiveByCodigoAndDate(promoCode, hoy);
+            if (optPromo.isPresent()) {
+                PromocionDTO promo = optPromo.get();
+                currentDiscountAmount = baseTotal.multiply(promo.getDescuento());
+                descuentoLabel.setText("-$" + currentDiscountAmount.setScale(2, RoundingMode.HALF_UP));
+
+                Label lblTituloPromo = new Label("Promoción aplicada:");
+                Label lblCodigo = new Label(promo.getCodigo() + " (" + promo.getNombre() + ")");
+                int pctEntero = promo.getDescuento().multiply(new BigDecimal("100")).intValue();
+                Label lblPct = new Label("-" + pctEntero + "%");
+                promoBox.add(lblTituloPromo, 0, 0);
+                promoBox.add(lblCodigo, 1, 0);
+                promoBox.add(lblPct, 2, 0);
+            }
+        }
+
+        BigDecimal totalFinal = baseTotal.subtract(currentDiscountAmount);
+        totalPagarLabel.setText("$" + totalFinal.setScale(2, RoundingMode.HALF_UP));
+
+        // **ACTUALIZAR EL CONTEXTO CON EL TOTAL CALCULADO**
+        ctx.setTotalVentaCalculado(totalFinal);
     }
+
 
     @FXML
     private void handleApplyPromo() {
@@ -142,37 +181,22 @@ public class PurchaseSummaryViewController {
         Optional<PromocionDTO> optPromo = promocionDAO.findActiveByCodigoAndDate(codigoIngresado, hoy);
         if (optPromo.isEmpty()) {
             showAlert(Alert.AlertType.ERROR, "Promoción no válida", "El código ingresado no corresponde a ninguna promoción activa o vigente para la fecha actual.");
+            // Resetear promo si no es válida
+            promoAplicadaManualmente = null;
+            applyCurrentPromoAndCalculateTotal(); // Recalcular sin promo
             return;
         }
 
         PromocionDTO promo = optPromo.get();
-        promoAplicadaManualmente = promo.getCodigo();
+        promoAplicadaManualmente = promo.getCodigo(); // Guardar el código aplicado
+        applyCurrentPromoAndCalculateTotal(); // Recalcular con la nueva promo
+    }
 
-        BigDecimal subtotalBoletos = parseCurrencyLabel(subtotalBoletosLabel.getText());
-        BigDecimal subtotalProds = parseCurrencyLabel(subtotalProductosLabel.getText());
-        BigDecimal porcentaje = promo.getDescuento();
-        BigDecimal base = subtotalBoletos.add(subtotalProds);
-
-        descuentoAplicadoManualmente = base.multiply(porcentaje);
-        descuentoLabel.setText("-$" + descuentoAplicadoManualmente.setScale(2, RoundingMode.HALF_UP));
-
-        if (promoBox != null) {
-            promoBox.getChildren().clear();
-            Label lblTituloPromo = new Label("Promoción aplicada:");
-            Label lblCodigo = new Label(promo.getCodigo() + " (" + promo.getNombre() + ")");
-            int pctEntero = porcentaje.multiply(new BigDecimal("100")).intValue();
-            Label lblPct = new Label("-" + pctEntero + "%");
-            promoBox.add(lblTituloPromo, 0, 0);
-            promoBox.add(lblCodigo, 1, 0);
-            promoBox.add(lblPct, 2, 0);
-        }
-
-        BigDecimal totalFinal = base.subtract(descuentoAplicadoManualmente);
-        totalPagarLabel.setText("$" + totalFinal.setScale(2, RoundingMode.HALF_UP));
+    private void showAlert(Alert.AlertType alertType, String códigoVacío, String s) {
     }
 
     @FXML
-    private void handleConfirmSummary() throws NoSuchMethodException {
+    private void handleConfirmSummary() {
         String metodoPagoSeleccionado = paymentMethodCombo.getValue();
         if (metodoPagoSeleccionado == null || metodoPagoSeleccionado.isBlank()) {
             showAlert(Alert.AlertType.WARNING, "Método de pago", "Debes seleccionar un método de pago.");
@@ -186,62 +210,19 @@ public class PurchaseSummaryViewController {
             ctx.setCodigoPromocion(null);
         }
 
-        boolean isLoggedIn = SessionManager.getInstance().isLoggedIn();
-        CompraDetalladaDTO compraParaMostrar = null;
+        try {
+            // Llama a saveFromSummary, que ahora devuelve la DTO de la compra completa
+            CompraDetalladaDTO compraGenerada = compraDAO.saveFromSummary(ctx);
 
-        if (isLoggedIn) {
-            try {
-                compraDAO.saveFromSummary(ctx);
-
-                Cliente currentClient = SessionManager.getInstance().getCurrentCliente();
-                if (currentClient == null) {
-                    showAlert(Alert.AlertType.ERROR, "Error de Sesión", "No se pudo identificar al cliente para mostrar la compra.");
-                    return;
-                }
-                List<CompraDetalladaDTO> comprasGuardadas = compraDAO.findComprasByClienteId(currentClient.getIdCliente());
-
-                if (comprasGuardadas != null && !comprasGuardadas.isEmpty()) {
-                    compraParaMostrar = comprasGuardadas.get(0);
-
-                    BigDecimal totalCorrecto = parseCurrencyLabel(totalPagarLabel.getText());
-                    compraParaMostrar.setPrecioFinal(totalCorrecto);
-
-                    List<ProductoSelectionDTO> productosSeleccionados = ctx.getSelectedProducts();
-                    compraParaMostrar.setProductosComprados(productosSeleccionados);
-
-                    ctx.setUltimaCompraDetallada(compraParaMostrar);
-                } else {
-                    showAlert(Alert.AlertType.ERROR, "Error", "No se pudieron recuperar los detalles de la compra después de guardarla.");
-                    return;
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-                showAlert(Alert.AlertType.ERROR, "Error al Procesar Compra", "Ocurrió un error: " + e.getMessage());
+            if (compraGenerada == null) {
+                showAlert(Alert.AlertType.ERROR, "Error", "No se pudieron guardar los detalles de la compra.");
                 return;
             }
 
-        } else {
-            try {
-                compraDAO.saveFromSummary(ctx);
-                CompraDetalladaDTO dtoInvitado = ((CompraDAOImpl) compraDAO).findLastCompraGuest();
-                if (dtoInvitado == null) {
-                    showAlert(Alert.AlertType.ERROR, "Error", "No se pudieron recuperar los detalles de la compra (invitado).");
-                    return;
-                }
-                compraParaMostrar = dtoInvitado;
-                BigDecimal totalCorrecto = parseCurrencyLabel(totalPagarLabel.getText());
-                compraParaMostrar.setPrecioFinal(totalCorrecto);
-                compraParaMostrar.setProductosComprados(ctx.getSelectedProducts());
+            // Actualiza el SummaryContext con la compra generada (contiene los boletos individuales)
+            ctx.setUltimaCompraDetallada(compraGenerada);
 
-                ctx.setUltimaCompraDetallada(compraParaMostrar);
-
-            } catch (Exception e) {
-                e.printStackTrace();
-                showAlert(Alert.AlertType.ERROR, "Error al Procesar Compra", "No se pudo guardar la compra como invitado: " + e.getMessage());
-                return;
-            }
-        }
-        if (compraParaMostrar != null) {
+            // Abre la tarjeta de compra
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/cinelinces/purchase-card-view.fxml"));
                 Stage dialog = new Stage();
@@ -254,18 +235,17 @@ public class PurchaseSummaryViewController {
                 if (controller instanceof com.example.cinelinces.controllers.PurchaseCardController) {
                     com.example.cinelinces.controllers.PurchaseCardController cardCtrl =
                             (com.example.cinelinces.controllers.PurchaseCardController) controller;
-                    cardCtrl.setData(compraParaMostrar);
+                    cardCtrl.setData(compraGenerada); // Pasamos la compra completa y precisa
                 }
                 dialog.showAndWait();
             } catch (IOException e) {
                 e.printStackTrace();
                 showAlert(Alert.AlertType.ERROR, "Error de Interfaz", "No se pudo mostrar la tarjeta de compra: " + e.getMessage());
-            } catch (Exception e) {
-                e.printStackTrace();
-                showAlert(Alert.AlertType.ERROR, "Error Inesperado", "Ocurrió un error al preparar los datos de la compra: " + e.getMessage());
             }
-        } else {
-            showAlert(Alert.AlertType.INFORMATION, "Información", "No hay detalles de compra para mostrar.");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Error al Procesar Compra", "Ocurrió un error inesperado: " + e.getMessage());
         }
 
         // Cerrar diálogo de resumen
@@ -277,14 +257,6 @@ public class PurchaseSummaryViewController {
     private void handleCancelSummary() {
         Stage st = (Stage) btnCancelSummary.getScene().getWindow();
         st.close();
-    }
-
-    private void showAlert(Alert.AlertType type, String titulo, String mensaje) {
-        Alert alert = new Alert(type);
-        alert.setTitle(titulo);
-        alert.setHeaderText(null);
-        alert.setContentText(mensaje);
-        alert.showAndWait();
     }
 
     private BigDecimal parseCurrencyLabel(String text) {

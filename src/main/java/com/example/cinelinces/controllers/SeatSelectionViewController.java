@@ -37,7 +37,7 @@ public class SeatSelectionViewController {
 
     private FuncionDetallada currentFunction;
     private LocalDateTime selectedDateTime;
-    private List<AsientoDTO> seats;
+    private List<AsientoDTO> seatsForCurrentFunction;
     private final List<AsientoDTO> selectedSeats = new ArrayList<>();
 
     private final AsientoDAO asientoDAO = new AsientoDAOImpl();
@@ -45,6 +45,13 @@ public class SeatSelectionViewController {
     public void initData(FuncionDetallada function, LocalDateTime dateTime) {
         this.currentFunction = function;
         this.selectedDateTime = dateTime;
+
+        System.out.println("Cargando selección de asientos para:");
+        System.out.println("  Función ID: " + function.getIdFuncion());
+        System.out.println("  Película: " + function.getTituloPelicula());
+        System.out.println("  Fecha y Hora: " + dateTime);
+        System.out.println("  Sala ID: " + function.getIdSala());
+
 
         titleLabel.setText(
                 function.getTituloPelicula() + "  |  " +
@@ -59,24 +66,26 @@ public class SeatSelectionViewController {
         seatGrid.getChildren().clear();
         selectedSeats.clear();
 
-        seats = asientoDAO.findAsientosBySala(currentFunction.getIdSala());
-        List<Integer> bookedIds =
-                asientoDAO.findBookedSeatIdsByFuncion(currentFunction.getIdFuncion());
+        // Esto ya es correcto, consulta por la IdFuncion específica
+        seatsForCurrentFunction = asientoDAO.findAsientosByFuncion(currentFunction.getIdFuncion());
 
         int cols = 10;
         int row = 0, col = 0;
-        if (seats != null) {
-            for (AsientoDTO asiento : seats) {
+        if (seatsForCurrentFunction != null) {
+            for (AsientoDTO asiento : seatsForCurrentFunction) {
                 ToggleButton btn = new ToggleButton(asiento.getFila() + asiento.getNumero());
                 btn.setUserData(asiento);
                 btn.getStyleClass().add("seat-button");
-                if (asiento.getEstado() != null && asiento.getEstado().equalsIgnoreCase("Mantenimiento")) {
-                    btn.setDisable(true);
-                    btn.getStyleClass().add("seat-unavailable");
-                } else if (bookedIds.contains(asiento.getIdAsiento())) {
+
+                if (asiento.getEstado().equalsIgnoreCase("Ocupado")) {
                     btn.setDisable(true);
                     btn.getStyleClass().add("seat-occupied");
-                } else {
+                }
+                else if (asiento.getEstado().equalsIgnoreCase("Mantenimiento")) {
+                    btn.setDisable(true);
+                    btn.getStyleClass().add("seat-unavailable");
+                }
+                else {
                     btn.getStyleClass().add("seat-available");
                     btn.selectedProperty().addListener((obs, wasSelected, isNowSelected) -> {
                         if (isNowSelected) {
@@ -116,12 +125,43 @@ public class SeatSelectionViewController {
             return;
         }
 
+        // --- INICIO: LÓGICA PARA ACTUALIZAR EL ESTADO DE LOS ASIENTOS EN LA BASE DE DATOS ---
+        // Este bloque es crucial si quieres que la disponibilidad se refleje inmediatamente.
+        boolean allSeatsBookedSuccessfully = true;
+        for (AsientoDTO asiento : selectedSeats) {
+            boolean success = asientoDAO.updateEstadoAsientoEnFuncion(
+                    currentFunction.getIdFuncion(), // Usamos el ID de la función específica
+                    asiento.getIdAsiento(),
+                    "Ocupado" // Marcamos como ocupado
+            );
+            if (!success) {
+                allSeatsBookedSuccessfully = false;
+                System.err.println("Error al reservar asiento: " + asiento.getFila() + asiento.getNumero() +
+                        " para la función: " + currentFunction.getIdFuncion());
+                // Considera una lógica de rollback si la reserva es transaccional
+            }
+        }
+        // --- FIN: LÓGICA PARA ACTUALIZAR EL ESTADO DE LOS ASIENTOS EN LA BASE DE DATOS ---
+
+        if (!allSeatsBookedSuccessfully) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error al reservar asientos");
+            alert.setHeaderText("No se pudieron reservar todos los asientos seleccionados.");
+            alert.setContentText("Algunos asientos podrían ya no estar disponibles. Por favor, revisa tu selección.");
+            alert.showAndWait();
+            loadSeats(); // Recarga los asientos para mostrar el estado actual real
+            return;
+        }
+
+        // Si todos los asientos se reservaron con éxito en la BD, continuamos con el flujo normal
         SummaryContext ctx = SummaryContext.getInstance();
         ctx.setSelectedFunction(currentFunction);
         ctx.setSelectedDateTime(selectedDateTime);
         ctx.setSelectedSeats(new ArrayList<>(selectedSeats));
+
         Stage thisStage = (Stage) btnConfirm.getScene().getWindow();
         thisStage.close();
+
         try {
             FXMLLoader loaderProd = new FXMLLoader(
                     getClass().getResource("/com/example/cinelinces/product-selection-view.fxml")
@@ -138,7 +178,6 @@ public class SeatSelectionViewController {
                     getClass().getResource("/com/example/cinelinces/purchase-summary-view.fxml")
             );
             Parent rootSummary = loaderSummary.load();
-
             Stage summaryStage = new Stage();
             summaryStage.initModality(Modality.APPLICATION_MODAL);
             summaryStage.setTitle("Resumen de compra");
